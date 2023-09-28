@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4":{
+            "MyApp\\":"src/"
+        }
+    },
+    "require": {
+        "twilio/sdk": "^7.7",
+        "phpmailer/phpmailer": "^6.8"
+    }
+}
