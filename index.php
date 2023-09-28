@@ -39,6 +39,7 @@
     vertical-align: middle;
     text-align: center;
 }
+
 </style>
 
 
@@ -67,134 +68,6 @@
 
 
 
-
-<!-- Modal categorias menu -->
-<div class="modal fade" id="opciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content">
-      
-      <div class="row">
-        <div class="col-12 text-end" style="padding-top: 10px;" data-bs-dismiss="modal">
-          <svg style="margin-right: 15px;" xmlns="http://www.w3.org/2000/svg" width="31" height="31" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-          </svg>
-        </div>
-      </div>
-     
-    
-      
-    <div>
-        <ul style="text-decoration: none; list-style: none; font-size: 30px; font-weight: 500;">
-          <div class="row">
-            <div class="col-10">
-              <li>Store </li>
-            </div>
-            <div class="col-1 text-end">
-              <svg style="opacity:0.4; margin-left: 0px;" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>Mac</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-            
-            <div class="col-10">
-              <li>iPad</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>iPhone</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>Watch</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>Vision</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>AirPods</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>TV & Home</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>Entretenimiento</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>Accesorios</li>
-            </div>
-            <div class="col-1 text-end option">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10">
-              <li>Soporte</li>
-            </div>
-            <div class="col-1 text-end">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-
-
-          </div>
-        </ul>
-    </div>
-    
-    
-    </div>
-  </div>
-</div>
 
 
 </body>
