@@ -9,9 +9,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 <!--Boostrap--> 
-<link rel="stylesheet" href="bootstrap/css/estilos.css">
+<link rel="stylesheet" href="../../../bootstrap/css/estilos.css">
 </head>
-
+<style>
+  .titulo
+  {
+    font-size: 100px !important;
+  }
+  </style>
 <body>
 
 <?php include '../../../templates/navbar/navbar.html';?>
@@ -19,7 +24,7 @@
     <section id="banner">
         <div id="outer">
           <div id="hero">
-            <h2 style="color: white;">CATEGORIAS</h2>
+            <h2 style="color: white;" class="titulo">CATEGORIAS</h2>
           </div>
         </div>
       </section>
