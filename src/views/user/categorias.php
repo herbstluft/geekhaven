@@ -14,7 +14,7 @@
 
 <body>
 
-<?php include 'templates/navbar/navbar.html';?>
+<?php include '../../../templates/navbar/navbar.html';?>
 
     <section id="banner">
         <div id="outer">
