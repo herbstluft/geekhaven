@@ -23,7 +23,7 @@
     <section id="banner">
         <div id="outer">
           <div id="hero">
-            <h2 style="color: white;" >Un mundo de coleccionables te espera.</h2>
+            <h2 style="color: white;" >CATEGORIAS.</h2>
           </div>
         </div>
       </section>
