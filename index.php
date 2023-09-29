@@ -23,7 +23,7 @@
     <section id="banner">
         <div id="outer">
           <div id="hero">
-            <h2 style="color: white;" >CATEGORIAS.</h2>
+            <h2 style="color: white;" >CATEGORIAAS.</h2>
           </div>
         </div>
       </section>
