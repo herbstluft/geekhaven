@@ -24,7 +24,7 @@
     <section id="banner">
         <div id="outer">
           <div id="hero">
-            <h2 style="color: white;" class="titulo">CATEGORIAS</h2>
+          <h2 style="color: white;" class="titulo">  <p style="-webkit-text-stroke: 2px black; c "> Categorias.</p></h2>
           </div>
         </div>
       </section>
