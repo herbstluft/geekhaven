@@ -92,7 +92,7 @@
       </div>
 
       <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
+    <span ><a href="src/views/user/productos.php" type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
     </div>
 
     </div>
@@ -128,7 +128,7 @@
       </div>
 
       <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
+    <span ><a href="src/views/user/productos.php"type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
     </div>
 
     </div>
