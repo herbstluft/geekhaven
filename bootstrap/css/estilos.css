@@ -144,3 +144,233 @@
   
    /*cards*/
 
+
+
+    /*PAgina producto especifico*/
+    .contenido{
+      position: relative;
+  }
+  .cont
+  {
+      width: 100%;
+  }
+  .productoimg
+  {
+      width: 10%;
+      padding-top: 15% !important;
+      padding-left: 15% !important;
+      padding-bottom: 5% !important;
+  }
+  .carousel-item img
+  {
+      width: 70% !important;
+      margin: auto !important;
+      
+  }
+  .productotop
+  {
+      padding-top: 10% !important;
+      padding-right: 10% !important;
+  }
+  .productobott
+  {
+      padding-top: 5% !important;
+      padding-right: 5% !important;
+      margin-left: 5%  !important;
+      margin-right: 3%  !important;
+      color: #494747;
+  }
+  .h1 {
+      font-size: 3.5em;
+      color: #383838;
+      margin-left: 1em;
+
+  }
+  .h3
+  {
+     font-size: 1.5em;
+     color:#000000;
+     margin-left: 2.5em;            
+  }
+  .estado{
+      font-size: 2.5em;
+      color:#0A0044;
+      margin-left: 1.5em;
+  }
+  .precio{
+      font-size: 2.5em;
+      color:#EF0000;
+      margin-left: 1.5em;
+  }
+  .contador{
+      margin-left: 3.5em;    
+      display:flex;
+      width: 110px;
+      height: 60px;
+      border-radius: 40px;
+  }
+  .menos
+  {
+      
+      border: none;
+      font-size: 2em;
+      background:none;
+      margin-top: .3em;
+      margin-left: 10px;  
+  }
+  .mas
+  {            
+      border: none;
+      font-size: 2em;
+      background: none;
+      margin-top: .1em;
+      margin-right:12px;  
+  }
+  .sombra{ -webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.62);
+          -moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.62);
+          box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.62);
+  }
+
+  .h6 {
+      width: 30%;
+      font-size: 2em;
+      margin-top: .4em;
+      margin-left: 13px;
+  }
+
+  .cont-back{
+      position: relative;
+      width: 100%;
+      height: 150px;
+  }
+  .icono{
+      margin-top: 2em;
+      margin-left:2em;
+      width: 30px;
+      height: 30px;
+      color: #202124;
+  }
+
+    /*PAgina producto especifico*/
+
+
+    :root {
+      --delay: 0;
+      --duration: 800ms;
+      --iterations: 1;
+    }
+    /* •·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•· */
+    
+    
+    .reveal-text,
+    .reveal-text::after {
+      -webkit-animation-delay: var(--animation-delay, 2s);
+              animation-delay: var(--animation-delay, 2s);
+      -webkit-animation-iteration-count: var(--iterations, 1);
+              animation-iteration-count: var(--iterations, 1);
+      -webkit-animation-duration: var(--duration, 800ms);
+              animation-duration: var(--duration, 800ms);
+      -webkit-animation-fill-mode: both;
+              animation-fill-mode: both;
+      -webkit-animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+              animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    }
+    
+    .reveal-text {
+      --animation-delay: var(--delay, 0);
+      --animation-duration: var(--duration, 800ms);
+      --animation-iterations: var(--iterations, 1);
+
+      -webkit-animation-name: clip-text;
+              animation-name: clip-text;
+      color: #FFF;
+
+      cursor: default
+      
+    }
+    
+    .reveal-text::after {
+        content: "";
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #00dade77;
+background-image: linear-gradient(90deg, #00dade6a 0%, #fb00ff72 100%);
+backdrop-filter: blur(8px);
+animation-duration: 2s;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        pointer-events: none;
+        -webkit-animation-name: text-revealer;
+                animation-name: text-revealer;
+      }
+    
+    
+    @-webkit-keyframes clip-text {
+      from {
+        -webkit-clip-path: inset(0 100% 0 0);
+                clip-path: inset(0 100% 0 0);
+      }
+      to {
+        -webkit-clip-path: inset(0 0 0 0);
+                clip-path: inset(0 0 0 0);
+      }
+    }
+    
+    
+    @keyframes clip-text {
+      from {
+        -webkit-clip-path: inset(0 100% 0 0);
+                clip-path: inset(0 100% 0 0);
+      }
+      to {
+        -webkit-clip-path: inset(0 0 0 0);
+                clip-path: inset(0 0 0 0);
+      }
+    }
+    
+    
+    @-webkit-keyframes text-revealer {
+      
+      0%, 50% {
+        transform-origin: 0 50%;
+      }
+      
+      60%, 100% {
+        transform-origin: 100% 50%;		
+      }
+    
+      
+      60% {
+        transform: scaleX(1);
+      }
+      
+      100% {
+        transform: scaleX(0);
+      }
+    }
+    
+    
+    @keyframes text-revealer {
+      
+      0%, 50% {
+        transform-origin: 0 50%;
+      }
+      
+      60%, 100% {
+        transform-origin: 100% 50%;		
+      }
+    
+      
+      60% {
+        transform: scaleX(1);
+      }
+      
+      100% {
+        transform: scaleX(0);
+      }
+    }
+    

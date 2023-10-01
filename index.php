@@ -23,10 +23,10 @@
     <section id="banner">
         <div id="outer">
           <div id="hero">
-            <h2 style="color: white;" >  <svg style="margin-top: -95px;"  xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="white" class="bi bi-joystick" viewBox="0 0 16 16">
+            <h2 style="color: white;" >  <svg class="reveal-text"style="margin-top: -95px;"  xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="white" class="bi bi-joystick" viewBox="0 0 16 16">
                         <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"/>
                         <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"/>
-                      </svg>       <p style="-webkit-text-stroke: 2px black; "> Conectando Geeks, Un Click a la vez.</p></h2>
+                      </svg>       <p class="reveal-text" style="-webkit-text-stroke: 2px black; "> Conectando Geeks, Un Click a la vez.</p></h2>
           </div>
         </div>
       </section>
@@ -895,25 +895,7 @@
 <hr>
 <br><br>
 
-
-  <div class="row">
-    <div class="col-sm-12 col-lg-5 ">
-      <h2>Nosotros</h2>
-      <p class="card__category" >En nuestra tienda, encontrarás una cuidadosa selección de productos de alta calidad y ediciones especiales que se adaptan a tus intereses y gustos únicos. Ya seas un fanático de las historias de superhéroes, un ávido jugador de videojuegos o un coleccionista de figuras raras, estamos aquí para satisfacer tus necesidades.</p>
-      <br>
-      <h2>Nuestra mision</h2>
-      <p class="card__category">Somos una tienda creada con pasión por y para los coleccionistas y entusiastas del mundo geek, friki y gamer. Nos apasiona proporcionar un espacio donde puedas encontrar una amplia variedad de artículos coleccionables, desde cómics y mangas hasta videojuegos y juegos de mesa. Nuestra misión es hacer que la obtención de tus artículos favoritos sea fácil y emocionante.</p>
-    </div>
-<br>
-    <div class="col-sm-12 col-lg-7 text-center">
-      <h1>Nuestra ubicacion</h1>
-      <p class="card__category"> Av. Hidalgo 1334, Primitivo Centro, 27000 Torreón, Coah.</p>
-  <iframe style="width:100%; height:90%; border-radius:15px"  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.033275675958!2d-103.46544792451171!3d25.537268477493672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fd9689c38aa7b%3A0x93f069a0cb99a84!2sPlaza%20de%20la%20Tecnolog%C3%ADa%20Torre%C3%B3n!5e0!3m2!1ses!2smx!4v1696054214019!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-
-  </div>
-
-
+<?php include 'templates/footer.html';?>
 
 
 </div>
