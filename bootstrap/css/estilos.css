@@ -298,9 +298,9 @@
         right: 0;
         bottom: 0;
         background-color: #00dade77;
-background-image: linear-gradient(90deg, #00dade6a 0%, #fb00ff72 100%);
-backdrop-filter: blur(8px);
-animation-duration: 2s;
+        background-image: linear-gradient(90deg, #00dade6a 0%, #fb00ff72 100%);
+        backdrop-filter: blur(8px);
+        animation-duration: 2s;
         transform: scaleX(0);
         transform-origin: 0 50%;
         pointer-events: none;
@@ -374,3 +374,10 @@ animation-duration: 2s;
       }
     }
     
+    #input{
+      width: 100px;
+      height: 100%;
+      border: groove 1em ;
+      border-radius: 2em;
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+    }
