@@ -6,7 +6,14 @@
     $resultado = "select * from usuarios";
 
     $guardar = $db->seleccionarDatos($resultado);
-    print_r($guardar);
+   
+//extraer datos del formulario
+    extract($_POST);
+    
+    $sql = "insert into personas ( `nombre`, `apellido`, `correo`) values ('$nombre','$apellidos','$correo')";
+    $db->ejecutarConsulta($sql);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -60,7 +67,7 @@ include("../../../templates/navbar/navbar.html");
     <div class="container mt-5">
         <div class="formulario">
             <center><h2>Registro</h2></center>
-            <form method="POST" action="registro.php">
+            <form method="POST" action="registrouser.php">
                 <div class="mb-3">
                     <label for="correo" class="form-label">Correo Electrónico</label>
                     <input type="email" class="form-control" name="correo" placeholder="Tu correo electrónico">
