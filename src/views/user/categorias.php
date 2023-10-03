@@ -434,8 +434,10 @@
 
 <hr>
 
-
+<div class="container">
 <?php include '../../../templates/footer.html';?>
+</div>
+
 
 </body>
 </html>

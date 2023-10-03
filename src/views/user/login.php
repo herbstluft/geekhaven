@@ -1,5 +1,14 @@
 <?php
-include("../../../templates/navbar/navbar.html");
+ use MyApp\data\Database;
+ require("../../../vendor/autoload.php");
+ $db = new Database();
+
+
+
+$sql = "SELECT * from usuarios";
+//Ejecutar consulta
+ $usuarios = $db->seleccionarDatos($sql);
+ print_r($usuarios);
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,6 +65,9 @@ include("../../../templates/navbar/navbar.html");
     </style>
 </head>
 <body>
+<?php
+include("../../../templates/navbar/navbar.html");
+?>
     <br><br>
     <div class="container mt-5">
         <div class="formulario">
