@@ -138,7 +138,7 @@
     </style>
 </head>
 <body>
-<?php include '../../../templates/navbar/navbar.html';?>
+<?php include '../../../templates/navbar/navbar.php';?>
 
 <br>
 

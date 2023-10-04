@@ -1,3 +1,14 @@
+<?php
+    use MyApp\data\Database;
+    require("vendor/autoload.php");
+    $db = new Database;
+    
+    $sql = "SELECT * from categorias";
+
+    $categorias=$db->seleccionarDatos($sql);
+?>
+
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -134,8 +145,11 @@ a{
       <div>
         <ul style="text-decoration: none; list-style: none; font-size: 30px; font-weight: 500;">
           <div class="row">
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Store </li>
+
+          <?php foreach ($categorias as $categorias) { ?>
+
+            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal" style="margin-top:3px">
+              <li class="text-truncate"> <?php echo $categorias['nom_cat'] ?> </li>
             </div>
             <div class="col-1 text-end" data-bs-target="#subopciones" data-bs-toggle="modal">
               <svg style="opacity:0.4; margin-left: 0px;" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -143,95 +157,9 @@ a{
               </svg>
             </div>
 
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Mac</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
+            <?php } ?>
             
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>iPad</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>iPhone</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Watch</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Vision</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>AirPods</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>TV & Home</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Entretenimiento</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Accesorios</li>
-            </div>
-            <div class="col-1 text-end option" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
-
-            <div class="col-10" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <li>Soporte</li>
-            </div>
-            <div class="col-1 text-end" data-bs-target="#subopciones" data-bs-toggle="modal">
-              <svg style="opacity:0.4; margin-left: 0px;"  xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="#000" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
-            </div>
+         
             <br>
 
             <hr style="width:90%; margin-top:20px">

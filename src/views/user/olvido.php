@@ -1,5 +1,5 @@
 <?php
-include("../../../templates/navbar/navbar.html");
+include("../../../templates/navbar/navbar.php");
 ?>
 <!doctype html>
 <html lang="en">

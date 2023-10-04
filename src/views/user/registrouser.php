@@ -61,7 +61,7 @@
 </head>
 <body>
 <?php
-include("../../../templates/navbar/navbar.html");
+include("../../../templates/navbar/navbar.php");
 ?>
     <br><br>
     <div class="container mt-5">
