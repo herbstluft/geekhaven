@@ -1,3 +1,31 @@
+<?php
+    use MyApp\data\Database;
+    require("vendor/autoload.php");
+    $db = new Database;
+    
+    $resultado = "select * from usuarios";
+   
+//extraer datos del formulario
+    
+
+    //Favoritos del mes    
+    $sql = "SELECT do.id_producto as 'id_producto', p.nom_producto as 'nombre', p.precio as 'precio', c.nom_cat as 'categoria', COUNT(*) as cantidad_vendida
+    FROM detalle_orden as do
+    INNER JOIN productos p ON do.id_producto = p.id_producto
+    INNER join categorias c on c.id_cat=p.id_cat
+    WHERE MONTH(do.fecha_detalle) = MONTH(CURRENT_DATE)
+    GROUP BY do.id_producto, p.nom_producto
+    ORDER BY cantidad_vendida DESC limit 6;";
+    $favoritos_del_mes=$db->seleccionarDatos($sql);
+
+
+    //ofertas
+    $sql="SELECT * from productos INNER JOIN categorias on categorias.id_cat=productos.id_cat WHERE productos.estado='oferta';";
+    $ofertas=$db->seleccionarDatos($sql);
+  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,6 +93,9 @@
 
 <div class="row">
 
+<?php
+foreach($favoritos_del_mes as $fav_del_mes){
+?>
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
   <article class="card card--1" style="margin-left:20px">
   <div class="card__info-hover">
@@ -82,13 +113,13 @@
      <div class="card__img--hover"></div>
    </a>
   <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+    <span class="card__category"> <?php echo $fav_del_mes['categoria']?> </span>
+    <h3 class="card__title text-truncate"> <?php echo $fav_del_mes['nombre']?> </h3>
 
     <div class="row">
       <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
+      <span class="d-block d-sm-none" style="color:red; font-size:15px;"><?php echo '$' . $fav_del_mes['precio']; ?> </span>
+      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> <?php echo '$' .' '. $fav_del_mes['precio']; ?> </span>
       </div>
 
       <div class="col-6 text-end" style="margin-left:10%" >
@@ -101,198 +132,13 @@
   </article>
   </div>
 
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
 
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><a href="src/views/user/productos.php"type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  
-
-
-  
-
-
-
+  <?php
+}
+?>
 
 </div>
 </section>
-
-<p style="font-size:22px; margin-left:20px"><a href="">Ver mas</a></p>
 <br>
 </div>
 
@@ -319,6 +165,9 @@
 
 <div class="row">
 
+<?php
+foreach($ofertas as $ofertas){
+?>
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
   <article class="card card--1" style="margin-left:20px">
   <div class="card__info-hover">
@@ -336,17 +185,17 @@
      <div class="card__img--hover"></div>
    </a>
   <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+    <span class="card__category"> <?php echo $ofertas['nom_cat']?> </span>
+    <h3 class="card__title text-truncate"> <?php echo $ofertas['nom_producto']?> </h3>
 
     <div class="row">
       <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
+      <span class="d-block d-sm-none" style="color:red; font-size:15px;"><?php echo '$' . $ofertas['precio']; ?> </span>
+      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> <?php echo '$' .' '. $ofertas['precio']; ?> </span>
       </div>
 
       <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
+    <span ><a href="src/views/user/productos.php" type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
     </div>
 
     </div>
@@ -355,193 +204,10 @@
   </article>
   </div>
 
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
 
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-</svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> Nintendo</span>
-    <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"> $1,449.00 </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> $1,449.00 </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><button type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </button></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-  
-
-
-  
-
-
-
+  <?php
+}
+?>
 
 </div>
 </section>
