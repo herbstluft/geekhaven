@@ -145,7 +145,7 @@
                     <!-- Aquí van tus cartas individuales, cada una en una row o div de col -->
                     <!-- Puedes copiar y pegar el código de cada carta aquí -->
                     <div class="row">
-                        <div class="col-md-6 col-lg-4 col-xl-6" style="margin-bottom: 30px;">
+                        <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -189,7 +189,7 @@
 
 
 
-                        <div class="col-md-6 col-lg-4 col-xl-6" style="margin-bottom: 30px;">
+                        <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -234,7 +234,7 @@
 
 
 
-                           <div class="col-md-6 col-lg-4 col-xl-6" style="margin-bottom: 30px;">
+                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -279,7 +279,7 @@
 
 
 
-                           <div class="col-md-6 col-lg-4 col-xl-6" style="margin-bottom: 30px;">
+                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -324,7 +324,7 @@
 
 
 
-                           <div class="col-md-6 col-lg-4 col-xl-6" style="margin-bottom: 30px;">
+                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -370,7 +370,7 @@
 
 
 
-                           <div class="col-md-6 col-lg-4 col-xl-6" style="margin-bottom: 30px;">
+                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -399,7 +399,8 @@
                                        <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
-                                              <span style="color:red; font-size:20px;"> $1,449.00 </span>
+                                              <span class="d-block d-sm-none" style="color:red; font-size:40px;"> $1,449.00 </span>
+                                              <span class="d-none d-sm-block" style="color:red; font-size:90px;"> $1,449.00 </span>
                                             </div>
                                             <div class="col-6" style="margin-left:16%" >
                                             <span ><button type="button" style=" border:none; border-radius:980px; background-color: #0071e3; 
@@ -434,8 +435,10 @@
 
 <hr>
 
-
+<div class="container">
 <?php include '../../../templates/footer.html';?>
+</div>
+
 
 </body>
 </html>

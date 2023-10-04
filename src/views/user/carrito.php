@@ -1,4 +1,4 @@
-<?php include '../../../templates/navbar/navbar.html';?>
+<?php include '../../../templates/navbar/navbar.php';?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -112,6 +112,7 @@
   </style>
 </head>
 <body>
+  
   <div class="contenido">
   <div class="cont-back">
                 <a href="../../../index.php" class="">
