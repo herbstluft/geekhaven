@@ -124,7 +124,7 @@
   <div class="">
     
     <div class="row">
-      <div class="col-sm-12 col-md-10 col-md-4 col-lg-10  productos">
+      <div class="col-sm-12 col-md-5 col-lg-6 productos">
         <div class="row">
         <table class="table table-hover table-borderless">
           <thead>
@@ -173,9 +173,9 @@
         </table>
       </div>
     </div>
-      <div class="col-sm-12 col-md-10 col-lg-4 carrito">
+      <div class="col-sm-12 col-md-3 col-lg-4 carrito">
         <div class="row">
-          <h2 class="total col-sm-5 col-md-8">TOTAL</h2>
+          <h2 class="total col-sm-5 col-md-8 col-lg-8">TOTAL</h2>
           <h2 class="col-sm-2  col-md-1 moneda">MXN</h2>
           <h2 class="col-sm-2 col-md-1 total-precio">$1999</h2>
         </div> 
