@@ -1,6 +1,6 @@
 <?php
     use MyApp\data\Database;
-    require("vendor/autoload.php");
+    require("../../vendor/autoload.php");
     $db = new Database;
     
     $sql = "SELECT * from categorias";

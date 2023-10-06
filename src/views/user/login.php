@@ -334,7 +334,7 @@ a{
                 </div>
 
 
-                <center><a href="registro.php">Registrarse</a></center>
+                <center><a href="registrouser.php">Registrarse</a></center>
   </main>
 
   <br><br><br><br><br><br>
