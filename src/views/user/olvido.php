@@ -1,5 +1,14 @@
 <?php
-include("../../../templates/navbar/navbar.php");
+use MyApp\data\Database;
+require("../../../vendor/autoload.php");
+$db = new Database();
+
+
+$sql = "SELECT * from categorias";
+
+$categorias=$db->seleccionarDatos($sql);
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,6 +26,10 @@ include("../../../templates/navbar/navbar.php");
 </head>
 
 <body>
+<?php
+include('../../../templates/navbar/navbar.php');
+?>
+
   <header>
     <!-- place navbar here -->
   </header>

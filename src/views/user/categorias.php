@@ -1,3 +1,16 @@
+<?php
+ use MyApp\data\Database;
+ require("../../../vendor/autoload.php");
+ $db = new Database();
+
+
+ $sql = "SELECT * from categorias";
+
+ $categorias=$db->seleccionarDatos($sql);
+
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +87,9 @@
 
 <body>
     <!----------------------------------------------------->
-    <?php include '../../../templates/navbar/navbar.html';?>
+    <?php
+include('../../../templates/navbar/navbar.php');
+?>
     <!----------------------------------------------------->
 
      <!-------------------------BANNER---------------------------->
@@ -438,6 +453,7 @@
 <div class="container">
 <?php include '../../../templates/footer.html';?>
 </div>
+<script src="../../../bootstrap/js/buscador.js"></script>
 
 
 </body>

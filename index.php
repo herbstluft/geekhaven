@@ -28,6 +28,9 @@
     $sql="SELECT * FROM productos inner join categorias on categorias.id_cat=productos.id_cat ORDER BY fecha desc LIMIT 6;";
     $recien_llegados=$db->seleccionarDatos($sql);
   
+    //Categorias
+    $sql = "SELECT * from categorias";
+    $categorias=$db->seleccionarDatos($sql);
   
 ?>
 
@@ -395,6 +398,8 @@ foreach($recien_llegados as $recien_llegados){
 
 
 
+
+<script src="bootstrap/js/buscador.js"></script>
 
 
 

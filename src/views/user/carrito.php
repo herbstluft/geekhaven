@@ -1,4 +1,15 @@
-<?php include '../../../templates/navbar/navbar.php';?>
+<?php
+ use MyApp\data\Database;
+ require("../../../vendor/autoload.php");
+ $db = new Database();
+
+
+ $sql = "SELECT * from categorias";
+
+ $categorias=$db->seleccionarDatos($sql);
+
+ 
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -108,11 +119,17 @@
       height: 60px;
       color: #202124;
         }
+        a{
+          text-decoration:none;
+        }
     
   </style>
 </head>
 <body>
-  
+<?php
+include('../../../templates/navbar/navbar.php');
+?>
+
   <div class="contenido">
   <div class="cont-back">
                 <a href="../../../index.php" class="">
@@ -197,5 +214,6 @@
   
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="../../../bootstrap/js/buscador.js"></script>
 </body>
 </html>
