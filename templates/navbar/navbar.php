@@ -36,7 +36,7 @@ a{
                     </div>
                     
                     <div class="col-8 text-center">
-                      <a href="">
+                      <a href="/geekhaven/index.php">
                       <svg style="margin-top: -7px;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-joystick" viewBox="0 0 16 16">
                         <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"/>
                         <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"/>
@@ -79,6 +79,7 @@ a{
                 <div class="row">
     
                   <div class="col-8">
+                     <a href="/geekhaven/index.php">
                   <button style="border: 0px ; margin-left: 5px; margin-top: 0px; background-color: transparent;" class="" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <svg style="margin-top: -7px;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-joystick" viewBox="0 0 16 16">
                       <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"/>
@@ -87,6 +88,7 @@ a{
                     &ensp;
                     <strong style="color: white; font-size: 18px;">GeekHaven</strong>
                   </button>
+                </a>
                 </div>
     
     
@@ -253,23 +255,14 @@ if(!empty($con)){
 
 
 <td>
-<a href="" style="color:black">
+<a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>" style="color:black">
 <div>
 <p><?php echo $fila['nom_producto']?></p> <center><hr style="background:black; width:50%; opacity:0"></center> <b style="top:-30px; color:red; position:relative"><?php echo "$".number_format($fila['precio'], 2, '.', '.');?></b> <center><hr style="background:black; width:50%; position:relative; top:-30px; opacity:0"></center>
 </div>  
 </a>
 </td>
 
-<td><a href="prod_eliminados.php?restaurar=<?php echo $fila['id_producto'] ?>"> </td>
 
-
-<td>
-    <div class="d-grid gap-2 d-md-block">
-    <a href="prod_eliminados.php?restaurar=<?php echo $fila['id_producto'] ?>"> <!--Enviar id de producto -->
-         
-    </a>
-    </div>
-</td>
 
 </tr>
 

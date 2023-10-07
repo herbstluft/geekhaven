@@ -3,8 +3,30 @@
     require("../../../vendor/autoload.php");
     $db = new Database;
     
-    $sql = "SELECT * from categorias";
 
+    if(isset($_GET['id'])){
+        //guardar el id del producto
+        $id_producto=$_GET['id'];
+        $sql = "SELECT * from productos inner join categorias on categorias.id_cat=productos.id_cat where id_producto=$id_producto";
+        $info_producto=$db->seleccionarDatos($sql);
+
+
+        foreach($info_producto as $info_producto)
+        $id=$info_producto['id_producto'];
+        $nombre=$info_producto['nom_producto'];
+        $estado=$info_producto['estado'];
+        $precio=$info_producto['precio'];
+        $existencia=$info_producto['existencia'];
+        $descripcion=$info_producto['descripcion'];
+        $categoria=$info_producto['nom_cat'];
+        
+
+    }
+
+
+
+
+    $sql = "SELECT * from categorias";
     $categorias=$db->seleccionarDatos($sql);
 ?>
 
@@ -135,17 +157,11 @@
         .icono{
             margin-top: 2em;
             margin-left:2em;
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             color: #202124;
         }
-        .icono:hover{
-            
-            width: 60px;
-            height: 60px;
-            color: #202124;
-        }
-
+        
 
 a{
   text-decoration: none;
@@ -205,32 +221,40 @@ include('../../../templates/navbar/navbar.php');
             <div class="col-sm-12 col-md-6 contenido">
                     <div class="productotop">
                         <h1>
-                            Pokemon BLUE VERSION - NINTENDO GAME BOY
+                           <?php echo $nombre ?>
                         </h1>
                         <h2 class="estado">
-                            Estado: Sellado
+                            Estado: <?php echo $estado ?>
                         </h2>
                         <h2 class="precio">
-                            MXN $1100.00
+                        <?php echo "$".number_format($precio, 2, '.', '.');?>
                         </h2>
                         <h3>
-                            Existencia: 10
+                            Existencia: <?php echo $existencia ?>
+                        </h3>
+                        <h3>
+                            Categoria: <?php echo $categoria ?>
                         </h3>
                         <h3>
                             Cantidad
                         </h3>
-                        <div class="contador sombra">
-                            <button class="menos" id="menos">-</button>
-                            <h6>1</h6>
-                            <button class="mas" id="mas">+</button>
+                        <div class="contador ">
+                            <div class="input-group mb-3">
+                                <input style="text-align:center; border-radius:20px" type="number" min="0" class="form-control" placeholder="Cantidad"  aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
                         </div>
                     </div>
                     <div class="productobott">
                         <h4>Descripcion</h4>
-                        <hr>
+                      
                         <br>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, magni dolores. Neque harum fuga molestiae adipisci quia atque deserunt exercitationem ea voluptas, illo assumenda voluptatibus natus suscipit ex rem esse. Neque doloribus quos laborum eligendi quam optio iure consectetur sequi earum commodi voluptatum amet, fuga nam voluptatibus eaque ipsam sunt voluptate reiciendis temporibus rem eius, maxime doloremque quod! Ea, temporibus! Officia quam quidem omnis, vero illo aliquid reiciendis numquam ad cupiditate ipsam accusamus harum sapiente dignissimos, adipisci sint beatae voluptatum laborum qui et. Labore voluptates sit impedit cum iste. Architecto esse quae fugiat atque tempora facilis excepturi ad soluta mollitia?</p>
-                        <a href="" class="btn btn-primary">ANADIR AL CARRITO </a>
+                        <p><?php echo $descripcion; 
+                        if(empty($descripcion)){
+                            echo '<p style="color:red"> Lo sentimos, este producto no cuenta con una descripcion.</p>';
+                        }
+                        ?></p>
+                        <br><br>
+                        <center> <a href="src/views/user/productos.php?id=3" type="button" style=" font-size:25px; width:50%; text-align:center; border:none; border-radius:20px; background-color: #0071e3; color: white; padding: 10px 25px;">Añadir al carrito </a></center>
                     </div>
             </div>
         </div>
@@ -238,9 +262,9 @@ include('../../../templates/navbar/navbar.php');
 
     </div>
    <br><br>
-   <hr>
-   <br>
 
+   <br>
+<br><br><br><br><br><br>
    <div class="container">
 <?php include '../../../templates/footer.html';?>
 <script src="../../../bootstrap/js/buscador.js"></script>
