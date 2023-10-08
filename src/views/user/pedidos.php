@@ -63,7 +63,7 @@
         }
 
         .select{
-            width: 205px; /* Ancho personalizado */
+            width: 210px; /* Ancho personalizado */
             height: 30px; /* Altura personalizada */
             font-size: 14px; /* Tamaño de fuente personalizado */
             border-radius: 36px 36px 36px 36px;
