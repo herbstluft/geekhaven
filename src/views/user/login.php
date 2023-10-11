@@ -32,7 +32,8 @@
                  header("Location:prueba.php");
                  
                }
-               else{
+               
+              }
                ?>
           
 <!doctype html>
@@ -127,14 +128,16 @@ include('../../../templates/navbar/navbar.php');
   </main>
 <br><br>
 <?php
-               
+    if($_POST){
+
+             if(!password_verify($password,$password_hash)) { 
                  echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-top:-2%; margin-bottom:7%; margin-right:10%;'>
                  Contraseña o numero incorrecto.
                </div>";  
                }
-         }
-         ini_set('display_errors', 1);
-         error_reporting(E_ALL);
+        
+              }
+      
          
          ?>
 
