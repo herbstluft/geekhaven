@@ -10,6 +10,31 @@
 
  
 ?>
+
+<?php
+         
+         if($_POST){
+           extract($_POST);
+                 $consulta_hash="Select * from usuarios inner join
+                 personas on personas.id_persona=usuarios.id_persona 
+                 where usuarios.telefono='$phone'";
+                 $date_person=$db->seleccionarDatos($consulta_hash);
+                 
+                 foreach ($date_person as $decrypted)
+                 $password_hash= $decrypted['contrasena'];
+             
+                 $id_usuario=$decrypted['id_usuario'];
+                 
+         
+               if(password_verify($password,$password_hash)){
+                 session_start();
+                 $_SESSION['user']=$id_usuario;
+                 header("Location:prueba.php");
+                 
+               }
+               else{
+               ?>
+          
 <!doctype html>
 <html lang="en">
 
@@ -81,13 +106,13 @@ include('../../../templates/navbar/navbar.php');
             <br><br>
             <center><h2><strong>Iniciar Sesion</strong></h2></center>
             <br><br>
-            <form>
+            <form action="login.php" method="post">
                 <div class="mb-3">
-                    <input type="email" class="form-control" id="correo" placeholder="Tu correo electrónico">
+                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Numero de telefono">
                 </div>
                 <br>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="contrasena" placeholder="Tu contraseña">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Tu contraseña">
                     <a href="olvido.php">¿Olvidaste tu contraseña?</a>
                     <br>
                     <br>
@@ -95,10 +120,24 @@ include('../../../templates/navbar/navbar.php');
 
 
                 </div>
+            </form>
 
 
                 <center><a href="registrouser.php">Registrarse</a></center>
   </main>
+<br><br>
+<?php
+               
+                 echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-top:-2%; margin-bottom:7%; margin-right:10%;'>
+                 Contraseña o numero incorrecto.
+               </div>";  
+               }
+         }
+         ini_set('display_errors', 1);
+         error_reporting(E_ALL);
+         
+         ?>
+
 
   <br><br><br><br><br><br>
   <div class="container">
@@ -120,3 +159,4 @@ include('../../../templates/navbar/navbar.php');
 <script src="../../../bootstrap/js/buscador.js"></script>
 
 </html>
+

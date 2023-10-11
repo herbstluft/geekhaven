@@ -1,29 +1,4 @@
-<?php
-    use MyApp\data\Database;
-    require("../../../vendor/autoload.php");
-    $db = new Database;
-    
-//extraer datos del formulario
-    extract($_POST);
-    
-    $sql = "insert into personas ( `nombre`, `apellido`, `correo`) values ('$nombre','$apellidos','$correo')";
-    $db->ejecutarConsulta($sql);
 
-    //obtener id
-    $sql = "select * from personas where correo ='$correo' ";
-    $rs = $db->seleccionarDatos($sql);
-
-
-    foreach($rs as $rs){
-        echo $rs['id_persona'];
-    }
-
-
-    $sql = "SELECT * from categorias";
-
-    $categorias=$db->seleccionarDatos($sql);
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -90,7 +65,12 @@ include('../../../templates/navbar/navbar.php');
                 </div>
                 <div class="mb-3">
                     <label for="contrasena" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" name="contrasena" placeholder="Tu contraseña">
+                    <input type="password" class="form-control" name="contrasena1" placeholder="Tu contraseña">
+                </div>
+
+                <div class="mb-3">
+                    <label for="contrasena" class="form-label">Verifica tu contraseña</label>
+                    <input type="password" class="form-control" name="contrasena2" placeholder="Tu contraseña nuevamente">
                 </div>
                 <div class="form-group-horizontal">
                     <div class="mb-3">
@@ -99,7 +79,7 @@ include('../../../templates/navbar/navbar.php');
                     </div>
                     <div class="mb-3">
                         <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" name="apellidos" placeholder="Tus apellidos">
+                        <input type="text" class="form-control" name="apellido" placeholder="Tus apellidos">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -112,6 +92,97 @@ include('../../../templates/navbar/navbar.php');
             </form>
         </div>
     </div>
+
+    <br>
+
+
+<?php
+    use MyApp\data\Database;
+    require("../../../vendor/autoload.php");
+    $db = new Database;
+    
+//extraer datos del formulario
+    if($_POST){
+
+    extract($_POST);
+
+    $verficiacion_nombres="SELECT * from personas WHERE personas.nombre='$nombre' and  personas.apellido='$apellido'";
+    $valor_nombres=$db->seleccionarDatos($verficiacion_nombres);
+
+    if(empty($valor_nombres)){
+
+      $verficiacion_telefono="SELECT * from usuarios WHERE usuarios.telefono='$telefono'";
+      $valor_telefono=$db->seleccionarDatos($verficiacion_telefono);   
+        if(empty($valor_telefono)){
+
+          $verficiacion_correo="SELECT * from personas WHERE personas.correo='$correo'";
+          $valor_correo=$db->seleccionarDatos($verficiacion_correo);      
+          if(empty($valor_correo)){
+
+                  if($contrasena1==$contrasena2)
+                      {
+                            $insert_reg="INSERT INTO personas (nombre, apellido, correo, info) VALUES ('$nombre', '$apellido', '$correo', '¡Hola, Estoy usando GeekHaven!')";
+                            $db->ejecutarConsulta($insert_reg);
+                  
+                            //obtener el id del cliente
+                            $cadena="select personas.id_persona as id from personas WHERE personas.nombre='$nombre' and personas.apellido='$apellido' and personas.correo='$correo'";
+                  
+                            $id=$db->seleccionarDatos($cadena);
+                  
+                           
+                            
+                            foreach ($id as $i)
+                            $id_persona= $i['id'];
+                    
+                            //Encriptar contraseña
+                            $passCifrada1 = password_hash($contrasena2,PASSWORD_DEFAULT);
+                            $passCifrada = "$passCifrada1";
+
+                            $insert_user="INSERT INTO usuarios (telefono, contrasena, id_persona,tipo_usuario) VALUES ('$telefono','$passCifrada','$id_persona',1)";
+                            $db->ejecutarConsulta($insert_user);
+                
+                         
+                            echo  "<div class='alert alert-success text-center' role='alert' style='margin-left:10%; margin-right:10%;'>
+                            Cuenta creada exitosamente, <a href='login.php'> Inicie sesión </a>!
+                          </div>";    
+                          /*Registro exitoso y despues se dirige a la pagina principal*/
+                      }
+                      else{
+                        echo  "<div class='alert alert-warning text-center' role='alert' style='margin-left:10%; margin-right:10%;'>
+                        Las contraseñas no coinciden!
+                      </div>";    
+                      }  
+
+          } 
+          else{
+            echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-right:10%;'>
+            Este correo ya existe, eliga otro!
+          </div>";  
+        }
+      }
+          else{
+            echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-right:10%;'>
+            Este numero ya existe, introduzca otro!
+          </div>";   
+        }  
+      
+    
+
+
+     
+
+    }
+    else{
+      echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-right:10%;'>
+      Estos nombres ya existen en el sistema!
+    </div>";                
+      
+    }
+  }
+
+?>
+
+<br><br>
     <div class="container">
   <?php
   
