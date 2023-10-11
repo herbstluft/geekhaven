@@ -82,6 +82,141 @@
             height: 100%;
             border-radius: 40px;
         }
+        ul {
+            list-style-type: none;
+            padding: 1s;
+        }
+        li {
+            margin: 5px;
+            background-color: #fff;
+            border : 4px solid #ccc;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            border-radius: 64px 64px 64px 64px;
+            -moz-border-radius: 64px 64px 64px 64px;
+            -webkit-border-radius: 64px 64px 64px 64px;
+
+        }
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            margin-right: 30px;
+            border-radius: 30px 30px 30px 30px;
+            -moz-border-radius: 30px 30px 30px 30px;
+            -webkit-border-radius: 30px 30px 30px 30px;
+        }
+
+        .select{
+            width: 210px; /* Ancho personalizado */
+            height: 30px; /* Altura personalizada */
+            font-size: 14px; /* Tamaño de fuente personalizado */
+            border-radius: 36px 36px 36px 36px;
+            -moz-border-radius: 36px 36px 36px 36px;
+            -webkit-border-radius: 36px 36px 36px 36px;
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
+        }
+
+        ::selection{
+  color: #fff;
+  background: #17A2B8;
+}
+        .wrapper{
+            width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px 25px 40px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+        }
+        header h2{
+            font-size: 24px;
+            font-weight: 600;
+        }
+        header p{
+          margin-top: 5px;
+          font-size: 16px;
+        }
+        .price-input{
+          width: 100%;
+          display: flex;
+          margin: 30px 0 35px;
+        }
+        .price-input .field{
+          display: flex;
+          width: 100%;
+          height: 45px;
+          align-items: center;
+        }
+        .field input{
+          width: 100%;
+          height: 100%;
+          outline: none;
+          font-size: 19px;
+          margin-left: 12px;
+          border-radius: 5px;
+          text-align: center;
+          border: 1px solid #999;
+          -moz-appearance: textfield;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
+        .price-input .separator{
+          width: 130px;
+          display: flex;
+          font-size: 19px;
+          align-items: center;
+          justify-content: center;
+        }
+        .slider{
+          height: 5px;
+          position: relative;
+          background: #ddd;
+          border-radius: 5px;
+        }
+        .slider .progress{
+          height: 100%;
+          left: 25%;
+          right: 25%;
+          position: absolute;
+          border-radius: 5px;
+          background: #17A2B8;
+        }
+        .range-input{
+          position: relative;
+        }
+        .range-input input{
+          position: absolute;
+          width: 100%;
+          height: 5px;
+          top: -5px;
+          background: none;
+          pointer-events: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb{
+          height: 17px;
+          width: 17px;
+          border-radius: 50%;
+          background: #17A2B8;
+          pointer-events: auto;
+          -webkit-appearance: none;
+          box-shadow: 0 0 6px rgba(0,0,0,0.05);
+        }
+        input[type="range"]::-moz-range-thumb{
+          height: 17px;
+          width: 17px;
+          border: none;
+          border-radius: 50%;
+          background: #17A2B8;
+          pointer-events: auto;
+          -moz-appearance: none;
+          box-shadow: 0 0 6px rgba(0,0,0,0.05);
+        }
 </style>
 
 
@@ -92,34 +227,44 @@ include('../../../templates/navbar/navbar.php');
 ?>
     <!----------------------------------------------------->
 
-     <!-------------------------BANNER---------------------------->
-    <section id="banner">
-              <div id="outer">
-                <div id="hero">
-                  <h2 style="color: white;" class="titulo">  <p style="-webkit-text-stroke: 3px black; "> Categorias.</p></h2>
-                </div>
-              </div>
-    </section>
-    <!------------------------------------------------------------->   
-    <br>
+  <!-------------------------BANNER---------------------------->
+    <br><br><br>
+    
+    
+  <!------------------------------------------------------------->   
+    
     
     <div class="container">
   
         <div class="row">
 
+        <div class="col-md-12">
+            <br>
+          <h1 class="text-center" style="margin-lefT:25px">CATEGORIAS</h1>
+        </div>
+
             <div class="col-md-3">
             
-             <!-- Aquí va tu filtro -->
-             <br>
-                <div class="col-12 row-13" id="filtro">
-                    <h3>Filtro</h3>
-                    <hr>
-                    <input type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="$"  id="input">
-                    &nbsp; &nbsp; a &nbsp; &nbsp; 
-                    <input type="text"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="$"  id="input">
+            <!-- Aquí vaN los filtros -->
+<br>
+
+            <!--------------------------FILTRO 1: SELECT----------------------------------->
+            <label>Ordenar Por:</label>
+              <select name="" class="select" >
+                <option>Populares</option>
+                <option>De la A-Z</option>
+                <option>De la Z-A</option>
+                <option>Precio: Menor a Mayor</option>
+                <option>Precio: Mayor a Menor</option>
+                <option>Fecha: Antiguo - Reciente</option>
+                <option>Fecha: Reciente - Antiguo</option>
+              </select>
+            <!--------------------------FIN FILTRO 1: SELECT----------------------------------->
+            <br>
+                <div >
                     <hr>
                 </div>
-
+                <!-------------------------FILTRO 2: CHECKBOX--------------------------->
                 <fieldset>
                     <div>
                         <input type="checkbox" id="coding" name="interest" value="coding" checked />
@@ -147,8 +292,42 @@ include('../../../templates/navbar/navbar.php');
                         <label for="music">Music</label>
                     </div>  
                 </fieldset>
+                
+          <!-------------------------FIN FILTRO 2: CHECKBOX--------------------------->
 
+
+          <!--------------------------FILTRO 3: RANGO------------------------->
+                <div class="col-12 row-13" id="filtro">    
+                    <hr>
+                  <div class="price-input">
+                    <div class="field">
+                      <span>Min</span>
+                        <input type="number" class="input-min" value="2500">
+                    </div>
+                    <div class="separator">-</div>
+                      <div class="field">
+                        <span>Max</span>
+                          <input type="number" class="input-max" value="7500">
+                      </div>
+                    </div>
+                    <div class="slider">
+                      <div class="progress"></div>
+                    </div>
+                      <div class="range-input">
+                        <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
+                        <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+                      </div>
+                    </div>
+                    <script src="script.js"></script>
+                <br>
+                <div class="col-6" style="margin-left:30%" >
+                <span ><button type="button" style=" border:none; border-radius:980px; background-color: #0071e3; 
+                color: white; padding: 5px 15px; top:-10px; position:relative">Buscar</button></span></div>
+            <hr>
+            
             </div>
+            
+            <!-------------------------FIN FILTRO 3: RANGO------------------------------------------------------>
         
 
             <!-------->
@@ -186,7 +365,7 @@ include('../../../templates/navbar/navbar.php');
                                 </a>
                                   <div class="card__info">
                                     <span class="card__category"> Nintesjjhndo</span>
-                                       <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+                                      <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
                                               <span style="color:red; font-size:20px;"> $1,449.00 </span>
@@ -230,7 +409,7 @@ include('../../../templates/navbar/navbar.php');
                                 </a>
                                   <div class="card__info">
                                     <span class="card__category"> Nintesjjhndo</span>
-                                       <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+                                      <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
                                               <span style="color:red; font-size:20px;"> $1,449.00 </span>
@@ -245,11 +424,11 @@ include('../../../templates/navbar/navbar.php');
 
                         </div>   
 
-                           <!------------------>
+                          <!------------------>
 
 
 
-                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
+                          <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -275,7 +454,7 @@ include('../../../templates/navbar/navbar.php');
                                 </a>
                                   <div class="card__info">
                                     <span class="card__category"> Nintesjjhndo</span>
-                                       <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+                                      <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
                                               <span style="color:red; font-size:20px;"> $1,449.00 </span>
@@ -290,11 +469,11 @@ include('../../../templates/navbar/navbar.php');
 
                         </div>   
 
-                           <!------------------>
+                          <!------------------>
 
 
 
-                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
+                          <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -320,7 +499,7 @@ include('../../../templates/navbar/navbar.php');
                                 </a>
                                   <div class="card__info">
                                     <span class="card__category"> Nintesjjhndo</span>
-                                       <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+                                      <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
                                               <span style="color:red; font-size:20px;"> $1,449.00 </span>
@@ -335,11 +514,11 @@ include('../../../templates/navbar/navbar.php');
 
                         </div>   
 
-                           <!------------------>
+                          <!------------------>
 
 
 
-                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
+                          <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -365,7 +544,7 @@ include('../../../templates/navbar/navbar.php');
                                 </a>
                                   <div class="card__info">
                                     <span class="card__category"> Nintesjjhndo</span>
-                                       <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+                                      <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
                                               <span style="color:red; font-size:20px;"> $1,449.00 </span>
@@ -381,11 +560,10 @@ include('../../../templates/navbar/navbar.php');
                         </div>   
 
 
-                           <!------------------>
+                          <!------------------>
 
-
-
-                           <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
+                          
+                          <div class="col-md-11 col-lg-8 col-xl-6" style="margin-bottom: 30px;">
                             <!-- Código de la primera carta -->
                             <article class="card card--1" style="margin-left: 40px;">
                             <div class="card__info-hover">
@@ -411,11 +589,10 @@ include('../../../templates/navbar/navbar.php');
                                 </a>
                                   <div class="card__info">
                                     <span class="card__category"> Nintesjjhndo</span>
-                                       <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
+                                      <h3 class="card__title">Crisp Spanish tortilla Matzo brei</h3>
                                           <div class="row">
                                             <div class="col-4 text-end">
-                                              <span class="d-block d-sm-none" style="color:red; font-size:40px;"> $1,449.00 </span>
-                                              <span class="d-none d-sm-block" style="color:red; font-size:90px;"> $1,449.00 </span>
+                                              <span style="color:red; font-size:20px;"> $1,449.00 </span>
                                             </div>
                                             <div class="col-6" style="margin-left:16%" >
                                             <span ><button type="button" style=" border:none; border-radius:980px; background-color: #0071e3; 
@@ -425,7 +602,12 @@ include('../../../templates/navbar/navbar.php');
                                     </div>
                             </article>
 
-                        </div>   
+                        </div>  
+                      
+
+
+
+                          
         </div>
     </div>
     </div>
