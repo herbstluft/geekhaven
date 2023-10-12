@@ -218,8 +218,6 @@ a{
 use MyApp\data\Database;
 require(__DIR__ . '/../../vendor/autoload.php');
 $db = new Database;
-$resultado = "select * from productos";
-$res=$db->seleccionarDatos($resultado);
 
 
 ?>
@@ -227,11 +225,6 @@ $res=$db->seleccionarDatos($resultado);
   <div class="contenido_de_buscar" style="margin-left:10px; margin-right:10px;">
 
     <section class="cards">
-
-    
-
-    
-        
     
     <script>
       new DataTable('#table_id');
@@ -277,6 +270,8 @@ if(!empty($con)){
 
       </section>
   </div>
+
+  
 
     </div>
   </div>

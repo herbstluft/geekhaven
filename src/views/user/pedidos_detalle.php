@@ -88,7 +88,6 @@ include('../../../templates/navbar/navbar.php');
             <?php
 
 foreach ($mis_compras as $mis_compras){
-    $id_usuario=$mis_compras['id_usuario'];
     $nombre_producto=$mis_compras['nombre_ind'];
     $cantidad_ind=$mis_compras['cant_ind'];
     $precio_ind=$mis_compras['precio_ind'];

@@ -3,23 +3,31 @@
     require("../../../vendor/autoload.php");
     $db = new Database;
 
+    $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
+
+    if (isset($_GET['order']) && $_GET['order'] == 'asc') {
+        $orderClause = "ASC"; // Cambia la ordenación a "antiguos a recientes"
+    }
+    
     $sql = "SELECT
-    o.id_orden AS 'id_venta',
-    u.id_usuario as 'id_usuario',
-    SUM(do.cantidad) AS 'cantidad',
-    SUM(p.precio * do.cantidad) AS 'total',
-    do.fecha_detalle AS 'fecha',
-    p.nom_producto AS 'nombre_producto' -- Agregar información de la tabla productos
-FROM
-    orden o
-JOIN detalle_orden AS do ON o.id_orden = do.id_orden
-JOIN productos p ON do.id_producto = p.id_producto
-JOIN usuarios u ON do.id_usuario = u.id_usuario
-JOIN personas ON personas.id_persona = u.id_persona
-WHERE u.id_usuario=35 and
-    do.estatus = 1
-GROUP BY
-    o.id_orden";
+        o.id_orden AS 'id_venta',
+        u.id_usuario as 'id_usuario',
+        SUM(do.cantidad) AS 'cantidad',
+        SUM(p.precio * do.cantidad) AS 'total',
+        do.fecha_detalle AS 'fecha',
+        p.nom_producto AS 'nombre_producto' -- Agregar información de la tabla productos
+    FROM
+        orden o
+    JOIN detalle_orden AS do ON o.id_orden = do.id_orden
+    JOIN productos p ON do.id_producto = p.id_producto
+    JOIN usuarios u ON do.id_usuario = u.id_usuario
+    JOIN personas ON personas.id_persona = u.id_persona
+    WHERE u.id_usuario=35 and
+        do.estatus = 1
+    GROUP BY
+        o.id_orden
+    ORDER BY do.fecha_detalle $orderClause"; // Agrega la ordenación dinámica
+    
 
     $mis_compras=$db->seleccionarDatos($sql);
 
@@ -202,29 +210,31 @@ include('../../../templates/navbar/navbar.php');
   <h1 class="text-center" style="margin-lefT:25px">Mis compras</h1>
   
   <!-----------------------------Filtro---------------------------------->
-  
-<div class="select-box" style="border-radius:50px">
-  <div class="select-box__current" tabindex="1"  style="color:black; border-radius:10px" >
-    <div class="select-box__value"  style="color:black" >
-      <input class="select-box__input" type="radio" id="0" value="1" name="Ben"checked="checked"/>
-      <p class="select-box__input-text">Pedido: Reciente - Antiguo</p>
+  <div class="select-box">
+  <form method="GET" action="pedidos.php">
+    <div class="select-box__current" tabindex="1" style="color: black; border-radius: 10px">
+      <div class="select-box__value" style="color: black">
+        <input class="select-box__input" type="radio" id="recientes" value="desc" name="order" <?php if ($orderClause == "DESC") echo "checked"; ?> />
+        <p class="select-box__input-text">Ordenar:  &ensp; Reciente - Antiguo</p>
+      </div>
+      <div class="select-box__value">
+        <input class="select-box__input" type="radio" id="antiguos" value="asc" name="order" <?php if ($orderClause == "ASC") echo "checked"; ?> />
+        <p class="select-box__input-text">Ordenar: &ensp; Antiguo - Reciente</p>
+      </div>
+      <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true" />
     </div>
-    <div class="select-box__value">
-      <input class="select-box__input" type="radio" id="1" value="2" name="Ben"/>
-      <p class="select-box__input-text">Pedido: Antiguo - Reciente</p>
-    </div>
-    <img class="select-box__icon" src="http://cdn.onlinewebfonts.com/svg/img_295694.svg" alt="Arrow Icon" aria-hidden="true"/>
-  </div>
-  <ul class="select-box__list">
-    <li>
-      <label class="select-box__option" for="0" aria-hidden="aria-hidden">Pedido: Reciente - Antiguo</label>
-    </li>
-    <li>
-      <label class="select-box__option" for="1" aria-hidden="aria-hidden">Pedido: Antiguo - Reciente</label>
-    </li>
-    
-  </ul>
+    <ul class="select-box__list">
+      <li>
+        <label class="select-box__option" for="recientes" aria-hidden="aria-hidden">Pedido: Reciente - Antiguo</label>
+      </li>
+      <li>
+        <label class="select-box__option" for="antiguos" aria-hidden="aria-hidden">Pedido: Antiguo - Reciente</label>
+      </li>
+    </ul>
+    <button type="submit" style="margin-top:20px" class="btn btn-primary">Aplicar</button>
+  </form>
 </div>
+
 
     <!------------------------------------Lista-------------------------------------->
     <br>
