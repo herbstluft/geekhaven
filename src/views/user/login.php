@@ -27,9 +27,17 @@
                  
          
                if(password_verify($password,$password_hash)){
-                 session_start();
+                
+                if($decrypted['tipo_usuario']==0){
+                  session_start();
+                  $_SESSION['admin']=$id_usuario;
+                  header("Location: /geekhaven/src/views/admin/index.php");
+                }
+                elseif($decrypted['tipo_usuario']==1){
+                  session_start();
                  $_SESSION['user']=$id_usuario;
-                 header("Location:prueba.php");
+                 header("Location: /geekhaven/index.php");
+                }
                  
                }
                

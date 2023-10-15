@@ -1,3 +1,9 @@
+<?php
+    use MyApp\data\Database;
+    require("../../../../vendor/autoload.php");
+    $db = new Database;
+
+?>
 <!doctype html>
 <html lang="en">
 
