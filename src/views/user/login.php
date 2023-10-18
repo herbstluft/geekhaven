@@ -29,7 +29,7 @@
                if(password_verify($password,$password_hash)){
                  session_start();
                  $_SESSION['user']=$id_usuario;
-                 header("Location:prueba.php");
+                 header("Location:../../../index.php");
                  
                }
                

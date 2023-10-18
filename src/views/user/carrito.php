@@ -7,8 +7,6 @@
  $sql = "SELECT * from categorias";
 
  $categorias=$db->seleccionarDatos($sql);
-
- 
 ?>
 <!doctype html>
 <html lang="en">
@@ -28,11 +26,9 @@
     }
     .carrito{
       border: 2px solid #eee;
-      width: 750px;
+      width: 100%px;
       height: 90%;
       padding-top: 2em;
-      margin-left: 2em;
-      margin-ridgt: 2em;
       margin-bottom:2em;
     }
     h1{
@@ -66,7 +62,6 @@
     .total-precio{
       color:red;
       margin-top: 5px;
-      margin-left: 45px;
     }
     .moneda{
       margin-top: 5px;
@@ -83,23 +78,26 @@
     .carrito hr{
       margin-top:3em;
     }
-    .btn{
+    .botn{
       border:none;
       border-radius: 10px;
       background-color:#AC0909 !important;
-      width: 100%;
+      width: 90%;
       height:60px;
       padding-top:9px;
       font-size:2em;
+      color: white;
+      text-align:center;
     }
-    .btn:hover{
+    .botn:hover{
       border:none;
       border-radius: 10px;
       background-color:gray !important;
-      width: 100%;
+      width: 90%;
       height:60px;
       padding-top:9px;
       font-size:2.1em;
+      color: white;
     }
     
     .cont-back{
@@ -150,63 +148,80 @@ include('../../../templates/navbar/navbar.php');
               <th scope="col subtitulos" align="center"><h2>PRODUCTO</h2></th>
               <th scope="col" colspan=1></th>
               <th scope="col"align="center"><h2>CANTIDAD</h2></th>
-
+              <th scope="col" align="center"><h2>PRECIO</h2></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <?php 
+
+              //OBTENER EL ID DE LA ORDEN Y DEL USUARIO
+              if($_GET['id_orden']&&$_GET['usr']){
+                $id_orden=$_GET['id_orden'];
+                $usr=$_GET['usr'];}
+                // USAR EL ID DE LA ORDEN PARA OBTENER TODOS LOS PRODUCTOS DEL CARRITO
+                $carritoConsulta="SELECT PRD.id_producto,PRD.nom_producto, PRD.precio,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat
+                FROM usuarios
+                JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+                JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
+                $carrito=$db->seleccionarDatos($carritoConsulta);
+
+                foreach ($carrito as $res) {
+                  ?>
+                    <tr>
               <th scope="row">
                 <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" alt="">
               </th>
-                  <td colspan="1" class="nombre-prod">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut error facere esse quo nostrum doloribus ducimus sunt quae reprehenderit cum corrupti odit, numquam, corporis qui, veniam autem amet eum. Exercitationem neque excepturi explicabo necessitatibus nostrum laboriosam obcaecati quae debitis, impedit inventore asperiores ratione earum, nemo cupiditate odit facilis doloribus illum?</td>
+                  <td colspan="1" class="nombre-prod"><?php echo $res['nom_producto'];?></td>
                   <td align="center"class ="contadores">
-                    2
+                  <?php echo $res['cantidad'];?>
                     <br>
-                    <a href=""><h6>quitar</h6></a>
+                    <a href="http://localhost/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
+                      <?php echo $usr;?>&ord=<?php echo $id_orden;?>&cantidad=<?php echo $res['cantidad'];?>" class="btn btn-outline-dark border-0">Quitar</a>
                   </td>
+                  <td><h3  class="text-danger"align="center"><?php $precioU=$res['precio']; $cant=$res['cantidad']; $precioT=$precioU*$cant; echo $precioT?></h3></td>
              </tr>
-             <tr>
-              <th scope="row">
-                <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" alt="">
-              </th>
-                  <td colspan="1" class="nombre-prod">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut error facere esse quo nostrum doloribus ducimus sunt quae reprehenderit cum corrupti odit, numquam, corporis qui, veniam autem amet eum. Exercitationem neque excepturi explicabo necessitatibus nostrum laboriosam obcaecati quae debitis, impedit inventore asperiores ratione earum, nemo cupiditate odit facilis doloribus illum?</td>
-                  <td align="center"class ="contadores">
-                    2
-                    <br>
-                    <a href=""><h6>quitar</h6></a>
-                  </td>
-             </tr>
-             <tr>
-              <th scope="row">
-                <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" alt="">
-              </th>
-                  <td colspan="1" class="nombre-prod">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut error facere esse quo nostrum doloribus ducimus sunt quae reprehenderit cum corrupti odit, numquam, corporis qui, veniam autem amet eum. Exercitationem neque excepturi explicabo necessitatibus nostrum laboriosam obcaecati quae debitis, impedit inventore asperiores ratione earum, nemo cupiditate odit facilis doloribus illum?</td>
-                  <td align="center"class ="contadores">
-                    2
-                    <br>
-                    <a href=""><h6>quitar</h6></a>
-                  </td>
-             </tr>
+                  <?php  };
+              
+            ?>
          </tbody>
         </table>
       </div>
     </div>
-      <div class="col-sm-12 col-md-3 col-lg-4 carrito">
+      <div class="col-sm-12 col-md-5 col-lg-5 carrito">
         <div class="row">
-          <h2 class="total col-sm-5 col-md-8 col-lg-8">TOTAL</h2>
-          <h2 class="col-sm-2  col-md-1 moneda">MXN</h2>
-          <h2 class="col-sm-2 col-md-1 total-precio">$1999</h2>
+          <h2 class="total col-sm-12 col-md-12 col-lg-12">TOTAL</h2> <br>
+          <h2 class="col-sm-5  col-md-2 moneda">MXN</h2><br>
+          <?php
+          $TotalQry="SELECT TRUNCATE(SUM(PRDT.precio * PRDT.cantidad),2) as TOTAL FROM
+          (SELECT PRD.id_producto,PRD.nom_producto, PRD.precio,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat
+                          FROM usuarios
+                          JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+                          JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                          WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PRDT";
+          $Total=$db->seleccionarDatos($TotalQry);
+          foreach($Total as $res){
+          ?>
+          <h2 class="col-sm-5 col-md-5 total-precio"><?php
+          echo $res['TOTAL']
+           ?></h2>
+          <?php
+          }
+          ?>
         </div> 
         <br>
         <hr>
-        <p>
+        <div class="row">
+        <p class="col-12">
           Las entregas de los productos son entregados 
           exclusivamente en la tienda. Oprime el boton de 
           “FINALIZAR COMPRA” para imprimir tu ticket de 
           compra y sigue las instrucciones que muestra tu ticket 
           de compra
         </p>
-        <a href="" class="btn btn-success"> FINALIZAR COMPRA</a> 
+        <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/geekhaven/src/scripts/cart/validacionCart.php?orden=<?php echo $id_orden; ?>" class="botn col-12 m-5"> FINALIZAR COMPRA</a> 
+        </div>
+       
       </div>
     </div> 
   </div>
