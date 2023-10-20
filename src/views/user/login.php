@@ -36,8 +36,7 @@
                 elseif($decrypted['tipo_usuario']==1){
                   session_start();
                  $_SESSION['user']=$id_usuario;
-                 header("Location: /geekhaven/index.php");
-                }
+                 header("Location:../../../index.php");
                  
                }
                

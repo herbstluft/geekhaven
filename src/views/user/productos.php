@@ -21,13 +21,10 @@
         $categoria=$info_producto['nom_cat'];
         
 
-    }
-
-
-
-
+    }    
     $sql = "SELECT * from categorias";
-    $categorias=$db->seleccionarDatos($sql);
+    $categorias=$db->seleccionarDatos($sql);   
+   
 ?>
 
 
@@ -38,6 +35,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Producto</title>
     <style>
         
@@ -70,7 +68,7 @@
         {
             padding-top: 5% !important;
             padding-right: 5% !important;
-            margin-left: 5%  !important;
+            margin-left: 7%  !important;
             margin-right: 3%  !important;
             color: #494747;
         }
@@ -97,9 +95,8 @@
             margin-left: 1.5em;
         }
         .contador{
-            margin-left: 3.5em;    
             display:flex;
-            width: 110px;
+            width: 200px;
             height: 60px;
             border-radius: 40px;
         }
@@ -131,7 +128,7 @@
             margin-top: .4em;
             margin-left: 13px;
         }
-        .btn-primary{
+        /* .btn-primary{
             margin-top: 15px;
             background-color: #3A40D6 !important;
             font-size:2em;
@@ -148,7 +145,7 @@
             width: 100%;
             height: 100%;
             border-radius: 40px;
-        }
+        } */
         .cont-back{
             position: relative;
             width: 100%;
@@ -234,27 +231,52 @@ include('../../../templates/navbar/navbar.php');
                         </h3>
                         <h3>
                             Categoria: <?php echo $categoria ?>
-                        </h3>
-                        <h3>
-                            Cantidad
-                        </h3>
-                        <div class="contador ">
-                            <div class="input-group mb-3">
-                                <input style="text-align:center; border-radius:20px" type="number" min="0" class="form-control" placeholder="Cantidad"  aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                        </div>
+                        </h3>                        
                     </div>
                     <div class="productobott">
-                        <h4>Descripcion</h4>
-                      
-                        <br>
-                        <p><?php echo $descripcion; 
-                        if(empty($descripcion)){
-                            echo '<p style="color:red"> Lo sentimos, este producto no cuenta con una descripcion.</p>';
-                        }
-                        ?></p>
-                        <br><br>
-                        <center> <a href="src/views/user/productos.php?id=3" type="button" style=" font-size:25px; width:50%; text-align:center; border:none; border-radius:20px; background-color: #0071e3; color: white; padding: 10px 25px;">Añadir al carrito </a></center>
+                        
+                           <?php 
+                           $_SESSION['user'];
+
+                            
+                            $usr=$_SESSION['user']; 
+                            $ordQry="SELECT detalle_orden.id_orden 
+                            FROM usuarios
+                            JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+                            JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                            WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1";
+                            $ord=$db->seleccionarDatos($ordQry);
+
+                            ?>
+                            
+                            <!-- Modal -->
+                            <form action="http://localhost/geekhaven/src\scripts\cart\addPrdCart.php" method="GET">
+                            <div class="mb-3">
+                                <!--prd--> 
+                                <input type="hidden"name ="id" id="id" value="<?php echo $id;?>">
+                                <!-- usr -->
+                                <input type="hidden" name ="usr" id="usr" value="<?php echo $usr;?>">
+                                <!-- orden --> 
+                                <!-- cantidad -->
+                                <div class="col-3 ms-1">
+                                    <h3 class="ms-1">Cantidad</h3>
+                                    <input style="text-align:center; border-radius:20px; width:65%; height:100%" type="number" min="1" max="<?php echo $existencia;?>"class="form-control fs-9" placeholder="1" name="cantidad" id="cantidad" >
+                                </div><br>
+                                <h3 class="ms-2">Descripcion</h3> 
+                                    <p class="ms-2 justify-content-center"><?php echo $descripcion; 
+                                    if(empty($descripcion)){
+                                        echo '<p style="color:red"> Lo sentimos, este producto no cuenta con una descripcion.</p>';
+                                    }
+                                    ?></p>
+                                    <br><br>    
+                                
+                                </div><br>
+                                <!-- enviar -->
+                                <button type="submit" class="btn btn-dark col-12 p-2 fs-3" data-bs-toggle="modal" data-bs-target="#add">
+                                AÑADIR AL CARRITO
+                                </button>
+                            
+                            </form>
                     </div>
             </div>
         </div>

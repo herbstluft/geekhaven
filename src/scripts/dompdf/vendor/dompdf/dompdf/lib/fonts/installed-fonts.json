@@ -1,0 +1,9 @@
+{
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_46b77e52f90f4a4bb6b06f59df9495c3"
+    },
+    "font awesome 5 free": {
+        "normal": "C:\\xampp\\htdocs\\geekhaven\\src\\scripts\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/font_awesome_5_free_normal_1caf3cfb62385c212e463e185e07e09e",
+        "900": "font_awesome_5_free_900_26af9e51d7f6a3784d3495b1580a4b86"
+    }
+}
