@@ -3,6 +3,8 @@
     require("vendor/autoload.php");
     $db = new Database;
     
+    //ocultar warnings
+error_reporting(E_ERROR | E_PARSE);
     $resultado = "select * from usuarios";
    
 //extraer datos del formulario
@@ -34,280 +36,269 @@
   
 ?>
 
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<!--Boostrap-->   
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-<!--Boostrap--> 
-<link rel="stylesheet" href="bootstrap/css/estilos.css">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="src/views/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="bootstrap/css/estilos.css" />
+  
 </head>
 
+<style>
+
+</style>
+<body>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
 
 
+      <div class="container-fluid">
+       
+<div class="scroll-appear">
 
-<body style="background:white">    
+      <h1 class="text-center" style="font-weight: 600;color: #000; font-size: 36px;">
+      Geek Hasta el final, ¡Game Over!
+              </h1>
+        
+        <br>
 
-<?php include 'templates/navbar/navbar.php';?>
-
-
-    <section id="banner" >
-        <div id="outer" style="border-bottom:100px black">
-          <div id="hero">
-            <h2 style="color: white;" >  <svg class="reveal-text"style="margin-top: -95px;"  xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="white" class="bi bi-joystick" viewBox="0 0 16 16">
-                        <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"/>
-                        <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"/>
-                      </svg>       <p class="reveal-text" style="-webkit-text-stroke: 2px black; "> Conectando Geeks, Un Click a la vez.</p></h2>
-          </div>
-        </div>
-      </section>
-<br><br>
-
-<div class="container">
-<h1 style="margin-left:40px">Categorias</h1> <p data-bs-toggle="modal" data-bs-target="#opciones" style="margin-left:50px; font-size:17px; color:#0d6efd">Ver mas</p>
+        
+        <div id="carouselExampleDark" class="carousel carousel-light slide" >
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img style="border-radius:25px;     width: 100% !important;" src="https://cdn.pixabay.com/photo/2021/09/07/07/11/joysticks-6603119_1280.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 style="color:white"; >Bienvenido a GeekHaven</h5>
+        <p>Diseñado por Geeks, para Geeks. Descubre Nuestra Colección Excepcional de Productos Tecnológicos y Artículos de Colección.</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img style="border-radius:25px;     width: 100% !important;" src="https://cdn.pixabay.com/photo/2021/10/07/20/46/playstation-6689793_1280.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5  style="color:white";>GeekHaven</h5>
+        <p>Tu Espacio de Compras Exclusivo para Geeks, donde la Innovación es la Norma.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img style="border-radius:25px;     width: 100% !important;" src="https://cdn.pixabay.com/photo/2016/11/02/14/15/x-box-1791676_1280.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5  style="color:white";>Convierte tu Pasión en Realidad</h5>
+        <p>GeekHaven te Ofrece una Experiencia de Compra Geek Inigualable, incluyendo Videojuegos.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
-<?php include 'templates/carrousel.html'; ?>
+</div>
 
+<br><br>
+
+
+
+<div class="scroll-appear">
+<h3>Categorias</h3>
 <br>
 
 
+<?php include 'templates/carrousel.html'; ?>
+<br><br><br>
 
-<!--Banner favoritos-->
+
+
+
+
+<div class="scroll-appear">
+<div class="container">
+  
 <section id="shopify-section-template--16720316268796__d094902d-6b1f-4787-b493-b2a861dfc204" class="shopify-section shopify-section--image-with-text-overlay"><style>
       #shopify-section-template--16720316268796__d094902d-6b1f-4787-b493-b2a861dfc204 {--section-outer-spacing-block: 0;--content-over-media-overlay: 0 0 0 / 0.0;}
     </style>
 
-    <div class="section   section-blends section-full text-custom" style="--text-color: 255 255 255;"><image-banner reveal-on-scroll="true" class="content-over-media content-over-media--auto full-bleed  text-custom" style="--text-color: 255 255 255; opacity: 1;"><img style="width:100%; height:10%" src="//www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1920" alt="" srcset="//www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=200 200w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=300 300w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=400 400w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=500 500w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=600 600w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=700 700w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=800 800w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=900 900w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1000 1000w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1200 1200w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1400 1400w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1600 1600w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1800 1800w" width="1920" height="500" loading="lazy" sizes="100vw" class=""><div class="place-self-center text-center sm:place-self-center sm:text-center">
+    <div class="section   section-blends section-full text-custom" style="--text-color: 255 255 255;"><image-banner  reveal-on-scroll="true" class="content-over-media content-over-media--auto full-bleed  text-custom" style="--text-color: 255 255 255; opacity: 1;"><img style="width:98%; height:10%; border-radius:20px" src="//www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1920" alt="" srcset="//www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=200 200w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=300 300w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=400 400w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=500 500w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=600 600w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=700 700w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=800 800w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=900 900w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1000 1000w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1200 1200w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1400 1400w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1600 1600w, //www.gamerpoint.com.mx/cdn/shop/files/favoritos_del_mes_2.png?v=1692920156&amp;width=1800 1800w" width="1920" height="500" loading="lazy" sizes="100vw" class=""><div class="place-self-center text-center sm:place-self-center sm:text-center">
             <div class="prose"></div>
           </div></image-banner>
     </div>
 </section>
-<!--Banner favoritos-->
+</div>
+<br><br>
+</div>
 
-<br>
+</div>
 
 
-<div class="container">
 
-<br>
-
-<section class="cards" >
-
+<div class="container" style="margin-left:15px">
+<div class="scroll-appear">
 <div class="row">
 
+<?php 
 
-<?php
 foreach($favoritos_del_mes as $fav_del_mes){
+
 ?>
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+
+          <div class="col-sm-6 col-xl-3">
+
+            <div class="card overflow-hidden rounded-2">
+              <div class="position-relative">
+                <a href="javascript:void(0)"><img src="src/views/admin/assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
+                <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
-  </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> <?php echo $fav_del_mes['categoria']?> </span>
-    <h3 class="card__title text-truncate"> <?php echo $fav_del_mes['nombre']?> </h3>
+                </a>                      
+              </div>
+              <div class="card-body pt-3 p-4">
+                    <div style="width:100%;" >
+                    <h6 class="fw-semibold fs-4 text-truncate"><?php echo $fav_del_mes['nombre']?>  </h6>
+                    </div>
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $fav_del_mes['precio']; ?></h6>
+                  <ul class="list-unstyled d-flex align-items-center mb-0">
+                  <?php echo $fav_del_mes['categoria']?>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"><?php echo '$' . $fav_del_mes['precio']; ?> </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> <?php echo '$' .' '. $fav_del_mes['precio']; ?> </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><a href="src/views/user/productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>" type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
-    </div>
-
-    </div>
-  
-  </div>
-  </article>
-  </div>
-
-
-  <?php
+<?php 
 }
 ?>
 
 </div>
-</section>
-<br>
 </div>
 
 
-
-<!--Banner Nuestras ofertas-->
-<section id="shopify-section-template--16720316268796__cc59a5da-2ddc-4087-b944-3ca979c3c8b5" class="shopify-section shopify-section--image-with-text-overlay"><style>
-  #shopify-section-template--16720316268796__cc59a5da-2ddc-4087-b944-3ca979c3c8b5 {--section-outer-spacing-block: 0;--content-over-media-overlay: 0 0 0 / 0.0;}
-</style>
-
-<div class="section   section-blends section-full text-custom" style="--text-color: 255 255 255;"><image-banner reveal-on-scroll="true" class="content-over-media content-over-media--auto full-bleed  text-custom" style="--text-color: 255 255 255; opacity: 1;"><img style="width:100%; height:10%"src="//www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1920" alt="" srcset="//www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=200 200w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=300 300w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=400 400w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=500 500w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=600 600w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=700 700w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=800 800w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=900 900w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1000 1000w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1200 1200w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1400 1400w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1600 1600w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1800 1800w" width="1920" height="500" loading="lazy" sizes="100vw" class=""><div class="place-self-center text-center sm:place-self-center sm:text-center">
+<div class="scroll-appear">
+<br><br>
+<div class="container" style="margin-left:-10px">
+<div class="section   section-blends section-full text-custom" style="--text-color: 255 255 255;"><image-banner reveal-on-scroll="true" class="content-over-media content-over-media--auto full-bleed  text-custom" style="--text-color: 255 255 255; opacity: 1;"><img style="width:98%; height:10%; border-radius:20px" src="//www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1920" alt="" srcset="//www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=200 200w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=300 300w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=400 400w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=500 500w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=600 600w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=700 700w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=800 800w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=900 900w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1000 1000w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1200 1200w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1400 1400w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1600 1600w, //www.gamerpoint.com.mx/cdn/shop/files/NUESTRAS_OFERTAS.png?v=1692920909&amp;width=1800 1800w" width="1920" height="500" loading="lazy" sizes="100vw" class=""><div class="place-self-center text-center sm:place-self-center sm:text-center">
         <div class="prose"></div>
       </div></image-banner>
 </div>
-
-</section>
-<!--Banner Nuestras ofertas-->
-
-<div class="container">
-
+</div>
 <br><br>
+</div>
 
-<section class="cards" >
 
+<div class="scroll-appear">
 <div class="row">
 
 <?php
 foreach($ofertas as $ofertas){
 ?>
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+
+<div class="col-sm-6 col-xl-3">
+
+<div class="card overflow-hidden rounded-2">
+  <div class="position-relative">
+    <a href="javascript:void(0)"><img src="src/views/admin/assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
+    <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
+    </a>                      
   </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> <?php echo $ofertas['nom_cat']?> </span>
-    <h3 class="card__title text-truncate"> <?php echo $ofertas['nom_producto']?> </h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"><?php echo '$' . $ofertas['precio']; ?> </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> <?php echo '$' .' '. $ofertas['precio']; ?> </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><a href="src/views/user/productos.php?id=<?php echo $ofertas['id_producto']; ?>" type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
+  <div class="card-body pt-3 p-4">
+        <div style="width:100%;" >
+        <h6 class="fw-semibold fs-4 text-truncate"> <?php echo $ofertas['nom_producto']?> </h6>
+        </div>
+    <div class="d-flex align-items-center justify-content-between">
+      <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $ofertas['precio']; ?></h6>
+      <ul class="list-unstyled d-flex align-items-center mb-0">
+      <?php echo $ofertas['nom_cat']?>
+      </ul>
     </div>
-
-    </div>
-  
   </div>
-  </article>
-  </div>
+</div>
+</div>
 
-
-  <?php
+<?php
 }
 ?>
-
 </div>
-</section>
-<br>
 </div>
 
 
 
 
-
-<!--Banner Recien llegados-->
-<section id="shopify-section-template--16720316268796__e185ede4-9983-45f9-b549-53a381934d9a" class="shopify-section shopify-section--image-with-text-overlay"><style>
-  #shopify-section-template--16720316268796__e185ede4-9983-45f9-b549-53a381934d9a {--section-outer-spacing-block: 0;--content-over-media-overlay: 0 0 0 / 0.0;}
-</style>
-
-<div class="section   section-blends section-full text-custom" style="--text-color: 255 255 255;"><image-banner reveal-on-scroll="true" class="content-over-media content-over-media--auto full-bleed  text-custom" style="--text-color: 255 255 255; opacity: 1;"><img style="width:100%; height:10%"  src="//www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1920" alt="" srcset="//www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=200 200w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=300 300w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=400 400w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=500 500w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=600 600w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=700 700w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=800 800w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=900 900w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1000 1000w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1200 1200w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1400 1400w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1600 1600w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1800 1800w" width="1920" height="500" loading="lazy" sizes="100vw" class=""><div class="place-self-center text-center sm:place-self-center sm:text-center">
+<div class="scroll-appear">
+<br><br>
+<div class="container"  style="margin-left:-10px">
+<div class="section   section-blends section-full text-custom" style="--text-color: 255 255 255;"><image-banner reveal-on-scroll="true" class="content-over-media content-over-media--auto full-bleed  text-custom" style="--text-color: 255 255 255; opacity: 1;"><img style="width:98%; height:10%;border-radius:20px" src="//www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1920" alt="" srcset="//www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=200 200w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=300 300w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=400 400w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=500 500w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=600 600w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=700 700w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=800 800w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=900 900w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1000 1000w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1200 1200w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1400 1400w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1600 1600w, //www.gamerpoint.com.mx/cdn/shop/files/RECIEN_LLEGADOS.png?v=1692920978&amp;width=1800 1800w" width="1920" height="500" loading="lazy" sizes="100vw" class=""><div class="place-self-center text-center sm:place-self-center sm:text-center">
         <div class="prose"></div>
       </div></image-banner>
 </div>
-</section>
-<!--Banner Recien llegados-->
-
-<div class="container">
-
+</div>
 <br><br>
+</div>
 
-<section class="cards" >
 
+<div class="scroll-appear">
 <div class="row">
+
 
 <?php
 foreach($recien_llegados as $recien_llegados){
 ?>
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-  <div class="card__info-hover">
-    <svg class="card__like"  viewBox="0 0 24 24">
-    <path fill="#000000" d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+
+<div class="col-sm-6 col-xl-3">
+
+<div class="card overflow-hidden rounded-2">
+  <div class="position-relative">
+    <a href="javascript:void(0)"><img src="src/views/admin/assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
+    <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
-      <div class="card__clock-info">
-        <svg class="card__clock"  viewBox="0 0 24 24"><path d="M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z" />
-        </svg><span class="card__time">15 min</span>
-      </div>
-    
+    </a>                      
   </div>
-  <div class="card__img"> </div>
-  <a href="#" class="card_link">
-     <div class="card__img--hover"></div>
-   </a>
-  <div class="card__info">
-    <span class="card__category"> <?php echo $recien_llegados['nom_cat']?> </span>
-    <h3 class="card__title text-truncate"> <?php echo $recien_llegados['nom_producto']?> </h3>
-
-    <div class="row">
-      <div class="col-4 text-end">
-      <span class="d-block d-sm-none" style="color:red; font-size:15px;"><?php echo '$' . $recien_llegados['precio']; ?> </span>
-      <span class="d-none d-sm-block" style="color:red; font-size:18px;"> <?php echo '$' .' '. $recien_llegados['precio']; ?> </span>
-      </div>
-
-      <div class="col-6 text-end" style="margin-left:10%" >
-    <span ><a href="src/views/user/productos.php?id=<?php echo $recien_llegados['id_producto']; ?>" type="button" style="  border:none; border-radius:980px; background-color: #0071e3; color: white; padding: 10px 25px; top:-5px; position:relative">Ver </a></span>
+  <div class="card-body pt-3 p-4">
+        <div style="width:100%;" >
+        <h6 class="fw-semibold fs-4 text-truncate"> <?php echo $recien_llegados['nom_producto']?> </h6>
+        </div>
+    <div class="d-flex align-items-center justify-content-between">
+      <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .' '. $recien_llegados['precio']; ?></h6>
+      <ul class="list-unstyled d-flex align-items-center mb-0">
+      <?php echo $recien_llegados['nom_cat']?> 
+      </ul>
     </div>
-
-    </div>
-  
   </div>
-  </article>
-  </div>
+</div>
+</div>
 
-
-  <?php
+<?php
 }
 ?>
-
- 
 </div>
-</section>
-
-<br>
+</div>
 
 
+</div>
 
 
 
-<br>
-<h1 style="margin-left:40px">Nuestros Universos</h1>
+<br><br><br>
+<h2>Universos</h2>
+<br><br>
 
 <div class="container">
-
+<div class="scroll-appear">
 <div class="row">
 
   <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
@@ -385,29 +376,73 @@ foreach($recien_llegados as $recien_llegados){
   
   </div>
 
+  </div>
+
 
 <br><br>
 <hr>
 <br><br>
 
-<?php include 'templates/footer.html';?>
+
+<div>
+<div class="scroll-appear">
+    <div class="row">
+        <div class="col-sm-12 col-lg-4 left">
+          <h2>Nosotros</h2>
+          <p class="card__category">En nuestra tienda, encontrarás una cuidadosa selección de productos de alta calidad y ediciones especiales que se adaptan a tus intereses y gustos únicos. Ya seas un fanático de las historias de superhéroes, un ávido jugador de videojuegos o un coleccionista de figuras raras, estamos aquí para satisfacer tus necesidades.</p>
+          <br>
+          <h2>Nuestra mision</h2>
+          <p class="card__category">Somos una tienda creada con pasión por y para los coleccionistas y entusiastas del mundo geek, friki y gamer. Nos apasiona proporcionar un espacio donde puedas encontrar una amplia variedad de artículos coleccionables, desde cómics y mangas hasta videojuegos y juegos de mesa. Nuestra misión es hacer que la obtención de tus artículos favoritos sea fácil y emocionante.</p>
+        </div>
+    <br>
+        <div class="col-sm-12 col-lg-7 text-center">
+          <h1>Nuestra ubicacion</h1>
+          <p class="card__category"> Av. Hidalgo 1334, Primitivo Centro, 27000 Torreón, Coah.</p>
+      <iframe style="width:100%; height:90%; border-radius:15px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.033275675958!2d-103.46544792451171!3d25.537268477493672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fd9689c38aa7b%3A0x93f069a0cb99a84!2sPlaza%20de%20la%20Tecnolog%C3%ADa%20Torre%C3%B3n!5e0!3m2!1ses!2smx!4v1696054214019!5m2!1ses!2smx" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    
+      </div>
+
+      </div>
+</div>
 
 
 </div>
 
-<br><br>
-<br><br>
+<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
 
 
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const scrollAppearElements = document.querySelectorAll(".scroll-appear");
 
-<script src="bootstrap/js/buscador.js"></script>
+  const options = {
+    root: null, // viewport
+    rootMargin: "0px",
+    threshold: 0,
+  };
 
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("appear");
+      } else {
+        entry.target.classList.remove("appear");
+      }
+    });
+  }, options);
 
-
-
-
-
+  scrollAppearElements.forEach((element) => {
+    observer.observe(element);
+  });
+});
+</script>
 
 </body>
+
 </html>

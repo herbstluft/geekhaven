@@ -381,3 +381,18 @@
       border-radius: 2em;
       box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
     }
+
+
+
+/*Animacion de scroll*/
+    .scroll-appear {
+      opacity: 0.7;
+      transform: translateY(100px);
+      transition: opacity 3s, transform 0.5s;
+    }
+    .scroll-appear.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    
