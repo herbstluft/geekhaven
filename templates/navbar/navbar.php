@@ -56,7 +56,20 @@ a{
                         </a>
 
                         <!--login -->
-                        <a href="http://localhost/geekhaven/src/views/user/login.php" style="margin-right: 15px;">
+                        <?php
+                        $acceso=0;
+                        if(isset($_SESSION['user'])){
+                          ?>
+                          <a href="http://localhost/geekhaven/src/views/user/perfilUsr.php" style="margin-right: 15px;">
+                          <?php
+                        }
+                        else{
+                          ?>
+                          <a href="http://localhost/geekhaven/src/views/user/login.php" style="margin-right: 15px;">
+                          <?php
+                        }
+                        ?>
+                        
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" class="bi bi-person" viewBox="0 0 16 16">
                                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                               </svg>
@@ -81,8 +94,11 @@ a{
 
 
             <?php
+            use MyApp\data\Database;
+            require(__DIR__ . '/../../vendor/autoload.php');
+            $db = new Database;
             //Igualar variable usr a la id de la sesion
-            $usr=40;
+            $usr=$_SESSION['user'];
              // ver si ya tiene ordenes en estado 0 
             $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               (SELECT detalle_orden.id_orden 
@@ -340,15 +356,6 @@ a{
 
     <br>
    
-
-<?php 
-
-use MyApp\data\Database;
-require(__DIR__ . '/../../vendor/autoload.php');
-$db = new Database;
-
-
-?>
 
   <div class="contenido_de_buscar" style="margin-left:10px; margin-right:10px;">
 

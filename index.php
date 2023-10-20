@@ -22,7 +22,7 @@ error_reporting(E_ERROR | E_PARSE);
 
 
     //ofertas
-    $sql="SELECT * from productos INNER JOIN categorias on categorias.id_cat=productos.id_cat WHERE productos.estado='oferta';";
+    $sql="SELECT * from productos INNER JOIN categorias on categorias.id_cat=productos.id_cat WHERE productos.estado='oferta' AND productos.existencia>0;";
     $ofertas=$db->seleccionarDatos($sql);
 
 

@@ -114,6 +114,6 @@ $dompdf->setPaper('letter');
 
 $dompdf->render();
 
-$dompdf->stream("Archivo_PDF.pdf",array("Attachment"=>false));
+$dompdf->stream("ticket1.pdf",array("Attachment"=>true));
 
 ?>
