@@ -3,7 +3,8 @@
  require("../../../vendor/autoload.php");
  $db = new Database();
 
-
+    //ocultar warnings
+    error_reporting(E_ERROR | E_PARSE);
  $sql = "SELECT * from categorias";
 
  $categorias=$db->seleccionarDatos($sql);
@@ -41,6 +42,7 @@
                }
                
               }
+             }
                ?>
           
 <!doctype html>
