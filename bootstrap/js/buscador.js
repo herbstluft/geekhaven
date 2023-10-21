@@ -2,22 +2,17 @@
   'buscador';
 
   var LightTableFilter = (function(Arr) {
-
     var _input;
 
     function _onInputEvent(e) {
       _input = e.target;
-      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-      Arr.forEach.call(tables, function(table) {
-        Arr.forEach.call(table.tBodies, function(tbody) {
-          Arr.forEach.call(tbody.rows, _filter);
-        });
-      });
-    }
+      var cards = document.querySelectorAll('.col-sm-6');
 
-    function _filter(row) {
-      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+      Arr.forEach.call(cards, function(card) {
+        var productName = card.querySelector('.text-truncate').textContent.toLowerCase();
+        var val = _input.value.toLowerCase();
+        card.style.display = productName.indexOf(val) === -1 ? 'none' : 'block';
+      });
     }
 
     return {
@@ -35,5 +30,4 @@
       LightTableFilter.init();
     }
   });
-
 })(document);

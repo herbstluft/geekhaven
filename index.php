@@ -49,9 +49,7 @@ error_reporting(E_ERROR | E_PARSE);
   
 </head>
 
-<style>
 
-</style>
 <body>
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
 
@@ -59,6 +57,10 @@ error_reporting(E_ERROR | E_PARSE);
       <div class="container-fluid">
        
 <div class="scroll-appear">
+
+
+
+
 
       <h1 class="text-center" style="font-weight: 600;color: #000; font-size: 36px;">
       Geek Hasta el final, ¡Game Over!
@@ -442,6 +444,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+
+
+
 
 </body>
 
