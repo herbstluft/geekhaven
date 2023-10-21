@@ -182,7 +182,7 @@ a{
                  <?php
                 }// AQUI TERMINA EL IF PARA VER SI HAY ORDENES
                 else if(empty($ord)){  
-                  echo '?>
+                   ?>
                       <!-- Modal CARRITO -->
                       <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -206,8 +206,8 @@ a{
                                             </div>
                                           </div>
                                     </a>
-                  <?php;
-                 ';}?>
+                  <?php
+                 }?>
               
                     </div>
                 </div>
