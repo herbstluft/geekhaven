@@ -1,0 +1,139 @@
+body.dark-mode {
+    background-color: #010101 ;
+    color: #939393    ;
+}
+
+
+/*Barra principal float top/*/
+body.dark-mode .floating-bar {
+    position: fixed;
+    top: 0;
+    margin-left: -3%;
+    width: 100%;
+    background-color: #0101016e;
+    backdrop-filter: blur(25px);
+    color: #fff;
+    padding: 0px 20px;
+    padding-top: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    
+}
+
+/*Barra principal float top/*/
+
+    /*Barra principal float bottom opciones/*/
+    body.dark-mode .floating-bar-bottom {
+        position: fixed;
+        bottom: 0%;
+        margin-left: -3%;
+        width: 100%;
+        background-color: #010101ac;
+        backdrop-filter: blur(25px);
+        color: #111111;
+        padding: 0px 20px;
+        padding-top: 15px;
+        z-index: 1;
+    }
+    body.dark-mode #icon_bar{
+        fill: #939393;
+        color: #939393;
+    }
+    /*Barra principal float bottom opciones/*/
+
+
+
+/*Barra Chats titulo y buscar/*/
+body.dark-mode #chats{
+    color: white; font-weight: 600; font-size: 35px;
+}
+body.dark-mode #search{
+    background-color: #171717  ;
+    border: 0px;
+    width: 100%;
+    padding: 1.5%;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #939393;
+    outline: 0;
+    padding-left: 5%;
+}
+/*Barra Chats titulo y buscar/*/
+
+
+/*Links/*/
+body.dark-mode #link{
+    color: #0a85f0  ;
+}
+/*Links/*/
+
+
+/*Lista de chats/*/
+body.dark-mode #nombrechat{
+    color: white;
+    font-size: 17px; 
+    margin-top: 0.2%;
+   }
+   /*Lista de chats/*/
+
+
+
+/*Cambiar tema icono/*/
+   body.dark-mode  #change-theme{
+    fill: yellow;
+}
+body.dark-mode button {
+    background-color: transparent;
+   border: 0px;
+}
+/*Cambiar tema icono/*/
+
+
+
+    /*SPAN/*/
+    body.dark-mode #span{
+        --bs-text-opacity: 1;color: rgb(217, 218, 220) !important;font-size: 0.875em"
+    }
+         /*SPAN/*/
+    
+
+     /*Background form configuracion/*/
+     body.dark-mode #back_form{
+        background-color: #22222295; border-radius: 10px; padding: 22px; 
+    }
+         /*Background form configuracion/*/
+
+
+/*input formularios/*/
+body.dark-mode  .inputt{
+    width: 100%;
+    margin: auto;
+    background-color: #2b2b2b;
+    color: rgb(198, 198, 198);
+    margin-bottom:1.5%;  border:0px; border-radius:10px; height:8%;
+}
+/*input formularios/*/
+
+
+
+/*boton blue  forms/*/
+body.dark-mode .boton{
+    background-color: #0d6efd;
+    padding: 15px;
+    width: 100%;
+    color: white;
+    border-radius: 10px;
+   
+}
+/*boton blue  forms/*/
+
+body.dark-mode .background-modal{
+    background: rgba(251, 251, 253, .8); backdrop-filter: saturate(180%) blur(20px);border:0px; border:0px
+}
+body.dark-mode .text_modal{
+    color:black;
+}
+body.dark-mode .back_input_num{
+    background-color: #e0e0e06a;
+    color: black;
+}

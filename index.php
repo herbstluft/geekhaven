@@ -2,6 +2,8 @@
     use MyApp\data\Database;
     require("vendor/autoload.php");
     $db = new Database;
+
+    session_start();
     
     //ocultar warnings
 error_reporting(E_ERROR | E_PARSE);

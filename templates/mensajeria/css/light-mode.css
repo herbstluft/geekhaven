@@ -1,0 +1,154 @@
+
+body.light-mode {
+    background-color: #eee;
+    color: #111;
+}
+
+/*Barra principal float top/*/
+body.light-mode .floating-bar {
+    position: fixed;
+    top: 0;
+    margin-left: -3%;
+    width: 100%;
+    background-color: #eeeeeeab;
+    backdrop-filter: blur(25px);
+    color: #111111;
+    padding: 0px 20px;
+    padding-top: 15px;
+    z-index: 1;
+}
+/*Barra principal float top/*/
+
+    /*Barra principal float bottom opciones/*/
+    body.light-mode .floating-bar-bottom {
+        position: fixed;
+        bottom: 0%;
+        margin-left: -3%;
+        width: 100%;
+        background-color: #eeeeeeab;
+        backdrop-filter: blur(25px);
+        color: #939393;
+        padding: 0px 20px;
+        padding-top: 15px;
+        z-index: 1;
+        display: inline;
+    }
+    body.dark-mode #icon_bar{
+        fill: #939393;
+        color: #939393;
+    }
+    /*Barra principal float bottom opciones/*/
+
+
+
+/*Barra Chats titulo y buscar/*/
+body.light-mode #chats{
+    color: rgb(0, 0, 0); font-weight: 600; font-size: 35px;
+}
+body.light-mode #search{
+    background-color: #dddddd ;
+    border: 0px;
+    width: 100%;
+    padding: 1.5%;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #939393;
+    outline: 0;
+    padding-left: 5%;
+}
+/*Barra Chats titulo y buscar/*/
+
+/*Links/*/
+body.light-mode #link{
+    color: #0a85f0  ;
+}
+/*Links/*/
+
+
+
+
+
+
+
+
+   /*Lista de chats/*/
+body.light-mode #nombrechat{
+ color: #111;
+ font-size: 17px; 
+ margin-top: 0.2%;
+}
+body.light-mode #mensajechat{
+    color: #939393;
+}
+   /*Lista de chats/*/
+
+
+  /*Cambiar tema icono/*/
+ body.light-mode  #change-theme{
+    fill: #0a85f0;
+}
+body.light-mode button {
+    background-color:transparent;
+    border: none;
+    color: #eee;
+}
+  /*Cambiar tema icono/*/
+
+
+    /*SPAN/*/
+body.light-mode #span{
+    --bs-text-opacity: 1;color: rgb(35, 38, 42) !important;font-size: 0.875em"
+}
+     /*SPAN/*/
+
+
+
+     /*Background form configuracion/*/
+body.light-mode #back_form{
+    background-color: #cacaca64; border-radius: 10px; padding: 22px; 
+}
+     /*Background form configuracion/*/
+
+
+/*input formularios/*/
+body.light-mode  .inputt{
+    width: 100%;
+    margin: auto;
+    background-color: #c3c3c35d;
+    color: rgb(46, 46, 46);
+    margin-bottom:1.5%;  border:0px; border-radius:10px; height:8%;
+}
+/*input formularios/*/
+
+
+
+/*boton blue  forms/*/
+body.light-mode .boton{
+    background-color: #0d6efd;
+    padding: 15px;
+    width: 100%;
+    color:white;
+    border-radius: 10px;
+   
+}
+/*boton blue  forms/*/
+
+
+
+body.light-mode .background-modal{
+    backdrop-filter: saturate(180%) blur(20px);
+   background-color: rgb(66 66 69/70%); border:0px;
+}
+
+body.light-mode .text_modal{
+    color:white
+}
+body.light-mode .back_input_num{
+    background-color: rgba(96, 96, 96, 0.7);;
+    color: white;
+}
+
+
+
+
+
