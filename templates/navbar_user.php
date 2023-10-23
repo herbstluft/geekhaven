@@ -14,14 +14,98 @@ $categorias=$db->seleccionarDatos($sql);
 
 
 ?>
-
 <style>
   .sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active {
     background-color: #005aff;
     color: #fff;
 }
 </style>
+<?php
+//Igualar variable usr a la id de la sesion
+$usr=$_SESSION['user'];
+// ver si ya tiene ordenes en estado 0 
+$ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
+ (SELECT detalle_orden.id_orden 
+ FROM usuarios
+ JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+ JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+ WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1) as ord
+ GROUP BY ord.id_orden";
+ $ordcomp=$db->seleccionarDatos($ordcompQry);
 
+   // si hay ordenes en estado 0 (0 es el estado de una orden cuando esta en el carrito) se ejecuta lo siguiente
+    if(!empty($ordcomp)){
+           // Obtener el id de la orden
+           $IdOrdenQry="SELECT detalle_orden.id_orden 
+           FROM usuarios
+           JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+           JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+           WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1";
+           $IdOrden=$db->seleccionarDatos($IdOrdenQry);
+
+           // Una vez obtenido el id se ejecuta un foreach para usar el id_orden para visualizar el carrito
+           foreach ($IdOrden as $idOrdenObtenida){
+             
+             // Igualar la orden a una variable para poder usarla en consultas
+             $id_orden=$idOrdenObtenida['id_orden'];
+           // obtener los productos del carrito dependiendo la orden 
+           $carritoConsulta="SELECT PRD.id_producto,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden
+           FROM usuarios
+           JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+           JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+           WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
+           $carrito=$db->seleccionarDatos($carritoConsulta);?>
+                <!-- Modal CARRITO -->
+           <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                               <div class="modal-dialog">
+                                 <div class="modal-content">
+                                   <div class="modal-header bg-dark">
+                                     <h1 class="modal-title fs-5" id="exampleModalLabel" style="color:white">CARRITO</h1>
+                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                   </div>
+                                   <div class="modal-body">
+                                     <table>
+                                       <?php
+                                       
+                                       foreach($carrito as $res)
+                                       {?>
+                                         <tr>
+                                         <th scope="row">
+                                           <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" style="width: 90%"class="col-2"alt="">
+                                         </th>
+                                             <td colspan="1" class="col-6"><?php echo $res['nom_producto']?></td>
+                                             <td align="center"class ="col-2">
+                                             <?php echo $res['cantidad']; ?>
+                                               <br>
+                                             <a href="http://localhost/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
+                                             <?php echo $usr;?>&ord=<?php echo $res['id_orden'];?>&ord=<?php echo $res['id_orden'];?>&cantidad=<?php echo $res['cantidad'];?>" class="btn btn-outline-dark border-0">Quitar</a>
+                                             </td>
+                                       </tr>
+                                       <?php
+                                         }
+                                       ?>
+                                     </table>
+                                   </div>
+                                   <?php
+                                   // PARA VACIAR EL CARRITO HAY QUE ENVIAR LA VARIABLE DE LA ORDEN PARA CONSULTAR TODAS LAS ORDENES DETALLADAS QUE TIENEN DICHA ORDEN PARA ELIMINARLAS Y ASI VACIAR EL CARRITO
+                                   // PARA HACER EL PEDIDO HAY QUE ENVIAR LA VARIABLE DE LA ORDEN POR EL LINK PARA CONSULTAR LAS ORDENES DETALLADAS QUE TENGAN DICHA ORDEN PARA PROCEDER A FINALIZAR EL PEDIDO
+                                   ?>
+                                   <div class="modal-footer bg-dark"">
+                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                       <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a>
+                                     <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn btn-primary">Hacer pedido</a>
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                       </a>
+          <?php }?>
+
+
+          
+    <?php
+   }
+?>
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
@@ -230,12 +314,46 @@ $categorias=$db->seleccionarDatos($sql);
                   </div>
                 </div>
               </li>
+              <li>
+              
+              </li>
+              <!-- CARRITO -->
+              <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+                <!-- NUMERO DE PRODUCTOS EN CARRITO-->
+                <?php
+                $CantidadDePrdQry="SELECT COUNT(*) AS productos FROM(SELECT PRD.id_producto,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden
+                FROM usuarios
+                JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+                JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PCN";
+                $Cantidad=$db->seleccionarDatos($CantidadDePrdQry);
 
+                if(!empty($Cantidad)){
+                ?>
+                  <span style="width:37px; z-index:0"class="mt-3 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                    <?php
+                    foreach($Cantidad as $res){
+                      echo $res['productos'];
+                    }
+                    ?>
+                  </span>
+                  <?php }
+                  else{
+                    echo "asdasdasd";
+                  }
+                  ?>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                  </svg>
+              </button>
               <?php  }  ?>
 
           
             </ul>
           </div>
         </nav>
+        <?php
+        
+        ?>
       </header>
       <!--  Header End -->

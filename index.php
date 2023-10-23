@@ -44,8 +44,7 @@ error_reporting(E_ERROR | E_PARSE);
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href="src/views/admin/assets/images/logos/favicon.png" />
+  <title>Geek Haven</title>
   <link rel="stylesheet" href="src/views/admin/assets/css/styles.min.css" />
   <link rel="stylesheet" href="bootstrap/css/estilos.css" />
   

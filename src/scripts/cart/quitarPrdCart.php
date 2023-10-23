@@ -48,4 +48,6 @@ try{
 Error en la consulta: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'and `detalle_orden`.id_orden=15' at line 2*/
 
     
- header("Location: http://localhost/geekhaven/src/views/user/carrito.php?id_orden=$orden&usr=$usuario");
+//  header("Location: http://localhost/geekhaven/src/views/user/carrito.php?id_orden=$orden&usr=$usuario");
+$pagAnterior= $_SERVER['HTTP_REFERER'];
+header("Location:".$_SERVER['HTTP_REFERER']."");

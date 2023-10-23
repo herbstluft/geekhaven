@@ -168,6 +168,6 @@ $db = new Database;
             
         }
     }
-
-header("Location: http://localhost/geekhaven/");
+$pagAnterior= $_SERVER['HTTP_REFERER'];
+header("Location:".$_SERVER['HTTP_REFERER']."");
 
