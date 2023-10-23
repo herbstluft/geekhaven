@@ -19,55 +19,16 @@ if(isset($_SESSION['user'])){
 //Datos de la publicacion
 if(isset($_SESSION['pub_id'])){
 
-    if (isset($_GET['num_new_friend'])) {
-        $num_new_friend = $_GET['num_new_friend'];
     
-        // Construir la consulta SQL
-        $sql = "SELECT * FROM pub_trq
-                INNER JOIN usuarios ON usuarios.id_usuario = pub_trq.id_usuario
-                INNER JOIN personas ON personas.id_persona = usuarios.id_persona
-                WHERE pub_trq.id_pub='$_SESSION[pub_id]' and  usuarios.id_usuario = '$_SESSION[id_friend]' and pub_trq.id_usuario= $id";
-    } 
-
-    if (isset($_SESSION['id_friend'])) {
-        $id_friend = $_SESSION['id_friend'];
-    
-        // Construir la consulta SQL
-        $sql = "SELECT * FROM pub_trq
-                INNER JOIN usuarios ON usuarios.id_usuario = pub_trq.id_usuario
-                INNER JOIN personas ON personas.id_persona = usuarios.id_persona
-                WHERE pub_trq.id_pub='$_SESSION[pub_id]' and pub_trq.id_usuario = '$id_friend' or pub_trq.id_usuario='$id' ";
-    } 
-   
-    if (isset($_GET['id_friend'])) {
-      
-    
-        // Construir la consulta SQL
-        $sql = "SELECT * FROM pub_trq
-                INNER JOIN usuarios ON usuarios.id_usuario = pub_trq.id_usuario
-                INNER JOIN personas ON personas.id_persona = usuarios.id_persona
-                WHERE pub_trq.id_pub='$_SESSION[pub_id]' and pub_trq.id_usuario = '$id_friend' or pub_trq.id_usuario=$id ";
-
-    } 
-   
+    echo $_SESSION['pub_id'];
 
 
 
 
 
-    $res_pub=$db->seleccionarDatos($sql);
-
-    foreach ($res_pub as $res_pub)
-        $pub_id=$res_pub['id_pub'];
-        $pub_nom_us=$res_pub['nombre'];
-        $pub_precio=$res_pub['precio'];
-        $pub_descripcion=$res_pub['descripcion'];
-        $pub_estado=$res_pub['estado'];
-        $pub_estatus=$res_pub['estatus'];
 
 
 }
-
 
 
 
@@ -105,18 +66,34 @@ if(empty($ver_mensajes)){
 }
 
 // Definir una variable para almacenar los chats
-$mi_chats = '<div class="chat">     <br>     <center>
-         <div>
-            <div style="border 5px solid white; margin-bottom:10px">
-            <img class="profile-image" style="margin-right:-20px" src="img_profile/'.$img_m.'" >
-            <img class="profile-image" src="img_profile/'.$img_f.'">
-            </div>
-            <p style="font-size:15px;color:white">Ahora están conectados en ChatPhone.</p>
-            <img class="profile-image" src="https://gifdb.com/images/high/cute-wave-emoji-hand-59s88kk0zj3xho40.gif">
-         </div>
-         </center> <br>   ' ;
 
-         $mi_chats= '<?php echo $pub_id ?>';
+
+         if (isset($_SESSION['user']) && $id == $_SESSION['user']) {
+          $mi_chats = '<div class="chat">     <br>     <center>
+          <div>
+             <div style="border 5px solid white; margin-bottom:10px">
+             <img class="profile-image" style="margin-right:-20px" src="/geekhaven/src/views/user/img_profile/'.$img_m.'" >
+             <img class="profile-image" src="/geekhaven/src/views/admin/html/img_profile/'.$img_f.'">
+             </div>
+             <p style="font-size:15px;color:white">Ahora están conectados en ChatPhone.</p>
+             <img class="profile-image" src="https://gifdb.com/images/high/cute-wave-emoji-hand-59s88kk0zj3xho40.gif">
+          </div>
+          </center> <br>   ' ;
+ 
+      } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
+        $mi_chats = '<div class="chat">     <br>     <center>
+        <div>
+           <div style="border 5px solid white; margin-bottom:10px">
+           <img class="profile-image" style="margin-right:-20px" src="/geekhaven/src/views/admin/html/img_profile/'.$img_m.'" >
+           <img class="profile-image" src="/geekhaven/src/views/user/img_profile/'.$img_f.'">
+           </div>
+           <p style="font-size:15px;color:white">Ahora están conectados en ChatPhone.</p>
+           <img class="profile-image" src="https://gifdb.com/images/high/cute-wave-emoji-hand-59s88kk0zj3xho40.gif">
+        </div>
+        </center> <br>   ' ;
+      }
+
+       
 
 
 
@@ -129,32 +106,13 @@ foreach ($ver_mensajes as $mensaje) {
     // Construir el mensaje HTML
    
 
-?>
-
-<center>
-<div class=" mb-3" style="max-width: 540px;border-color:blue; border:1px solid #0088ff8a;border-radius:10px; padding:15px">
-  <div class="row g-0">
-   
-    <div class="col-md-12">
-      <div class="card-body">
-        <h5 class="card-title" style="color:white"> <?php echo $pub_descripcion ?> </h5>
-        <br>
-        <p class="card-text">Precio:  <?php echo  '$'.''.$pub_precio.'.00'?> </p>
-        <p class="card-text">Estado:  <?php echo $pub_estado ?> </p>
-        <p class="card-text">Estatus:  <?php echo $pub_estatus ?> </p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-</center>    <?php
 
     $mi_chats .= '<div class="' . $clase_css . ' messages">';
     $mi_chats .= '<div class="message last">' . $mensaje_texto . '</div>';
     $mi_chats .= '</div>';
 
 }
+
 
 // Cerrar el contenedor de chat
 $mi_chats .= '</div>' ;

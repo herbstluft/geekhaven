@@ -138,7 +138,7 @@ include('../../../templates/navbar/navbar.php');
                             $passCifrada1 = password_hash($contrasena2,PASSWORD_DEFAULT);
                             $passCifrada = "$passCifrada1";
 
-                            $insert_user="INSERT INTO usuarios (telefono, contrasena, id_persona,tipo_usuario) VALUES ('$telefono','$passCifrada','$id_persona',1)";
+                            $insert_user="INSERT INTO usuarios (telefono, contrasena, id_persona,tipo_usuario,imagen) VALUES ('$telefono','$passCifrada','$id_persona',1,'default.jpg')";
                             $db->ejecutarConsulta($insert_user);
                 
                          

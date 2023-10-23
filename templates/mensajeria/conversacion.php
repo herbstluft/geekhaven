@@ -61,10 +61,18 @@ if(isset($_GET['num_new_friend'])){
 
 
 
-if(isset($_GET['id_friend'])){
+if(isset($_GET['id_friend']) || isset($_GET['id_usuario'])){
 
-//se guarda el id en caso de que sea un chat con el que ya tengo conversaciones
-$id_friend=$_SESSION['id_friend']=$_GET['id_friend'];
+            //se guarda el id en caso de que sea un chat con el que ya tengo conversaciones
+            if(isset($_GET['id_friend'])){
+                $id_friend=$_SESSION['id_friend']=$_GET['id_friend'];
+            }
+
+            if(isset($_GET['id_usuario'])){
+            $id_friend=$_SESSION['id_friend']=$_GET['id_usuario'];
+            }
+
+
 //info de amigo
 $sql="select * from usuarios inner join personas on usuarios.id_persona=personas.id_persona where usuarios.id_usuario=$id_friend";
 $dato=$db->seleccionarDatos($sql);
@@ -82,7 +90,7 @@ $info=$todo['info'];
 
 }
 
-
+//id conversacion_con mensajes
 $sql="SELECT DISTINCT mensajes.id_conversacion as id_conversacion 
 FROM mensajes 
 INNER JOIN conversaciones ON conversaciones.id_conversacion = mensajes.id_conversacion 
@@ -96,6 +104,19 @@ $id_con=$id_conversacion['id_conversacion'];
 
 
 
+//id conversacion_sin mensajes
+$sql="SELECT *
+FROM conversaciones 
+WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id);";
+$id_conversacion=$db->seleccionarDatos($sql);
+
+foreach($id_conversacion as $id_conversacion)
+
+
+$id_con_sin_mensajes=$id_conversacion['id_conversacion'];
+
+
+
 //borrar Chat
 if(isset($_GET['borrar_conversacion'])){
 
@@ -103,12 +124,12 @@ if(isset($_GET['borrar_conversacion'])){
     FROM mensajes
     INNER JOIN conversaciones
     ON conversaciones.id_conversacion = mensajes.id_conversacion
-    WHERE conversaciones.id_conversacion = $id_con;
+    WHERE conversaciones.id_conversacion = $id_con_sin_mensajes;
     ";
   
     $borrar_mensajes=$db->ejecutarConsulta($sql);
 
-    $sql="delete from conversaciones where conversaciones.id_conversacion= $id_con";
+    $sql="delete from conversaciones where conversaciones.id_conversacion= $id_con_sin_mensajes";
     $borrar_chat=$db->ejecutarConsulta($sql);
 
     header('Location: index.php');
@@ -266,7 +287,13 @@ background:#3b3b3b;
         
             <div class="col-8 text-center ">
                 <p><?php 
-            echo '<img class="profile-image" style="width:30px; height:30px;" src="img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+
+                    // Imagen del perfil
+    if (isset($_SESSION['user']) && $id == $_SESSION['user'] )  {
+        echo '<img class="profile-image" style="width:30px; height:30px;" src="/geekhaven/src/views/admin/html/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+    } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
+        echo '<img class="profile-image" style="width:30px; height:30px;" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+    }          
                 echo $nombre_amigo; ?>  </p> 
                 
             </div>
@@ -457,12 +484,26 @@ scrollBtn.addEventListener("click", () => {
       <div class="modal-body">
 
 
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container">
+    <svg data-bs-dismiss="modal" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="white" class="bi bi-x" viewBox="0 0 16 16">
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+</svg>
+    </div>
 
         <!--Formulario de datos del chat-->
         <div>
             <center>
-           <img  class="profile-image" style="margin-bottom:10px; width:90px; height:90px;" src="img_profile/<?php echo $imagen ?>" alt="Perfil Chat 1">
+
+            <?php 
+
+                    // Imagen del perfil
+    if (isset($_SESSION['user']) && $id == $_SESSION['user'] )  {
+        echo '<img class="profile-image"style="margin-bottom:10px; width:90px; height:90px;" src="/geekhaven/src/views/admin/html/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+    } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
+        echo '<img class="profile-image" style="margin-bottom:10px; width:90px; height:90px;" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+    }          
+    ?>
+
            <p style="font-size:20px;color:white"><b><?php echo $nombre_amigo ?></b></p>
            <p style="font-size:16px; color:white"> <?php echo $info ?></p>
            </center>
@@ -579,6 +620,12 @@ else{
 
 <br>
 
+<?php 
+}
+?>
+
+
+
     <div class="col-5">
             <p style="font-size:17px; color:red; font-weight:bolder;">Eliminar Chat</p>
             <p style="font-size:16px; color:white; margin-top:-10px"> Elimina de tu lista de chats.</p>
@@ -586,7 +633,9 @@ else{
         <div class="offset-5 col-2 text-right">
             <div style="background:#171717; border-radius:10px; width:45px; height:45px" class="text-center">
                 <p class="w-100">
-                <a href="conversacion.php?borrar_conversacion=<?php echo $id_con?>&id_friend=<?php if(isset($_GET['id_friend'])){ echo $_GET['id_friend'];} ?>&num_new_friend=<?php if(isset($_GET['num_new_friend'])){echo $number_new_friend;} ?> ">
+                <a href="conversacion.php?borrar_conversacion=<?php if(empty($id_con)){
+                    echo $id_con_sin_mensajes;
+                } else{ echo $id_con;} ?>&id_friend=<?php if(isset($_GET['id_friend'])){ echo $_GET['id_friend'];} ?>&num_new_friend=<?php if(isset($_GET['num_new_friend'])){echo $number_new_friend;} ?> ">
                     <svg style="margin-top:12px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash2-fill" viewBox="0 0 16 16">
                         <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
                     </svg>
@@ -595,9 +644,7 @@ else{
             </div>
         </div>
 
-        <?php 
-}
-?>
+
     
 
 

@@ -32,7 +32,14 @@ if(isset($_POST['subir_imagen'])){
       foreach($imagen as $img){
           $image=$img['imagen'];
       }
-      unlink("img_profile/".$image);
+
+      if($image=='default.jpg'){
+
+      }
+      else{
+        unlink("img_profile/".$image);
+      }
+      
 
 
 

@@ -64,7 +64,7 @@ LEFT JOIN
             )
     ) AS m ON c.id_conversacion = m.id_conversacion
 WHERE
-    u1.id_usuario = $id OR u2.id_usuario = $id;
+    u1.id_usuario = $id  OR u2.id_usuario = $id ORDER BY hora_ultimo_mensaje DESC;;
 ";
 
 
@@ -102,8 +102,13 @@ $hora_ultimo_mensaje = $fecha->format('m/d h:i A');
     }
 
     // Imagen del perfil
-    $mi_chats .= '<img class="profile-image" src="img_profile/'.$imagenchat.'" alt="Perfil Chat 1">';
-
+    if (isset($_SESSION['user']) && $id == $_SESSION['user']) {
+        $mi_chats .= '<img class="profile-image" src="/geekhaven/src/views/admin/html/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
+    } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
+        $mi_chats .= '<img class="profile-image" src="/geekhaven/src/views/user/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
+    }
+    
+    
     // Contenido del chat
     $mi_chats .= '<div class="chat-content text-truncate"> ';
     $mi_chats .= '<div class="chat-header">';
