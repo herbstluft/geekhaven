@@ -38,10 +38,15 @@
 </head>
 
 <body>
-
-<?php 
-include '../../../templates/navbar_user.php' ?>
-
+<style>
+  .sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active {
+    background-color: #005aff;
+    color: #fff;
+}
+</style>
+<?php
+include '../../../templates/navbar_user.php'
+?>
 <!--  Header End -->
    <div class="container-fluid">
         <div class="container-fluid">
@@ -167,8 +172,8 @@ include '../../../templates/navbar_user.php' ?>
       </div>
     </div>
   </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../admin/assets/js/sidebarmenu.js"></script>
+  <script src="../admin/assets/js/app.min.js"></script>
+  <script src="../admin/assets/libs/simplebar/dist/simplebar.js"></script>
