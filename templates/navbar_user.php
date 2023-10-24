@@ -65,9 +65,9 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
            <div class="modal fade" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                <div class="modal-dialog">
                                  <div class="modal-content">
-                                   <div class="modal-header bg-dark">
-                                     <h1 class="modal-title fs-5" id="exampleModalLabel" style="color:white">CARRITO</h1>
-                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                   <div class="modal-header bg-transparent">
+                                     <h1 class="modal-title fs-5" id="exampleModalLabel" style="color:black">CARRITO</h1>
+                                     <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
                                    <div class="modal-body">
                                      <table>
@@ -75,9 +75,9 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                        
                                        foreach($carrito as $res)
                                        {?>
-                                         <tr>
+                                         <tr style="padding-bottom:10px;">
                                          <th scope="row">
-                                           <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" style="width: 90%"class="col-2"alt="">
+                                           <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" style="width: 90%; border-radius: 20px; margin-bottom:10px;"class="col-2"alt="">
                                          </th>
                                              <td colspan="1" class="col-6"><?php echo $res['nom_producto']?></td>
                                              <td align="center"class ="col-2">
@@ -87,6 +87,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                              <?php echo $usr;?>&ord=<?php echo $res['id_orden'];?>&ord=<?php echo $res['id_orden'];?>&cantidad=<?php echo $res['cantidad'];?>" class="btn btn-outline-dark border-0">Quitar</a>
                                              </td>
                                        </tr>
+                                       
                                        <?php
                                          }
                                        ?>
@@ -96,7 +97,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                    // PARA VACIAR EL CARRITO HAY QUE ENVIAR LA VARIABLE DE LA ORDEN PARA CONSULTAR TODAS LAS ORDENES DETALLADAS QUE TIENEN DICHA ORDEN PARA ELIMINARLAS Y ASI VACIAR EL CARRITO
                                    // PARA HACER EL PEDIDO HAY QUE ENVIAR LA VARIABLE DE LA ORDEN POR EL LINK PARA CONSULTAR LAS ORDENES DETALLADAS QUE TENGAN DICHA ORDEN PARA PROCEDER A FINALIZAR EL PEDIDO
                                    ?>
-                                   <div class="modal-footer bg-dark"">
+                                   <div class="modal-footer bg-transparent"">
                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                        <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a>
                                      <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn btn-primary">Hacer pedido</a>
