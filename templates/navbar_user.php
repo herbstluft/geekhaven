@@ -56,7 +56,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
            WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
            $carrito=$db->seleccionarDatos($carritoConsulta);?>
                 <!-- Modal CARRITO -->
-           <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal fade" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                <div class="modal-dialog">
                                  <div class="modal-content">
                                    <div class="modal-header bg-dark">
@@ -307,7 +307,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                     <a href="/geekhaven/src/views/user/mi_cuenta.php" class="d-flex align-items-center gap-2 dropdown-item">
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3">Mi cuenta</p>
-                    </a>
+                    
                   
                   
                     <a href="/geekhaven/src/scripts/logout.php" class="btn btn-outline-primary mx-3 mt-2 d-block">Cerrar sesion</a>
@@ -318,7 +318,9 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               
               </li>
               <!-- CARRITO -->
-              <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+              <?php }
+              if(isset($_SESSION)){?>
+              <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarritoasd">
                 <!-- NUMERO DE PRODUCTOS EN CARRITO-->
                 <?php
 
@@ -351,7 +353,6 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
               </svg>
           </button>
-
           
             </ul>
           </div>
