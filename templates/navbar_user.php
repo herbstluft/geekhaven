@@ -321,6 +321,8 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarrito">
                 <!-- NUMERO DE PRODUCTOS EN CARRITO-->
                 <?php
+
+                if(isset($id_orden)){
                 $CantidadDePrdQry="SELECT COUNT(*) AS productos FROM(SELECT PRD.id_producto,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden
                 FROM usuarios
                 JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
@@ -342,11 +344,13 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                     echo "asdasdasd";
                   }
                   ?>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
-                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-                  </svg>
-              </button>
-              <?php  }  ?>
+              <?php  } else{
+               ?><?php 
+              }}?>
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+              </svg>
+          </button>
 
           
             </ul>
