@@ -21,7 +21,10 @@ $categorias=$db->seleccionarDatos($sql);
 }
 </style>
 <?php
-//Igualar variable usr a la id de la sesion
+
+if(isset($_SESSION['user'])){
+
+  //Igualar variable usr a la id de la sesion
 $usr=$_SESSION['user'];
 // ver si ya tiene ordenes en estado 0 
 $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
@@ -54,7 +57,10 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
            JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
            JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
            WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
-           $carrito=$db->seleccionarDatos($carritoConsulta);?>
+           $carrito=$db->seleccionarDatos($carritoConsulta);
+
+}
+?>
                 <!-- Modal CARRITO -->
            <div class="modal fade" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                <div class="modal-dialog">
@@ -345,12 +351,15 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                   else{
                     echo "asdasdasd";
                   }
-                  ?><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
-                  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-                </svg>
-            </button>
-              <?php  } }?>
-              
+                  ?>
+              <?php  } else{
+               ?><?php 
+              }}?>
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+              </svg>
+          </button>
+          
             </ul>
           </div>
         </nav>
