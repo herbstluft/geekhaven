@@ -1,11 +1,15 @@
 <?php 
 session_start();
+
+if(isset($_SESSION['user'])){
   $sql="SELECT * FROM personas INNER JOIN usuarios on personas.id_persona=usuarios.id_persona WHERE usuarios.id_usuario='$_SESSION[user]'";
 
     $datos_user=$db->seleccionarDatos($sql);
 foreach($datos_user as $datos_user){
 $datos_user_imagen=$datos_user['imagen'];
 $nombre=$datos_user['nombre'];
+}
+
 }
 
 
@@ -62,14 +66,14 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 }
 ?>
                 <!-- Modal CARRITO -->
-           <div class="modal fade" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal  fade modal-lg" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                <div class="modal-dialog">
-                                 <div class="modal-content">
-                                   <div class="modal-header bg-transparent">
-                                     <h1 class="modal-title fs-5" id="exampleModalLabel" style="color:black">CARRITO</h1>
+                                 <div class="modal-content" style="background:none">
+                                   <div class="text-center modal-header" style="background: #ffffffc4;backdrop-filter: blur(50px);color: black;border-radius: 20px;margin-bottom: 15px;margin-top: 5px;">
+                                     <h1 class="modal-title fs-5 text-center" id="exampleModalLabel" style="color:black; margin: auto;width: 100%;">CARRITO</h1>
                                      <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
-                                   <div class="modal-body">
+                                   <div class="modal-body" style="background: #ffffffc4;backdrop-filter: blur(50px);color: black;border-radius: 10px 10px 0px 0px;">
                                      <table>
                                        <?php
                                        
@@ -97,10 +101,27 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                    // PARA VACIAR EL CARRITO HAY QUE ENVIAR LA VARIABLE DE LA ORDEN PARA CONSULTAR TODAS LAS ORDENES DETALLADAS QUE TIENEN DICHA ORDEN PARA ELIMINARLAS Y ASI VACIAR EL CARRITO
                                    // PARA HACER EL PEDIDO HAY QUE ENVIAR LA VARIABLE DE LA ORDEN POR EL LINK PARA CONSULTAR LAS ORDENES DETALLADAS QUE TENGAN DICHA ORDEN PARA PROCEDER A FINALIZAR EL PEDIDO
                                    ?>
-                                   <div class="modal-footer bg-transparent"">
-                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                       <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a>
-                                     <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn btn-primary">Hacer pedido</a>
+                                   <div class="modal-footer " style=" border-top: 1px solid #cacaca85; margin-top: 0px;border-radius: 0px 0px 10px 10px; background: #ffffffc4;backdrop-filter: blur(50px);color: black;">
+                                     
+                              
+                                     <div class="row" style="width:100%">
+                                    <div class="col-4">
+                                    <center><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></center>
+                                  </div>
+
+                                    <div class="col-4">
+                                    <center><a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a></center>
+                                    </div>
+
+                                    <div class="col-4">
+                                    <center><a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn btn-primary">Hacer pedido</a></center>
+                                    </div>
+
+                                   </div>
+                                   
+                             
+                                      
+                                    
                                    </div>
                                  </div>
                                </div>
@@ -325,41 +346,51 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               
               </li>
               <!-- CARRITO -->
-              <?php }
-              if(isset($_SESSION)){?>
-              <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarritoasd">
-                <!-- NUMERO DE PRODUCTOS EN CARRITO-->
-                <?php
 
-                if(isset($id_orden)){
-                $CantidadDePrdQry="SELECT COUNT(*) AS productos FROM(SELECT PRD.id_producto,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden
-                FROM usuarios
-                JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
-                JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
-                WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PCN";
-                $Cantidad=$db->seleccionarDatos($CantidadDePrdQry);
+              <?php  
+              if(isset($_SESSION['user'])){
+                
+              ?>
+             <li>
+             <?php }
+if(isset($_SESSION)){?>
+<button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarritoasd">
+  <!-- NUMERO DE PRODUCTOS EN CARRITO-->
+  <?php
 
-                if(!empty($Cantidad)){
-                ?>
-                  <span style="width:37px; z-index:0"class="mt-3 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                    <?php
-                    foreach($Cantidad as $res){
-                      echo $res['productos'];
-                    }
-                    ?>
-                  </span>
-                  <?php }
-                  else{
-                    echo "asdasdasd";
-                  }
-                  ?>
-              <?php  } else{
-               ?><?php 
-              }}?>
-              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
-                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-              </svg>
-          </button>
+  if(isset($id_orden)){
+  $CantidadDePrdQry="SELECT COUNT(*) AS productos FROM(SELECT PRD.id_producto,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden
+  FROM usuarios
+  JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+  JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+  WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PCN";
+  $Cantidad=$db->seleccionarDatos($CantidadDePrdQry);
+
+  if(!empty($Cantidad)){
+  ?>
+    <span style="width:37px; background:#005aff; z-index:0"class="mt-3 position-absolute top-0 start-100 translate-middle badge rounded-pill">
+      <?php
+      foreach($Cantidad as $res){
+        echo $res['productos'];
+      }
+      ?>
+    </span>
+    <?php }
+    else{
+      echo "asdasdasd";
+    }
+    ?>
+<?php  } else{
+ ?><?php 
+}}?>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+</svg>
+</button>
+             </li>
+             <?php  
+              }
+              ?>
           
             </ul>
           </div>
