@@ -119,12 +119,12 @@ $db = new Database;
                                                 FROM usuarios
                                                 JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
                                                 JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
-                                                WHERE usuarios.id_usuario = 40 and detalle_orden.estatus=0 and detalle_orden.id_orden=15) as PC WHERE PC.id_producto = 2 and PC.id_do= 42";
+                                                WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PC WHERE PC.id_producto = $producto and PC.id_do= $id_do";
                                                 $ValidacionCART=$db->seleccionarDatos($ValidarCantidadCarrito);
 
                                                 foreach($ValidacionCART as $c){
                                                     $exst=$c['existencia'];
-                                                    if( $nuevaCant>$exst){
+                                                    if( $nuevaCant>=$exst){
                                                     $UpdateQry="UPDATE `detalle_orden` SET `cantidad`='$exst'
                                                     WHERE `id_do`=$id_do
                                                     AND `id_producto`=$producto
