@@ -53,7 +53,7 @@ error_reporting(E_ERROR | E_PARSE);
 
         <div class="row">
             <?php
-            $SQL = "SELECT * from productos inner join categorias on categorias.id_cat=productos.id_cat";
+            $SQL = "SELECT * from productos inner join categorias on categorias.id_cat=productos.id_cat where productos.existencia > 0";
             $con = $db->seleccionarDatos($SQL);
 
             if (!empty($con)) {
