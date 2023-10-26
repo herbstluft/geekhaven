@@ -41,15 +41,9 @@ $id_orden=$_GET['id_orden'];
 
     $BorrarDOQry="DELETE FROM `detalle_orden` WHERE `detalle_orden`.`id_orden`=$id_orden";
     $BorrarDO=$db->ejecutarConsulta($BorrarDOQry);
-    echo '
-            <div class="container">
-            <div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">CARRITO VACIADO</h4>
-            <p>TODOS LOS PRODUCTOS DEL CARRITO HAN SIDO ELIMINADOS</p>
-            <hr>
-            <p class="mb-0">SERA REDIRIGIDO EN BREVE</p>
-            </div>';
-            header("refresh:1;url=http://localhost/geekhaven/index.php");
+
+    $pagAnterior= $_SERVER['HTTP_REFERER'];
+    header("Location:".$_SERVER['HTTP_REFERER']."");
 }
 else{
     echo '
@@ -60,4 +54,5 @@ else{
             <hr>
             <p class="mb-0"></p>
             </div>';
+            header("refresh:2;url=http://localhost/geekhaven/index.php");
 }

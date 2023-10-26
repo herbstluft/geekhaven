@@ -81,11 +81,12 @@ foreach($Productos as  $res){
     WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
     if (!empty($validacionQry)){
         echo '<div class="alert alert-primary" role="alert">
-        <h4 class="alert-heading">YA CASI TERMINAS</h4>
-        <p>En unos momentos se descargara tu ticket de compra. Aguarda un momento...</p>
+        <h4 class="alert-heading">TU TICKET DEBE DESCARGARSE EN BREVE</h4>
+        <p>Si tu ticket ya ha sido descargado puedes volver a la pagina</p>
         <hr>
-        <p class="mb-0">Loading...</p>
-      </div>';
+        <center>
+        <a href="http://'.$HOST.'/geekhaven/" class="btn btn-primary pt-2 pb-2 fs-5">Click aqui para volver</a>
+        </center>';
         header('refresh: 3; url=http://'.$HOST.'/geekhaven/src/scripts/cart/ticketCart.php?id_orden='.$id_orden);
     }
     else if (empty($validacionQry)){

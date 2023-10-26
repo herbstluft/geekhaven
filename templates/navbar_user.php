@@ -1,6 +1,6 @@
 <?php 
 session_start();
-
+$HOST=$_SERVER['SERVER_NAME'];
 if(isset($_SESSION['user'])){
   $sql="SELECT * FROM personas INNER JOIN usuarios on personas.id_persona=usuarios.id_persona WHERE usuarios.id_usuario='$_SESSION[user]'";
 
@@ -24,6 +24,7 @@ $categorias=$db->seleccionarDatos($sql);
     color: #fff;
 }
 </style>
+
 <?php
 
 if(isset($_SESSION['user'])){
@@ -62,8 +63,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
            JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
            WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
            $carrito=$db->seleccionarDatos($carritoConsulta);
-
-}
+          if(!empty($carrito)){
 ?>
                 <!-- Modal CARRITO -->
            <div class="modal  fade modal-lg" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -127,10 +127,45 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                </div>
                              </div>
                        </a>
-          <?php }?>
+          <?php }}?>
 
 
           
+    <?php
+   }}
+   elseif(empty($carrito)){
+    ?>
+    <div class="modal  fade modal-lg" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                               <div class="modal-dialog">
+                                 <div class="modal-content" style="background:none">
+                                   <div class="text-center modal-header" style="background: #ffffffc4;backdrop-filter: blur(50px);color: black;border-radius: 20px;margin-bottom: 15px;margin-top: 5px;">
+                                     <h1 class="modal-title fs-5 text-center" id="exampleModalLabel" style="color:black; margin: auto;width: 100%;">CARRITO</h1>
+                                     <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                   </div>
+                                   <div class="modal-body" style="background: #ffffffc4;backdrop-filter: blur(50px);color: black;border-radius: 10px 10px 0px 0px;">
+                                     <table>
+                                         <tr style="padding-bottom:10px;">
+                                         <th scope="row">
+                                           <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" style="width: 90%; border-radius: 20px; margin-bottom:10px;"class="col-2"alt="">
+                                         </th>
+                                             <td colspan="1" class="col-12"></td>
+                                       </tr>
+                        
+                                     </table>
+                                   </div>
+                                  
+                                   <div class="modal-footer " style=" border-top: 1px solid #cacaca85; margin-top: 0px;border-radius: 0px 0px 10px 10px; background: #ffffffc4;backdrop-filter: blur(50px);color: black;">
+                                     
+                              
+                                     <div class="row" style="width:100%">
+                                    <div class="col-4">
+                                    <center><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></center>
+                                  </div>  
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                       </a>
     <?php
    }
 ?>
@@ -227,7 +262,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               <span class="hide-menu">Compras</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="html/authentication-login.html" aria-expanded="false">
+              <a class="sidebar-link" href="http://<?php echo $HOST?>/geekhaven/src/views/user/pedidos.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
@@ -238,7 +273,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="html/authentication-login.html" aria-expanded="false">
+              <a class="sidebar-link" href="" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
@@ -353,7 +388,18 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               ?>
              <li>
              <?php }
-if(isset($_SESSION)){?>
+if(isset($_SESSION)){ 
+  $validarBoton="SELECT PRD.id_producto,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden
+  FROM usuarios
+  JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+  JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+  WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0";
+  $validarbtn=$db->seleccionarDatos($validarBoton);
+
+  
+  ?>
+
+
 <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarritoasd">
   <!-- NUMERO DE PRODUCTOS EN CARRITO-->
   <?php
@@ -377,19 +423,19 @@ if(isset($_SESSION)){?>
     </span>
     <?php }
     else{
-      echo "asdasdasd";
+
     }
     ?>
-<?php  } else{
- ?><?php 
-}}?>
+<?php  } 
+ ?>
 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
 </button>
              </li>
              <?php  
-              }
+}
+}
               ?>
           
             </ul>
