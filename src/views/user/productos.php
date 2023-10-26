@@ -50,7 +50,7 @@ include '../../../templates/navbar_user.php'
 <!--  Header End -->
    <div class="container-fluid">
         <div class="container-fluid">
-          <div class="card" style="padding:20px">
+          <div style="padding:20px">
           
           <div class="producto">
   
@@ -69,7 +69,7 @@ include '../../../templates/navbar_user.php'
           <div class="col-sm-12 col-md-6 ">
               <div class="productotop">
               <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide" data-bs-touch="false">
-                  <div class="carousel-inner">
+                  <div class="carousel-inner" style="padding:20%">
                       <div class="carousel-item active">
                            <img src="https://gold-fieber.com/wp-content/uploads/Pokemonblue1.jpg" class="d-block w-100" alt="...">
                       </div>
@@ -110,17 +110,20 @@ include '../../../templates/navbar_user.php'
                   <div class="productobott">
                       
                          <?php 
-                         $_SESSION['user'];
+                         if(isset($_SESSION['user'])){
+                            $_SESSION['user'];
 
                           
-                          $usr=$_SESSION['user']; 
-                          $ordQry="SELECT detalle_orden.id_orden 
-                          FROM usuarios
-                          JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
-                          JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
-                          WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1";
-                          $ord=$db->seleccionarDatos($ordQry);
-
+                            $usr=$_SESSION['user']; 
+                            $ordQry="SELECT detalle_orden.id_orden 
+                            FROM usuarios
+                            JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+                            JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                            WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1";
+                            $ord=$db->seleccionarDatos($ordQry);
+  
+                         }
+                        
                           ?>
                           
                           <!-- Modal -->
