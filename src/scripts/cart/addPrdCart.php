@@ -115,14 +115,34 @@ $db = new Database;
                                                 $qty=$cantDo['cantidad'];
                                                 $nuevaCant=$qty+$cantidad;
                                                 
-                                                $UpdateQry="UPDATE `detalle_orden` SET `cantidad`='$nuevaCant'
-                                                WHERE `id_do`=$id_do
-                                                AND `id_producto`=$producto
-                                                AND `id_usuario`=$usr
-                                                AND `estatus`=0
-                                                AND `id_orden`=$id_orden";
-                                                $Update=$db->ejecutarConsulta($UpdateQry);
-                                                
+                                                $ValidarCantidadCarrito="SELECT * FROM (SELECT PRD.id_producto,PRD.existencia,PRD.nom_producto, PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat, detalle_orden.id_orden, detalle_orden.id_do
+                                                FROM usuarios
+                                                JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
+                                                JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                                                WHERE usuarios.id_usuario = 40 and detalle_orden.estatus=0 and detalle_orden.id_orden=15) as PC WHERE PC.id_producto = 2 and PC.id_do= 42";
+                                                $ValidacionCART=$db->seleccionarDatos($ValidarCantidadCarrito);
+
+                                                foreach($ValidacionCART as $c){
+                                                    $exst=$c['existencia'];
+                                                    if( $nuevaCant>$exst){
+                                                    $UpdateQry="UPDATE `detalle_orden` SET `cantidad`='$exst'
+                                                    WHERE `id_do`=$id_do
+                                                    AND `id_producto`=$producto
+                                                    AND `id_usuario`=$usr
+                                                    AND `estatus`=0
+                                                    AND `id_orden`=$id_orden";
+                                                    $Update=$db->ejecutarConsulta($UpdateQry);
+                                                    }
+                                                    else{
+                                                        $UpdateQry="UPDATE `detalle_orden` SET `cantidad`='$nuevaCant'
+                                                    WHERE `id_do`=$id_do
+                                                    AND `id_producto`=$producto
+                                                    AND `id_usuario`=$usr
+                                                    AND `estatus`=0
+                                                    AND `id_orden`=$id_orden";
+                                                    $Update=$db->ejecutarConsulta($UpdateQry);
+                                                    }
+                                                }
                                             }
 
 
