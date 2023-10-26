@@ -104,18 +104,16 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                    <div class="modal-footer " style=" border-top: 1px solid #cacaca85; margin-top: 0px;border-radius: 0px 0px 10px 10px; background: #ffffffc4;backdrop-filter: blur(50px);color: black;">
                                      
                               
-                                     <div class="row" style="width:100%">
-                                    <div class="col-4">
-                                    <center><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></center>
-                                  </div>
-
-                                    <div class="col-4">
-                                    <center><a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a></center>
-                                    </div>
-
-                                    <div class="col-4">
-                                    <center><a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn btn-primary">Hacer pedido</a></center>
-                                    </div>
+                                     <div  style="width:100%">
+                                    
+                                    <center>
+                                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
+                                   &ensp; &ensp;
+                                   <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a>
+                                   &ensp; &ensp;
+                                 <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn" style="background: #005aff; color:white">Hacer pedido</a>
+                                    </center>
+                                    
 
                                    </div>
                                    
