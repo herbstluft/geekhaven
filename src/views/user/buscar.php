@@ -89,6 +89,13 @@ error_reporting(E_ERROR | E_PARSE);
                     <?php
                 }
             }
+            else{
+              ?>
+
+<button type="button" class="btn btn-primary">Primary</button>
+              
+            <?php  
+            }
             ?>
         </div>
     </div>

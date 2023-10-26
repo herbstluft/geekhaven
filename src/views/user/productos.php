@@ -134,7 +134,7 @@ include '../../../templates/navbar_user.php'
                               <!-- cantidad -->
                               <div class="col-3 ms-1">
                                   <h3 class="ms-1">Cantidad</h3>
-                                  <input style="text-align:center; border-radius:20px; width:65%; height:100%" type="number" min="1" max="<?php echo $existencia;?>"class="form-control fs-9" placeholder="1" name="cantidad" id="cantidad" >
+                                  <input style="text-align:center; border-radius:20px; width:65%; height:100%" type="number" min="1" required max="<?php echo $existencia;?>"class="form-control fs-9" placeholder="1" name="cantidad" id="cantidad" >
                               </div><br>
                               <h3 class="ms-2">Descripcion</h3> 
                                   <p class="ms-2 justify-content-center"><?php echo $descripcion; 
