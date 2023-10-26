@@ -438,3 +438,27 @@
 #search-input::placeholder {
   color: #888;
 }
+
+.select{
+  width: 210px; /* Ancho personalizado */
+  height: 30px; /* Altura personalizada */
+  font-size: 14px; /* Tamaño de fuente personalizado */
+  border-radius: 36px 36px 36px 36px;
+  -moz-border-radius: 36px 36px 36px 36px;
+  -webkit-border-radius: 36px 36px 36px 36px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
+}
+
+::selection{
+color: #fff;
+background: #17A2B8;
+}
+.wrapper{
+  width: 400px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 25px 40px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
