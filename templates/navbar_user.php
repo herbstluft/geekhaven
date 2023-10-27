@@ -130,7 +130,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 
           
     <?php
-   }}
+   }
    elseif(empty($carrito)){
     ?>
     <div class="modal  fade modal-lg" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -166,6 +166,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                        </a>
     <?php
    }
+  }
 ?>
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"

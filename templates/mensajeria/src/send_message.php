@@ -25,7 +25,7 @@ if(isset($_POST['mensaje'])){
     $sql="SELECT DISTINCT mensajes.id_conversacion as id_conversacion 
     FROM mensajes 
     INNER JOIN conversaciones ON conversaciones.id_conversacion = mensajes.id_conversacion 
-    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id);";
+    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id and and conversaciones.id_pub=$_SESSION[id_pub]);";
 
     $enviar_id=$db->seleccionarDatos($sql);
 
@@ -41,7 +41,7 @@ if(empty($enviar_id)){
     //si no hay ningun mensaje pero aparece en chats inserta el mensaje en el chat existente
     $sql="SELECT *
     FROM conversaciones 
-    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id);";
+    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id) and conversaciones.id_pub=$_SESSION[id_pub];";
     $id_conv=$db->seleccionarDatos($sql);
 
     foreach($id_conv as $id_conv)
@@ -52,8 +52,10 @@ if(empty($enviar_id)){
         $sql="INSERT INTO `mensajes` ( `id_remitente`, `id_destinatario`, `id_conversacion`, `mensaje`, `fecha`) VALUES ($id, $_SESSION[id_friend], $id_co, '$mensaje', current_timestamp())";
         $enviar_mensaje=$db->ejecutarConsulta($sql);
     }
+
+    //si esta vacio id_co significa que no hay un chat enlazado e insertara un nuevo chat
     else{
-        $sql="Insert into conversaciones (`id_usuario1`, `id_usuario2`) values ($id, $_SESSION[id_friend])";
+        $sql="Insert into conversaciones (`id_usuario1`, `id_usuario2`, `id_pub`) values ($id, $_SESSION[id_friend], $_SESSION[pub_id])";
         $crear_chat=$db->ejecutarConsulta($sql);
 
 

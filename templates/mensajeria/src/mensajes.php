@@ -53,9 +53,10 @@ INNER JOIN usuarios as remitente ON remitente.id_usuario = mensajes.id_remitente
 INNER JOIN usuarios as destinatario ON destinatario.id_usuario = mensajes.id_destinatario
 INNER JOIN personas as PD ON PD.id_persona = destinatario.id_persona
 INNER JOIN personas as PR ON PR.id_persona = remitente.id_persona
+INNER JOIN conversaciones on conversaciones.id_conversacion=mensajes.id_conversacion
 
-WHERE (remitente.id_usuario = $id AND destinatario.id_usuario = $id_amigo) 
-   OR (remitente.id_usuario = $id_amigo AND destinatario.id_usuario = $id)
+WHERE (remitente.id_usuario = $id AND destinatario.id_usuario = $id_amigo and conversaciones.id_pub=$_SESSION[pub_id]) 
+   OR (remitente.id_usuario = $id_amigo AND destinatario.id_usuario = $id and conversaciones.id_pub=$_SESSION[pub_id])
 ORDER BY mensajes.fecha asc;";
 
 

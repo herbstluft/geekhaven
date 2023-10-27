@@ -5,10 +5,10 @@
 
     $HOST=$_SERVER['SERVER_NAME'];
 
-    session_start();
+  
     
     //ocultar warnings
-error_reporting(E_ERROR | E_PARSE);
+
     $resultado = "select * from usuarios";
    
 //extraer datos del formulario
