@@ -221,12 +221,12 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
             </li>
 
             <?php
-                foreach($categorias as $categoria){
+                foreach($categorias as $categorias){
             ?>
             <li class="sidebar-item">
-            <a class="sidebar-link" href="/geekhaven/src/views/user/cat.php?id=<?php echo $categoria['id_cat']; ?>" aria-expanded="false">
+            <a class="sidebar-link" href="/geekhaven/src/views/user/cat.php?=<?php echo $categoria['id_cat']; ?>" aria-expanded="false">
             
-                <span class="hide-menu" id="ncat"><?php echo $categoria['nom_cat'] ?></span>
+                <span class="hide-menu" id="ncat"><?php echo $categorias['nom_cat'] ?></span>
               </a>
             </li>
 
