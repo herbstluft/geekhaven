@@ -21,11 +21,11 @@ if(isset($_POST['mensaje'])){
     $mensaje=$_POST['mensaje'];
 
 
-    //sacar el id de la conversacion a la que pertenecen
+    //verificar si  un chat tiene mensajes
     $sql="SELECT DISTINCT mensajes.id_conversacion as id_conversacion 
     FROM mensajes 
     INNER JOIN conversaciones ON conversaciones.id_conversacion = mensajes.id_conversacion 
-    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id and and conversaciones.id_pub=$_SESSION[id_pub]);";
+    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id and conversaciones.id_pub=$_SESSION[id_pub]);";
 
     $enviar_id=$db->seleccionarDatos($sql);
 
@@ -34,35 +34,37 @@ if(isset($_POST['mensaje'])){
     
     
 
-        //si no hay un chat con mensajes
+        //si enviar_id esta vacio signfica que no hay mensajes en ese chat
 if(empty($enviar_id)){
     
   
-    //si no hay ningun mensaje pero aparece en chats inserta el mensaje en el chat existente
+    //verificar si existe un chat creado sin mensajes
     $sql="SELECT *
     FROM conversaciones 
-    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id) and conversaciones.id_pub=$_SESSION[id_pub];";
+    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] and conversaciones.id_pub=$_SESSION[id_pub] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id  and conversaciones.id_pub=$_SESSION[id_pub])";
     $id_conv=$db->seleccionarDatos($sql);
 
-    foreach($id_conv as $id_conv)
+    foreach($id_conv as $id_conv){
         $id_co=$id_conv['id_conversacion'];
+    }
     
 
+        // si existe un chat inserta el mensaje con su respectivo chat
     if(!empty($id_co)){
         $sql="INSERT INTO `mensajes` ( `id_remitente`, `id_destinatario`, `id_conversacion`, `mensaje`, `fecha`) VALUES ($id, $_SESSION[id_friend], $id_co, '$mensaje', current_timestamp())";
         $enviar_mensaje=$db->ejecutarConsulta($sql);
     }
 
-    //si esta vacio id_co significa que no hay un chat enlazado e insertara un nuevo chat
+    //si no existe un chat, crea uno nuevo
     else{
-        $sql="Insert into conversaciones (`id_usuario1`, `id_usuario2`, `id_pub`) values ($id, $_SESSION[id_friend], $_SESSION[pub_id])";
-        $crear_chat=$db->ejecutarConsulta($sql);
+       
 
-
-            
+        $sql_insert_new_chat="INSERT INTO `conversaciones` (`id_usuario1`, `id_usuario2`, `id_pub`) VALUES ($id, $_SESSION[id_friend], $_SESSION[pub_id])";
+        $insert_chat=$db->ejecutarConsulta($sql_insert_new_chat);
+        
 
     $sql_id_conversacion="SELECT conversaciones.id_conversacion from conversaciones
-    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id);";
+    WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend]  ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id);";
 
     $enviar_id_conversacion=$db->seleccionarDatos($sql_id_conversacion);
    
@@ -75,16 +77,16 @@ if(empty($enviar_id)){
  $insert_message="INSERT INTO `mensajes` ( `id_remitente`, `id_destinatario`, `id_conversacion`, `mensaje`, `fecha`) VALUES ($id, $_SESSION[id_friend], $id_conversacion_new_chat, '$mensaje', current_timestamp())";
  $send_mensaje=$db->ejecutarConsulta($insert_message);
 
-
-
-
     }
 
 }
 
 
+
+
+
 //si hay un chat con mensajes
-if(!empty($enviar_id)){
+else{
     //insertar mensaje enviado
     $sql="INSERT INTO `mensajes` ( `id_remitente`, `id_destinatario`, `id_conversacion`, `mensaje`, `fecha`) VALUES ($id, $_SESSION[id_friend], $id_conversacion, '$mensaje', current_timestamp())";
     $enviar_mensaje=$db->ejecutarConsulta($sql);

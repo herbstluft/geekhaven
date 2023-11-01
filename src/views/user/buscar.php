@@ -51,7 +51,7 @@ error_reporting(E_ERROR | E_PARSE);
         </script>
         
 
-        <div class="row">
+        <div class="row"  style="margin-left:20px">
             <?php
             $SQL = "SELECT * from productos inner join categorias on categorias.id_cat=productos.id_cat where productos.existencia > 0";
             $con = $db->seleccionarDatos($SQL);

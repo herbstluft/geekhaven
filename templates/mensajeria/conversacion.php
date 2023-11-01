@@ -129,20 +129,32 @@ if(isset($_GET['borrar_conversacion'])){
   
     $borrar_mensajes=$db->ejecutarConsulta($sql);
 
-    $sql="delete from conversaciones where conversaciones.id_conversacion= $id_con_sin_mensajes";
+
+    $sql="UPDATE `conversaciones` SET `id_pub` = null WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
+    $borrar_id_pub=$db->ejecutarConsulta($sql);
+
+   $sql="UPDATE pub_trq SET id_conversacion = NULL WHERE `pub_trq`.`id_conversacion` = $id_con_sin_mensajes";
+   $borrar_id_conversacion_pub_trq=$db->ejecutarConsulta($sql);
+
+    $sql="DELETE FROM conversaciones WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
     $borrar_chat=$db->ejecutarConsulta($sql);
 
-    header('Location: index.php');
+   
 
 }
+
+
+
 
 
 //Datos de la publicacion
 if(isset($_GET['id_pub'])){
     $_SESSION['pub_id'] = $_GET['id_pub'];
-
+    $_SESSION['pub_titulo']=$_GET['pub_titulo'];
     if(isset($_GET['id_usuario'])){
         $_SESSION['pub_id_usuario'] = $_GET['id_usuario'];
+
+    
     }
     
 }
@@ -294,7 +306,7 @@ background:#3b3b3b;
     } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
         echo '<img class="profile-image" style="width:30px; height:30px;" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
     }          
-                echo $nombre_amigo; ?>  </p> 
+                echo " $nombre_amigo -  $_SESSION[pub_titulo] ";?>  </p> 
                 
             </div>
 
@@ -317,16 +329,15 @@ background:#3b3b3b;
         <div class="row ">
             
             <div class="col-12 ">
-            <button type="button" class="btn btn-primary position-relative">
-  Profile
-  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-    <span class="visually-hidden">New alerts</span>
+            <button type="button" class="btn position-relative" style="background:#005aff; color:white">
+  Aceptar Oferta
+  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle" style=" height: 25px;margin: auto;width: 25px;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style="position: relative;right: 5px;bottom: 10px;">
+  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+</svg>
   </span>
 </button>
             </div>
-        
-          
-          
         </div>
     </div>  
 
@@ -629,7 +640,7 @@ else{
         <div class="offset-5 col-2 text-right">
             <div style="background:#171717; border-radius:10px; width:45px; height:45px" class="text-center">
                 <p class="w-100">
-               <a href="conversacion.php?id_con=<?php echo $id_con?>&id_friend=<?php if(isset($_GET['id_friend'])){ echo $_GET['id_friend'];} ?>&num_new_friend=<?php if(isset($_GET['num_new_friend'])){echo $number_new_friend;} ?> ">
+               <a href="conversacion.php?id_con=<?php echo $id_con?>&id_friend=<?php if(isset($_GET['id_friend'])){ echo $_GET['id_friend'];} ?>&num_new_friend=<?php if(isset($_GET['num_new_friend'])){echo $number_new_friend;} ?> &pub_titulo=<?php echo  $_SESSION['pub_titulo'] ?> ">
                <svg style="margin-top:12px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash2-fill" viewBox="0 0 16 16">
                         <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
                     </svg>

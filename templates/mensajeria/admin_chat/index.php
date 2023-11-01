@@ -44,7 +44,7 @@ foreach($res as $res){
 
 <b> <?php echo $res['id_usuario']?> </b> &ensp; <b> <?php echo $res['descripcion']?> </b> &ensp; <b> <?php echo $res['precio']?> </b> &ensp; <b> <?php if($res['estatus']=0){echo "Disponible";}  if($res['estatus']==1){ ?> <b style="color:red">Vendido</b> <?php }?> </b>  
 
-<a href="../conversacion.php?id_pub=<?php echo $res['id_pub'];  ?>&id_usuario=<?php echo $res['id_usuario'];?> &num_new_friend=<?php echo $res['telefono']; ?>"><button type="button" class="btn btn-primary">Contactar</button></a>
+<a href="../conversacion.php?id_pub=<?php echo $res['id_pub'];  ?>&id_usuario=<?php echo $res['id_usuario'];?> &pub_titulo=<?php echo $res['titulo'];?> &num_new_friend=<?php echo $res['telefono']; ?>"><button type="button" class="btn btn-primary">Contactar</button></a>
 
 
 <br><br>

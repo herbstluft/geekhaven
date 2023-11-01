@@ -13,61 +13,66 @@ if(isset($_SESSION['user'])){
     $id=$_SESSION['user'];
 }
 //Ver todas mis conversaciones con un case para sacar el nombre de la persona con la que hablo
-$sql="SELECT
-    c.id_conversacion,
-    CASE
-        WHEN u1.id_usuario = $id THEN p2.nombre
-        WHEN u2.id_usuario = $id THEN p1.nombre
-    END AS nombre,
-    CASE
-        WHEN u1.id_usuario = $id THEN u2.imagen
-        WHEN u2.id_usuario = $id THEN u1.imagen
-    END AS imagen,
-    CASE
-        WHEN u1.id_usuario = $id THEN u2.estado
-        WHEN u2.id_usuario = $id THEN u1.estado
-    END AS estado,
-    m.mensaje AS ultimo_mensaje,
-    m.fecha AS hora_ultimo_mensaje,
-    CASE
-        WHEN u1.id_usuario = $id THEN u2.id_usuario
-        WHEN u2.id_usuario = $id THEN u1.id_usuario
-    END AS id_amigo,
-    m.id_remitente AS id_persona_ultimo_mensaje  -- Agregado para mostrar el ID de la persona que envió el último mensaje
+$sql="SELECT 
+c.id_conversacion,
+CASE
+    WHEN u1.id_usuario = $id THEN p2.nombre
+    WHEN u2.id_usuario = $id THEN p1.nombre
+END AS nombre,
+CASE
+    WHEN u1.id_usuario = $id THEN u2.imagen
+    WHEN u2.id_usuario = $id THEN u1.imagen
+END AS imagen,
+CASE
+    WHEN u1.id_usuario = $id THEN u2.estado
+    WHEN u2.id_usuario = $id THEN u1.estado
+END AS estado,
+m.mensaje AS ultimo_mensaje,
+m.fecha AS hora_ultimo_mensaje,
+CASE
+    WHEN u1.id_usuario = $id THEN u2.id_usuario
+    WHEN u2.id_usuario = $id THEN u1.id_usuario
+END AS id_amigo,
+m.id_remitente AS id_persona_ultimo_mensaje,
+p3.id_pub AS id_pub, -- Agregado para mostrar el ID de la publicación
+p3.titulo as titulo
 FROM
-    conversaciones c
+conversaciones c
 INNER JOIN
-    usuarios u1 ON c.id_usuario1 = u1.id_usuario
+usuarios u1 ON c.id_usuario1 = u1.id_usuario
 INNER JOIN
-    usuarios u2 ON c.id_usuario2 = u2.id_usuario
+usuarios u2 ON c.id_usuario2 = u2.id_usuario
 INNER JOIN
-    personas p1 ON u1.id_persona = p1.id_persona
+personas p1 ON u1.id_persona = p1.id_persona
 INNER JOIN
-    personas p2 ON u2.id_persona = p2.id_persona
+personas p2 ON u2.id_persona = p2.id_persona
 LEFT JOIN
-    (
-        SELECT
-            m1.id_conversacion,
-            m1.mensaje,
-            m1.fecha,
-            m1.id_remitente  -- Agregado para obtener el ID de la persona que envió el mensaje
-        FROM
-            mensajes m1
-        WHERE
-            (m1.fecha,  m1.id_mensaje) = (
-                SELECT
-                    MAX(m2.fecha), MAX(m2.id_mensaje)
-                FROM
-                    mensajes m2
-                WHERE
-                    m2.id_conversacion = m1.id_conversacion
-            )
-    ) AS m ON c.id_conversacion = m.id_conversacion
-WHERE
-    u1.id_usuario = $id  OR u2.id_usuario = $id ORDER BY hora_ultimo_mensaje DESC;;
+(
+    SELECT 
+        m1.id_conversacion,
+        m1.mensaje,
+        m1.fecha,
+        m1.id_remitente
+    FROM
+        mensajes m1 
+    WHERE
+        (m1.fecha,  m1.id_mensaje) = (
+            SELECT
+                MAX(m2.fecha), MAX(m2.id_mensaje)
+            FROM
+                mensajes m2
+            WHERE
+                m2.id_conversacion = m1.id_conversacion
+        )
+) AS m ON c.id_conversacion = m.id_conversacion
+-- Agregar un JOIN con la tabla pub_trq
+LEFT JOIN
+pub_trq p3 ON c.id_pub = p3.id_pub
+WHERE  
+u1.id_usuario = $id  OR u2.id_usuario = $id
+ORDER BY hora_ultimo_mensaje DESC;
+
 ";
-
-
 
 $ver_mis_chats=$db->seleccionarDatos($sql);
 
@@ -83,6 +88,8 @@ foreach ($ver_mis_chats as $michats) {
 $fecha = new DateTime($ultimo_mensaje);
 // Formatea la fecha y hora
 $hora_ultimo_mensaje = $fecha->format('m/d h:i A');
+$pub_id=$michats['id_pub'];
+$pub_titulo=$michats['titulo'];
 
 
 
@@ -113,7 +120,7 @@ $hora_ultimo_mensaje = $fecha->format('m/d h:i A');
     $mi_chats .= '<div class="chat-content text-truncate"> ';
     $mi_chats .= '<div class="chat-header">';
 
-    $mi_chats .= '<a style="text-decoration:none" href="conversacion.php?id_friend=' . urlencode($id_amigo) . '"><h2 class="text-truncate" id="nombrechat">' . $nombrechat . '</h2> </a>';
+    $mi_chats .= '<a style="text-decoration:none" href="conversacion.php?id_friend=' . urlencode($id_amigo) . '&id_pub=' . urlencode($pub_id).'&pub_titulo=' . urlencode($pub_titulo).' "><h2 class="text-truncate" id="nombrechat">' . $nombrechat .' - ' . $pub_titulo.'  </h2> </a>';
   
     $mi_chats .= '<div style="font-size: 12px;color: #c1c1c1; margin-top: -1%;">' . $hora_ultimo_mensaje . '</div>';
     $mi_chats .= '</div>';

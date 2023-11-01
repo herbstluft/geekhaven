@@ -18,7 +18,7 @@
         $precio=$info_producto['precio'];
         $existencia=$info_producto['existencia'];
         $descripcion=$info_producto['descripcion'];
-        $categoria=$info_producto['nom_cat'];
+      
         
 
     }    
@@ -60,7 +60,7 @@ include '../../../templates/navbar_user.php'
       <div class="row">
           <div class="cont-back">
               <a href="../../../index.php" class="">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
               </svg>  
           </a>
@@ -104,7 +104,7 @@ include '../../../templates/navbar_user.php'
                           Existencia: <?php echo $existencia ?>
                       </h3>
                       <h3>
-                          Categoria: <?php echo $categoria ?>
+                          Categoria: <?php echo $info_producto['nom_cat']; ?>
                       </h3>                        
                   </div>
                   <div class="productobott">
