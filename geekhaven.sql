@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 03:39 AM
+-- Generation Time: Nov 01, 2023 at 07:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -56,8 +56,26 @@ INSERT INTO `categorias` (`id_cat`, `nom_cat`) VALUES
 CREATE TABLE `conversaciones` (
   `id_conversacion` int(11) NOT NULL,
   `id_usuario1` int(11) NOT NULL,
-  `id_usuario2` int(11) NOT NULL
+  `id_usuario2` int(11) NOT NULL,
+  `id_pub` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `conversaciones`
+--
+
+INSERT INTO `conversaciones` (`id_conversacion`, `id_usuario1`, `id_usuario2`, `id_pub`) VALUES
+(112, 41, 40, 1),
+(117, 40, 41, 1),
+(118, 40, 41, 1),
+(119, 40, 41, 1),
+(120, 40, 41, 1),
+(121, 40, 41, 1),
+(122, 40, 41, 1),
+(123, 40, 41, 1),
+(124, 40, 41, 1),
+(125, 40, 41, 1),
+(126, 40, 41, 1);
 
 -- --------------------------------------------------------
 
@@ -99,7 +117,9 @@ INSERT INTO `detalle_orden` (`id_do`, `id_producto`, `cantidad`, `id_usuario`, `
 (17, 3, 1, 39, 1, '2021-05-06 06:00:00', 12),
 (18, 8, 1, 39, 1, '2021-11-29 06:00:00', 13),
 (19, 6, 1, 39, 1, '2022-07-09 06:00:00', 13),
-(20, 2, 1, 39, 1, '2021-11-13 06:00:00', 13);
+(20, 2, 1, 39, 1, '2021-11-13 06:00:00', 13),
+(48, 13, 1, 40, 0, NULL, 20),
+(50, 12, 2, 40, 0, NULL, 20);
 
 -- --------------------------------------------------------
 
@@ -225,6 +245,22 @@ CREATE TABLE `mensajes` (
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `mensajes`
+--
+
+INSERT INTO `mensajes` (`id_mensaje`, `id_remitente`, `id_destinatario`, `id_conversacion`, `mensaje`, `fecha`) VALUES
+(456, 40, 41, 117, 'hola', '2023-10-30 22:10:17'),
+(457, 40, 41, 118, 'hola', '2023-10-30 22:10:25'),
+(458, 40, 41, 119, 'hola', '2023-10-30 22:10:27'),
+(459, 40, 41, 120, 'hola', '2023-10-30 22:10:28'),
+(460, 40, 41, 121, 'hola', '2023-10-30 22:10:30'),
+(461, 40, 41, 122, 'hola', '2023-10-30 22:10:31'),
+(462, 40, 41, 123, 'hola', '2023-10-30 22:10:34'),
+(463, 40, 41, 124, 'hola', '2023-10-30 22:10:34'),
+(464, 40, 41, 125, 'hola', '2023-10-30 22:10:34'),
+(465, 40, 41, 126, 'oye', '2023-10-30 22:10:40');
+
 -- --------------------------------------------------------
 
 --
@@ -233,27 +269,35 @@ CREATE TABLE `mensajes` (
 
 CREATE TABLE `orden` (
   `id_orden` int(11) NOT NULL,
-  `fecha` timestamp NULL DEFAULT NULL
+  `fecha` timestamp NULL DEFAULT NULL,
+  `usr` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orden`
 --
 
-INSERT INTO `orden` (`id_orden`, `fecha`) VALUES
-(1, '2023-10-01 00:14:10'),
-(2, '2023-09-30 00:14:10'),
-(3, '2023-09-29 00:14:44'),
-(4, '2023-09-28 00:14:44'),
-(5, '2023-09-27 00:14:44'),
-(6, '2023-09-26 00:14:44'),
-(7, '2023-09-25 00:14:44'),
-(8, '2023-09-24 00:14:44'),
-(9, '2023-09-23 00:14:44'),
-(10, '2023-09-22 00:14:44'),
-(11, '2023-09-21 00:14:44'),
-(12, '2023-09-20 00:14:44'),
-(13, '2023-09-19 00:14:44');
+INSERT INTO `orden` (`id_orden`, `fecha`, `usr`) VALUES
+(1, '2023-10-01 00:14:10', NULL),
+(2, '2023-09-30 00:14:10', NULL),
+(3, '2023-09-29 00:14:44', NULL),
+(4, '2023-09-28 00:14:44', NULL),
+(5, '2023-09-27 00:14:44', NULL),
+(6, '2023-09-26 00:14:44', NULL),
+(7, '2023-09-25 00:14:44', NULL),
+(8, '2023-09-24 00:14:44', NULL),
+(9, '2023-09-23 00:14:44', NULL),
+(10, '2023-09-22 00:14:44', NULL),
+(11, '2023-09-21 00:14:44', NULL),
+(12, '2023-09-20 00:14:44', NULL),
+(13, '2023-09-19 00:14:44', NULL),
+(14, '2023-10-24 01:17:47', 40),
+(15, '2023-10-24 02:24:16', 40),
+(16, '2023-10-26 01:31:17', 40),
+(17, '2023-10-26 01:33:00', 40),
+(18, '2023-10-26 01:33:46', 40),
+(19, '2023-10-26 01:36:29', 40),
+(20, '2023-10-26 02:22:50', 40);
 
 -- --------------------------------------------------------
 
@@ -293,8 +337,11 @@ INSERT INTO `personas` (`id_persona`, `nombre`, `apellido`, `info`, `correo`) VA
 (63, '', '', NULL, ''),
 (67, 'angel', 'chavez', NULL, 'herbstluftwm.28@gmail.com'),
 (68, '', '', NULL, ''),
-(69, 'juanii', 'castañeda', '¡Hola, Estoy usando GeekHaven!', 'jkhsjkhsjs@gmail.com'),
-(71, 'Juan Miguel', 'Castañeda Ontiveros', '¡Hola, Estoy usando GeekHaven!', 'miguel@gmail.com');
+(69, 'Juanito', 'Ontiveros', '¡Hola, Estoy usando GeekHaven! ', 'jkhsjkhsjs@gmail.com'),
+(71, 'GeekHaven', 'Castañeda Ontiveros', '¡Hola, Estoy usando GeekHaven!', 'miguel@gmail.com'),
+(72, 'Juan Angel', 'Castañeda Chávez ', '¡Hola, Estoy usando GeekHaven!', 'bspwm.28@gmail.com'),
+(74, 'Diana Gabriela', 'Huerta Bailon', '¡Hola, Estoy usando GeekHaven!', 'dianagaby@gmail.com'),
+(75, 'mil@gmail.com', 'Ontiveross sjkjsk', '¡Hola, Estoy usando GeekHaven!', 'angel@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -347,8 +394,19 @@ CREATE TABLE `pub_trq` (
   `precio` double DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL,
-  `estatus` int(11) DEFAULT NULL
+  `estatus` int(11) DEFAULT NULL,
+  `titulo` varchar(50) DEFAULT NULL,
+  `id_conversacion` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pub_trq`
+--
+
+INSERT INTO `pub_trq` (`id_pub`, `id_usuario`, `precio`, `descripcion`, `estado`, `estatus`, `titulo`, `id_conversacion`) VALUES
+(1, 40, 200, 'Vendo tenis, nike usados solo 5 veces', 'Usados', 0, 'Tenis Nike', 112),
+(2, 42, 1000, 'Cama comoda, como nueva', 'Nueva', 0, 'Cama matrimonial', NULL),
+(3, 40, 170, 'Nuevo en su paquete', 'nuevo', 0, 'Adaptador wifi', NULL);
 
 -- --------------------------------------------------------
 
@@ -434,8 +492,40 @@ INSERT INTO `usuarios` (`id_usuario`, `telefono`, `contrasena`, `id_persona`, `c
 (37, '8713709098', '3333333333', 48, NULL, NULL, 1, 2, NULL),
 (38, '8714253647', '4444444444', 49, NULL, NULL, 1, 3, NULL),
 (39, '8711234567', '5555555555', 50, NULL, NULL, 1, 1, NULL),
-(40, '12345', '$2y$10$n7JKTVKLGK9qbBCCuf7B8.FEtX65z8vjp3OZa1w9Vl0Q.CCo.3AxS', 69, NULL, NULL, 1, NULL, NULL),
-(41, '9999999999', '$2y$10$Sy1SuICzGUUO6bdqQDFunuaIp4lZRz2jlFWFzGPronhm1CdznWcYm', 71, NULL, NULL, 0, NULL, 'Screenshot_20231014_164221_com.huawei.calculator.jpg');
+(40, '12345', '$2y$10$n7JKTVKLGK9qbBCCuf7B8.FEtX65z8vjp3OZa1w9Vl0Q.CCo.3AxS', 69, NULL, 1, 1, NULL, 'default.jpg'),
+(41, '9999999999', '$2y$10$Sy1SuICzGUUO6bdqQDFunuaIp4lZRz2jlFWFzGPronhm1CdznWcYm', 71, NULL, 1, 0, NULL, 'logo_chat.png'),
+(42, '00000', '$2y$10$NnmmYJhl/rTLxKyqPC4AX.JRslU0w.S0rew5H40Kncs3mMWS9F6bS', 72, NULL, 1, 1, NULL, 'Screenshot_20230914_102424_com.android.keyguard.jpg'),
+(44, '8711493511', '$2y$10$YF24JkDAMaTAPyX891U6XOlsBAETC3/X2THIKcxucR8SYRBceTjr6', 74, NULL, 1, 1, NULL, 'default.jpg'),
+(45, '87887999', '$2y$10$drTBwn2XNtBqVYjsd3z5EONtv31PNni.TciFIYRalrjBS5QwKsp6q', 75, NULL, NULL, 1, NULL, 'default.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vmostrar`
+-- (See below for the actual view)
+--
+CREATE TABLE `vmostrar` (
+`id_producto` int(11)
+,`nom_producto` varchar(100)
+,`precio` double
+,`descripcion` varchar(500)
+,`existencia` int(11)
+,`estado` varchar(50)
+,`id_cat` int(11)
+,`tipo_id` int(11)
+,`universo_id` int(11)
+,`fecha` timestamp
+,`precio_base` float
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vmostrar`
+--
+DROP TABLE IF EXISTS `vmostrar`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vmostrar`  AS SELECT `productos`.`id_producto` AS `id_producto`, `productos`.`nom_producto` AS `nom_producto`, `productos`.`precio` AS `precio`, `productos`.`descripcion` AS `descripcion`, `productos`.`existencia` AS `existencia`, `productos`.`estado` AS `estado`, `productos`.`id_cat` AS `id_cat`, `productos`.`tipo_id` AS `tipo_id`, `productos`.`universo_id` AS `universo_id`, `productos`.`fecha` AS `fecha`, `productos`.`precio_base` AS `precio_base` FROM `productos` WHERE `productos`.`id_cat` = 3 ;
 
 --
 -- Indexes for dumped tables
@@ -453,7 +543,8 @@ ALTER TABLE `categorias`
 ALTER TABLE `conversaciones`
   ADD PRIMARY KEY (`id_conversacion`),
   ADD KEY `conversaciones_ibfk_1` (`id_usuario1`),
-  ADD KEY `conversaciones_ibfk_2` (`id_usuario2`);
+  ADD KEY `conversaciones_ibfk_2` (`id_usuario2`),
+  ADD KEY `id_pub` (`id_pub`);
 
 --
 -- Indexes for table `detalle_orden`
@@ -503,7 +594,8 @@ ALTER TABLE `mensajes`
 -- Indexes for table `orden`
 --
 ALTER TABLE `orden`
-  ADD PRIMARY KEY (`id_orden`);
+  ADD PRIMARY KEY (`id_orden`),
+  ADD KEY `usr` (`usr`);
 
 --
 -- Indexes for table `personas`
@@ -525,7 +617,8 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `pub_trq`
   ADD PRIMARY KEY (`id_pub`),
-  ADD KEY `usr_pub` (`id_usuario`);
+  ADD KEY `usr_pub` (`id_usuario`),
+  ADD KEY `id_conversacion` (`id_conversacion`);
 
 --
 -- Indexes for table `tipo`
@@ -560,13 +653,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT for table `conversaciones`
 --
 ALTER TABLE `conversaciones`
-  MODIFY `id_conversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_conversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT for table `detalle_orden`
 --
 ALTER TABLE `detalle_orden`
-  MODIFY `id_do` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_do` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `img_prducto_prd`
@@ -596,19 +689,19 @@ ALTER TABLE `img_pub_ptrq`
 -- AUTO_INCREMENT for table `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=304;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=466;
 
 --
 -- AUTO_INCREMENT for table `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `productos`
@@ -620,7 +713,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT for table `pub_trq`
 --
 ALTER TABLE `pub_trq`
-  MODIFY `id_pub` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tipo`
@@ -638,7 +731,7 @@ ALTER TABLE `universo`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Constraints for dumped tables
@@ -649,7 +742,8 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `conversaciones`
   ADD CONSTRAINT `conversaciones_ibfk_1` FOREIGN KEY (`id_usuario1`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `conversaciones_ibfk_2` FOREIGN KEY (`id_usuario2`) REFERENCES `usuarios` (`id_usuario`);
+  ADD CONSTRAINT `conversaciones_ibfk_2` FOREIGN KEY (`id_usuario2`) REFERENCES `usuarios` (`id_usuario`),
+  ADD CONSTRAINT `conversaciones_ibfk_3` FOREIGN KEY (`id_pub`) REFERENCES `pub_trq` (`id_pub`);
 
 --
 -- Constraints for table `detalle_orden`
@@ -681,6 +775,12 @@ ALTER TABLE `mensajes`
   ADD CONSTRAINT `mensajes_ibfk_4` FOREIGN KEY (`id_conversacion`) REFERENCES `conversaciones` (`id_conversacion`);
 
 --
+-- Constraints for table `orden`
+--
+ALTER TABLE `orden`
+  ADD CONSTRAINT `orden_ibfk_1` FOREIGN KEY (`usr`) REFERENCES `usuarios` (`id_usuario`);
+
+--
 -- Constraints for table `productos`
 --
 ALTER TABLE `productos`
@@ -692,6 +792,7 @@ ALTER TABLE `productos`
 -- Constraints for table `pub_trq`
 --
 ALTER TABLE `pub_trq`
+  ADD CONSTRAINT `pub_trq_ibfk_1` FOREIGN KEY (`id_conversacion`) REFERENCES `conversaciones` (`id_conversacion`),
   ADD CONSTRAINT `usr_pub` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
