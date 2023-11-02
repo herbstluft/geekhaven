@@ -139,7 +139,9 @@ if(isset($_GET['borrar_conversacion'])){
     $sql="DELETE FROM conversaciones WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
     $borrar_chat=$db->ejecutarConsulta($sql);
 
-   
+    $sql="UPDATE `pub_trq` SET `id_conversacion` = NULL WHERE `pub_trq`.`id_pub` = {$_SESSION['pub_id']};";
+
+    header("Location: index.php");
 
 }
 
@@ -324,12 +326,15 @@ background:#3b3b3b;
 
 
 
-
+<?php
+if(isset($_SESSION['admin'])){
+?>
     <div style="position:fixed;bottom:10%">
         <div class="row ">
-            
+            <form action="conversacion.php" method="post">
             <div class="col-12 ">
-            <button type="button" class="btn position-relative" style="background:#005aff; color:white">
+           <a href="">
+           <button type="button" class="btn position-relative" name="aceptar_oferta" style="background:#005aff; color:white">
   Aceptar Oferta
   <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle" style=" height: 25px;margin: auto;width: 25px;">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style="position: relative;right: 5px;bottom: 10px;">
@@ -337,9 +342,17 @@ background:#3b3b3b;
 </svg>
   </span>
 </button>
+           </a>
             </div>
+            </form>
         </div>
     </div>  
+
+<?php
+} 
+?>
+
+
 
 
 
@@ -652,13 +665,7 @@ else{
 
 <br>
 
-<?php 
-}
-?>
-
-
-
-    <div class="col-5">
+<div class="col-5">
             <p style="font-size:17px; color:red; font-weight:bolder;">Eliminar Chat</p>
             <p style="font-size:16px; color:white; margin-top:-10px"> Elimina de tu lista de chats.</p>
         </div>
@@ -675,6 +682,13 @@ else{
                 </p>
             </div>
         </div>
+<?php 
+}
+?>
+
+
+
+   
 
 
     
