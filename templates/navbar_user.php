@@ -131,41 +131,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
           
     <?php
    }
-   elseif(empty($carrito)){
-    ?>
-    <div class="modal  fade modal-lg" id="modalCarritoasd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                               <div class="modal-dialog">
-                                 <div class="modal-content" style="background:none">
-                                   <div class="text-center modal-header" style="background: #ffffffc4;backdrop-filter: blur(50px);color: black;border-radius: 20px;margin-bottom: 15px;margin-top: 5px;">
-                                     <h1 class="modal-title fs-5 text-center" id="exampleModalLabel" style="color:black; margin: auto;width: 100%;">CARRITO</h1>
-                                     <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                   </div>
-                                   <div class="modal-body" style="background: #ffffffc4;backdrop-filter: blur(50px);color: black;border-radius: 10px 10px 0px 0px;">
-                                     <table>
-                                         <tr style="padding-bottom:10px;">
-                                         <th scope="row">
-                                           <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" style="width: 90%; border-radius: 20px; margin-bottom:10px;"class="col-2"alt="">
-                                         </th>
-                                             <td colspan="1" class="col-12"></td>
-                                       </tr>
-                        
-                                     </table>
-                                   </div>
-                                  
-                                   <div class="modal-footer " style=" border-top: 1px solid #cacaca85; margin-top: 0px;border-radius: 0px 0px 10px 10px; background: #ffffffc4;backdrop-filter: blur(50px);color: black;">
-                                     
-                              
-                                     <div class="row" style="width:100%">
-                                    <div class="col-4">
-                                    <center><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></center>
-                                  </div>  
-                                   </div>
-                                 </div>
-                               </div>
-                             </div>
-                       </a>
-    <?php
-   }
+
    }
 ?>
 <!--  Body Wrapper -->
