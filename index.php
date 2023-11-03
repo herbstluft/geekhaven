@@ -19,19 +19,19 @@
     FROM detalle_orden as do
     INNER JOIN productos p ON do.id_producto = p.id_producto
     INNER join categorias c on c.id_cat=p.id_cat
-    WHERE MONTH(do.fecha_detalle) = MONTH(CURRENT_DATE)
+    WHERE MONTH(do.fecha_detalle) = MONTH(CURRENT_DATE) and existencia>0
     GROUP BY do.id_producto, p.nom_producto
     ORDER BY cantidad_vendida DESC limit 6;";
     $favoritos_del_mes=$db->seleccionarDatos($sql);
 
 
     //ofertas
-    $sql="SELECT * from productos INNER JOIN categorias on categorias.id_cat=productos.id_cat WHERE productos.estado='oferta' AND productos.existencia>0;";
+    $sql="SELECT * from productos INNER JOIN categorias on categorias.id_cat=productos.id_cat WHERE productos.estado='oferta' AND existencia>0;";
     $ofertas=$db->seleccionarDatos($sql);
 
 
     //Recien llegados
-    $sql="SELECT * FROM productos inner join categorias on categorias.id_cat=productos.id_cat ORDER BY fecha desc LIMIT 6;";
+    $sql="SELECT * FROM productos inner join categorias on categorias.id_cat=productos.id_cat where existencia>0  ORDER BY fecha desc LIMIT 6;";
     $recien_llegados=$db->seleccionarDatos($sql);
   
     //Categorias
