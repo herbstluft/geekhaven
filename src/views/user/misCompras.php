@@ -5,8 +5,11 @@
    
     $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
 
-    if (isset($_GET['order']) && $_GET['order'] == 'asc') {
-        $orderClause = "ASC"; // Cambia la ordenación a "antiguos a recientes"
+    if($_GET['usr']){
+      $usr=$_GET['usr'];
+    }
+    else{
+      echo "hay un error alv";
     }
     
     $sql = "SELECT
@@ -22,7 +25,7 @@
     JOIN productos p ON do.id_producto = p.id_producto
     JOIN usuarios u ON do.id_usuario = u.id_usuario
     JOIN personas ON personas.id_persona = u.id_persona
-    WHERE u.id_usuario=35 and
+    WHERE u.id_usuario=$usr and
         do.estatus = 2
     GROUP BY
         o.id_orden
@@ -276,7 +279,7 @@ foreach ($mis_compras as $mis_compras){
                         echo "";
                     }
                     elseif($cantidad > 1){ ?>
-                        <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>">Ver productos de la compra</a>
+                        <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver productos de la compra</a>
 </p>
                     <?php     
                     }

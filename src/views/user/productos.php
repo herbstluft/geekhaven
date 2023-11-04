@@ -4,6 +4,7 @@
     $db = new Database;
     $HOST=$_SERVER['SERVER_NAME'];
 
+    
     if(isset($_GET['id'])){
         //guardar el id del producto
         $id_producto=$_GET['id'];

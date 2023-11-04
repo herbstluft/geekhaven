@@ -4,9 +4,12 @@
     $db = new Database;
 
     $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
-
+    $HOST=$_SERVER['SERVER_NAME'];
     if (isset($_GET['order']) && $_GET['order'] == 'asc') {
         $orderClause = "ASC"; // Cambia la ordenación a "antiguos a recientes"
+    }
+    if($_GET['usr']){
+      $usr=$_GET['usr'];
     }
     
     $sql = "SELECT
@@ -22,7 +25,7 @@
     JOIN productos p ON do.id_producto = p.id_producto
     JOIN usuarios u ON do.id_usuario = u.id_usuario
     JOIN personas ON personas.id_persona = u.id_persona
-    WHERE u.id_usuario=35 and
+    WHERE u.id_usuario=$usr and
         do.estatus = 1
     GROUP BY
         o.id_orden
@@ -201,12 +204,12 @@ include('../../../templates/navbar_user.php');
           <div class="container">
 <div class="row">
  <div class="col-md-12">
-  <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Mis compras</h1>
+  <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Pedidos pendientes por entregar</h1>
   <hr>
   <br>
   <!-----------------------------Filtro---------------------------------->
   <div class="select-box">
-  <form method="GET" action="misCompras.php">
+  <form method="GET" action="pedidos.php">
     <div class="select-box__current " tabindex="1" style="color: black; border-radius: 10px">
       <div class="select-box__value" style="color: black">
         <input class="select-box__input" type="radio" id="recientes" value="desc" name="order" <?php if ($orderClause == "DESC") echo "checked"; ?> />
@@ -226,6 +229,7 @@ include('../../../templates/navbar_user.php');
         <label class="select-box__option" for="antiguos" aria-hidden="aria-hidden">Pedido: Antiguo - Reciente</label>
       </li>
     </ul>
+    <input type="hidden" value=<?php echo $usr?>>
     <button type="submit" style="margin-top:20px" class="btn btn-primary">Aplicar</button>
   </form>
 </div>
@@ -255,9 +259,11 @@ foreach ($mis_compras as $mis_compras){
                 <div class="col-6">
                     <p><b> <?php echo $fecha ?></b></p>
                 </div>
+                
                 <div class="col-6 text-end">
-                    <b style="color:#0d6efd">Noº de pedido  #<?php echo $id_venta ?></b>
+                    <b style="color:#0d6efd">Noº de pedido  #<?php echo $id_venta ?>
                 </div>
+                
             </div>
 
             <hr style="opacity:0.1">
@@ -276,7 +282,7 @@ foreach ($mis_compras as $mis_compras){
                         echo "";
                     }
                     elseif($cantidad > 1){ ?>
-                        <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>">Ver productos de la compra</a>
+                        <p><<a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver productos de la compra</a>
 </p>
                     <?php     
                     }
