@@ -2,7 +2,7 @@
     use MyApp\data\Database;
     require("../../../vendor/autoload.php");
     $db = new Database;
-
+   
     $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
 
     if (isset($_GET['order']) && $_GET['order'] == 'asc') {
@@ -23,7 +23,7 @@
     JOIN usuarios u ON do.id_usuario = u.id_usuario
     JOIN personas ON personas.id_persona = u.id_persona
     WHERE u.id_usuario=35 and
-        do.estatus = 1
+        do.estatus = 2
     GROUP BY
         o.id_orden
     ORDER BY do.fecha_detalle $orderClause"; // Agrega la ordenación dinámica
@@ -276,7 +276,7 @@ foreach ($mis_compras as $mis_compras){
                         echo "";
                     }
                     elseif($cantidad > 1){ ?>
-                        <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>">Ver productos de la compra</a>
+                        <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>">Ver productos de la compra</a>
 </p>
                     <?php     
                     }

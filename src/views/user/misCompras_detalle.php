@@ -21,25 +21,22 @@ if(isset($_GET['id_o'])){
 ?>
 
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<!--Boostrap-->   
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-<!--Boostrap--> 
-<link rel="stylesheet" href="../../../bootstrap/css/estilos.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
 <!--STYLE-->
     <style>
 
         body {
             font-family: Arial, sans-serif;
-            background:#ededed;
+            background:#white;
             
         }
 
@@ -49,7 +46,7 @@ if(isset($_GET['id_o'])){
 <body>
     <!----------------------------------------------------->
     <?php
-include('../../../templates/navbar/navbar.php');
+include('../../../templates/navbar_user.php');
 ?>
     <!----------------------------------------------------->
 
@@ -107,11 +104,12 @@ foreach ($mis_compras as $mis_compras){
 
                 </div>
             </div>
+            
+    <hr style="opacity:0.2">
             <?php
 }
 ?>
         
-    <hr style="opacity:0.1">
 
             <div class="row">
                 <div class="col-6 text-center">
@@ -147,7 +145,7 @@ foreach ($mis_compras as $mis_compras){
 </div>
 
 
-<center><a href="pedidos.php"><button type="button" class="btn btn-primary">Regresar atras</button></a></center>
+<center><a href="misCompras.php"><button type="button" class="btn btn-primary col-12 fs-5">Regresar atras</button></a></center>
 
 <br>
 <br>
@@ -160,7 +158,11 @@ foreach ($mis_compras as $mis_compras){
 <?php include '../../../templates/footer.html';?>
 </div>
 <script src="../../../bootstrap/js/buscador.js"></script>
-
+<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
 </body>
 </html>
