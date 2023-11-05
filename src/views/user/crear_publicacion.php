@@ -2,50 +2,6 @@
 use MyApp\data\Database;
 require("../../../vendor/autoload.php");
 $db = new Database;
-
-
-//si hay un metodo FIles[imagen]
-if (isset($_FILES['imagen'])){
-  
-  
-  $id_usuario = $_POST['id_usuario'];
-
-   // Carpeta temporal para almacenar las imágenes
-   $carpeta_temporal = 'img_pub_trq/';
-   if (!is_dir($carpeta_temporal)) {
-       mkdir($carpeta_temporal, 0755, true);
-   }
-
-	//cuenta las imagenes que hay en el array
-	$cantidad= count($_FILES["imagen"]["tmp_name"]);
-	//recorre cada una de las imagenes para saber el nombre de cada una de ellas
-	for ($i=0; $i<$cantidad; $i++){
-	//Comprobamos si el fichero es una imagen
-	if ($_FILES['imagen']['type'][$i]=='image/png' || $_FILES['imagen']['type'][$i]=='image/jpeg'){
-	
-    //guardamos los datos de cada imagen, por ejemplo el nombre
-    if (!empty($_FILES['imagen']['name'][0])) {
-      $nombre_imagenes = $_FILES['imagen']['name'];
-      $rutas_temporales = $_FILES['imagen']['tmp_name'];
-  
-      for ($i = 0; $i < count($nombre_imagenes); $i++) {
-          $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
-          $ruta_temporal = $rutas_temporales[$i];
-          $ruta_destino = $carpeta_temporal . $nombre_imagen;
-  
-          //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
-          if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
-              // Guardar el nombre de la imagen en la base de datos
-              $db->ejecutarConsulta("INSERT INTO imagenes (id_usuario, nombre_imagen) VALUES ($id_usuario, '$nombre_imagen')");
-          }
-      }
-  }
-	}
-	else $validar=false;
-  }
-}
-
-
 ?>
 
 
@@ -75,6 +31,81 @@ if (isset($_FILES['imagen'])){
         <div style="padding: 20px">
 
 
+        <?php
+
+if (isset($_POST['nombre_producto'], $_POST['descripcion_producto'], $_POST['estado_producto'], $_POST['precio_producto'], $_POST['id_usuario'])) {
+
+$nombre_producto= $_POST['nombre_producto'];
+$descripcion_producto= $_POST['descripcion_producto'];
+$estado_producto=$_POST['estado_producto'];
+$precio_producto=$_POST['precio_producto'];
+$id_usuario = $_POST['id_usuario'];
+
+$insert_pub_trq="INSERT INTO `pub_trq` (`id_usuario`, `precio`, `descripcion`, `estado`, `estatus`, `titulo`) VALUES ($id_usuario, $precio_producto, '$descripcion_producto', '$estado_producto', 0, '$nombre_producto')";
+$db->ejecutarConsulta($insert_pub_trq);
+
+$obtener_id_de_pub="select id_pub from pub_trq where id_usuario=$id_usuario and precio=$precio_producto and descripcion='$descripcion_producto' and estado='$estado_producto' and titulo='$nombre_producto' and estatus=0";
+$id_publicacion=$db->seleccionarDatos($obtener_id_de_pub);
+foreach ($id_publicacion as $id_publicacion){
+    $id_pub=$id_publicacion['id_pub'];
+}
+
+?>
+
+<div class="alert alert-success" role="alert">
+<center> Su producto ha sido publicado correctamente!</center>
+</div>
+
+<?php
+
+}
+
+
+
+
+//si hay un metodo FIles[imagen]
+if (isset($_FILES['imagen'])){  
+    $id_usuario = $_POST['id_usuario'];
+  
+     // Carpeta temporal para almacenar las imágenes
+     $carpeta_temporal = 'img_pub_trq/';
+     if (!is_dir($carpeta_temporal)) {
+         mkdir($carpeta_temporal, 0755, true);
+     }
+  
+      //cuenta las imagenes que hay en el array
+      $cantidad= count($_FILES["imagen"]["tmp_name"]);
+      //recorre cada una de las imagenes para saber el nombre de cada una de ellas
+      for ($i=0; $i<$cantidad; $i++){
+      //Comprobamos si el fichero es una imagen
+      if ($_FILES['imagen']['type'][$i]=='image/png' || $_FILES['imagen']['type'][$i]=='image/jpeg'){
+      
+      //guardamos los datos de cada imagen, por ejemplo el nombre
+      if (!empty($_FILES['imagen']['name'][0])) {
+        $nombre_imagenes = $_FILES['imagen']['name'];
+        $rutas_temporales = $_FILES['imagen']['tmp_name'];
+    
+        for ($i = 0; $i < count($nombre_imagenes); $i++) {
+            $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
+            $ruta_temporal = $rutas_temporales[$i];
+            $ruta_destino = $carpeta_temporal . $nombre_imagen;
+    
+            //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
+            if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
+                // Guardar el nombre de la imagen en la base de datos
+                $db->ejecutarConsulta("INSERT INTO img_pub_trq (id_publicacion, nombre_imagen) VALUES ($id_pub, '$nombre_imagen')");
+            }
+        }
+    }
+      }
+      else $validar=false;
+    }
+  }
+
+
+
+?>
+
             <h2 class="text-center">GeekMarket Publica Productos En Linea</h2>
             <p class="text-center" style="color:#838383; font-size:20px">Publica y vende</p>
 
@@ -88,8 +119,8 @@ if (isset($_FILES['imagen'])){
 
                 <div class="col-12">
                     <label class="form-label">Descripcion de la publicacion</label>
-                    <textarea class="form-control" name="descripcion" rows="3" placeholder="Descripcion (Obligatorio)" required></textarea>
-                    <small>Limite De Caracteres: 50</small>
+                    <textarea class="form-control" name="descripcion_producto" rows="3" placeholder="Descripcion (Obligatorio)" required maxlength="150"></textarea>
+                    <small>Limite De Caracteres: 150</small>
                 </div>
 
                 <br>
@@ -106,7 +137,7 @@ if (isset($_FILES['imagen'])){
 
                     <div class="col-sm-6 col-lg-6"><br>
                         <label class="form-label">Precio Del Producto</label>
-                        <input type="text" class="form-control" name="precio_producto" placeholder="$ Precio del producto (Obligatorio)" style="padding:15px" required>
+                        <input type="number" class="form-control" name="precio_producto" placeholder="$ Precio del producto (Obligatorio)" style="padding:15px" required>
                     </div>
                 </div>
 
@@ -137,7 +168,7 @@ if (isset($_FILES['imagen'])){
                  </center>
                 </div>
 
-                <input type="hidden" name="id_usuario" value="41">
+                <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user'] ?>">
                 <center> <button type="submit" name="guardar_datos_personales" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Publicar</button></center>
 
             </div>

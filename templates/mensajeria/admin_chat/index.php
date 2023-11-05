@@ -49,7 +49,12 @@ $res=$db->seleccionarDatos($sql);
 
 
                     <?php
+            
+        
+
                     foreach($res as $res){
+
+          
                     ?>
 
             <div class="col-sm-6 col-xl-4">
@@ -60,23 +65,22 @@ $res=$db->seleccionarDatos($sql);
                     
                             <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                                 <div class="carousel-inner">
+
+                                <?php 
+    $sql="SELECT * from img_pub_trq where img_pub_trq.id_publicacion=$res[id_pub]";
+    $imagenes_por_publicacion=$db->seleccionarDatos($sql);
+
+    foreach($imagenes_por_publicacion as $imagenes_por_publicacion){
+      $imagenes=$imagenes_por_publicacion['nombre_imagen']
+                                ?>
                                     <div class="carousel-item active">
                                     
-                                            <img src="/geekhaven/src/views/admin/assets/images/products/s4.jpg" class="d-block w-100" alt="...">
+                                            <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100" alt="...">
                                     
                                     </div>
-
-                                    <div class="carousel-item ">
-                                    
-                                            <img src="/geekhaven/src/views/admin/assets/images/products/s4.jpg" class="d-block w-100" alt="...">
-                                    
-                                    </div>
-
-                                    <div class="carousel-item ">
-                                    
-                                            <img src="/geekhaven/src/views/admin/assets/images/products/s4.jpg" class="d-block w-100" alt="...">
-                                
-                                    </div>
+                                    <?php 
+                                  }
+                                ?>
                                     <!-- Agrega más elementos de carrusel con otras imágenes si es necesario -->
 
                                     <a class="carousel-control-prev" href="#productCarousel" role="button" data-bs-slide="prev">

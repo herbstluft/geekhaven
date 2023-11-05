@@ -35,7 +35,7 @@ if(isset($_GET['id_o'])){
     <style>
 
         body {
-            background:#white;
+            background:white;
             
         }
 
