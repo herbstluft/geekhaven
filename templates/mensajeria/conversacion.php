@@ -4,7 +4,7 @@ session_start();
 use MyApp\data\Database;
 require("../../vendor/autoload.php");
 $db = new Database();
-
+error_reporting(E_ERROR); 
 //id_usuario activo
 if(isset($_SESSION['admin'])){
     $id=$_SESSION['admin'];
@@ -42,7 +42,7 @@ if(isset($_GET['num_new_friend'])){
     $datos=$db->seleccionarDatos($sql);
 
     if(empty($datos)){
-       echo "vacio";
+     
     }
 
     
@@ -163,6 +163,17 @@ if(isset($_GET['id_pub'])){
 
 
 
+
+//Aceptar Oferta de la publicacion (Cambiar de estado)
+if(isset($_GET['aceptar_oferta'])) {
+    $sql = "UPDATE `pub_trq` SET `estatus` = '1' WHERE `pub_trq`.`id_pub` = $_SESSION[pub_id];";
+    $db->ejecutarConsulta($sql);
+}
+//Rechazar Oferta
+if(isset($_GET['rechazar_oferta'])) {
+    $sql = "UPDATE `pub_trq` SET `estatus` = '0' WHERE `pub_trq`.`id_pub` = $_SESSION[pub_id];";
+    $db->ejecutarConsulta($sql);
+}
 
 ?>
 
@@ -300,7 +311,7 @@ background:#3b3b3b;
             </div>
         
             <div class="col-8 text-center ">
-                <p><?php 
+                <p class="text-truncate"><?php 
 
                     // Imagen del perfil
     if (isset($_SESSION['user']) && $id == $_SESSION['user'] )  {
@@ -326,15 +337,59 @@ background:#3b3b3b;
 
 
 
+
+<div id="lista_de_chats" style="margin-left:15px; margin-top:40px; margin-right:15px;margin-bottom:20%">
+
+
+</div>
+
+
+
+
 <?php
 if(isset($_SESSION['admin'])){
+
+
+if(!empty($id_con)){
+    
+  
+
+        $sql="SELECT  pub_trq.estatus from pub_trq WHERE pub_trq.id_pub=$_SESSION[pub_id]";
+        $ver_si_esta_en_curso=$db->seleccionarDatos($sql);
+        foreach ($ver_si_esta_en_curso as $estado)
+     
 ?>
-    <div style="position:fixed;bottom:10%">
+    <div style="position:fixed;bottom:10%; margin-bottom:30px">
         <div class="row ">
-            <form action="conversacion.php" method="post">
+            <form action="conversacion.php" method="get">
             <div class="col-12 ">
-           <a href="">
-           <button type="button" class="btn position-relative" name="aceptar_oferta" style="background:#005aff; color:white">
+          
+
+            <?php 
+
+            
+if($estado['estatus'] == 0){
+
+    if(isset($_GET['id_friend'])){
+        $id_publicacion=$_GET['id_pub'];
+        $pub_titulo=$_GET['pub_titulo'];
+        $id_amigo_chat=$_GET['id_friend'];
+
+    }
+    if(isset($_GET['num_new_friend'])){
+        $_SESSION['id_pub'] = $_GET['id_pub'];
+        $id_publicacion=$_SESSION['id_pub'];
+        $_SESSION['id_usuario_nuevo'] = $_GET['id_usuario'];
+        $id_usuario=$_SESSION['id_usuario_nuevo'];
+
+        $_SESSION['pub_titulo']=$_GET['pub_titulo'];
+        $pub_titulo=$_SESSION['pub_titulo'];
+    }
+            ?>
+   
+   
+   
+   <button type="submit" class="btn position-relative" name="aceptar_oferta" style="background:#005aff; color:white">
   Aceptar Oferta
   <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle" style=" height: 25px;margin: auto;width: 25px;">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style="position: relative;right: 5px;bottom: 10px;">
@@ -342,17 +397,139 @@ if(isset($_SESSION['admin'])){
 </svg>
   </span>
 </button>
-           </a>
+
+
+<input type="hidden" name="id_pub" value="<?php echo $id_publicacion?>">
+<input type="hidden" name="pub_titulo" value="<?php echo $pub_titulo?>">
+
+<?php
+//si da click en aceptar despues de que entro a la pagina de publicaciones, se enviara el 
+if(isset($_GET['num_new_friend'])){ ?>
+<input type="hidden" name="id_usuario" value="<?php echo $id_usuario?>">
+<?php }else{?>
+    <input type="hidden" name="id_friend" value="<?php echo $id_amigo_chat?>">
+<?php }  ?>
+
+   
+   <?php
+        }
+        if($estado['estatus'] == 1){ 
+            if(isset($_GET['id_friend'])){
+                $id_publicacion=$_GET['id_pub'];
+                $pub_titulo=$_GET['pub_titulo'];
+                $id_amigo_chat=$_GET['id_friend'];
+        
+            }
+            if(isset($_GET['num_new_friend'])){
+                $_SESSION['id_pub'] = $_GET['id_pub'];
+                $id_publicacion=$_SESSION['id_pub'];
+                $_SESSION['id_usuario_nuevo'] = $_GET['id_usuario'];
+                $id_usuario=$_SESSION['id_usuario_nuevo'];
+        
+                $_SESSION['pub_titulo']=$_GET['pub_titulo'];
+                $pub_titulo=$_SESSION['pub_titulo'];
+            }
+?>
+
+
+<button type="submit" class="btn position-relative" name="rechazar_oferta" style="background:#ff0000; color:white">
+  Rechazar Oferta
+  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" style=" height: 25px;margin: auto;width: 25px;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style="position: relative;right: 5px;bottom: 10px;">
+  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+</svg>
+  </span>
+</button>
+
+
+<input type="hidden" name="id_pub" value="<?php echo $id_publicacion?>">
+<input type="hidden" name="pub_titulo" value="<?php echo $pub_titulo?>">
+
+<?php
+//si da click en aceptar despues de que entro a la pagina de publicaciones, se enviara el 
+if(isset($_GET['num_new_friend'])){ ?>
+<input type="hidden" name="id_usuario" value="<?php echo $id_usuario?>">
+<?php }else{?>
+    <input type="hidden" name="id_friend" value="<?php echo $id_amigo_chat?>">
+<?php }  ?>
+
+    <?php 
+    }
+    
+            ?>
+
+
+
+
+
+
+
             </div>
+
             </form>
         </div>
     </div>  
 
 <?php
-} 
+   
+    }
+}
+    ?>
+
+
+<?php
+if(isset($_SESSION['user'])){
+
+  
+
+        $sql="SELECT  pub_trq.estatus from pub_trq WHERE pub_trq.id_pub=$_SESSION[pub_id]";
+        $ver_si_esta_en_curso=$db->seleccionarDatos($sql);
+        foreach ($ver_si_esta_en_curso as $estado)
+     
+?>
+    <div style="position:fixed;bottom:10%">
+        <div class="row ">
+            <div class="col-12 ">
+          
+
+       
+   
+   <?php
+    
+        if($estado['estatus'] == 1){ 
 ?>
 
 
+<button type="submit" class="btn position-relative " name="rechazar_oferta" style=" color:#00ff2d; ">
+  Su oferta ha sido aceptada
+  <span class="position-absolute top-0 start-100 translate-middle p-2 border border-success rounded-circle" style=" height: 25px;margin: auto;width: 25px;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16" style="position: relative;right: 5px;bottom: 10px;">
+  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+</svg>
+  </span>
+</button>
+    <?php 
+    }
+    
+            ?>
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>  
+
+<?php
+   
+    }
+    ?>
+
+
+
 
 
 
@@ -362,10 +539,6 @@ if(isset($_SESSION['admin'])){
 
 
 
-<div id="lista_de_chats" style="margin-left:15px; margin-right:15px;">
-
-
-</div>
 
 
 
@@ -736,6 +909,238 @@ else{
 
 
 
+
+<style>
+ 
+.notification-container {
+    position: fixed;
+    bottom: 8%;
+    left: 22%;
+    width: 75%;
+    margin-left: 3px;
+    background-color: rgba(255, 255, 255, 0.419);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin-right: 0;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* Nuevo contenedor debajo del contenedor principal */
+.additional-container {
+    position: fixed;
+    left: 23.5%;
+    width: 73%;
+    bottom: 7%;
+    height: 100px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.419);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.additional-container2 {
+    position: fixed;
+    left: 25.5%;
+    width: 70%;
+    bottom:7%;
+    backdrop-filter: blur(60px);
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.419);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* Lista de notificaciones */
+.notification-list {
+    padding: 10px;
+}
+
+/* Estilo de cada notificación */
+.notification-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+
+.notification-content {
+    flex-grow: 1;
+}
+.notification-container {
+    position: fixed;
+    bottom: 14%;
+    left: 22%;
+    width: 75%;
+    margin-left: 3px;
+    background-color: rgba(255, 255, 255, 0.419);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin-right: 0;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* Nuevo contenedor debajo del contenedor principal */
+.additional-container {
+    position: fixed;
+    left: 23.5%;
+    width: 73%;
+    bottom: 13%;
+    height: 100px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.419);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.additional-container2 {
+    position: fixed;
+    left: 25.5%;
+    width: 70%;
+    bottom: 12%;
+    backdrop-filter: blur(60px);
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.419);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* Lista de notificaciones */
+.notification-list {
+    padding: 10px;
+}
+
+/* Estilo de cada notificación */
+.notification-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+
+.notification-content {
+    flex-grow: 1;
+}
+</style>
+
+
+<?php 
+if(isset($_GET['aceptar_oferta'])){
+
+
+
+?>
+<div class="additional-container2" id="contenedor2">
+        <!-- Contenido del nuevo contenedor aquí -->
+    </div>
+    <!-- Nuevo contenedor debajo del contenedor principal -->
+    <div class="additional-container" id="contenedor1">
+        <!-- Contenido del nuevo contenedor aquí -->
+    </div>
+
+    <div class="notification-container" id="contenedor">
+        <div class="notification-list">
+            <!-- Ejemplo de notificaciones -->
+            <div class="notification-item">
+                <div class="notification-content">
+                    <span class="d-block d-md-none" style="position: fixed; left:80%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                    <span class="d-none d-md-block" style="position: fixed; left:89%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                    <strong style="color:black">Notificación</strong>
+                    <p style="position: relative; top: 5px; color: #2f2e2e">La oferta ha sido aceptada. <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#198754" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+</svg></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <audio id="notificationSound" preload="auto">
+        <source src="notificacion.mp3" type="audio/mpeg">
+        <!-- Agrega otros formatos de audio si es necesario -->
+    </audio>
+    <script>
+        // Muestra la notificación
+        document.getElementById('contenedor').style.display = 'block';
+
+        // Reproduce el sonido
+        var audio = document.getElementById('notificationSound');
+        audio.play();
+    </script>
+
+    <script>
+        function ocultarContenedores() {
+            // Ocultar los contenedores con JavaScript
+            document.getElementById('contenedor1').style.display = 'none';
+            document.getElementById('contenedor2').style.display = 'none';
+            document.getElementById('contenedor').style.display = 'none';
+        }
+    </script>
+
+<?php
+}
+?>
+
+
+
+<?php 
+if(isset($_GET['rechazar_oferta'])){
+
+
+
+?>
+<div class="additional-container2" id="contenedor2">
+        <!-- Contenido del nuevo contenedor aquí -->
+    </div>
+    <!-- Nuevo contenedor debajo del contenedor principal -->
+    <div class="additional-container" id="contenedor1">
+        <!-- Contenido del nuevo contenedor aquí -->
+    </div>
+
+    <div class="notification-container" id="contenedor">
+        <div class="notification-list">
+            <!-- Ejemplo de notificaciones -->
+            <div class="notification-item">
+                <div class="notification-content">
+                    <span class="d-block d-md-none" style="position: fixed; left:80%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                    <span class="d-none d-md-block" style="position: fixed; left:89%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                    <strong style="color:black">Notificación</strong>
+                    <p style="position: relative; top: 5px; color: #2f2e2e">La oferta ha sido cancelada. 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff0000" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+</svg></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <audio id="notificationSound" preload="auto">
+        <source src="notificacion.mp3" type="audio/mpeg">
+        <!-- Agrega otros formatos de audio si es necesario -->
+    </audio>
+    <script>
+        // Muestra la notificación
+        document.getElementById('contenedor').style.display = 'block';
+
+        // Reproduce el sonido
+        var audio = document.getElementById('notificationSound');
+        audio.play();
+    </script>
+
+    <script>
+        function ocultarContenedores() {
+            // Ocultar los contenedores con JavaScript
+            document.getElementById('contenedor1').style.display = 'none';
+            document.getElementById('contenedor2').style.display = 'none';
+            document.getElementById('contenedor').style.display = 'none';
+        }
+    </script>
+
+<?php
+}
+?>
+
+
+
     <script src="../bootstrap/js/script.js"></script>
+
 </body>
 </html>

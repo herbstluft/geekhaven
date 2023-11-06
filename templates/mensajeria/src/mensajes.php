@@ -5,6 +5,7 @@ use MyApp\data\Database;
 require("../../../vendor/autoload.php");
 $db = new Database();
 
+
 //id_usuario activo_ se pone la condicion if para saber el id del usuario logueado
 if(isset($_SESSION['admin'])){
     $id=$_SESSION['admin'];
@@ -19,8 +20,7 @@ if(isset($_SESSION['user'])){
 //Datos de la publicacion
 if(isset($_SESSION['pub_id'])){
 
-    
-    echo $_SESSION['pub_id'];
+
 
 
 

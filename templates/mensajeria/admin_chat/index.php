@@ -42,7 +42,7 @@ $res=$db->seleccionarDatos($sql);
         <div class="container-fluid">
           <div class="" style="padding:20px">
           
-       <center>  <h2>Ofertas De Usuarios</h2></center>
+       <center>  <h2>Publicaciones De Usuarios</h2></center>
        <br>
                     <div class="scroll-appear">
                     <div class="row">

@@ -47,6 +47,8 @@ if(isset($_POST['mensaje'])) {
         $insert_chat = $db->ejecutarConsulta($sql_insert_new_chat);
 
 
+      
+
         // Después de crear el chat, obtén el ID del chat recién creado.
         $sql_id_conversacion = "SELECT id_conversacion
                             FROM conversaciones
@@ -55,15 +57,19 @@ if(isset($_POST['mensaje'])) {
     
         $id_conversacion_new_chat = $db->seleccionarDatos($sql_id_conversacion);
 
+   
         // Inserta el mensaje en el chat recién creado.
         $insert_message = "INSERT INTO mensajes (id_remitente, id_destinatario, id_conversacion, mensaje, fecha)
                      VALUES ($id, $id_friend, {$id_conversacion_new_chat[0]['id_conversacion']}, '$mensaje', current_timestamp())";
         $send_mensaje = $db->ejecutarConsulta($insert_message);
 
-
+    
         //Insertar la conversacion a la que pertenece el chat de la publicacion en la tabla pub_trq
         $sql="UPDATE `pub_trq` SET `id_conversacion` = {$id_conversacion_new_chat[0]['id_conversacion']}  WHERE `pub_trq`.`id_pub` = {$_SESSION['pub_id']};";
         $insert_id_con_pub_trq=$db->ejecutarConsulta($sql);
+
+        
+    
     }
 }
 ?>

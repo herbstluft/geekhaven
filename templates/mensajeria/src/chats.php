@@ -4,6 +4,7 @@ session_start();
 use MyApp\data\Database;
 require("../../../vendor/autoload.php");
 $db = new Database();
+error_reporting(E_ERROR); 
 
 //id_usuario activo
 if(isset($_SESSION['admin'])){
@@ -115,12 +116,24 @@ $pub_titulo=$michats['titulo'];
         $mi_chats .= '<img class="profile-image" src="/geekhaven/src/views/user/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
     }
     
+
+    $sql="SELECT  pub_trq.estatus from pub_trq WHERE pub_trq.id_pub=$_SESSION[pub_id]";
+    $ver_si_esta_en_curso=$db->seleccionarDatos($sql);
+    foreach ($ver_si_esta_en_curso as $estado)
+    $estatus=$estado['estatus'];
+
+    
     
     // Contenido del chat
     $mi_chats .= '<div class="chat-content text-truncate"> ';
     $mi_chats .= '<div class="chat-header">';
 
-    $mi_chats .= '<a style="text-decoration:none" href="conversacion.php?id_friend=' . urlencode($id_amigo) . '&id_pub=' . urlencode($pub_id).'&pub_titulo=' . urlencode($pub_titulo).' "><h2 class="text-truncate" id="nombrechat">' . $nombrechat .' - ' . $pub_titulo.'  </h2> </a>';
+    if($estatus == 1){
+        $mi_chats .= '<a class="text-truncate" style="text-decoration:none;" href="conversacion.php?id_friend=' . urlencode($id_amigo) . '&id_pub=' . urlencode($pub_id).'&pub_titulo=' . urlencode($pub_titulo).' "><h2 class="text-truncate" style="color:#00ff2d" id="nombrechat">' . $nombrechat .' - ' . $pub_titulo.'  </h2> </a>';
+    }
+    else{
+        $mi_chats .= '<a class="text-truncate" style="text-decoration:none" href="conversacion.php?id_friend=' . urlencode($id_amigo) . '&id_pub=' . urlencode($pub_id).'&pub_titulo=' . urlencode($pub_titulo).' "><h2 class="text-truncate" id="nombrechat">' . $nombrechat .' - ' . $pub_titulo.'  </h2> </a>';
+    }
   
     $mi_chats .= '<div style="font-size: 12px;color: #c1c1c1; margin-top: -1%;">' . $hora_ultimo_mensaje . '</div>';
     $mi_chats .= '</div>';
@@ -145,6 +158,27 @@ $pub_titulo=$michats['titulo'];
 
     // Fin del contenedor del chat
     $mi_chats .= '</div>';
+}
+if(empty($ver_mis_chats)){
+    ?>
+    <div style="padding-top:50px">
+
+<center>
+<svg style="width:80;" xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="white" class="bi bi-joystick" viewBox="0 0 16 16">
+              <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"></path>
+              <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"></path>
+            </svg>
+<br>
+<br>
+<h4 style="color:white">Bienvenido a GeekChat.</h4>
+<br>
+
+<p>Aun no tienes mensajes</p>
+</center>
+
+</div>
+
+ <?php   
 }
 
 // Devolver el contenido HTML como respuesta

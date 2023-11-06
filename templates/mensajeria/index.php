@@ -5,6 +5,7 @@ use MyApp\data\Database;
 require("../../vendor/autoload.php");
 $db = new Database();
 session_start();
+error_reporting(E_ERROR); 
 
 //id_usuario activo
 if(isset($_SESSION['admin'])){
@@ -82,7 +83,7 @@ if (isset($_GET['id_pub']) && isset($_GET['id_usuario'])) {
                 <p data-bs-target="#exampleModalToggle" data-bs-toggle="modal" id="link"">Más</p>
             </div>
             <div class="col-7 text-center ">
-                <p style="margin-left:30px" >GeekHaven</p> 
+                <p style="margin-left:30px" >GeekChat</p> 
             </div>
             <div class="col-3 text-center">
 

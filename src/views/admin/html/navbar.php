@@ -154,7 +154,7 @@ $img_ad=$img_admin['imagen'];
 
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">Mensajeria</span>
+              <span class="hide-menu">GeekChat</span>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="/geekhaven/templates/mensajeria/index.php" aria-expanded="false">
