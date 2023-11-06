@@ -4,17 +4,41 @@
 use MyApp\data\Database;
 require("../../../vendor/autoload.php");
 $db = new Database();
-
+error_reporting(E_ERROR); 
+session_start();
 //id_usuario activo
-if(isset($_SESSION['admin'])){
-    $id=$_SESSION['admin'];
+if(isset($_SESSION['user'])){
+    $id=$_SESSION['user'];
 }
 
-$sql = "SELECT * from pub_trq inner JOIN usuarios on pub_trq.id_usuario=usuarios.id_usuario;";
+$sql = "SELECT * from pub_trq inner JOIN usuarios on pub_trq.id_usuario=usuarios.id_usuario WHERE pub_trq.id_usuario=$id;";
 $res=$db->seleccionarDatos($sql);
 
 
 
+
+
+
+//borrar publicacion
+
+echo $_POST['id_usuario'];
+
+if(isset($_POST['id_pub'])){
+  $id_pub=$_POST['id_pub'];
+  $id_usuario=$_POST['id_usuario'];
+
+    $sql = "DELETE FROM img_pub_trq WHERE img_pub_trq.id_publicacion=$id_pub";
+   $db->ejecutarConsulta($sql);
+
+
+    $sql = "DELETE FROM pub_trq WHERE `pub_trq`.`id_pub` = $id_pub and id_usuario=$id_usuario";
+    $db->ejecutarConsulta($sql);
+ 
+
+    header("Location: mis_publicaciones.php");
+    exit;
+
+}
 
 ?>
 
@@ -35,29 +59,28 @@ $res=$db->seleccionarDatos($sql);
 
 <body>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/src/views/admin/html/navbar.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
 
 <!--  Header End -->
    <div class="container-fluid">
         <div class="container-fluid">
-          <div class="" style="padding:20px">
+          <div class="" style="padding:0px">
           
-       <center>  <h2>Ofertas De Usuarios</h2></center>
+       <center>  <h2>Mis publicaciones</h2></center>
        <br>
                     <div class="scroll-appear">
                     <div class="row">
 
 
                     <?php
-            
-        
 
+    if(!empty($res)){
                     foreach($res as $res){
 
           
                     ?>
 
-            <div class="col-sm-6 col-xl-4">
+            <div class="col-sm-6 col-xl-4" style="margin-top:10px; margin-bottom:10px">
 
                     <div class="card overflow-hidden rounded-2" style=" height:100%">
                       <center>
@@ -76,7 +99,7 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
     ?>
         <div class="carousel-item active" >
         
-                <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100"  height="350px" alt="...">
+                <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100"  height="310px" alt="...">
         
         </div>
         
@@ -132,12 +155,17 @@ foreach ($dato as $dato){
     $imagen = $dato['imagen'];
     $nombre = $dato['nombre'];
 }
-echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50%" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">' ?>;
-  &ensp;&ensp; <a href="../conversacion.php?id_pub=<?php echo $res['id_pub'];  ?>&id_usuario=<?php echo $res['id_usuario'];?> &pub_titulo=<?php echo $res['titulo'];?> &num_new_friend=<?php echo $res['telefono']; ?>"><button type="button" class="btn" style="background:#005aff; color:white"> Mensaje &ensp; <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-chat-text-fill" viewBox="0 0 16 16">
-  <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
-</svg></button></a>
+echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50%; margin-top:15px" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">' ?>
+  &ensp;&ensp; <form method="post" action="mis_publicaciones.php" style="display:inline">
+  
+  <input type="hidden" name="id_pub" value="<?php echo $res['id_pub'] ?>">
+  <input type="hidden" name="id_usuario" value="<?php echo $res['id_usuario']?>">
+
+  <button type="submit" class="btn" style="background:#ff0000; margin-top:15px; color:white"> Borrar publicacion &ensp; <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+  <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
+</svg></button></form>
 <br><br>
-<span>Publicado por <?php echo $nombre ?></span>
+<span>Publicado por mi</span>
 </center>
 
 
@@ -152,6 +180,20 @@ echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50
                     </div>
 
           </div>
+
+
+          <?php }
+          else{?>
+
+<div style="padding-top:70px">
+
+<center><h3 style="color:#eb6d6d">No has publicado productos por el momento.</h3></center>
+
+</div>
+
+<?php }?>
+
+
         </div>
       </div>
     </div>

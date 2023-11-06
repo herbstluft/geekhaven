@@ -8,6 +8,16 @@ error_reporting(E_ERROR | E_PARSE);
 
 
 
+//id_usuario activo
+if(isset($_SESSION['admin'])){
+  $id=$_SESSION['admin'];
+}
+if(isset($_SESSION['user'])){
+  $id=$_SESSION['user'];
+}
+
+
+
     
 //Actualizar o subir foto de perfil
 if(isset($_POST['subir_imagen'])){
@@ -15,11 +25,19 @@ if(isset($_POST['subir_imagen'])){
   if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
       $imagen_nombre = $_FILES['imagen']['name'];
       $imagen_temporal = $_FILES['imagen']['tmp_name'];
-      $id_usuario = $_SESSION['user'];
+      $id_usuario = $id;
 
 
-      // Directorio donde deseas guardar las imágenes
-      $directorio_destino = "img_profile/"; // Cambia esto a la ruta correcta
+      //Agarrar las imagenes dependiendo de quien sea
+if(isset($_SESSION['admin'])){
+   // Directorio donde deseas guardar las imágenes
+   $directorio_destino = "../admin/html/img_profile/"; // Cambia esto a la ruta correcta
+}
+if(isset($_SESSION['user'])){
+   // Directorio donde deseas guardar las imágenes
+   $directorio_destino = "img_profile/"; // Cambia esto a la ruta correcta
+}
+  
 
       // Ruta completa del archivo de destino
       $ruta_destino = $directorio_destino.$imagen_nombre;
@@ -27,7 +45,7 @@ if(isset($_POST['subir_imagen'])){
       
 
       //Borrar imagen actual del usuario para poner una nueva
-      $imagen=$db->seleccionarDatos("SELECT imagen FROM `usuarios` where id_usuario='$_SESSION[user]'");
+      $imagen=$db->seleccionarDatos("SELECT imagen FROM `usuarios` where id_usuario=$id");
       //borrar la imagen temporal (de la carpeta)
       foreach($imagen as $img){
           $image=$img['imagen'];
@@ -101,21 +119,21 @@ if(isset($_POST['guardar_datos_personales'])){
       $update_nombre_nuveo = "UPDATE personas 
       INNER JOIN usuarios ON usuarios.id_persona = personas.id_persona
       SET personas.nombre = '$nombre_nuevo' 
-      WHERE usuarios.id_usuario='$_SESSION[user]'";
+      WHERE usuarios.id_usuario=$id";
       $update_nombre=$db->ejecutarConsulta($update_nombre_nuveo);
 
       //Actualizar apellido
       $update_apellido_nuveo = "UPDATE personas 
       INNER JOIN usuarios ON usuarios.id_persona = personas.id_persona
       SET personas.apellido = '$apellido_nuevo' 
-      WHERE usuarios.id_usuario='$_SESSION[user]'";
+      WHERE usuarios.id_usuario=$id";
       $update_apellido=$db->ejecutarConsulta($update_apellido_nuveo);
 
       //Actualizar correo
       $update_correo_nuveo = "UPDATE personas 
       INNER JOIN usuarios ON usuarios.id_persona = personas.id_persona
       SET personas.correo = '$correo_nuevo' 
-      WHERE usuarios.id_usuario='$_SESSION[user]'";
+      WHERE usuarios.id_usuario=$id";
       $update_correo=$db->ejecutarConsulta($update_correo_nuveo);
 
       
@@ -123,7 +141,7 @@ if(isset($_POST['guardar_datos_personales'])){
       $update_info_nuveo = "UPDATE personas 
       INNER JOIN usuarios ON usuarios.id_persona = personas.id_persona
       SET personas.info = '$info_perfil' 
-      WHERE usuarios.id_usuario='$_SESSION[user]'";
+      WHERE usuarios.id_usuario=$id";
       $update_info=$db->ejecutarConsulta($update_info_nuveo);
 
 
@@ -131,7 +149,7 @@ if(isset($_POST['guardar_datos_personales'])){
 }
 
 
-$sql="SELECT * FROM personas INNER JOIN usuarios on personas.id_persona=usuarios.id_persona WHERE usuarios.id_usuario='$_SESSION[user]'";
+$sql="SELECT * FROM personas INNER JOIN usuarios on personas.id_persona=usuarios.id_persona WHERE usuarios.id_usuario=$id";
 
 $datos_user=$db->seleccionarDatos($sql);
 foreach($datos_user as $datos_user){
@@ -212,7 +230,14 @@ $img=$datos_user['imagen'];
 
 <body>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
+
+<?php 
+if(isset($_SESSION['admin'])){
+  include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/src/views/admin/html/navbar.php');
+}
+if(isset($_SESSION['user'])){
+  include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php');
+} ?>
 
 <!--  Header End -->
    <div class="container-fluid">
@@ -242,7 +267,16 @@ $img=$datos_user['imagen'];
 
 <label for="imagen" class="label-imagen">
   <div id="imagen-preview" class="imagen-preview">
+  
+<?php   
+//id_usuario activo
+if(isset($_SESSION['admin'])){ ?>
+  <img  id="imagen-preview" src="../admin/html/img_profile/<?php echo $img;?>" onerror="this.style.display='none';" onload="">
+<?php }
+if(isset($_SESSION['user'])){ ?>
     <img  id="imagen-preview" src="img_profile/<?php echo $img;?>" onerror="this.style.display='none';" onload="">
+<?php } ?>
+  
     <center>
       <label for="imagen" class="label-imagen">
         <svg style="position:relative; top:-13px; left:-20px; margin:auto; background:#2787f552; border-radius:50%; padding:5%"  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#0d6efd" class="bi bi-cloud-plus" viewBox="0 0 16 16"  stroke="##0d6efd" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
@@ -300,28 +334,30 @@ $img=$datos_user['imagen'];
 
 
                   <form action="" method="POST">
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" name="nombre" aria-describedby="emailHelp" value="<?php echo $nombre ?>">
-                      
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Apellidos</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="apellido" value="<?php echo $apellido ?>">
-                    </div>
+                   <div class="col-12">
+                    <label class="form-label">Nombres </label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Nombre (Obligatorio)" value="<?php echo $nombre ?>" style="padding:15px" required="">
+                </div>
+                <br>
+                <div class="col-12">
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" name="apellido" placeholder="Apellido (Obligatorio)" value="<?php echo $apellido ?>" style="padding:15px" required="">
+                </div>
+                <br>
 
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Correo Electronico></label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="correo" value="<?php echo $correo ?>">
-                    </div>
+                <div class="col-12">
+                    <label class="form-label">Correo Electronico</label>
+                    <input type="text" class="form-control" name="correo" placeholder="Correo Electronico (Obligatorio)" value="<?php echo $correo ?>" style="padding:15px" required="">
+                </div>
+                   <br>
 
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Informacion de perfil</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="info" value="<?php echo $info ?>">
-                    </div>
+                   <div class="col-12">
+                    <label class="form-label">Informacion de perfil</label>
+                    <input type="text" class="form-control" name="info" placeholder="Correo Electronico (Obligatorio)" value="<?php echo $info ?>" style="padding:15px" required="">
+                </div>
+                   <br>
                    
-
-                    <br>
+              
                     
                    <center> <button type="submit" name="guardar_datos_personales"  class="btn"  style="background: #005aff; color:white">Guardar Cambios</button></center>
                   </form>

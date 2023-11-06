@@ -4,13 +4,9 @@
     $db = new Database;
    
     $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
-
-    if($_GET['usr']){
-      $usr=$_GET['usr'];
-    }
-    else{
-      echo "hay un error alv";
-    }
+    error_reporting(E_ERROR); 
+    session_start();
+    $usr=$_SESSION['user'];
     
     $sql = "SELECT
         o.id_orden AS 'id_venta',
@@ -201,7 +197,7 @@ include('../../../templates/navbar_user.php');
 <div class="row">
  <div class="col-md-12">
   <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Mis compras</h1>
-  <hr>
+  
   <br>
   <!-----------------------------Filtro---------------------------------->
   <div class="select-box">

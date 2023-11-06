@@ -3,14 +3,16 @@
     require("../../../vendor/autoload.php");
     $db = new Database;
 
+    error_reporting(E_ERROR); 
+
     $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
     $HOST=$_SERVER['SERVER_NAME'];
     if (isset($_GET['order']) && $_GET['order'] == 'asc') {
         $orderClause = "ASC"; // Cambia la ordenación a "antiguos a recientes"
     }
-    if($_GET['usr']){
-      $usr=$_GET['usr'];
-    }
+
+session_start();
+    $usr=$_SESSION['user'];
     
     $sql = "SELECT
         o.id_orden AS 'id_venta',
@@ -76,9 +78,7 @@
   font-size: 18px;
   color: #fff;
 }
-li{
-    margin:15px;
-}
+
 @media (min-width: 768px) {
   .select-box {
     width: 70%;
@@ -204,7 +204,7 @@ include('../../../templates/navbar_user.php');
 <div class="row">
  <div class="col-md-12">
   <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Pedidos pendientes por entregar</h1>
-  <hr>
+
   <br>
   <!-----------------------------Filtro---------------------------------->
   <div class="select-box">
@@ -228,7 +228,7 @@ include('../../../templates/navbar_user.php');
         <label class="select-box__option" for="antiguos" aria-hidden="aria-hidden">Pedido: Antiguo - Reciente</label>
       </li>
     </ul>
-    <input type="hidden" value=<?php echo $usr?>>
+
     <button type="submit" style="margin-top:20px" class="btn btn-primary">Aplicar</button>
   </form>
 </div>
@@ -281,7 +281,7 @@ foreach ($mis_compras as $mis_compras){
                         echo "";
                     }
                     elseif($cantidad > 1){ ?>
-                        <p><<a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver productos de la compra</a>
+                        <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver productos de la compra</a>
 </p>
                     <?php     
                     }
