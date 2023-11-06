@@ -76,7 +76,6 @@
   font-size: 18px;
   color: #fff;
 }
-
 @media (min-width: 768px) {
   .select-box {
     width: 70%;
