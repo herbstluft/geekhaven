@@ -114,7 +114,7 @@ foreach ($productosOrden as $mis_compras){
                     JOIN detalle_orden on usuarios.id_usuario = detalle_orden.id_usuario 
                     JOIN productos on detalle_orden.id_producto = productos.id_producto
                     JOIN categorias on productos.id_cat = categorias.id_cat
-                    JOIN orden on orden.id_orden = detalle_orden.id_orden WHERE detalle_orden.id_orden=29) as PRD";
+                    JOIN orden on orden.id_orden = detalle_orden.id_orden WHERE detalle_orden.id_orden=$id_orden) as PRD";
                     $total_pedido=$db->seleccionarDatos($total_pedidoQry);
                     foreach($total_pedido as $res){
                     echo '$' . $res['total'];} ?></p>
