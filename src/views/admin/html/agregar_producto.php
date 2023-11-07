@@ -185,6 +185,8 @@ if (isset($_FILES['imagen'])){
             <label for="precio_base" class="form-label"><strong>Costo</strong></label>
             <input type="text" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí">
         </div>
+        <br>
+
 
                 
 
