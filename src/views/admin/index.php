@@ -51,10 +51,10 @@
       JOIN personas ON personas.id_persona = u.id_persona
       WHERE 
           do.estatus = 2
-          AND month(do.fecha_detalle) = 11
+          AND month(do.fecha_detalle) = MONTH(CURDATE()) 
       GROUP BY
           'mes',
-          month(do.fecha_detalle) = 11
+          month(do.fecha_detalle) = MONTH(CURDATE()) 
       ORDER BY
       'mes' DESC;";
 

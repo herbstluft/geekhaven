@@ -497,6 +497,13 @@ if(isset($_SESSION['user'])){
    <?php
     
         if($estado['estatus'] == 1){ 
+            if(isset($_GET['id_friend'])){
+                $id_publicacion=$_GET['id_pub'];
+                $pub_titulo=$_GET['pub_titulo'];
+                $id_amigo_chat=$_GET['id_friend'];
+        
+            }
+        
 ?>
 
 
@@ -508,6 +515,18 @@ if(isset($_SESSION['user'])){
 </svg>
   </span>
 </button>
+
+
+<a href="src/imprimir_ticket.php?id_publicacion=<?php echo $id_publicacion?>&pub_titulo=<?php echo $pub_titulo?> ">
+    
+
+<button type="button" class="btn bg-success position-relative " name="rechazar_oferta" style=" color:white; margin-left:20px ">
+  Imrpimir ticket
+</button>
+</a>
+
+
+
     <?php 
     }
     

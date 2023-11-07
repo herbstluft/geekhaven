@@ -4,7 +4,7 @@ session_start();
 use MyApp\data\Database;
 require("../../../vendor/autoload.php");
 $db = new Database();
-error_reporting(E_ERROR); 
+
 
 //id_usuario activo
 if(isset($_SESSION['admin'])){
@@ -117,18 +117,22 @@ $pub_titulo=$michats['titulo'];
     }
     
 
+    if(isset($_SESSION['pub_id'])){
+
     $sql="SELECT  pub_trq.estatus from pub_trq WHERE pub_trq.id_pub=$_SESSION[pub_id]";
     $ver_si_esta_en_curso=$db->seleccionarDatos($sql);
     foreach ($ver_si_esta_en_curso as $estado)
     $estatus=$estado['estatus'];
 
+    }
     
     
     // Contenido del chat
     $mi_chats .= '<div class="chat-content text-truncate"> ';
     $mi_chats .= '<div class="chat-header">';
 
-    if($estatus == 1){
+
+    if(isset($estatus) && $estatus == 1){
         $mi_chats .= '<a class="text-truncate" style="text-decoration:none;" href="conversacion.php?id_friend=' . urlencode($id_amigo) . '&id_pub=' . urlencode($pub_id).'&pub_titulo=' . urlencode($pub_titulo).' "><h2 class="text-truncate" style="color:#00ff2d" id="nombrechat">' . $nombrechat .' - ' . $pub_titulo.'  </h2> </a>';
     }
     else{
