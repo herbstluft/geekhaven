@@ -22,7 +22,7 @@
     JOIN usuarios u ON do.id_usuario = u.id_usuario
     JOIN personas ON personas.id_persona = u.id_persona
     WHERE 
-        do.estatus = 1
+        do.estatus = 2
         AND YEAR(do.fecha_detalle) = $año_actual
     GROUP BY
         'año',
@@ -50,7 +50,7 @@
       JOIN usuarios u ON do.id_usuario = u.id_usuario
       JOIN personas ON personas.id_persona = u.id_persona
       WHERE 
-          do.estatus = 1
+          do.estatus = 2
           AND month(do.fecha_detalle) = 11
       GROUP BY
           'mes',
@@ -79,7 +79,7 @@
   JOIN usuarios u ON do.id_usuario = u.id_usuario
   JOIN personas ON personas.id_persona = u.id_persona
   WHERE
-      do.estatus = 1
+      do.estatus = 2
   GROUP BY
       o.id_orden
   ORDER BY do.fecha_detalle DESC limit 5";
@@ -101,7 +101,7 @@ JOIN detalle_orden as do ON p.id_producto = do.id_producto
 JOIN orden o ON do.id_orden = o.id_orden
 JOIN tipo t ON p.tipo_id = t.id_tipo -- Asumiendo que hay un campo id_tipo en la tabla productos
 WHERE
-    do.estatus = 1
+    do.estatus = 2
 GROUP BY
     c.nom_cat
 ORDER BY

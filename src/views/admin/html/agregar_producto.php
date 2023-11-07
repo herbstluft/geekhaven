@@ -90,7 +90,7 @@ if (isset($_FILES['imagen'])){
             //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
             if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
                 // Guardar el nombre de la imagen en la base de datos
-                $db->ejecutarConsulta("INSERT INTO img_producto (img_producto) VALUES ($nombre_imagen)");
+                $db->ejecutarConsulta("INSERT INTO img_producto (img_producto) VALUES ('$nombre_imagen')");
             }
         }
     }
