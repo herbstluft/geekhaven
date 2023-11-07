@@ -2,70 +2,62 @@
     use MyApp\data\Database;
     require("../../../../vendor/autoload.php");
     $db = new Database;
+    if($_GET['id']){
+        $id=$_GET['id'];
+    }
 
-    $UniversosQry="SELECT * from universo;";
-    $Universos=$db->seleccionarDatos($UniversosQry);
+    $universoQry="SELECT * from universo where universo.id_universo=$id";
+    $universo=$db->seleccionarDatos($universoQry);
 
+    foreach($universo as $res){
+        $u_nom = $res['universo'];
+    }
+  
 ?>
 <!doctype html>
 <html lang="en">
+    
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Editar Universo</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="../../views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
-  <link href="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
-  <script src="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
 </head>
-<style>
-</style>
+
 <body>
 
 <?php include('navbar.php') ?>
 
 <!--  Header End -->
-   <div class="container-fluid">
-    <table class="table" id="tabla">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope=""></th>
-          <th scope=""></th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-            foreach($Universos as $res){
-                $nombre= $res['universo'];
-                $id= $res['id_universo'];
-            ?>
-        <tr>
-          <th scope="row" class="fs-5"><strong> <?php echo $nombre;?></strong></th>
-          <td> <a href="/geekhaven/src/scripts/insersiones/editarUniverso.php?id=<?php echo $id;?>" class="fs-5 text-primary">Editar</a></td>
-          <td><a href="/geekhaven/src/scripts/insersiones/borrarUniverso.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
-        </tr>
-        <?php
-            }
-          ?>
-      </tbody>
-    </table>
-        <div class="container-fluid">
-        </div>
-      </div>
+
+<br><br><br><br>
+<h1 align="center">Editar Universo</h1>
+<div class="container">
+    <div class="row">
+        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="get">
+          <div class="mb-3">
+            <label for="universo" class="form-label">Nombre del Universo</label>
+            <input type="hidden" name="id" id="id"value="<?php echo $id; ?>">
+            <input type="text" class="form-control" name="universo" id="universo" value="<?php echo $u_nom ?>" placeholder="DragonBall Z" required>
+            
+          </div>
+          <div class="mb-3">
+            <label for="fileTest">Selecciona una imagen</label>
+            <input id="fileTest" name="fileTest" type="file" class="form-control">
+            <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary col-12 fs-5">Editar Universo</button>
+        </form>
     </div>
-  </div>
+</div>   
+
+
+
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/sidebarmenu.js"></script>
   <script src="../assets/js/app.min.js"></script>
   <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-  <script>
-    var tabla = document.querySelector("#tabla");
-    var dataTable = new DataTable(tabla,{
-        perPage:15,
-        perPageSelect:[15,20,15,30,35,40]
-
-    });
-  </script>
