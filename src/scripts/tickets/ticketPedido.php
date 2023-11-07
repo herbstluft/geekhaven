@@ -7,11 +7,11 @@ $host=$_SERVER['SERVER_NAME'];
 use MyApp\data\Database;
 require(__DIR__ . '/../../../vendor/autoload.php');
 $db = new Database;
-
+$usr=$_SESSION['user'];
 //obtener el ID de la orden y del usuario
 if ($_GET['id_orden']){
 $id_orden=$_GET['id_orden'];
-$usr=$_SESSION['user'];
+
 }
 //Sacar el precio total del pedido
 $TotalPedidoQry="SELECT TRUNCATE(SUM(PRDT.precio * PRDT.cantidad),2) as TOTAL FROM (SELECT PRD.id_producto,PRD.nom_producto, PRD.precio,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat FROM usuarios JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=1 and detalle_orden.id_orden=$id_orden) as PRDT;";

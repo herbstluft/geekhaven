@@ -27,9 +27,7 @@ if($_GET['id_orden']){
   </head>
   <body class="">
 
-  <?php
-  header("refresh:3;url=http://localhost/geekhaven/src/scripts/tickets/ticketPedido.php?id_orden='.$id_orden")
-  ?>
+  
   <div class="container mt-5"">
   <div class="alert alert-primary" role="alert">
     <div class="row">
@@ -45,7 +43,9 @@ if($_GET['id_orden']){
         
   </div>
   
-
+  <?php
+  header("refresh:3;url=http://localhost/geekhaven/src/scripts/tickets/ticketPedido.php?id_orden='$id_orden'")
+  ?>
 
 
 <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>

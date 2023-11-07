@@ -12,9 +12,10 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <title>Carrito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
   <style>
     .contenido{
       width: 100%;
@@ -125,7 +126,7 @@
 </head>
 <body>
 <?php
-include('../../../templates/navbar/navbar.php');
+include('../../../templates/navbar_user.php');
 ?>
 
   <div class="contenido">
@@ -136,7 +137,8 @@ include('../../../templates/navbar/navbar.php');
                 </svg>  
             </a>
             </div>
-    <h1 align="center">CARRITO</h1>
+    <h1 align="center mb-5">CARRITO</h1>
+    <br><br>
   <div class="">
     
     <div class="row">
@@ -230,5 +232,10 @@ include('../../../templates/navbar/navbar.php');
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   <script src="../../../bootstrap/js/buscador.js"></script>
+  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
 </body>
 </html>
