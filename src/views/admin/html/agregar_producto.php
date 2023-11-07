@@ -24,7 +24,7 @@
 <!--  Header End -->
    <div class="container-fluid">
         <div class="container-fluid">
-          <div class="card" style="padding:20px">
+          <div  style="padding:20px">
 
           <div class="container-fluid">
         <div style="padding: 20px">
@@ -90,7 +90,7 @@ if (isset($_FILES['imagen'])){
             //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
             if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
                 // Guardar el nombre de la imagen en la base de datos
-                $db->ejecutarConsulta("INSERT INTO img_producto (img_producto) VALUES ('$nombre_imagen')");
+                $db->ejecutarConsulta("INSERT INTO img_producto (img_producto) VALUES ($nombre_imagen)");
             }
         }
     }
@@ -106,22 +106,22 @@ if (isset($_FILES['imagen'])){
             <h2 class="text-center">GeekMarket Publica Productos En Linea</h2>
             <p class="text-center" style="color:#838383; font-size:20px">Publica y vende</p>
 
-            <form action="adminagg.php" method="post" enctype="multipart/form-data">
+            <form action="agregar_producto.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
             <label for="nombre" class="form-label"><strong>Nombre</strong></label>
-            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Escribe el nombre del producto aquí">
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Escribe el nombre del producto aquí" required>
         </div>       
         <div class="mb-3">
             <label for="precio" class="form-label"><strong>Precio</strong></label>
-            <input type="text" name="precio" id="precio" class="form-control" placeholder="Escribe el precio del producto aquí">
+            <input type="text" name="precio" id="precio" class="form-control" placeholder="Escribe el precio del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="existencia" class="form-label"><strong>Existencia</strong></label>
-            <input type="text" name="existencia" id="existencia" class="form-control" placeholder="Escribe la existencia del producto aquí">
+            <input type="text" name="existencia" id="existencia" class="form-control" placeholder="Escribe la existencia del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label"><strong>Descripción</strong></label>
-            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Escribe una descripción del producto"></textarea>
+            <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Escribe una descripción del producto" required></textarea>
         </div>
         <div class="mb-3">
             <label for="estado"><strong>Estado:</strong></label>
@@ -183,7 +183,7 @@ if (isset($_FILES['imagen'])){
 
         <div class="mb-3">
             <label for="precio_base" class="form-label"><strong>Costo</strong></label>
-            <input type="text" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí">
+            <input type="text" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
         </div>
         <br>
 
@@ -239,6 +239,9 @@ if (isset($_FILES['imagen'])){
       </div>
     </div>
   </div>
+  <!--Este es necesario para que funcione el de agregar imagenes-->
+
+  <script src="/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/sidebarmenu.js"></script>
