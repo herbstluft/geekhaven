@@ -35,7 +35,7 @@ echo " <div class='container mt-5'>
   <h1 class='alert-heading col-12' align='center'>Universo Registrado!</h1>
   </div>";
 }
-header("Location:/geekhaven/src/views/admin/html/editarUniverso.php");
+header("Location:/geekhaven/src/views/admin/html/editUniverso.php");
 ?>
   </body>
 </html>
