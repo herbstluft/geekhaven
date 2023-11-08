@@ -13,7 +13,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Editar Universo</title>
+  <title>Editar Producto</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <link href="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
@@ -43,8 +43,8 @@
             ?>
         <tr>
           <th scope="row" class="fs-5"><strong> <?php echo $nombre;?></strong></th>
-          <td> <a href="/geekhaven/src/scripts/insersiones/editarUniverso.php?id=<?php echo $id;?>" class="fs-5 text-primary">Editar</a></td>
-          <td><a href="/geekhaven/src/scripts/insersiones/borrarUniverso.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
+          <td> <a href="/geekhaven/src/views/admin/html/editproducto.php?id=<?php echo $id;?>" class="fs-5 text-primary">Editar</a></td>
+          <td><a href="/geekhaven/src/views/admin/html/borrar_producto.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
         </tr>
         <?php
             }

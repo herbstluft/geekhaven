@@ -22,20 +22,39 @@ $db = new Database;
   <body class="">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
     <?php
-//falta añadir campo imagen a universo para insertar la imagen
-if($_GET['universo']){
-$universo=$_GET['universo'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['imagen']) && isset($_GET['universo'])) {
+        $imagenBase64 = $_GET['imagen'];
+        $universo = $_GET['universo'];
 
-$insertUniversoQry="INSERT INTO `universo`(`universo`) VALUES ('$universo')";
-$insertUniverso=$db->ejecutarConsulta($insertUniversoQry);
+        // Decodificar la imagen Base64
+        $imagenBinaria = base64_decode($imagenBase64);
 
-echo " <div class='container mt-5'>
-<div class='alert alert-success' role='alert'>
-  <div class='row'>
-  <h1 class='alert-heading col-12' align='center'>Universo Registrado!</h1>
-  </div>";
+        // Ruta donde deseas guardar la imagen
+        $carpeta_destino = 'img_u/';
+
+        // Genera un nombre único para la imagen
+        $nombre_archivo = uniqid() . '.jpg';
+
+        // Ruta completa de la imagen
+        $ruta_imagen = $carpeta_destino . $nombre_archivo;
+
+        // Guardar la imagen en el servidor
+        file_put_contents($ruta_imagen, $imagenBinaria);
+
+        // Inserta el nombre de la imagen en la base de datos junto con otros datos
+        // Aquí debes agregar código para insertar en la base de datos, por ejemplo, utilizando SQL
+        $insertQry="INSERT INTO `universo`(`universo`, `img`) VALUES ('$universo','$ruta_imagen')";
+        $insert=$db->ejecutarConsulta($insertQry);
+    } else {
+        echo "Parámetros incorrectos en la URL.";
+    }
+} else {
+    echo "Acceso no permitido.";
 }
-header("Location:/geekhaven/src/views/admin/html/editarUniverso.php");
+
+
+header("Location:/geekhaven/src/views/admin/html/editUniverso.php");
 ?>
   </body>
 </html>
