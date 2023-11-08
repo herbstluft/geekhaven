@@ -104,7 +104,7 @@
     .cont-back{
       position: relative;
       width: 100%;
-      height: 150px;
+      height:0;
         }
     .icono{
       margin-top: 5em;
@@ -129,22 +129,38 @@
 include('../../../templates/navbar_user.php');
 ?>
 
-  <div class="contenido">
+
   <div class="cont-back">
                 <a href="../../../index.php" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                 </svg>  
             </a>
-            </div>
+  </div>
+
+
+
     <h1 align="center mb-5">CARRITO</h1>
     <br><br>
-  <div class="">
-    
-    <div class="row">
-      <div class="col-sm-12 col-md-5 col-lg-6 productos">
-        <div class="row">
-        <table class="table table-hover table-borderless">
+
+
+
+
+<div class="row">
+
+
+
+</div>
+
+
+
+
+
+    <div class="row" style="padding:40px">
+
+
+      <div class="col-md-12 col-lg-7 table-responsive">
+        <table class="table table-hover table-borderless ">
           <thead>
             <tr>
               <th scope="col subtitulos" align="center"><h2>PRODUCTO</h2></th>
@@ -189,45 +205,16 @@ include('../../../templates/navbar_user.php');
          </tbody>
         </table>
       </div>
+
+
+
+
+
+
+
     </div>
-      <div class="col-sm-12 col-md-5 col-lg-5 carrito">
-        <div class="row">
-          <h2 class="total col-sm-12 col-md-12 col-lg-12">TOTAL</h2> <br>
-          <h2 class="col-sm-5  col-md-2 moneda">MXN</h2><br>
-          <?php
-          $TotalQry="SELECT TRUNCATE(SUM(PRDT.precio * PRDT.cantidad),2) as TOTAL FROM
-          (SELECT PRD.id_producto,PRD.nom_producto, PRD.precio,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat
-                          FROM usuarios
-                          JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
-                          JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
-                          WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PRDT";
-          $Total=$db->seleccionarDatos($TotalQry);
-          foreach($Total as $res){
-          ?>
-          <h2 class="col-sm-5 col-md-5 total-precio"><?php
-          echo $res['TOTAL']
-           ?></h2>
-          <?php
-          }
-          ?>
-        </div> 
-        <br>
-        <hr>
-        <div class="row">
-        <p class="col-12">
-          Las entregas de los productos son entregados 
-          exclusivamente en la tienda. Oprime el boton de 
-          “FINALIZAR COMPRA” para imprimir tu ticket de 
-          compra y sigue las instrucciones que muestra tu ticket 
-          de compra
-        </p>
-        <a href="http://<?php echo $_SERVER['SERVER_NAME'];?>/geekhaven/src/scripts/cart/validacionCart.php?orden=<?php echo $id_orden; ?>" class="botn col-12 m-5"> FINALIZAR COMPRA</a> 
-        </div>
-       
-      </div>
-    </div> 
-  </div>
-  </div>
+
+
   
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
