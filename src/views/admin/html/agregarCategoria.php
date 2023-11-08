@@ -15,14 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["categoria"])) {
     if ($result !== false) {
         $filas = $result->fetchColumn();
         if ($filas > 0) {
-            $mensaje = "<div class='alert alert-danger'>La categoría '$categoria' ya existe en la base de datos.</div>";
+            $mensaje = "<div class='alert alert-danger'>La categoría '$categoria' ya existe.</div>";
         } else {
             $sql = "INSERT INTO categorias (nom_cat) VALUES (:categoria)";
             $params = array(":categoria" => $categoria);
             $result = $db->ejecutarConsulta($sql, $params);
       
             if ($result !== false) {
-                $mensaje = "<div class='alert alert-success'>¡Éxito! La categoría '$categoria' se ha añadido correctamente a la base de datos.</div>";
+                $mensaje = "<div class='alert alert-success'>¡Éxito! Se registro la categoria '$categoria' correctamente.</div>";
             } else {
                 $mensaje = "<div class='alert alert-danger'>Error al agregar la categoría.</div>";
             }
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["categoria"])) {
 </head>
 
 <body>
-
+<?php include('navbar.php') ?>
 
 <!--  Header End -->
 
