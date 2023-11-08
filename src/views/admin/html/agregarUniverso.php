@@ -31,8 +31,8 @@
             
           </div>
           <div class="mb-3">
-            <label for="fileTest">Selecciona una imagen</label>
-            <input id="fileTest" name="fileTest" type="file" class="form-control">
+            <label for="image">Selecciona una imagen</label>
+            <input id="image" type="file" name="imagen" accept="image/*"class="form-control">
             <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
           </div>
 
