@@ -117,7 +117,7 @@ if (isset($_FILES['imagen'])){
         </div>
         <div class="mb-3">
             <label for="existencia" class="form-label"><strong>Existencia</strong></label>
-            <input type="text" name="existencia" id="existencia" class="form-control" placeholder="Escribe la existencia del producto aquí" required>
+            <input type="number" name="existencia" id="existencia" class="form-control" placeholder="Escribe la existencia del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label"><strong>Descripción</strong></label>
@@ -183,7 +183,7 @@ if (isset($_FILES['imagen'])){
 
         <div class="mb-3">
             <label for="precio_base" class="form-label"><strong>Costo</strong></label>
-            <input type="text" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
+            <input type="number" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
         </div>
         <br>
 
@@ -210,7 +210,7 @@ if (isset($_FILES['imagen'])){
         </div>
 
                 <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user'] ?>">
-                <center> <button type="submit" name="guardar_datos_personales" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Publicar</button></center>
+                <center> <button type="submit" name="guardar_datos_personales" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Agregar Producto</button></center>
 
         </div>
         </form>

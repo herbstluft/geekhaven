@@ -1,29 +1,89 @@
 <?php
+    session_start();
     use MyApp\data\Database;
     require("../../../../vendor/autoload.php");
     $db = new Database;
-    if($_GET['id']){
-        $id=$_GET['id'];
+    if(isset($_GET['id'])){
+         $_SESSION['id_producto'] = $_GET['id'];
+        $id = $_SESSION['id_producto'];
+
     }
+    if(isset($_POST['guardar_producto'])){
+
+        $nombre = $_POST['nombre'];
+        $precio = $_POST['precio'];
+        $descripcion = $_POST['descripcion'];
+        $existencia = $_POST['existencia'];
+        $estado = $_POST['estado'];
+        $categoria = $_POST['categoria'];
+        $tipo = $_POST['tipo'];
+        $universo = $_POST['universo'];
+        $fecha_actual = $_POST['fecha'];
+        $costo = $_POST['costo'];
     
+        //Actualizar nombre
+        $update_nombre_nuveo = "UPDATE `productos` SET `nom_producto` = '$nombre' WHERE `productos`.`id_producto` = $_SESSION[id_producto];
+        ";
+        $update_nombre=$db->ejecutarConsulta($update_nombre_nuveo);
+    
+        //Actualizar precio
+        $update_precio_nuveo = "UPDATE `productos` SET `precio` = '$precio' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_precio=$db->ejecutarConsulta($update_precio_nuveo);
+    
+        //Actualizar descripcion
+        $update_descripcion_nuveo = "UPDATE `productos` SET `descripcion` = '$descripcion' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_descripcion=$db->ejecutarConsulta($update_descripcion_nuveo);
 
-    $productoQry="SELECT * from productos where productos.id_producto=$id";
-    $producto=$db->seleccionarDatos($productoQry);
+        //Actualizar existencia
+        $update_existencia_nuveo = "UPDATE `productos` SET `existencia` = '$existencia' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_existencia=$db->ejecutarConsulta($update_existencia_nuveo);
 
-    foreach($producto as $res){
-        $prd_nom = $res['nom_producto'];
-        $prd_precio = $res['precio'];
-        $prd_desc = $res['descripcion'];
-        $prd_exist = $res['existencia'];
-        $prd_estado = $res['estado'];
-        $prd_cat = $res['id_cat'];
-        $prd_tipo = $res['tipo_id'];
-        $prd_universo = $res['universo_id'];
-        $prd_fecha = $res['fecha'];
-        $prd_costo = $res['precio_base'];
+        //Actualizar estado
+        $update_estado_nuveo = "UPDATE `productos` SET `estado` = $estado WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_estado=$db->ejecutarConsulta($update_estado_nuveo);
 
-    }
+        //Actualizar categoria
+        $update_categoria_nuveo = "UPDATE `productos` SET `id_cat` = $categoria WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_categoria=$db->ejecutarConsulta($update_categoria_nuveo);
 
+        //Actualizar tipo
+        $update_tipo_nuveo = "UPDATE `productos` SET `tipo_id` = $tipo WHERE `productos`.`id_producto` = $_SESSION[id_producto]; ";
+        $update_tipo=$db->ejecutarConsulta($update_tipo_nuveo);
+
+        //Actualizar universo
+        $update_universo_nuveo = "UPDATE `productos` SET `universo_id` = $universo WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_universo=$db->ejecutarConsulta($update_universo_nuveo);
+
+        //Actualizar costo
+        $update_costo_nuveo = "UPDATE `productos` SET `precio_base` = '$costo' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_costo=$db->ejecutarConsulta($update_costo_nuveo);
+
+        }
+
+
+        if(isset($_SESSION['id_producto'])){
+            
+        $productoQry="SELECT * from productos where productos.id_producto=$_SESSION[id_producto]";
+        $producto=$db->seleccionarDatos($productoQry);
+
+        foreach($producto as $res){
+            $prd_nom = $res['nom_producto'];
+            $prd_precio = $res['precio'];
+            $prd_desc = $res['descripcion'];
+            $prd_exist = $res['existencia'];
+            $prd_estado = $res['estado'];
+            $prd_cat = $res['id_cat'];
+            $prd_tipo = $res['tipo_id'];
+            $prd_universo = $res['universo_id'];
+            $prd_fecha = $res['fecha'];
+            $prd_costo = $res['precio_base'];
+        }
+        }
+
+
+       
+
+  
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,15 +116,15 @@
         <div class="mb-3">
             <label for="precio" class="form-label"><strong>Precio</strong></label>
 
-            <input type="text" name="precio" id="precio"  value="<?php echo $prd_precio?> class="form-control" placeholder="Escribe el precio del producto aquí" required>
+            <input type="number" name="precio" id="precio"  value="<?php echo $prd_precio?>" class="form-control" placeholder="Escribe el precio del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="existencia" class="form-label"><strong>Existencia</strong></label>
-            <input type="text" name="existencia" id="existencia"   value="<?php echo $prd_exist?> class="form-control" placeholder="Escribe la existencia del producto aquí" required>
+            <input type="text" name="existencia" id="existencia"   value="<?php echo $prd_exist?>" class="form-control" placeholder="Escribe la existencia del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label"><strong>Descripción</strong></label>
-            <textarea name="descripcion" id="descripcion"   class="form-control" placeholder="Escribe una descripción del producto" required></textarea>
+            <textarea name="descripcion" id="descripcion"  class="form-control" placeholder="Escribe una descripción del producto" required><?php echo $prd_desc?></textarea>
         </div>
         <div class="mb-3">
             <label for="estado"><strong>Estado:</strong></label>
@@ -126,34 +186,13 @@
 
         <div class="mb-3">
             <label for="precio_base" class="form-label"><strong>Costo</strong></label>
-            <input type="text" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
+            <input type="number" name="costo" id="costo"  value="<?php echo $prd_costo?>" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
         </div>
         <br>
 
-        <div class="my-form"  style="display: contents; margin-top: 0;">
-                
-        <div id="drop-area">
-                   <center>
-                   <p>Puede subir varios archivos con el cuadro de diálogo de archivos.</p>
-                   </center>
-                    <center>
-                      <input type="file" id="fileElem" name="imagen[]" value="" multiple accept="image/*" onchange="handleFiles(this.files)">
-                   
-                 
-                    <label class="button" for="fileElem">Seleccione las imagenes</label>
-                  <br><br>
-                  <progress id="progress-bar" max=100 value=0 style="width:100%;"></progress>
+       
 
-                  </center>
-                  
-
-                 <center>
-        <div id="gallery" /> </div>
-                 </center>
-        </div>
-
-                <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user'] ?>">
-                <center> <button type="submit" name="guardar_datos_personales" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Publicar</button></center>
+                <center> <button type="submit" name="guardar_producto" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Guardar Cambios</button></center>
 
         </div>
         </form>

@@ -1,4 +1,5 @@
 <?php
+    session_start();
     use MyApp\data\Database;
     require("../../../../vendor/autoload.php");
     $db = new Database;
@@ -43,8 +44,8 @@
             ?>
         <tr>
           <th scope="row" class="fs-5"><strong> <?php echo $nombre;?></strong></th>
-          <td> <a href="/geekhaven/src/views/admin/html/editproducto.php?id=<?php echo $id;?>" class="fs-5 text-primary">Editar</a></td>
-          <td><a href="/geekhaven/src/views/admin/html/borrar_producto.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
+          <td> <a href="/geekhaven/src/views/admin/html/editproducto.php?id=<?php echo $id; ?>" class="fs-5 text-primary">Editar</a></td>
+          <td><a href="/geekhaven/src/views/admin/html/eliminar_producto.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
         </tr>
         <?php
             }
