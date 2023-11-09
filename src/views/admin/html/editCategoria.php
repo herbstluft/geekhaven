@@ -43,7 +43,7 @@
             ?>
         <tr>
           <th scope="row" class="fs-5"><strong> <?php echo $nombre;?></strong></th>
-          <td> <a href="/geekhaven/src/views/admin/html/editCategoria.php?id=<?php echo $id;?>" class="fs-5 text-primary">Editar</a></td>
+          <td> <a href="/geekhaven/src/views/admin/html/editarCategoria.php?id=<?php echo $id;?>" class="fs-5 text-primary">Editar</a></td>
           <td><a href="/geekhaven/src/scripts/insersiones/borrarCategoria.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
         </tr>
         <?php
