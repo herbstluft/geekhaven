@@ -4,12 +4,12 @@
     require("../../../../vendor/autoload.php");
     $db = new Database;
     if(isset($_GET['id'])){
-         $_SESSION['id_producto'] = $_GET['id'];
-        $id = $_SESSION['id_producto'];
+         $_SESSION ['id_producto']=$_GET['id'];
+        $id =  $_SESSION ['id_producto'];
 
     }
     if(isset($_POST['guardar_producto'])){
-
+        $id = $_POST['id'];
         $nombre = $_POST['nombre'];
         $precio = $_POST['precio'];
         $descripcion = $_POST['descripcion'];
@@ -21,41 +21,45 @@
         $fecha_actual = $_POST['fecha'];
         $costo = $_POST['costo'];
     
+          
         //Actualizar nombre
-        $update_nombre_nuveo = "UPDATE `productos` SET `nom_producto` = '$nombre' WHERE `productos`.`id_producto` = $_SESSION[id_producto];
-        ";
+        $update_nombre_nuveo = "UPDATE `productos` SET `nom_producto` = '$nombre' WHERE id_producto =$_SESSION[id_producto];";
         $update_nombre=$db->ejecutarConsulta($update_nombre_nuveo);
     
         //Actualizar precio
-        $update_precio_nuveo = "UPDATE `productos` SET `precio` = '$precio' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_precio_nuveo = "UPDATE `productos` SET `precio` = '$precio' WHERE id_producto = $_SESSION[id_producto] ";
         $update_precio=$db->ejecutarConsulta($update_precio_nuveo);
     
         //Actualizar descripcion
-        $update_descripcion_nuveo = "UPDATE `productos` SET `descripcion` = '$descripcion' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_descripcion_nuveo = "UPDATE `productos` SET `descripcion` = '$descripcion' WHERE id_producto = $_SESSION[id_producto]";
         $update_descripcion=$db->ejecutarConsulta($update_descripcion_nuveo);
 
         //Actualizar existencia
-        $update_existencia_nuveo = "UPDATE `productos` SET `existencia` = '$existencia' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
-        $update_existencia=$db->ejecutarConsulta($update_existencia_nuveo);
+     $update_existencia_nuevo = "UPDATE `productos` SET `existencia` = '$existencia' WHERE id_producto = $_SESSION[id_producto]";
+$update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
 
-        //Actualizar estado
-        $update_estado_nuveo = "UPDATE `productos` SET `estado` = $estado WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+
+         //Actualizar estado
+        $update_estado_nuveo = "UPDATE `productos` SET `estado` = '$estado' WHERE id_producto = $_SESSION[id_producto]";
         $update_estado=$db->ejecutarConsulta($update_estado_nuveo);
 
+
+
+
         //Actualizar categoria
-        $update_categoria_nuveo = "UPDATE `productos` SET `id_cat` = $categoria WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
-        $update_categoria=$db->ejecutarConsulta($update_categoria_nuveo);
+        $update_categoria_nuevo = "UPDATE `productos` SET `id_cat` = '$categoria' WHERE id_producto = {$_SESSION['id_producto']}";
+        $update_categoria = $db->ejecutarConsulta($update_categoria_nuevo);
 
         //Actualizar tipo
-        $update_tipo_nuveo = "UPDATE `productos` SET `tipo_id` = $tipo WHERE `productos`.`id_producto` = $_SESSION[id_producto]; ";
+        $update_tipo_nuveo = "UPDATE `productos` SET `tipo_id` = '$tipo' WHERE id_producto =$_SESSION[id_producto]";
         $update_tipo=$db->ejecutarConsulta($update_tipo_nuveo);
 
         //Actualizar universo
-        $update_universo_nuveo = "UPDATE `productos` SET `universo_id` = $universo WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_universo_nuveo = "UPDATE `productos` SET `universo_id` = $universo WHERE id_producto = $_SESSION[id_producto]";
         $update_universo=$db->ejecutarConsulta($update_universo_nuveo);
 
         //Actualizar costo
-        $update_costo_nuveo = "UPDATE `productos` SET `precio_base` = '$costo' WHERE `productos`.`id_producto` = $_SESSION[id_producto];";
+        $update_costo_nuveo = "UPDATE `productos` SET `precio_base` = '$costo' WHERE id_producto = $_SESSION[id_producto]";
         $update_costo=$db->ejecutarConsulta($update_costo_nuveo);
 
         }
@@ -92,11 +96,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
   <link rel="shortcut icon" type="image/png" href="../../views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
 </head>
-
+<title><?php echo $id; ?></title>
 <body>
 
 <?php include('navbar.php') ?>
@@ -146,15 +149,16 @@
                $sql = "SELECT id_cat,nom_cat from categorias";
                $categorias = $db->seleccionarDatos($sql);
 
-               foreach ($categorias as $categorias) {
-                echo '<option value="' . $categorias['id_cat'] . '">' . $categorias['nom_cat'] . '</option>';
+               foreach ($categorias as $cat) {
+                ?> <option value="<?php echo $cat['id_cat'];?>"><?php echo $cat['nom_cat'];?></option>
+             <?php   
             }
             ?>  
             </select>
         </div>
         <div class="mb-3">
-            <label for="universo"><strong>Tipo:</strong></label>
-            <select id="universo" name="tipo" class="form-control" required>
+            <label for="tipo"><strong>Tipo:</strong></label>
+            <select id="tipo" name="tipo" class="form-control" required>
             <?php
                 $sql = "SELECT id_tipo,tipo from tipo";
                 $tipos = $db->seleccionarDatos($sql);
@@ -189,7 +193,7 @@
             <input type="number" name="costo" id="costo"  value="<?php echo $prd_costo?>" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
         </div>
         <br>
-
+                <input type="hidden" name ="id"value="<?php echo $id; ?>">
        
 
                 <center> <button type="submit" name="guardar_producto" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Guardar Cambios</button></center>

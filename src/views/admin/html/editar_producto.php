@@ -4,7 +4,7 @@
     require("../../../../vendor/autoload.php");
     $db = new Database;
 
-    $ProductosQry="SELECT * from productos;";
+    $ProductosQry="SELECT * from productos ;";
     $Productos=$db->seleccionarDatos($ProductosQry);
 
 ?>
@@ -45,7 +45,7 @@
         <tr>
           <th scope="row" class="fs-5"><strong> <?php echo $nombre;?></strong></th>
           <td> <a href="/geekhaven/src/views/admin/html/editproducto.php?id=<?php echo $id; ?>" class="fs-5 text-primary">Editar</a></td>
-          <td><a href="/geekhaven/src/views/admin/html/eliminar_producto.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
+          <td><a href="/geekhaven/src/views/admin/html/eliminar_producto.php?id=<?php echo $id;?>"class="fs-5 text-danger eliminar-producto" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal">Eliminar</a></td>
         </tr>
         <?php
             }
@@ -70,3 +70,24 @@
 
     });
   </script>
+  <!-- Agrega esto al final de tu archivo HTML justo antes del cierre del body -->
+<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar Eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar este producto?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <a id="eliminarProductoLink" href="/geekhaven/src/views/admin/html/eliminar_producto.php" class="btn btn-danger">Sí, eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+ 
