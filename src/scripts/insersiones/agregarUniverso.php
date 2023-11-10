@@ -22,39 +22,34 @@ $db = new Database;
   <body class="">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
     <?php
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['imagen']) && isset($_GET['universo'])) {
-        $imagenBase64 = $_GET['imagen'];
-        $universo = $_GET['universo'];
-
-        // Decodificar la imagen Base64
-        $imagenBinaria = base64_decode($imagenBase64);
-
-        // Ruta donde deseas guardar la imagen
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_FILES['imagen']['name']) && isset($_POST['universo'])) {
+        $nombre_archivo = uniqid() . '_' . basename($_FILES['imagen']['name']);
         $carpeta_destino = 'img_u/';
-
-        // Genera un nombre único para la imagen
-        $nombre_archivo = uniqid() . '.jpg';
-
-        // Ruta completa de la imagen
         $ruta_imagen = $carpeta_destino . $nombre_archivo;
 
-        // Guardar la imagen en el servidor
-        file_put_contents($ruta_imagen, $imagenBinaria);
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_imagen)) {
+            // Inserta la ruta de la imagen en la base de datos
+            $universo = $_POST['universo'];
+            $insertQry = "INSERT INTO `universo`(`universo`, `img`) VALUES ('$universo','$ruta_imagen')";
+            $insert = $db->ejecutarConsulta($insertQry);
 
-        // Inserta el nombre de la imagen en la base de datos junto con otros datos
-        // Aquí debes agregar código para insertar en la base de datos, por ejemplo, utilizando SQL
-        $insertQry="INSERT INTO `universo`(`universo`, `img`) VALUES ('$universo','$ruta_imagen')";
-        $insert=$db->ejecutarConsulta($insertQry);
+            if ($insert === false) {
+                die('Error al insertar datos en la base de datos.');
+            }
+
+            echo 'Imagen subida y guardada exitosamente.';
+        } else {
+            die('Error al mover la imagen al servidor.');
+        }
     } else {
-        echo "Parámetros incorrectos en la URL.";
+        echo "Parámetros incorrectos en la solicitud.";
     }
 } else {
     echo "Acceso no permitido.";
 }
-
-
-header("Location:/geekhaven/src/views/admin/html/editUniverso.php");
 ?>
+
+
   </body>
 </html>

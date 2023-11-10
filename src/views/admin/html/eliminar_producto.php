@@ -33,12 +33,6 @@ where universo.id_universo =$universo";
 $ValidarProductos=$db->seleccionarDatos($ValidarProductosQry);
 
 if(!empty($ValidarProductos)){
-    echo " <div class='container mt-5'>
-<div class='alert alert-danger' role='alert'>
-  <div class='row'>
-  <h1 class='alert-heading col-12' align='center'>No se puede eliminar este universo!</h1><br>
-  <center><p>Aun hay productos con este universo, elimina esos productos primero para poder eliminar el universo</p></center>
-  </div>";
   header("refresh:2;url=/geekhaven/src/views/admin/html/editUniverso.php");
 }
 else{

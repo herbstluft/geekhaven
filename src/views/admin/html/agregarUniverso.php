@@ -24,7 +24,7 @@
 <h1 align="center">Añadir Universo</h1>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="get">
+        <form action="/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Universo</label>
             <input type="text" class="form-control" name="universo" id="universo" placeholder="DragonBall Z" required>
@@ -32,7 +32,7 @@
           </div>
           <div class="mb-3">
             <label for="image">Selecciona una imagen</label>
-            <input id="image" type="file" name="imagen" accept="image/*"class="form-control">
+            <input type="file"id="image" name="imagen" accept="image/*"class="form-control">
             <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
           </div>
 

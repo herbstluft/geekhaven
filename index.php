@@ -319,78 +319,26 @@ foreach($recien_llegados as $recien_llegados){
 <div class="scroll-appear">
 <div class="row">
 
+  <?php
+  $universoQry="SELECT * FROM `universo`";
+  $universo=$db->seleccionarDatos($universoQry);
+  foreach($universo as $res){
+    $img=$res['img'];
+  ?>
   <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
   <article class="card card--1" style="margin-left:20px">
 
   <div class="card__info">
-  <div>
-            <img width="210" height="210" src="https://loodibee.com/wp-content/uploads/Pokemon-Symbol-logo.png" alt="controller">
-          </div>
-    <h3 class="card__title">Pokemon</h3>
+  <img width="210" height="210" src="/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
+    <h3 class="card__title"><?php echo $res['universo'], "/geekhaven/src/scripts/insersiones/$img"?></h3>
   
   </div>
   </article>
   </div>
+  <?php
+  echo $img; }
+  ?>
 
-  <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-
-  <div class="card__info">
-  <img width="210" height="210" src="https://cdn.freebiesupply.com/logos/large/2x/dragonball-z-logo-png-transparent.png" alt="controller">
-    <h3 class="card__title">DragonBall Z</h3>
-  
-  </div>
-  </article>
-  </div>
-
-  <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-
-  <div class="card__info">
-  <img width="210" height="210" src="https://assets.stickpng.com/thumbs/5852cd4c58215f0354495f65.png" alt="controller">
-    <h3 class="card__title">Naruto</h3>
-  
-  </div>
-  </article>
-  </div>
-
-
-  <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-
-  <div class="card__info">
-  <img width="210" height="210" src="https://cdn.freebiesupply.com/logos/thumbs/2x/zelda-logo.png" alt="controller">
-    <h3 class="card__title">DragonBall Z</h3>
-  
-  </div>
-  </article>
-  </div>
-  
-
-  
-  <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-
-  <div class="card__info">
-  <img width="210" height="210" src="https://static.vecteezy.com/system/resources/previews/024/693/394/original/super-mario-logo-transparent-free-png.png" alt="controller">
-    <h3 class="card__title">Super Mario</h3>
-  
-  </div>
-  </article>
-  </div>
-  
-
-  
-  <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
-  <article class="card card--1" style="margin-left:20px">
-
-  <div class="card__info">
-  <img width="210" height="210" src="https://static.vecteezy.com/system/resources/previews/022/100/698/original/marvel-logo-transparent-free-png.png" alt="controller">
-    <h3 class="card__title">Marvel</h3>
-  
-  </div>
-  </article>
-  </div>
   
   </div>
 

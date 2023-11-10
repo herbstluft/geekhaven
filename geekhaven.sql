@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 01, 2023 at 07:48 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 10-11-2023 a las 02:33:45
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `geekhaven`
+-- Base de datos: `geekhaven`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorias`
+-- Estructura de tabla para la tabla `categorias`
 --
 
 CREATE TABLE `categorias` (
@@ -33,7 +33,7 @@ CREATE TABLE `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categorias`
+-- Volcado de datos para la tabla `categorias`
 --
 
 INSERT INTO `categorias` (`id_cat`, `nom_cat`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `categorias` (`id_cat`, `nom_cat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `conversaciones`
+-- Estructura de tabla para la tabla `conversaciones`
 --
 
 CREATE TABLE `conversaciones` (
@@ -61,26 +61,16 @@ CREATE TABLE `conversaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `conversaciones`
+-- Volcado de datos para la tabla `conversaciones`
 --
 
 INSERT INTO `conversaciones` (`id_conversacion`, `id_usuario1`, `id_usuario2`, `id_pub`) VALUES
-(112, 41, 40, 1),
-(117, 40, 41, 1),
-(118, 40, 41, 1),
-(119, 40, 41, 1),
-(120, 40, 41, 1),
-(121, 40, 41, 1),
-(122, 40, 41, 1),
-(123, 40, 41, 1),
-(124, 40, 41, 1),
-(125, 40, 41, 1),
-(126, 40, 41, 1);
+(149, 41, 40, 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_orden`
+-- Estructura de tabla para la tabla `detalle_orden`
 --
 
 CREATE TABLE `detalle_orden` (
@@ -94,15 +84,11 @@ CREATE TABLE `detalle_orden` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `detalle_orden`
+-- Volcado de datos para la tabla `detalle_orden`
 --
 
 INSERT INTO `detalle_orden` (`id_do`, `id_producto`, `cantidad`, `id_usuario`, `estatus`, `fecha_detalle`, `id_orden`) VALUES
-(1, 1, 1, 35, 1, '2023-10-02 06:00:00', 1),
-(2, 2, 1, 35, 1, '2022-08-18 06:00:00', 1),
-(3, 13, 2, 35, 1, '2023-10-01 06:00:00', 2),
-(4, 3, 2, 36, 1, '2021-09-18 06:00:00', 3),
-(5, 4, 2, 36, 1, '2023-10-04 06:00:00', 3),
+(3, 13, 2, 35, 2, '2023-11-07 02:15:16', 2),
 (6, 5, 1, 36, 1, '2021-11-16 06:00:00', 4),
 (7, 9, 1, 37, 1, '2022-05-16 06:00:00', 5),
 (8, 6, 2, 37, 1, '2021-03-25 06:00:00', 5),
@@ -118,122 +104,70 @@ INSERT INTO `detalle_orden` (`id_do`, `id_producto`, `cantidad`, `id_usuario`, `
 (18, 8, 1, 39, 1, '2021-11-29 06:00:00', 13),
 (19, 6, 1, 39, 1, '2022-07-09 06:00:00', 13),
 (20, 2, 1, 39, 1, '2021-11-13 06:00:00', 13),
-(48, 13, 1, 40, 0, NULL, 20),
-(50, 12, 2, 40, 0, NULL, 20);
+(54, 8, 1, 40, 2, NULL, 26),
+(56, 4, 2, 40, 2, '2023-11-06 21:58:41', 28),
+(57, 3, 1, 40, 2, '2023-11-06 21:58:41', 28),
+(59, 8, 3, 40, 1, NULL, 30),
+(60, 8, 6, 40, 1, NULL, 31),
+(61, 3, 1, 40, 1, NULL, 32),
+(62, 4, 1, 40, 1, NULL, 32),
+(63, 7, 3, 40, 1, NULL, 33),
+(64, 4, 4, 40, 1, NULL, 34),
+(65, 5, 1, 40, 1, NULL, 35),
+(68, 5, 1, 40, 1, NULL, 37),
+(69, 8, 1, 40, 1, NULL, 37),
+(70, 8, 1, 40, 0, NULL, 38);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `img_prducto_prd`
+-- Estructura de tabla para la tabla `imagenes`
 --
 
-CREATE TABLE `img_prducto_prd` (
-  `id_img_prd` int(11) NOT NULL,
-  `id_img` int(11) DEFAULT NULL,
-  `id_productos` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `img_prducto_prd`
---
-
-INSERT INTO `img_prducto_prd` (`id_img_prd`, `id_img`, `id_productos`) VALUES
-(1, 1, 1),
-(2, 2, 1),
-(3, 3, 2),
-(4, 4, 2),
-(5, 5, 3),
-(6, 6, 3),
-(7, 7, 4),
-(8, 8, 4),
-(9, 9, 5),
-(10, 10, 5),
-(11, 11, 6),
-(12, 12, 6),
-(13, 13, 7),
-(14, 14, 7),
-(15, 15, 8),
-(16, 16, 8),
-(17, 17, 9),
-(18, 18, 9),
-(19, 19, 10),
-(20, 20, 10),
-(21, 21, 11),
-(22, 22, 11),
-(23, 23, 12),
-(24, 24, 12),
-(25, 25, 13);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `img_producto`
---
-
-CREATE TABLE `img_producto` (
-  `id_img` int(11) NOT NULL,
-  `img_producto` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `img_producto`
---
-
-INSERT INTO `img_producto` (`id_img`, `img_producto`) VALUES
-(1, 'https://i.ebayimg.com/images/g/bxkAAOSwtA9koLPs/s-l1600.jpg'),
-(2, 'https://i.ebayimg.com/images/g/bKoAAOSwAYtWN3hi/s-l1600.jpg'),
-(3, 'https://http2.mlstatic.com/D_NQ_NP_765777-MLM40372248058_012020-O.webp'),
-(4, 'https://http2.mlstatic.com/D_NQ_NP_856805-MLM45822606740_052021-W.jpg'),
-(5, 'https://http2.mlstatic.com/D_NQ_NP_739913-MLU70831860751_082023-O.webp'),
-(6, 'https://http2.mlstatic.com/D_NQ_NP_642988-MLU70799770458_082023-O.webp'),
-(7, 'https://http2.mlstatic.com/D_NQ_NP_746967-MLA40861843237_022020-O.webp'),
-(8, 'https://http2.mlstatic.com/D_NQ_NP_684703-MLU70017625493_062023-O.webp'),
-(9, 'https://m.media-amazon.com/images/I/513cWoXOk2L._AC_SX679_.jpg'),
-(10, 'https://m.media-amazon.com/images/I/513cWoXOk2L._AC_SX679_.jpg'),
-(11, 'https://http2.mlstatic.com/D_NQ_NP_939303-MLA46663357848_072021-O.webp'),
-(12, 'https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000016048/2602862595e8a25ffff70d64fc9fe3d828a3a47d02d9f9e29b3e94f40ac39c56'),
-(13, 'https://http2.mlstatic.com/D_NQ_NP_710036-MLA44626667159_012021-O.webp'),
-(14, 'https://http2.mlstatic.com/D_NQ_NP_821798-MLA44626667161_012021-O.webp'),
-(15, 'https://http2.mlstatic.com/D_NQ_NP_941861-MLA52109298542_102022-O.webp'),
-(16, 'https://http2.mlstatic.com/D_NQ_NP_649294-MLM52485830258_112022-O.webp'),
-(17, 'https://m.media-amazon.com/images/I/617-6ZUjhHL._SL1200_.jpg'),
-(18, 'https://m.media-amazon.com/images/I/617-6ZUjhHL._SL1200_.jpg'),
-(19, 'https://http2.mlstatic.com/D_NQ_NP_741761-CBT48527722028_122021-O.webp'),
-(20, 'https://http2.mlstatic.com/D_NQ_NP_802596-CBT48527722029_122021-O.webp'),
-(21, 'https://http2.mlstatic.com/D_NQ_NP_850327-MLA54712581525_032023-O.webp'),
-(22, 'https://http2.mlstatic.com/D_NQ_NP_743598-MLU71036962581_082023-O.webp'),
-(23, 'https://http2.mlstatic.com/D_NQ_NP_703636-MLU69138837380_042023-O.webp'),
-(24, 'https://http2.mlstatic.com/D_NQ_NP_971124-MLM69296048062_052023-O.webp'),
-(25, 'https://http2.mlstatic.com/D_NQ_NP_2X_965579-MLA46237942573_062021-F.webp'),
-(26, 'https://http2.mlstatic.com/D_NQ_NP_665357-MLA46237938567_062021-O.webp');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `img_pub`
---
-
-CREATE TABLE `img_pub` (
-  `id_img` int(11) NOT NULL,
-  `img_pub` varchar(1000) DEFAULT NULL
+CREATE TABLE `imagenes` (
+  `id_imagen` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `nombre_imagen` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `img_pub_ptrq`
+-- Estructura de tabla para la tabla `img_productos`
 --
 
-CREATE TABLE `img_pub_ptrq` (
-  `id_img_pub` int(11) NOT NULL,
-  `id_img` int(11) DEFAULT NULL,
-  `pub` int(11) DEFAULT NULL
+CREATE TABLE `img_productos` (
+  `id_img_productos` int(11) NOT NULL,
+  `id_producto` int(11) DEFAULT NULL,
+  `nombre_imagen` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mensajes`
+-- Estructura de tabla para la tabla `img_pub_trq`
+--
+
+CREATE TABLE `img_pub_trq` (
+  `id` int(11) NOT NULL,
+  `id_publicacion` int(11) DEFAULT NULL,
+  `nombre_imagen` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `img_pub_trq`
+--
+
+INSERT INTO `img_pub_trq` (`id`, `id_publicacion`, `nombre_imagen`) VALUES
+(47, 20, '1.png'),
+(48, 20, '2.png'),
+(49, 20, '3.png'),
+(50, 20, '4.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mensajes`
 --
 
 CREATE TABLE `mensajes` (
@@ -246,25 +180,16 @@ CREATE TABLE `mensajes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `mensajes`
+-- Volcado de datos para la tabla `mensajes`
 --
 
 INSERT INTO `mensajes` (`id_mensaje`, `id_remitente`, `id_destinatario`, `id_conversacion`, `mensaje`, `fecha`) VALUES
-(456, 40, 41, 117, 'hola', '2023-10-30 22:10:17'),
-(457, 40, 41, 118, 'hola', '2023-10-30 22:10:25'),
-(458, 40, 41, 119, 'hola', '2023-10-30 22:10:27'),
-(459, 40, 41, 120, 'hola', '2023-10-30 22:10:28'),
-(460, 40, 41, 121, 'hola', '2023-10-30 22:10:30'),
-(461, 40, 41, 122, 'hola', '2023-10-30 22:10:31'),
-(462, 40, 41, 123, 'hola', '2023-10-30 22:10:34'),
-(463, 40, 41, 124, 'hola', '2023-10-30 22:10:34'),
-(464, 40, 41, 125, 'hola', '2023-10-30 22:10:34'),
-(465, 40, 41, 126, 'oye', '2023-10-30 22:10:40');
+(497, 41, 40, 149, 'holaaa', '2023-11-07 02:48:45');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orden`
+-- Estructura de tabla para la tabla `orden`
 --
 
 CREATE TABLE `orden` (
@@ -274,7 +199,7 @@ CREATE TABLE `orden` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orden`
+-- Volcado de datos para la tabla `orden`
 --
 
 INSERT INTO `orden` (`id_orden`, `fecha`, `usr`) VALUES
@@ -297,12 +222,28 @@ INSERT INTO `orden` (`id_orden`, `fecha`, `usr`) VALUES
 (17, '2023-10-26 01:33:00', 40),
 (18, '2023-10-26 01:33:46', 40),
 (19, '2023-10-26 01:36:29', 40),
-(20, '2023-10-26 02:22:50', 40);
+(20, '2023-10-26 02:22:50', 40),
+(23, '2023-11-02 04:41:07', 40),
+(24, '2023-11-02 04:43:52', 40),
+(25, '2023-11-02 04:47:23', 40),
+(26, '2023-11-06 03:40:56', 40),
+(27, '2023-11-06 03:47:07', 40),
+(28, '2023-11-06 00:50:57', 40),
+(29, '2023-11-06 21:59:16', 40),
+(30, '2023-11-06 22:16:20', 40),
+(31, '2023-11-07 02:11:46', 40),
+(32, '2023-11-07 02:12:03', 40),
+(33, '2023-11-07 02:12:41', 40),
+(34, '2023-11-07 02:13:02', 40),
+(35, '2023-11-07 02:13:30', 40),
+(36, '2023-11-08 01:51:05', 40),
+(37, '2023-11-08 03:05:20', 40),
+(38, '2023-11-09 02:33:58', 40);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personas`
+-- Estructura de tabla para la tabla `personas`
 --
 
 CREATE TABLE `personas` (
@@ -314,7 +255,7 @@ CREATE TABLE `personas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `personas`
+-- Volcado de datos para la tabla `personas`
 --
 
 INSERT INTO `personas` (`id_persona`, `nombre`, `apellido`, `info`, `correo`) VALUES
@@ -346,7 +287,7 @@ INSERT INTO `personas` (`id_persona`, `nombre`, `apellido`, `info`, `correo`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productos`
+-- Estructura de tabla para la tabla `productos`
 --
 
 CREATE TABLE `productos` (
@@ -364,18 +305,18 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `productos`
+-- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id_producto`, `nom_producto`, `precio`, `descripcion`, `existencia`, `estado`, `id_cat`, `tipo_id`, `universo_id`, `fecha`, `precio_base`) VALUES
-(1, 'Amiibo Mario Classic Color 30th Anniversary', 1085.91, '30th Super Mario Bros. Series', 1, 'normal', 3, 5, 8, '2023-10-17 01:36:11', 1000.91),
-(2, 'Comic Dc Comics Deluxe: Batman The Dark Knight Master Race', 371.35, 'DC Comics Deluxe: Batman The Dark Knight Master RaceEscritores: Frank Miller y Brian AzzarelloIlustradores: Andy Kubert, Klaus Janson, John Romita Jr., Eduardo Risso y Frank Miller Páginas: 392 Han pasado tres años desde que Batman venció a Lex Luthor y salvó al mundo de la tiranía. Tres años desde la última vez que alguien haya visto al guardián de Gotham City. Wonder Woman, Reina de las Amazonas… Hal Jordan, Green Lantern… Superman, el Hombre de Acero… todos los aliados del Caballero Oscuro se', 4, 'normal', 4, 7, 10, '2023-10-17 01:36:26', 370),
-(3, 'Devir Juego De Mesa Smash Up Marvel', 999.99, '¿Qué mejor plan para una tarde de lluvia que un juego de mesa? Con el Smash Up: Marvel Base vas a crear divertidos recuerdos y pasarás momentos inolvidables junto a tus amigos y amigas. Con este pasatiempo entretenido las risas están aseguradas.', 4, 'oferta', 7, 8, 9, '2023-10-17 01:36:38', 800),
-(4, 'Dragon Ball Z: Kakarot Dragon Ball Z Standard Edition Bandai Namco Xbox One Físico', 1000.99, 'Con este juego de Dragon Ball vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.\r\nDiversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 12, 'normal', 2, 6, 2, '2023-10-17 01:36:45', 900),
-(5, 'Game of Thrones Collegiate Targaryen - Sudadera raglán para jóvenes con Puntada de Funda Lana para M', 589.87, 'Warner Brothers Game of Thrones Collegiate Targaryen Junior - Sudadera raglán con punto de chamarra', 2, 'normal', 9, 9, 11, '2023-10-17 01:36:53', 500),
+(1, 'Amiibo Mario Classic Color 30th Anniversary', 1002.91, '30th Super Mario', 12, 'normal', 3, 1, 8, '2023-11-09 01:02:50', 799.91),
+(2, 'Comic Dc Comics Deluxe: Batman The Dark Knight Master Race', 371.35, 'DC Comics Deluxe: Batman The Dark Knight Master RaceEscritores: Frank Miller y Brian AzzarelloIlustradores: Andy Kubert, Klaus Janson, John Romita Jr., Eduardo Risso y Frank Miller Páginas: 392 Han pasado tres años desde que Batman venció a Lex Luthor y salvó al mundo de la tiranía. Tres años desde la última vez que alguien haya visto al guardián de Gotham City. Wonder Woman, Reina de las Amazonas… Hal Jordan, Green Lantern… Superman, el Hombre de Acero… todos los aliados del Caballero Oscuro se', 5, 'normal', 4, 7, 10, '2023-11-06 22:15:21', 370),
+(3, 'Devir Juego De Mesa Smash Up Marvel', 999.99, '¿Qué mejor plan para una tarde de lluvia que un juego de mesa? Con el Smash Up: Marvel Base vas a crear divertidos recuerdos y pasarás momentos inolvidables junto a tus amigos y amigas. Con este pasatiempo entretenido las risas están aseguradas.', 4, 'oferta', 7, 8, 9, '2023-11-07 02:15:28', 800),
+(4, 'Dragon Ball Z: Kakarot Dragon Ball Z Standard Edition Bandai Namco Xbox One Físico', 1000.99, 'Con este juego de Dragon Ball vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.\r\nDiversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 7, 'normal', 2, 6, 2, '2023-11-07 02:15:28', 900),
+(5, 'Game of Thrones Collegiate Targaryen - Sudadera raglán para jóvenes con Puntada de Funda Lana para M', 589.87, 'Warner Brothers Game of Thrones Collegiate Targaryen Junior - Sudadera raglán con punto de chamarra', 0, 'normal', 9, 9, 11, '2023-11-09 02:33:38', 500),
 (6, 'Naruto Shippuden: Ultimate Ninja Storm 4 Road to Boruto Naruto Shippuden: Ultimate Ninja Storm Stand', 1089.59, 'Con este juego de Naruto vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.Diversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 10, 'normal', 3, 6, 5, '2023-10-17 01:37:06', 1020),
-(7, 'One Piece: Pirate Warriors 4 One Piece: Pirate Warriors Standard Edition Bandai Namco PS4 Físico', 987.99, 'Con este juego de One Piece vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.\r\nDiversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 7, 'oferta', 1, 6, 4, '2023-10-17 01:37:15', 900),
-(8, 'Pokémon Scarlet Standard Edition Nintendo Switch Físico', 859.88, 'Con este juego de Pokémon vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.\r\nDiversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 3, 'oferta', 2, 6, 1, '2023-10-17 01:37:21', 850),
+(7, 'One Piece: Pirate Warriors 4 One Piece: Pirate Warriors Standard Edition Bandai Namco PS4 Físico', 987.99, 'Con este juego de One Piece vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.\r\nDiversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 7, 'oferta', 1, 6, 4, '2023-11-07 02:12:43', 900),
+(8, 'Pokémon Scarlet Standard Edition Nintendo Switch Físico', 859.88, 'Con este juego de Pokémon vas a disfrutar de horas de diversión y de nuevos desafíos que te permitirán mejorar como gamer.\r\nInteractúa con otros jugadores\r\nPodrás disfrutar de una experiencia inigualable, ya que te permite jugar con tus amistades y compartir momentos inolvidables.\r\nDiversión sin fronteras\r\nPodrás compartir cada juego con personas de todo el mundo, ya que es posible conectarse de manera online.', 2, 'oferta', 2, 6, 1, '2023-11-09 02:33:38', 850),
 (9, 'Harry Potter Box Set: Books 1-7;Harry Potter', 3025.89, 'Esta caja incluye los siete fenomenales libros de Harry Potter de tapa dura de la autora de bestsellers J. K. Rowling . Los libros están alojados en una caja de trompa de colección con asas resistentes y bloqueo de privacidad . Incluye estampas decorativas en cada uno de los paquetes.', 1, 'normal', 4, 7, 12, '2023-10-17 01:37:30', 3010),
 (10, 'Sudadera Con Capucha Y Diseño De My Hero Academia', 418, 'Sudadera de tela delgada de My Hero Academia de color azul', 9, 'oferta', 9, 9, 3, '2023-10-17 01:37:36', 415),
 (11, 'The Legend of Zelda: Tears of the Kingdom Standard Edition Nintendo Switch Físico', 1013, 'Explora la vasta superficie y los cielos de Hyrule.Una épica aventura a través de la superficie y los cielos de Hyrule te espera en The Legend of Zelda™: Tears of the Kingdom.En esta secuela del juego The Legend of Zelda: Breath of the Wild, decidirás tu propio camino a través de los extensos paisajes de Hyrule y las islas que flotan en los vastos cielos. ¿Podrás aprovechar el poder de las nuevas habilidades de Link para luchar contra las malévolas fuerzas que amenazan al reino?\r\n', 20, 'normal', 3, 6, 7, '2023-10-17 01:37:45', 1000),
@@ -385,7 +326,7 @@ INSERT INTO `productos` (`id_producto`, `nom_producto`, `precio`, `descripcion`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pub_trq`
+-- Estructura de tabla para la tabla `pub_trq`
 --
 
 CREATE TABLE `pub_trq` (
@@ -400,18 +341,16 @@ CREATE TABLE `pub_trq` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pub_trq`
+-- Volcado de datos para la tabla `pub_trq`
 --
 
 INSERT INTO `pub_trq` (`id_pub`, `id_usuario`, `precio`, `descripcion`, `estado`, `estatus`, `titulo`, `id_conversacion`) VALUES
-(1, 40, 200, 'Vendo tenis, nike usados solo 5 veces', 'Usados', 0, 'Tenis Nike', 112),
-(2, 42, 1000, 'Cama comoda, como nueva', 'Nueva', 0, 'Cama matrimonial', NULL),
-(3, 40, 170, 'Nuevo en su paquete', 'nuevo', 0, 'Adaptador wifi', NULL);
+(20, 40, 3200, 'Cama completamente nueva hecha de piel', 'Nuevo', 1, 'Cama matrimonial', 149);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo`
+-- Estructura de tabla para la tabla `tipo`
 --
 
 CREATE TABLE `tipo` (
@@ -420,7 +359,7 @@ CREATE TABLE `tipo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tipo`
+-- Volcado de datos para la tabla `tipo`
 --
 
 INSERT INTO `tipo` (`id_tipo`, `tipo`) VALUES
@@ -437,37 +376,39 @@ INSERT INTO `tipo` (`id_tipo`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `universo`
+-- Estructura de tabla para la tabla `universo`
 --
 
 CREATE TABLE `universo` (
   `id_universo` int(11) NOT NULL,
-  `universo` varchar(50) DEFAULT NULL
+  `universo` varchar(50) DEFAULT NULL,
+  `img` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `universo`
+-- Volcado de datos para la tabla `universo`
 --
 
-INSERT INTO `universo` (`id_universo`, `universo`) VALUES
-(1, 'Pokemon'),
-(2, 'Dragon Ball'),
-(3, 'MY HERO ACADEMY'),
-(4, 'ONE-PIECE'),
-(5, 'NARUTO'),
-(6, 'YU-GI-OH'),
-(7, 'THE LEGEND OF ZELDA'),
-(8, 'SUPER MARIO'),
-(9, 'MARVEL'),
-(10, 'DC'),
-(11, 'Game of Thrones'),
-(12, 'Harry Potter'),
-(13, 'Sin universo');
+INSERT INTO `universo` (`id_universo`, `universo`, `img`) VALUES
+(1, 'Pokemon', ''),
+(2, 'Dragon Ball', ''),
+(3, 'MY HERO ACADEMY', ''),
+(4, 'ONE-PIECE', ''),
+(5, 'NARUTO', ''),
+(6, 'YU-GI-OH', ''),
+(7, 'THE LEGEND OF ZELDA', ''),
+(8, 'SUPER MARIO', ''),
+(9, 'MARVEL', ''),
+(10, 'DC', ''),
+(11, 'Game of Thrones', ''),
+(12, 'Harry Potter', ''),
+(13, 'Sin universo', ''),
+(25, 'asdasdasdasdasdasdasdasda', 'img_u/654d58018e97f_correccion1.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -483,7 +424,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `telefono`, `contrasena`, `id_persona`, `codigo_reset_passwd`, `estado`, `tipo_usuario`, `reputacion`, `imagen`) VALUES
@@ -501,8 +442,8 @@ INSERT INTO `usuarios` (`id_usuario`, `telefono`, `contrasena`, `id_persona`, `c
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `vmostrar`
--- (See below for the actual view)
+-- Estructura Stand-in para la vista `vmostrar`
+-- (Véase abajo para la vista actual)
 --
 CREATE TABLE `vmostrar` (
 `id_producto` int(11)
@@ -521,24 +462,24 @@ CREATE TABLE `vmostrar` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `vmostrar`
+-- Estructura para la vista `vmostrar`
 --
 DROP TABLE IF EXISTS `vmostrar`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vmostrar`  AS SELECT `productos`.`id_producto` AS `id_producto`, `productos`.`nom_producto` AS `nom_producto`, `productos`.`precio` AS `precio`, `productos`.`descripcion` AS `descripcion`, `productos`.`existencia` AS `existencia`, `productos`.`estado` AS `estado`, `productos`.`id_cat` AS `id_cat`, `productos`.`tipo_id` AS `tipo_id`, `productos`.`universo_id` AS `universo_id`, `productos`.`fecha` AS `fecha`, `productos`.`precio_base` AS `precio_base` FROM `productos` WHERE `productos`.`id_cat` = 3 ;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categorias`
+-- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_cat`);
 
 --
--- Indexes for table `conversaciones`
+-- Indices de la tabla `conversaciones`
 --
 ALTER TABLE `conversaciones`
   ADD PRIMARY KEY (`id_conversacion`),
@@ -547,7 +488,7 @@ ALTER TABLE `conversaciones`
   ADD KEY `id_pub` (`id_pub`);
 
 --
--- Indexes for table `detalle_orden`
+-- Indices de la tabla `detalle_orden`
 --
 ALTER TABLE `detalle_orden`
   ADD PRIMARY KEY (`id_do`),
@@ -556,55 +497,47 @@ ALTER TABLE `detalle_orden`
   ADD KEY `usr_do` (`id_usuario`);
 
 --
--- Indexes for table `img_prducto_prd`
+-- Indices de la tabla `imagenes`
 --
-ALTER TABLE `img_prducto_prd`
-  ADD PRIMARY KEY (`id_img_prd`),
-  ADD KEY `img_prd` (`id_img`),
-  ADD KEY `id_prd` (`id_productos`);
+ALTER TABLE `imagenes`
+  ADD PRIMARY KEY (`id_imagen`);
 
 --
--- Indexes for table `img_producto`
+-- Indices de la tabla `img_productos`
 --
-ALTER TABLE `img_producto`
-  ADD PRIMARY KEY (`id_img`);
+ALTER TABLE `img_productos`
+  ADD PRIMARY KEY (`id_img_productos`),
+  ADD KEY `id_producto` (`id_producto`);
 
 --
--- Indexes for table `img_pub`
+-- Indices de la tabla `img_pub_trq`
 --
-ALTER TABLE `img_pub`
-  ADD PRIMARY KEY (`id_img`);
+ALTER TABLE `img_pub_trq`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_publicacion` (`id_publicacion`);
 
 --
--- Indexes for table `img_pub_ptrq`
---
-ALTER TABLE `img_pub_ptrq`
-  ADD PRIMARY KEY (`id_img_pub`),
-  ADD KEY `img_pub_ptr` (`id_img`),
-  ADD KEY `pub_img_ptr` (`pub`);
-
---
--- Indexes for table `mensajes`
+-- Indices de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
   ADD PRIMARY KEY (`id_mensaje`),
   ADD KEY `mensajes_ibfk_4` (`id_conversacion`);
 
 --
--- Indexes for table `orden`
+-- Indices de la tabla `orden`
 --
 ALTER TABLE `orden`
   ADD PRIMARY KEY (`id_orden`),
   ADD KEY `usr` (`usr`);
 
 --
--- Indexes for table `personas`
+-- Indices de la tabla `personas`
 --
 ALTER TABLE `personas`
   ADD PRIMARY KEY (`id_persona`);
 
 --
--- Indexes for table `productos`
+-- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`),
@@ -613,7 +546,7 @@ ALTER TABLE `productos`
   ADD KEY `universo_id` (`universo_id`);
 
 --
--- Indexes for table `pub_trq`
+-- Indices de la tabla `pub_trq`
 --
 ALTER TABLE `pub_trq`
   ADD PRIMARY KEY (`id_pub`),
@@ -621,124 +554,118 @@ ALTER TABLE `pub_trq`
   ADD KEY `id_conversacion` (`id_conversacion`);
 
 --
--- Indexes for table `tipo`
+-- Indices de la tabla `tipo`
 --
 ALTER TABLE `tipo`
   ADD PRIMARY KEY (`id_tipo`);
 
 --
--- Indexes for table `universo`
+-- Indices de la tabla `universo`
 --
 ALTER TABLE `universo`
   ADD PRIMARY KEY (`id_universo`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`),
   ADD KEY `usuarios_ibfk_1` (`id_persona`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categorias`
+-- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `conversaciones`
+-- AUTO_INCREMENT de la tabla `conversaciones`
 --
 ALTER TABLE `conversaciones`
-  MODIFY `id_conversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id_conversacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
--- AUTO_INCREMENT for table `detalle_orden`
+-- AUTO_INCREMENT de la tabla `detalle_orden`
 --
 ALTER TABLE `detalle_orden`
-  MODIFY `id_do` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_do` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
--- AUTO_INCREMENT for table `img_prducto_prd`
+-- AUTO_INCREMENT de la tabla `imagenes`
 --
-ALTER TABLE `img_prducto_prd`
-  MODIFY `id_img_prd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+ALTER TABLE `imagenes`
+  MODIFY `id_imagen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT for table `img_producto`
+-- AUTO_INCREMENT de la tabla `img_productos`
 --
-ALTER TABLE `img_producto`
-  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+ALTER TABLE `img_productos`
+  MODIFY `id_img_productos` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `img_pub`
+-- AUTO_INCREMENT de la tabla `img_pub_trq`
 --
-ALTER TABLE `img_pub`
-  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `img_pub_trq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT for table `img_pub_ptrq`
---
-ALTER TABLE `img_pub_ptrq`
-  MODIFY `id_img_pub` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `mensajes`
+-- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=466;
+  MODIFY `id_mensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=498;
 
 --
--- AUTO_INCREMENT for table `orden`
+-- AUTO_INCREMENT de la tabla `orden`
 --
 ALTER TABLE `orden`
-  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_orden` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT for table `personas`
+-- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
   MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
--- AUTO_INCREMENT for table `productos`
+-- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `pub_trq`
+-- AUTO_INCREMENT de la tabla `pub_trq`
 --
 ALTER TABLE `pub_trq`
-  MODIFY `id_pub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `tipo`
+-- AUTO_INCREMENT de la tabla `tipo`
 --
 ALTER TABLE `tipo`
   MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `universo`
+-- AUTO_INCREMENT de la tabla `universo`
 --
 ALTER TABLE `universo`
-  MODIFY `id_universo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_universo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `conversaciones`
+-- Filtros para la tabla `conversaciones`
 --
 ALTER TABLE `conversaciones`
   ADD CONSTRAINT `conversaciones_ibfk_1` FOREIGN KEY (`id_usuario1`) REFERENCES `usuarios` (`id_usuario`),
@@ -746,7 +673,7 @@ ALTER TABLE `conversaciones`
   ADD CONSTRAINT `conversaciones_ibfk_3` FOREIGN KEY (`id_pub`) REFERENCES `pub_trq` (`id_pub`);
 
 --
--- Constraints for table `detalle_orden`
+-- Filtros para la tabla `detalle_orden`
 --
 ALTER TABLE `detalle_orden`
   ADD CONSTRAINT `do_o` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`id_orden`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -754,34 +681,32 @@ ALTER TABLE `detalle_orden`
   ADD CONSTRAINT `usr_do` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `img_prducto_prd`
+-- Filtros para la tabla `img_productos`
 --
-ALTER TABLE `img_prducto_prd`
-  ADD CONSTRAINT `id_prd` FOREIGN KEY (`id_productos`) REFERENCES `productos` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `img_prd` FOREIGN KEY (`id_img`) REFERENCES `img_producto` (`id_img`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `img_productos`
+  ADD CONSTRAINT `img_productos_ibfk_1` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id_producto`);
 
 --
--- Constraints for table `img_pub_ptrq`
+-- Filtros para la tabla `img_pub_trq`
 --
-ALTER TABLE `img_pub_ptrq`
-  ADD CONSTRAINT `img_pub_ptr` FOREIGN KEY (`id_img`) REFERENCES `img_pub` (`id_img`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `pub_img_ptr` FOREIGN KEY (`pub`) REFERENCES `pub_trq` (`id_pub`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `img_pub_trq`
+  ADD CONSTRAINT `img_pub_trq_ibfk_1` FOREIGN KEY (`id_publicacion`) REFERENCES `pub_trq` (`id_pub`);
 
 --
--- Constraints for table `mensajes`
+-- Filtros para la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
   ADD CONSTRAINT `mensajes_ibfk_3` FOREIGN KEY (`id_conversacion`) REFERENCES `conversaciones` (`id_conversacion`),
   ADD CONSTRAINT `mensajes_ibfk_4` FOREIGN KEY (`id_conversacion`) REFERENCES `conversaciones` (`id_conversacion`);
 
 --
--- Constraints for table `orden`
+-- Filtros para la tabla `orden`
 --
 ALTER TABLE `orden`
   ADD CONSTRAINT `orden_ibfk_1` FOREIGN KEY (`usr`) REFERENCES `usuarios` (`id_usuario`);
 
 --
--- Constraints for table `productos`
+-- Filtros para la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `fk_tipo_producto` FOREIGN KEY (`tipo_id`) REFERENCES `tipo` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -789,14 +714,14 @@ ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`universo_id`) REFERENCES `universo` (`id_universo`);
 
 --
--- Constraints for table `pub_trq`
+-- Filtros para la tabla `pub_trq`
 --
 ALTER TABLE `pub_trq`
   ADD CONSTRAINT `pub_trq_ibfk_1` FOREIGN KEY (`id_conversacion`) REFERENCES `conversaciones` (`id_conversacion`),
   ADD CONSTRAINT `usr_pub` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `usuarios`
+-- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`);

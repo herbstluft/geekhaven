@@ -2,8 +2,8 @@
     use MyApp\data\Database;
     require("../../../../vendor/autoload.php");
     $db = new Database;
-    if($_GET['id']){
-        $id=$_GET['id'];
+    if($_POST['id']){
+        $id=$_POST['id'];
     }
 
     $universoQry="SELECT * from universo where universo.id_universo=$id";
@@ -36,7 +36,7 @@
 <h1 align="center">Editar Universo</h1>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="get">
+        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="post">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Universo</label>
             <input type="hidden" name="id" id="id"value="<?php echo $id; ?>">
