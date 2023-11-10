@@ -47,7 +47,7 @@ $update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
 
 
         //Actualizar categoria
-        $update_categoria_nuevo = "UPDATE `productos` SET `id_cat` = '$categoria' WHERE id_producto = {$_SESSION['id_producto']}";
+        $update_categoria_nuevo = "UPDATE `productos` SET `id_cat` = $categoria WHERE id_producto = $_SESSION[id_producto]";
         $update_categoria = $db->ejecutarConsulta($update_categoria_nuevo);
 
         //Actualizar tipo
@@ -146,14 +146,31 @@ $update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
             <label for="categoria"><strong>Categoría:</strong></label>
             <select id="categoria" name="categoria" class="form-control" required>
             <?php
-               $sql = "SELECT id_cat,nom_cat from categorias";
+            //Consulta para ver el id y el nombre de la categoria a la que pertenece el producto $_SESSION['id_productos']
+               $sql = "SELECT * from categorias inner join productos on productos.id_cat=categorias.id_cat where productos.id_producto=$_SESSION[id_producto]";
                $categorias = $db->seleccionarDatos($sql);
 
-               foreach ($categorias as $cat) {
-                ?> <option value="<?php echo $cat['id_cat'];?>"><?php echo $cat['nom_cat'];?></option>
-             <?php   
-            }
-            ?>  
+             // Sacar el id y el nombre del producto con el foreach
+               foreach ($categorias as $cat) 
+               $id_cat_del_producto=$_cat['id_cat'];
+                ?> <option  selected value="<?php echo $cat['id_cat'];?>"><?php echo $cat['nom_cat'];?></option>
+
+
+
+                <?php
+                //Consulta que indica que te muestre todas las categorias menos la de el id del producto
+                  $sql = "SELECT * FROM categorias WHERE categorias.id_cat <> '$id_cat_del_producto';";
+                  $cat_all = $db->seleccionarDatos($sql);
+
+                  
+                foreach($cat_all as $all_cat){ ?>
+
+                 <option value="<?php echo $all_cat['id_cat'];?>"><?php echo $all_cat['nom_cat'];?></option>
+                
+                <?php
+                }
+                 ?>
+        
             </select>
         </div>
         <div class="mb-3">
@@ -190,7 +207,7 @@ $update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
 
         <div class="mb-3">
             <label for="precio_base" class="form-label"><strong>Costo</strong></label>
-            <input type="number" name="costo" id="costo"  value="<?php echo $prd_costo?>" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
+            <input type="number" name="costo" id="costo"  value="<?php echo $prd_costo?>" class="form-control" placeholder="Escribe el costo base del producto aquí " required>
         </div>
         <br>
                 <input type="hidden" name ="id"value="<?php echo $id; ?>">
