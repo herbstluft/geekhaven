@@ -27,12 +27,12 @@ if(isset($_GET['alerta'])){
   $alerta=$_GET['alerta'];
 
   if($alerta='error'){
-    echo " <div class='container mt-5'>
-<div class='alert alert-danger' role='alert'>
+    echo " <center><div class='container mt-5'>
+<div class='alert alert-danger col-5' role='alert'>
   <div class='row'>
-  <h1 class='alert-heading col-12' align='center'>Este universo ya existe</h1><br>
-  <center><p>No se puede repetir el mismo universo</p></center>
-  </div>";
+  <h4 class='alert-heading col-12' align='center'>Este universo ya existe</h4><br>
+  <center><p class='fs-1'>No se puede repetir el mismo universo</p></center>
+  </div></center>";
   }
 }
 else{
@@ -49,7 +49,7 @@ else{
           </div>
           <div class="mb-3">
             <label for="image">Selecciona una imagen</label>
-            <input type="file"id="image" name="imagen" accept="image/*"class="form-control">
+            <input type="file"id="image" name="imagen" accept="image/*"class="form-control" required>
             <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
           </div>
 

@@ -50,13 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Parámetros incorrectos en la solicitud.";
     }
   } else{
-    echo " <div class='container mt-5'>
-<div class='alert alert-danger' role='alert'>
-  <div class='row'>
-  <h1 class='alert-heading col-12' align='center'>Este universo ya existe</h1><br>
-  <center><p>No se puede repetir el mismo universo</p></center>
-  </div>";
-  header("refresh:2;url=/geekhaven/src/views/admin/html/agregarUniverso.php?alerta='error'");
+    echo "";
+  header("Location:/geekhaven/src/views/admin/html/agregarUniverso.php?alerta='error'");
   }
 } else {
     echo "Acceso no permitido.";
