@@ -23,6 +23,10 @@ $db = new Database;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
     <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $universo = $_POST['universo'];
+  $comprobacionQry="SELECT universo.universo from universo where universo.universo='$universo'";
+  $comprobacion = $db->seleccionarDatos($comprobacionQry);
+  if(empty($comprobacion)){
     if (isset($_FILES['imagen']['name']) && isset($_POST['universo'])) {
         $nombre_archivo = uniqid() . '_' . basename($_FILES['imagen']['name']);
         $carpeta_destino = 'img_u/';
@@ -45,6 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Parámetros incorrectos en la solicitud.";
     }
+  } else{
+    echo " <div class='container mt-5'>
+<div class='alert alert-danger' role='alert'>
+  <div class='row'>
+  <h1 class='alert-heading col-12' align='center'>Este universo ya existe</h1><br>
+  <center><p>No se puede repetir el mismo universo</p></center>
+  </div>";
+  header("refresh:2;url=/geekhaven/src/views/admin/html/agregarUniverso.php");
+  }
 } else {
     echo "Acceso no permitido.";
 }

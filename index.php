@@ -320,7 +320,7 @@ foreach($recien_llegados as $recien_llegados){
 <div class="row">
 
   <?php
-  $universoQry="SELECT * FROM `universo`";
+  $universoQry="SELECT * FROM `universo` where universo.universo != 'Sin universo'";
   $universo=$db->seleccionarDatos($universoQry);
   foreach($universo as $res){
     $img=$res['img'];
@@ -330,13 +330,13 @@ foreach($recien_llegados as $recien_llegados){
 
   <div class="card__info">
   <img width="210" height="210" src="/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
-    <h3 class="card__title"><?php echo $res['universo'], "/geekhaven/src/scripts/insersiones/$img"?></h3>
+    <h3 class="card__title"><?php echo $res['universo'];?></h3>
   
   </div>
   </article>
   </div>
   <?php
-  echo $img; }
+  echo ""; }
   ?>
 
   
