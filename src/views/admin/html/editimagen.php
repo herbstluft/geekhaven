@@ -58,6 +58,7 @@ if (isset($_FILES['imagen'])){
       if (!empty($_FILES['imagen']['name'][0])) {
         $nombre_imagenes = $_FILES['imagen']['name'];
         $rutas_temporales = $_FILES['imagen']['tmp_name'];
+        
     
         for ($i = 0; $i < count($nombre_imagenes); $i++) {
             $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
