@@ -35,16 +35,12 @@
         $update_descripcion=$db->ejecutarConsulta($update_descripcion_nuveo);
 
         //Actualizar existencia
-     $update_existencia_nuevo = "UPDATE `productos` SET `existencia` = '$existencia' WHERE id_producto = $_SESSION[id_producto]";
-$update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
-
+        $update_existencia_nuevo = "UPDATE `productos` SET `existencia` = '$existencia' WHERE id_producto = $_SESSION[id_producto]";
+        $update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
 
          //Actualizar estado
         $update_estado_nuveo = "UPDATE `productos` SET `estado` = '$estado' WHERE id_producto = $_SESSION[id_producto]";
         $update_estado=$db->ejecutarConsulta($update_estado_nuveo);
-
-
-
 
         //Actualizar categoria
         $update_categoria_nuevo = "UPDATE `productos` SET `id_cat` = $categoria WHERE id_producto = $_SESSION[id_producto]";
