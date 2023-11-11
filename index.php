@@ -131,7 +131,7 @@
 
 
 <div class="scroll-appear">
-<h3>Categorias</h3>
+<h3>Categorias Principales</h3>
 <br>
 
 
