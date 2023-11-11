@@ -91,7 +91,7 @@ include '../../../templates/navbar_user.php'
               </div>
               
           <div class="col-sm-12 col-md-6 contenido">
-                  <div class="productotop">
+                  <div class="productotop" style="margin-left: 10px;">
                       <h1>
                          <?php echo $nombre_prd ?>
                       </h1>
@@ -109,7 +109,13 @@ include '../../../templates/navbar_user.php'
                       </h3>                        
                   </div>
                   <div class="productobott">
-                      
+                    <br>
+                  <h3 class="ms-2" >Descripcion</h3> 
+                                  <p class="ms-2 justify-content-center"><?php echo $descripcion; 
+                                  if(empty($descripcion)){
+                                      echo '<p style="color:red"> Lo sentimos, este producto no cuenta con una descripcion.</p>';
+                                  }
+                                  ?></p>
                          <?php 
                          if(isset($_SESSION['user'])){
                             $_SESSION['user'];
@@ -122,9 +128,7 @@ include '../../../templates/navbar_user.php'
                             JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
                             WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1";
                             $ord=$db->seleccionarDatos($ordQry);
-  
-                         }
-                        
+          
                           ?>
                           
                           <!-- Modal -->
@@ -138,22 +142,23 @@ include '../../../templates/navbar_user.php'
                               <!-- cantidad -->
                               <div class="col-3 ms-1">
                                   <h3 class="ms-1">Cantidad</h3>
-                                  <input style="text-align:center; border-radius:20px; width:65%; height:100%" type="number" min="1" required max="<?php echo $existencia;?>"class="form-control fs-9" placeholder="1" name="cantidad" id="cantidad" >
+                                  <input style="text-align:center; border-radius:5px; width:120%; height:100%" type="number" min="1" required max="<?php echo $existencia;?>"class="form-control fs-9" placeholder="1" name="cantidad" id="cantidad" >
                               </div><br>
-                              <h3 class="ms-2">Descripcion</h3> 
-                                  <p class="ms-2 justify-content-center"><?php echo $descripcion; 
-                                  if(empty($descripcion)){
-                                      echo '<p style="color:red"> Lo sentimos, este producto no cuenta con una descripcion.</p>';
-                                  }
-                                  ?></p>
-                                  <br><br>    
                               
-                              </div><br>
+                              
+                              </div>
                               <!-- enviar -->
-                              <button type="submit" class="btn btn-dark col-12 p-2 fs-3" data-bs-toggle="modal" data-bs-target="#add">
-                              AÑADIR AL CARRITO
-                              </button>
+
+                              <button type="button" class="btn col-12" style="background: #005aff; font-size:18px; font-weight: bold; color:white; padding:15px;" data-bs-toggle="modal" data-bs-target="#add">Añadir al carrito</button>
+                     
                           
+
+
+                            
+                              <?php 
+                         }
+                              ?>
+
                           </form>
                   </div>
           </div>
@@ -164,12 +169,12 @@ include '../../../templates/navbar_user.php'
  <br><br>
 
  <br>
-<br><br><br><br><br><br>
+<br> <hr style="opacity: 0.1;"><br><br><br><br><br>
  <div class="container">
 <?php include '../../../templates/footer.html';?>
 <script src="../../../bootstrap/js/buscador.js"></script>
 </div>
- 
+ <br><br><br>
 
           </div>
         </div>
