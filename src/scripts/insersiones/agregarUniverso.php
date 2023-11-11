@@ -56,11 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <h1 class='alert-heading col-12' align='center'>Este universo ya existe</h1><br>
   <center><p>No se puede repetir el mismo universo</p></center>
   </div>";
-  header("refresh:2;url=/geekhaven/src/views/admin/html/agregarUniverso.php");
+  header("refresh:2;url=/geekhaven/src/views/admin/html/agregarUniverso.php?alerta='error'");
   }
 } else {
     echo "Acceso no permitido.";
 }
+header("Location=/geekhaven/src/views/admin/html/editUniverso.php");
 ?>
 
 

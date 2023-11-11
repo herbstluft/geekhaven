@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2023 a las 02:33:45
+-- Tiempo de generación: 11-11-2023 a las 03:31:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -390,20 +390,20 @@ CREATE TABLE `universo` (
 --
 
 INSERT INTO `universo` (`id_universo`, `universo`, `img`) VALUES
-(1, 'Pokemon', ''),
-(2, 'Dragon Ball', ''),
-(3, 'MY HERO ACADEMY', ''),
-(4, 'ONE-PIECE', ''),
-(5, 'NARUTO', ''),
-(6, 'YU-GI-OH', ''),
-(7, 'THE LEGEND OF ZELDA', ''),
-(8, 'SUPER MARIO', ''),
-(9, 'MARVEL', ''),
-(10, 'DC', ''),
-(11, 'Game of Thrones', ''),
-(12, 'Harry Potter', ''),
+(1, 'Pokemon', 'img_u/654ee5d447bf3_Pokemon-Symbol-logo.png'),
+(2, 'Dragon Ball', 'img_u/654d929105f4d_dragonball-z-logo-png-transparent.png'),
+(3, 'MY HERO ACADEMY', 'img_u/654d93f879505_My-Hero-Academia-Logo.png'),
+(4, 'ONE-PIECE', 'img_u/654d93ff0bea7_One-Piece-Logo.png'),
+(5, 'NARUTO', 'img_u/654d92c6225d9_naruto.png'),
+(6, 'YU-GI-OH', 'img_u/654d94059d65d_Yu-Gi-Oh!.png'),
+(7, 'THE LEGEND OF ZELDA', 'img_u/654d92cfa83c6_zelda-logo.png'),
+(8, 'SUPER MARIO', 'img_u/654d92d4041ea_Super_Mario_logo_PNG2.png'),
+(9, 'MARVEL', 'img_u/654d92d940911_marvel.png'),
+(10, 'DC', 'img_u/654d940cd97af_DC_Comics_logo.png'),
+(11, 'Game of Thrones', 'img_u/654d941269287_Game-of-Thrones-logo.png'),
+(12, 'Harry Potter', 'img_u/654d94172fe7a_Logo-Harry-potter.png'),
 (13, 'Sin universo', ''),
-(25, 'asdasdasdasdasdasdasdasda', 'img_u/654d58018e97f_correccion1.png');
+(27, 'Pokemon', 'img_u/654ee23bdaa39_Yu-Gi-Oh!.png');
 
 -- --------------------------------------------------------
 
@@ -652,7 +652,7 @@ ALTER TABLE `tipo`
 -- AUTO_INCREMENT de la tabla `universo`
 --
 ALTER TABLE `universo`
-  MODIFY `id_universo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_universo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

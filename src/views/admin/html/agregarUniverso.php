@@ -22,6 +22,23 @@
 
 <br><br><br><br>
 <h1 align="center">Añadir Universo</h1>
+<h3><?php
+if(isset($_GET['alerta'])){
+  $alerta=$_GET['alerta'];
+
+  if($alerta='error'){
+    echo " <div class='container mt-5'>
+<div class='alert alert-danger' role='alert'>
+  <div class='row'>
+  <h1 class='alert-heading col-12' align='center'>Este universo ya existe</h1><br>
+  <center><p>No se puede repetir el mismo universo</p></center>
+  </div>";
+  }
+}
+else{
+  echo"";
+}
+?></h3>
 <div class="container">
     <div class="row">
         <form action="/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="post" enctype="multipart/form-data">
