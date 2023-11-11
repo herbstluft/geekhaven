@@ -149,7 +149,7 @@ include '../../../templates/navbar_user.php'
                               </div>
                               <!-- enviar -->
 
-                              <button type="button" class="btn col-12" style="background: #005aff; font-size:18px; font-weight: bold; color:white; padding:15px;" data-bs-toggle="modal" data-bs-target="#add">Añadir al carrito</button>
+                              <button type="submit" class="btn col-12" style="background: #005aff; font-size:18px; font-weight: bold; color:white; padding:15px;" data-bs-toggle="modal" data-bs-target="#add">Añadir al carrito</button>
                      
                           
 
