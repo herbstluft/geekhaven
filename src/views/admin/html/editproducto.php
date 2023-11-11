@@ -177,26 +177,57 @@ $update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
             <label for="tipo"><strong>Tipo:</strong></label>
             <select id="tipo" name="tipo" class="form-control" required>
             <?php
-                $sql = "SELECT id_tipo,tipo from tipo";
-                $tipos = $db->seleccionarDatos($sql);
-
-                foreach ($tipos as $tipo) {
-                echo '<option value="' . $tipo['id_tipo'] . '">' . $tipo['tipo'] . '</option>';
-                }
-            ?>
+              //Consulta para ver el id y el nombre de la categoria a la que pertenece el producto $_SESSION['id_productos']
+                 $sql = "SELECT * from tipo inner join productos on productos.tipo_id=tipo.id_tipo where productos.id_producto=$_SESSION[id_producto]";
+                 $tipos = $db->seleccionarDatos($sql);
+  
+               // Sacar el id y el nombre del producto con el foreach
+                 foreach ($tipos as $tipo) 
+                 $id_tipo_del_producto=$_tipo['id_tipo'];
+                  ?> <option  selected value="<?php echo $tipo['id_tipo'];?>"><?php echo $tipo['tipo'];?></option>
+  
+                  <?php
+                  //Consulta que indica que te muestre todas las categorias menos la de el id del producto
+                    $sql = "SELECT * FROM tipo WHERE tipo.id_tipo <> '$id_tipo_del_producto';";
+                    $tipo_all = $db->seleccionarDatos($sql);
+                    
+                  foreach($tipo_all as $all_tipo){ ?>
+  
+                   <option value="<?php echo $all_tipo['id_tipo'];?>"><?php echo $all_tipo['tipo'];?></option>
+                  
+                  <?php
+                  }
+                   ?>
+                
+            
             </select>
         </div>
         <div class="mb-3">
             <label for="universo"><strong>Universo:</strong></label>
             <select id="universo" name="universo" class="form-control" required>
             <?php
-                $sql = "SELECT id_universo,universo FROM universo";
-                $universos = $db->seleccionarDatos($sql);
-
-                foreach ($universos as $universo) {
-                echo '<option value="' . $universo['id_universo'] . '">' . $universo['universo'] . '</option>';
-                }
-            ?>
+              //Consulta para ver el id y el nombre de la categoria a la que pertenece el producto $_SESSION['id_productos']
+                 $sql = "SELECT * from universo inner join productos on productos.universo_id=universo.id_universo where productos.id_producto=$_SESSION[id_producto]";
+                 $universos = $db->seleccionarDatos($sql);
+  
+               // Sacar el id y el nombre del producto con el foreach
+                 foreach ($universos as $universo) 
+                 $id_universo_del_producto=$_universo['id_universo'];
+                  ?> <option  selected value="<?php echo $universo['id_universo'];?>"><?php echo $universo['universo'];?></option>
+  
+                  <?php
+                  //Consulta que indica que te muestre todas las categorias menos la de el id del producto
+                    $sql = "SELECT * FROM universo WHERE universo.id_universo <> '$id_universo_del_producto';";
+                    $universo_all = $db->seleccionarDatos($sql);
+                    
+                  foreach($universo_all as $all_universo){ ?>
+  
+                   <option value="<?php echo $all_universo['id_universo'];?>"><?php echo $all_universo['universo'];?></option>
+                  
+                  <?php
+                  }
+                   ?>
+                
             </select>
         </div>
         <div class="mb-3">
