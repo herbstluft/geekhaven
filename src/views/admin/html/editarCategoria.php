@@ -44,11 +44,6 @@
             <input type="text" class="form-control" name="universo" id="universo" value="<?php echo $c_nom ?>" placeholder="DragonBall Z" required>
             
           </div>
-          <div class="mb-3">
-            <label for="fileTest">Selecciona una imagen</label>
-            <input id="image" type="file" name="imagen" accept="image/*"class="form-control">
-            <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
-          </div>
 
           <button type="submit" class="btn btn-primary col-12 fs-5">Editar Categoria</button>
         </form>
