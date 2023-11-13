@@ -237,7 +237,7 @@
     <input type="radio" name="testimonial" id="t-4" />
     <input type="radio" name="testimonial" id="t-5" />
     <div class="testimonials mb-8">
-      <label class="item" for="t-1">
+      <label class="item" for="t-1" id="label-t-1">
         <div class="mycard">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="210" height="210" viewBox="0 0 48 48">
@@ -250,7 +250,7 @@
         </div>
       </label>
       
-      <label class="item" for="t-2">
+      <label class="item" for="t-2" id="label-t-2">
         <div class="mycard">
           <div>
             <img width="210" height="210" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/2560px-PlayStation_logo.svg.png" alt="controller"/>
@@ -260,7 +260,7 @@
           </div>
         </div>
       </label>
-      <label class="item" for="t-3">
+      <label class="item" for="t-3" id="label-t-3">
         <div class="mycard">
           <div>
             <img width="210" height="210" src="https://static.vecteezy.com/system/resources/previews/022/100/288/original/xbox-logo-free-png.png" alt="controller"/>
@@ -270,7 +270,7 @@
           </div>
         </div>
       </label>
-      <label class="item" for="t-4">
+      <label class="item" for="t-4" id="label-t-4">
         <div class="mycard">
           <div>
             <img width="210" height="210" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/768px-DC_Comics_logo.png" alt="controller"/>
@@ -280,13 +280,13 @@
           </div>
         </div>
       </label>
-      <label class="item" for="t-5">
+      <label class="item" for="t-5" id="label-t-5">
         <div class="mycard">
           <div>
-            <img width="210" height="210" src="https://static.vecteezy.com/system/resources/previews/022/100/698/original/marvel-logo-transparent-free-png.png" alt="controller"/>
+            <img width="270" height="210" src="https://logos.flamingtext.com/City-Logos/Mangas-Amped-Logo.png" alt="controller"/>
           </div>
           <div>
-            <p class="carddescription">MARVEL.</p>
+            <p class="carddescription">MANGAS.</p>
           </div>
         </div>
       </label>
@@ -304,3 +304,79 @@
   </div>
 
   
+  <script>
+    // Manejar doble clic en la primera tarjeta
+    let clicksT1 = 0;
+  const labelT1 = document.getElementById('label-t-1');
+
+  labelT1.addEventListener('click', function () {
+    clicksT1++;
+    if (clicksT1 === 2) {
+      // Redirigir al enlace deseado después de doble clic
+      window.location.href = 'src/views/user/cat.php?id=3';
+    }
+
+    // Reiniciar contador después de un tiempo para permitir doble clic nuevamente
+    setTimeout(() => {
+      clicksT1 = 0;
+    }, 500); // Ajusta el tiempo según tus necesidades
+  });
+
+  const labelT2 = document.getElementById('label-t-2');
+  let clicksT2 = 0;
+
+  labelT2.addEventListener('click', function () {
+    clicksT2++;
+    if (clicksT2 === 2) {
+      window.location.href = 'src/views/user/cat.php?id=1';
+    }
+
+    setTimeout(() => {
+      clicksT2 = 0;
+    }, 500);
+  });
+
+  const labelT3 = document.getElementById('label-t-3');
+  let clicksT3 = 0;
+
+  labelT3.addEventListener('click', function () {
+    clicksT3++;
+    if (clicksT3 === 2) {
+      window.location.href = 'src/views/user/cat.php?id=2';
+    }
+
+    setTimeout(() => {
+      clicksT3 = 0;
+    }, 500);
+  });
+
+  const labelT4 = document.getElementById('label-t-4');
+  let clicksT4 = 0;
+
+  labelT4.addEventListener('click', function () {
+    clicksT4++;
+    if (clicksT4 === 2) {
+      window.location.href = 'src/views/user/cat.php?id=4';
+    }
+
+    setTimeout(() => {
+      clicksT4 = 0;
+    }, 500);
+  });
+
+  const labelT5 = document.getElementById('label-t-5');
+  let clicksT5 = 0;
+
+  labelT5.addEventListener('click', function () {
+    clicksT5++;
+    if (clicksT5 === 2) {
+      window.location.href = 'src/views/user/cat.php?id=5';
+    }
+
+    setTimeout(() => {
+      clicksT5 = 0;
+    }, 500);
+  });
+
+
+</script>

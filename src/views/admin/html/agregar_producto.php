@@ -50,6 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")  {
     
     $result = $db->ejecutarConsulta($sql);
 
+    $sql= "SELECT * FROM productos WHERE nom_producto = '$nombre' AND fecha = '$fecha_actual';";
+    $result = $db->seleccionarDatos($sql);
+    foreach($result as $res){
+        $id_prd= $res['id_producto'];
+    }
+
 
 }
 
@@ -90,7 +96,7 @@ if (isset($_FILES['imagen'])){
             //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
             if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
                 // Guardar el nombre de la imagen en la base de datos
-                $db->ejecutarConsulta("INSERT INTO img_producto (img_producto) VALUES ('$nombre_imagen')");
+                $db->ejecutarConsulta("INSERT INTO img_productos (id_producto,nombre_imagen) VALUES ('$id_prd','$nombre_imagen')");
             }
         }
     }

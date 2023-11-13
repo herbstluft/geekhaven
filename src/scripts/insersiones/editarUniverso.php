@@ -3,45 +3,39 @@ use MyApp\data\Database;
 require("../../../vendor/autoload.php");
 $db = new Database;
 
-if($_GET['id']){
-    $id=$_GET['id'];
-}
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    
-    if (isset($_GET['imagen'])) {
-        $universo=$_GET['universo'];
-        $imagenBase64 = $_GET['imagen'];
 
-        // Decodificar la imagen Base64
-        $imagenBinaria = base64_decode($imagenBase64);
 
-        // Ruta donde guardar la imagen
+    if (isset($_FILES['imagen']['name']) && isset($_POST['universo'])) {
+        $nombre_archivo = uniqid() . '_' . basename($_FILES['imagen']['name']);
         $carpeta_destino = 'img_u/';
-
-        // Genera un nombre único para la imagen
-        $nombre_archivo = uniqid() . '.jpg';
-
-        // Ruta completa de la imagen
         $ruta_imagen = $carpeta_destino . $nombre_archivo;
 
-        // Guardar la imagen en el servidor
-        file_put_contents($ruta_imagen, $imagenBinaria);
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_imagen)) {
+            // Inserta la ruta de la imagen en la base de datos
+            $universo = $_POST['universo'];
+            $id = $_POST['id'];
+            $insertQry = "UPDATE`universo` SET `universo`='$universo', `img`='$ruta_imagen' WHERE id_universo='$id'";
+            $insert = $db->ejecutarConsulta($insertQry);
+            
+            if ($insert === false) {
+                die('Error al insertar datos en la base de datos.');
+                
+            }
 
-        // Inserta el nombre de la imagen en la base de datos junto con otros datos
-        // Aquí debes agregar código para insertar en la base de datos, por ejemplo, utilizando SQL
-        $updateQry="UPDATE `universo` SET `universo`='$universo',`img`='$ruta_imagen' WHERE `id_universo`=$id";
-        $update=$db->ejecutarConsulta($updateQry);
-    }else if(isset($_GET['universo'])){
-        $universo=$_GET['universo'];
-        $updateUniversoQry="UPDATE `universo` SET `universo`='$universo' WHERE `id_universo`=$id";
-        $updateUniverso=$db->ejecutarConsulta($updateUniversoQry);
-    }else{
-        echo "parametros incorrectos en la URL";
+            echo 'Imagen subida y guardada exitosamente.';
+        } else {
+            $universo = $_POST['universo'];
+            $id = $_POST['id'];
+            $insertQry = "UPDATE`universo` SET `universo`='$universo' WHERE id_universo='$id'";
+        $insert = $db->ejecutarConsulta($insertQry);
+
+        if ($insert === false) {
+            die('Error al insertar el universo en la base de datos.');
+        }
+        echo 'edicion guardada exitosamente.';
+        }
+    } else {
+        echo "Parámetros incorrectos en la solicitud.";
     }
-} else {
-    echo "Acceso no permitido.";
-}
-
-
-header("Location:/geekhaven/src/views/admin/html/editUniverso.php");
+ header("Location:/geekhaven/src/views/admin/html/editUniverso.php");

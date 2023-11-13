@@ -36,20 +36,20 @@
 <h1 align="center">Editar Universo</h1>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="get">
+        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Universo</label>
-            <input type="hidden" name="id" id="id"value="<?php echo $id; ?>">
-            <input type="text" class="form-control" name="universo" id="universo" value="<?php echo $u_nom ?>" placeholder="DragonBall Z" required>
+            <input type="text" class="form-control" name="universo" id="universo" value="<?php echo $u_nom?>" required>
             
           </div>
           <div class="mb-3">
-            <label for="fileTest">Selecciona una imagen</label>
-            <input id="image" type="file" name="imagen" accept="image/*"class="form-control">
+            <label for="image">Selecciona una imagen</label>
+            <input type="hidden" name="id" value="<?php echo $id;?>">
+            <input type="file"id="image" name="imagen" accept="image/*"class="form-control">
             <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
           </div>
 
-          <button type="submit" class="btn btn-primary col-12 fs-5">Editar Universo</button>
+          <button type="submit" class="btn btn-primary col-12 fs-5">Añadir Universo</button>
         </form>
     </div>
 </div>   

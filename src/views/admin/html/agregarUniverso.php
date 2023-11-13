@@ -22,9 +22,26 @@
 
 <br><br><br><br>
 <h1 align="center">Añadir Universo</h1>
+<h3><?php
+if(isset($_GET['alerta'])){
+  $alerta=$_GET['alerta'];
+
+  if($alerta='error'){
+    echo " <center><div class='container mt-5'>
+<div class='alert alert-danger col-5' role='alert'>
+  <div class='row'>
+  <h4 class='alert-heading col-12' align='center'>Este universo ya existe</h4><br>
+  <center><p class='fs-1'>No se puede repetir el mismo universo</p></center>
+  </div></center>";
+  }
+}
+else{
+  echo"";
+}
+?></h3>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="get">
+        <form action="/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Universo</label>
             <input type="text" class="form-control" name="universo" id="universo" placeholder="DragonBall Z" required>
@@ -32,7 +49,7 @@
           </div>
           <div class="mb-3">
             <label for="image">Selecciona una imagen</label>
-            <input id="image" type="file" name="imagen" accept="image/*"class="form-control">
+            <input type="file"id="image" name="imagen" accept="image/*"class="form-control" required>
             <div id="emailHelp" class="form-label">Esta imagen es la que se mostrara en la pagina principal</div>
           </div>
 
