@@ -6,15 +6,22 @@
     if(isset($_GET['id'])){
         $_SESSION ['id_producto']=$_GET['id'];
        $id =  $_SESSION ['id_producto'];
+
+    $imgQry = "SELECT * from img_productos where id_producto = $id;";
+    $imgactual = $db->seleccionarDatos($imgQry);
     }
 
     if(isset($_POST['guardar_imagen'])){
-        $id = $_POST['id'];
-        $nombre = $_POST['nombre'];
-        $fecha_actual = $_POST['fecha'];
-    //Actualizar costo
-    $update_imagen_nuveo = "UPDATE `productos` SET `precio_base` = '$costo' WHERE id_producto = $_SESSION[id_producto]";
-    $update_costo=$db->ejecutarConsulta($update_costo_nuveo);
+        
+
+    // Eliminar imágenes actuales asociadas al producto
+    $deleteImgQuery = "DELETE FROM img_productos WHERE id_producto =$id;";
+    $db->ejecutarConsulta($deleteImgQuery);
+        
+    //Actualizar y eliminar imagen
+    $update_img_nuveo = "UPDATE `productos` SET `nom_producto` = '$nombre' WHERE id_producto =$_SESSION[id_producto];";
+    $update_nombre=$db->ejecutarConsulta($update_nombre_nuveo);
+
 
     }
 
@@ -79,7 +86,20 @@ if (isset($_FILES['imagen'])){
 
 ?>
 <br><br><br>
-
+        <h1>Editar Imagen</h1>
+        <?php
+ 
+  foreach($imgactual as $res){
+    $img=$res['nombre_imagen'];
+  ?>
+  <img width="210" height="210" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img?>" >
+  <?php
+  echo ""; }
+  ?>
+  <br><br>
+  <div class="alert alert-danger" role="alert">
+    <strong>ALTIRO</strong> SE VAN A BORRAR LAS IMAGENES
+  </div>
         <form action="editimagen.php" method="post" enctype="multipart/form-data">
             <div class="my-form"  style="display: contents; margin-top: 0;">
                 <div id="drop-area">
