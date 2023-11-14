@@ -49,9 +49,11 @@
                         <a href="#" class="fs-5 text-primary" data-bs-toggle="modal" data-bs-target="#editarModal<?php echo $id; ?>">Editar</a>
                     </td>
                     <td>
-                        <a href="" class="fs-5 text-danger eliminar-producto" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal">Eliminar</a>
+                        <a href="" class="fs-5 text-danger eliminar-producto" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal<?php echo $id; ?>">Eliminar</a>
                     </td>
                 </tr>
+
+
                 <div class="modal fade" id="editarModal<?php echo $id; ?>" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -70,8 +72,10 @@
                         </div>
                     </div>
                 </div>
+
+                
                     <!-- Agrega esto al final de tu archivo HTML justo antes del cierre del body -->
-<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmarEliminarModal<?php echo $id; ?>" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
