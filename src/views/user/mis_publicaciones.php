@@ -20,12 +20,41 @@ $res=$db->seleccionarDatos($sql);
 
 //borrar publicacion
 
-echo $_POST['id_usuario'];
 
 if(isset($_POST['id_pub'])){
-  $id_pub=$_POST['id_pub'];
+
+
+
+ s$id_pub=$_POST['id_pub'];
+
   $id_usuario=$_POST['id_usuario'];
 
+
+  
+
+  //Boton de Borrar publicaicon
+
+//verificar primero si no existen mensajes que involucren la publicacion
+
+$sql="SELECT PR.nombre as remitente, remitente.id_usuario as id_remitente, PD.nombre as destinatario, mensajes.mensaje, mensajes.fecha as Fecha
+FROM mensajes
+
+INNER JOIN usuarios as remitente ON remitente.id_usuario = mensajes.id_remitente 
+INNER JOIN usuarios as destinatario ON destinatario.id_usuario = mensajes.id_destinatario
+INNER JOIN personas as PD ON PD.id_persona = destinatario.id_persona
+INNER JOIN personas as PR ON PR.id_persona = remitente.id_persona
+INNER JOIN conversaciones on conversaciones.id_conversacion=mensajes.id_conversacion
+
+WHERE (remitente.id_usuario = $id AND destinatario.id_usuario = 41 and conversaciones.id_pub=$id_pub) 
+   OR (remitente.id_usuario = 41 AND destinatario.id_usuario = $id and conversaciones.id_pub=$id_pub)
+ORDER BY mensajes.fecha asc";
+
+$res=$db->seleccionarDatos($sql);
+
+
+if(empty($res)){
+
+  
     $sql = "DELETE FROM img_pub_trq WHERE img_pub_trq.id_publicacion=$id_pub";
    $db->ejecutarConsulta($sql);
 
@@ -38,6 +67,18 @@ if(isset($_POST['id_pub'])){
     exit;
 
 }
+else{
+  header("Location: mis_publicaciones.php");
+    
+}
+
+
+
+
+}
+
+
+
 
 ?>
 

@@ -90,7 +90,7 @@ if (isset($_FILES['imagen'])){
     
         for ($i = 0; $i < count($nombre_imagenes); $i++) {
             $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
-            echo $nombre_imagen;
+           
             $ruta_temporal = $rutas_temporales[$i];
             $ruta_destino = $carpeta_temporal . $nombre_imagen;
     
