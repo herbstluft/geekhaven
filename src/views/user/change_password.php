@@ -249,7 +249,7 @@ if(isset($_SESSION['user'])){
 
 
   
-    <h1 id="chats">Cambiar contraseña de perfil</h1>
+    <h1 id="chats">Configuración</h1>
 <br>
     <div>
         <div id="back_form"  class="chat-container" >
