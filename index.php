@@ -170,8 +170,13 @@
 <?php 
 
 foreach($favoritos_del_mes as $fav_del_mes){
+<<<<<<< Updated upstream
 
   $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto= GROUP by img_productos.id_producto ";
+=======
+   $id_producto=$fav_del_mes['id_producto'];
+  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+>>>>>>> Stashed changes
   $sacarImg=$db1->seleccionarDatos($sacarImgQry);
 ?>
 
