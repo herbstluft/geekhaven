@@ -29,10 +29,10 @@ if($_GET['id']){
     $id_U=$_GET['id'];
 
     //buscar la imagen de el producto para imprimirla
-    $ImagenesQry="SELECT * FROM universo where universo.id_universo=$id_U";
+    $ImagenesQry="SELECT universo.img FROM universo where universo.id_universo=$id_U";
     $Imagenes=$db->seleccionarDatos($ImagenesQry);
 
-    if($_GET['mensaje']){
+    if(isset($_GET['mensaje'])){
       if($_GET['mensaje']=='success'){
         ?><br><br>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -41,7 +41,7 @@ if($_GET['id']){
         <?php
       }
     }
-    if(!isset($Imagenes)){
+    if(empty($Imagenes)){
         ?><br><br><br><br>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
           <center><strong>Este universo no tiene imagenes</strong> añade una para que los clientes puedan verla!</center>
