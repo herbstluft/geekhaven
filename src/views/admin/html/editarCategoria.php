@@ -1,16 +1,20 @@
 <?php
     use MyApp\data\Database;
     require("../../../../vendor/autoload.php");
+
     $db = new Database;
-    if(isset($_GET['id'])){
-        $id=$_GET['id'];
-        $catQry="SELECT * from categorias where categorias.id_cat=$id";
-        $cat=$db->seleccionarDatos($catQry);
-    
-        foreach($cat as $res){
-            $c_nom = $res['nom_cat'];
-        }
-      
+
+    if(isset($_GET['id']) && isset($_GET['universo'])){
+        $id = $_GET['id'];
+        $newName = $_GET['universo'];
+
+        // Update the category name in the database
+        $updateQry = "UPDATE categorias SET nom_cat='$newName' WHERE id_cat=$id";
+        $db->ejecutarConsulta($updateQry);
+
+        // Redirect to the page where you display the categories or any other desired page
+        header("Location: /geekhaven/src/views/admin/html/categories.php");
+        exit();
     }
 
   
@@ -37,7 +41,7 @@
 <h1 align="center">Editar Categoria</h1>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="get">
+        <form action="/geekhaven/src/scripts/insersiones/editarCategoria" method="get">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Categoria</label>
             <input type="hidden" name="id" id="id"value="<?php echo $id; ?>">

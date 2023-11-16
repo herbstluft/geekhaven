@@ -97,9 +97,18 @@ foreach($imagenes_por_publicacion as $imagenes_por_publicacion){
 $imagenes=$imagenes_por_publicacion['nombre_imagen']
     ?>
         <div class="carousel-item active" >
+
         
+        <?php if(empty($imagenes)){ ?>
+        
+        <img src="https://cdn.pixabay.com/photo/2023/08/31/18/18/purple-coneflower-8225677_960_720.jpg" class="d-block w-100"  height="310px" alt="...">
+
+        <?php
+        }else{
+        ?>
                 <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100"  height="310px" alt="...">
-        
+        <?php }  ?>
+
         </div>
         
         <?php 
@@ -111,11 +120,16 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
 </div>
 </div>
 
-<a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+<?php if(!empty($imagenes)){ ?>
+        
+  <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
 </a>
+        <?php
+        }else{  }  ?>
+
 
 
 
