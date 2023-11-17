@@ -2,6 +2,7 @@
     use MyApp\data\Database;
     require("../../../vendor/autoload.php");
     $db = new Database;
+    $db1 = new Database;
     
  
     //año actual
@@ -348,12 +349,17 @@ ORDER BY
         foreach($productos_mas_vendidos as $productos_mas_vendidos){
                       $nombre=$productos_mas_vendidos['nombre'];
                       $precio=$productos_mas_vendidos['precio'];
+                      $id_producto=$productos_mas_vendidos['id_producto'];
+                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                      $sacarImg=$db1->seleccionarDatos($sacarImgQry);
           ?>
 
           <div class="col-sm-6 col-xl-3">
             <div class="card overflow-hidden rounded-2">
               <div class="position-relative">
-                <a href="javascript:void(0)"><img src="assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
+                <a href="javascript:void(0)"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
+                foreach($sacarImg as $img){
+                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
                 <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
                     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
                   </svg>
