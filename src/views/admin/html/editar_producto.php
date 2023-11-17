@@ -4,7 +4,7 @@
     require("../../../../vendor/autoload.php");
     $db = new Database;
 
-    $ProductosQry = "SELECT * from productos ;";
+    $ProductosQry = "SELECT * from productos where existencia >0;";
     $Productos = $db->seleccionarDatos($ProductosQry);
 
 ?>
