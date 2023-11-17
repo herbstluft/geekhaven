@@ -48,7 +48,7 @@ $db = new Database;
 
         <div class="row"  style="margin-left:20px">
             <?php
-            $SQL = "SELECT * from productos where estatus= 1 and existencia >=0";
+            $SQL = "SELECT * from productos where estatus= 1 and existencia >= 1";
             $con = $db->seleccionarDatos($SQL);
 
             if (!empty($con)) {
