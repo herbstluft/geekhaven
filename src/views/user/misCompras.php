@@ -2,13 +2,14 @@
     use MyApp\data\Database;
     require("../../../vendor/autoload.php");
     $db = new Database;
-   
+    $db1=new Database;
     $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
     error_reporting(E_ERROR); 
     session_start();
     $usr=$_SESSION['user'];
     
     $sql = "SELECT
+        p.id_producto as 'id_producto',
         o.id_orden AS 'id_venta',
         u.id_usuario as 'id_usuario',
         SUM(do.cantidad) AS 'cantidad',
@@ -236,6 +237,7 @@ include('../../../templates/navbar_user.php');
 <?php
 
 foreach ($mis_compras as $mis_compras){
+  $id_prd=$mis_compras['id_producto'];
     $id_venta=$mis_compras['id_venta'];
     $id_usuario=$mis_compras['id_usuario'];
     $cantidad=$mis_compras['cantidad'];
@@ -259,7 +261,11 @@ foreach ($mis_compras as $mis_compras){
 
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
-                    <img src="mj.jpg" style="width:120px; height:120px; border-radius:10px" alt="" srcset="">
+                <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
+                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                     $sacarImg=$db1->seleccionarDatos($sacarImgQry);
+                foreach($sacarImg as $img){
+                echo $img['nombre_imagen'];}?>" class="d-block ms-5" width="200px" height="200px" alt="...">
                 </div>
 
                 <div class="col-7 text-center" style="padding-top:30px">

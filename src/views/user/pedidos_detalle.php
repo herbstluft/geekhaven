@@ -2,6 +2,7 @@
    use MyApp\data\Database;
    require("../../../vendor/autoload.php");
    $db = new Database;
+   $db1=new Database;
 
 if(isset($_GET['id_o'])){
   $id_orden=$_GET['id_orden'];
@@ -9,7 +10,7 @@ if(isset($_GET['id_o'])){
   $total=$_GET['total'];
   $fecha=$_GET['fecha'];
   $usr=$_GET['usr'];
-  $sql = "SELECT productos.nom_producto as 'nombre_ind', productos.precio as 'precio_ind', detalle_orden.cantidad as 'cant_ind' from detalle_orden INNER JOIN productos on productos.id_producto=detalle_orden.id_producto WHERE detalle_orden.id_orden=$id_orden and detalle_orden.id_usuario=$usr";
+  $sql = "SELECT productos.id_producto, productos.nom_producto as 'nombre_ind', productos.precio as 'precio_ind', detalle_orden.cantidad as 'cant_ind' from detalle_orden INNER JOIN productos on productos.id_producto=detalle_orden.id_producto WHERE detalle_orden.id_orden=$id_orden and detalle_orden.id_usuario=$usr";
 
   $mis_compras=$db->seleccionarDatos($sql);
 }
@@ -92,7 +93,14 @@ foreach ($mis_compras as $mis_compras){
           
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
-                    <img src="mj.jpg" style="width:120px; height:120px; border-radius:10px" alt="" srcset="">
+                <?php
+                $id_producto=$mis_compras['id_producto'];
+                $SacarImagenesQry="SELECT * from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto;";
+                $SacarImagenes=$db1->seleccionarDatos($SacarImagenesQry);
+                foreach($SacarImagenes as $img){
+                ?>
+                    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img['nombre_imagen'];?>" class="d-block"
+                    width="150"  height="110px" alt="..."><?php echo"";}?>
                 </div>
 
                 <div class="col-7 text-center" style="padding-top:30px">
