@@ -25,7 +25,7 @@ if(isset($_POST['id_pub'])){
 
 
 
- s$id_pub=$_POST['id_pub'];
+ $id_pub=$_POST['id_pub'];
 
   $id_usuario=$_POST['id_usuario'];
 
@@ -147,7 +147,8 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
         <?php
         }else{
         ?>
-                <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100"  height="310px" alt="...">
+                <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100" style="border-color:white"  height="310px" alt="">
+                <p class="text-center"> no</p>
         <?php }  ?>
 
         </div>
