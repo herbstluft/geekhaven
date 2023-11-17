@@ -228,6 +228,9 @@ foreach($favoritos_del_mes as $fav_del_mes){
 
 <?php
 foreach($ofertas as $ofertas){
+  $id_producto=$fav_del_mes['id_producto'];
+  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+  $sacarImg=$db1->seleccionarDatos($sacarImgQry);
 ?>
 
 <div class="col-sm-6 col-xl-3">
