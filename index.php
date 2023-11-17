@@ -237,8 +237,10 @@ foreach($ofertas as $ofertas){
 
 <div class="card overflow-hidden rounded-2">
   <div class="position-relative">
-  <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $ofertas['id_producto'];?>"><img src="src/views/admin/assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
-    <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $ofertas['id_producto'];?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
+                foreach($sacarImg as $img){
+                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
+    <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $ofertas['id_producto'];?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
     </a>                      
@@ -284,14 +286,19 @@ foreach($ofertas as $ofertas){
 
 <?php
 foreach($recien_llegados as $recien_llegados){
+  $id_producto=$fav_del_mes['id_producto'];
+  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+  $sacarImg=$db1->seleccionarDatos($sacarImgQry);
 ?>
 
 <div class="col-sm-6 col-xl-3">
 
 <div class="card overflow-hidden rounded-2">
   <div class="position-relative">
-  <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $recien_llegados['id_producto'];?>"><img src="src/views/admin/assets/images/products/s4.jpg" class="card-img-top rounded-0" alt="..."></a>
-    <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $recien_llegados['id_producto'];?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
+                foreach($sacarImg as $img){
+                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
+    <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $recien_llegados['id_producto'];?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
 </svg>
     </a>                      

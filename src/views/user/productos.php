@@ -2,6 +2,7 @@
     use MyApp\data\Database;
     require("../../../vendor/autoload.php");
     $db = new Database;
+    $db1= new Database;
     $HOST=$_SERVER['SERVER_NAME'];
 
     
@@ -33,7 +34,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
+  <title>GeekHaven</title>
   <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
@@ -70,13 +71,16 @@ include '../../../templates/navbar_user.php'
           <div class="col-sm-12 col-md-6 ">
               <div class="productotop">
               <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide" data-bs-touch="false">
+              <?php $SacarImagenesQry="SELECT * from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto;";
+              $SacarImagenes=$db1->seleccionarDatos($SacarImagenesQry);             
+              ?>
                   <div class="carousel-inner" style="padding:20%">
-                      <div class="carousel-item active">
-                           <img src="https://gold-fieber.com/wp-content/uploads/Pokemonblue1.jpg" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                          <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/game_boy_4/H2x1_GB_PokemonBlue_enGB_image1600w.jpg" class="d-block w-100" alt="...">
-                      </div>
+                  <?php foreach($SacarImagenes as $img){ ?>
+                  <div class="carousel-item active">
+                     
+                        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img['nombre_imagen'];?>" class="d-block w-100"  height="410px" alt="...">
+                
+                      </div><?php echo "";}?>
                   </div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
