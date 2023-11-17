@@ -28,7 +28,22 @@
 
 
 <!-- Header End -->
+
 <div class="container-fluid">
+<?php 
+if (isset($_GET['mensaje'])) {
+    if ($_GET['mensaje'] == 'success') {
+        echo " <br<div class='container mt-5'>
+      <div class='alert alert-warning' role='alert'>
+        <div class='row'>
+        <h1 class='alert-heading col-12' align='center'>Producto Eliminado</h1><br>
+        </div>
+        </div>
+        </div>";
+    }
+
+}
+?>
     <table class="table" id="tabla">
         <thead>
             <tr>

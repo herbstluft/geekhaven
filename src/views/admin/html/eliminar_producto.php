@@ -13,7 +13,10 @@ if (isset($_GET['id'])) {
 
   // Verificar si la consulta fue exitosa
   if ($result) {
-      echo "Operación exitosa. El estatus se cambió a 0 y la existencia se redujo a 0.";
+      
+
+        header("Location:/geekhaven/src/views/admin/html/editar_producto.php?mensaje=success");
+
   } else {
       echo "Error en la operación. Consulta: $result";
   }

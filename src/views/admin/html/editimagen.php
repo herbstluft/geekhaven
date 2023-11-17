@@ -3,26 +3,12 @@
     use MyApp\data\Database;
     require("../../../../vendor/autoload.php");
     $db = new Database;
-    if(isset($_GET['id'])){
-        $_SESSION ['id_producto']=$_GET['id'];
-       $id =  $_SESSION ['id_producto'];
+    $db1 = new Database;
 
-    $imgQry = "SELECT * from img_productos where id_producto = $id;";
-    $imgactual = $db->seleccionarDatos($imgQry);
-    }
-
-    if(isset($_POST['guardar_imagen'])){
-        
-
-    // Eliminar imágenes actuales asociadas al producto
-    $deleteImgQuery = "DELETE FROM img_productos WHERE id_producto =$id;";
-    $db->ejecutarConsulta($deleteImgQuery);
-        
-    //Actualizar y eliminar imagen
-    $update_img_nuveo = "UPDATE `productos` SET `nom_producto` = '$nombre' WHERE id_producto =$_SESSION[id_producto];";
-    $update_nombre=$db->ejecutarConsulta($update_nombre_nuveo);
-
-
+    if (isset($_GET["id"])) {
+      $id = $_GET["id"];
+      $imgactualqry = "SELECT img_productos.nombre_imagen from productos join img_productos on productos.id_producto=img_productos.id_producto where productos.id_producto= $id";
+      $imgactual = $db->seleccionarDatos($imgactualqry);
     }
 
 ?>
@@ -39,68 +25,67 @@
 
 </head>
 <body>
-<?php include('navbar.php') ?>
-
-<?php
-
-
-//si hay un metodo FIles[imagen]
-if (isset($_FILES['imagen'])){  
-    $id_usuario = $_POST['id_usuario'];
-  
-     // Carpeta temporal para almacenar las imágenes
-     $carpeta_temporal = 'img_producto/';
-     if (!is_dir($carpeta_temporal)) {
-         mkdir($carpeta_temporal, 0755, true);
-     }
-  
-      //cuenta las imagenes que hay en el array
-      $cantidad= count($_FILES["imagen"]["tmp_name"]);
-      //recorre cada una de las imagenes para saber el nombre de cada una de ellas
-      for ($i=0; $i<$cantidad; $i++){
-      //Comprobamos si el fichero es una imagen
-      if ($_FILES['imagen']['type'][$i]=='image/png' || $_FILES['imagen']['type'][$i]=='image/jpeg'){
-      
-      //guardamos los datos de cada imagen, por ejemplo el nombre
-      if (!empty($_FILES['imagen']['name'][0])) {
-        $nombre_imagenes = $_FILES['imagen']['name'];
-        $rutas_temporales = $_FILES['imagen']['tmp_name'];
-        
-    
-        for ($i = 0; $i < count($nombre_imagenes); $i++) {
-            $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
-            $ruta_temporal = $rutas_temporales[$i];
-            $ruta_destino = $carpeta_temporal . $nombre_imagen;
-    
-            //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
-            if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
-                // Guardar el nombre de la imagen en la base de datos
-                $db->ejecutarConsulta("INSERT INTO img_productos (id_producto,nombre_imagen) VALUES ('$id_prd','$nombre_imagen')");
-            }
-        }
-    }
-      }
-      else $validar=false;
-    }
-  }
+<?php include('navbar.php') 
 
 ?>
-<br><br><br>
-        <h1>Editar Imagen</h1>
+
+<br><br><br><br><br>
+
+<?php
+if(isset($_GET['mensaje'])){    
+  if($_GET['mensaje'] == 'success'){
+      ?>
+      <center>
+      <div class="alert alert-success" role="alert">
+          <strong>Imagen Actualizada</strong> 
+      </div>
+      </center>
+      <br><br><br>
+      
+      <?php
+  }  
+}
+?>
+        <center><h1>Editar Imagen</h1></center>
+        <br><br>
+        <center>
+        <div class="row">
         <?php
  
   foreach($imgactual as $res){
     $img=$res['nombre_imagen'];
+
+    $contarRegistros="SELECT COUNT(img_productos.nombre_imagen) as cuenta from productos join img_productos on productos.id_producto=img_productos.id_producto where productos.id_producto= $id";
+    $contar=$db1->seleccionarDatos($contarRegistros);
+    foreach($contar as $conteo){
+      if($conteo['cuenta']>1){
+        ?>
+          
+           
+              <div class="col-sm-12 col-md-5 ms-5">
+              <img width="210" height="210" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img?>" >
+              </div>
+           
+                
+        <?php
+      }
+      else{
+    ?>
+    
+    <img width="210" height="210" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img?>" >
+    <?php
+    
+    echo ""; }}
+    }
+    
   ?>
-  <img width="210" height="210" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img?>" >
-  <?php
-  echo ""; }
-  ?>
+   </div>
+   </center>
   <br><br>
   <div class="alert alert-danger" role="alert">
-    <strong>ALTIRO</strong> SE VAN A BORRAR LAS IMAGENES
+    <center><strong>ADVERTENCIA</strong> Al actualizar las imagenes se borraran las actuales</center>
   </div>
-        <form action="editimagen.php" method="post" enctype="multipart/form-data">
+        <form action="editrimg.php" method="post" enctype="multipart/form-data">
             <div class="my-form"  style="display: contents; margin-top: 0;">
                 <div id="drop-area">
                     <center>
@@ -116,11 +101,14 @@ if (isset($_FILES['imagen'])){
                 <div id="gallery" /> </div>
                          </center>
                 </div>
+
+                <input type="hidden"value="<?php echo $id?> "name="id">
         
                         <center> <button type="submit" name="guardar_imagen" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Guardar Cambios</button></center>
         
                 </div>
                 </form>
+                <br><br><br><br>
         
 </body>
 
