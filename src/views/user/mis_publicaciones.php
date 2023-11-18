@@ -59,7 +59,7 @@ if(empty($res)){
    $db->ejecutarConsulta($sql);
 
 
-    $sql = "DELETE FROM pub_trq WHERE `pub_trq`.`id_pub` = $id_pub and id_usuario=$id_usuario";
+    $sql = "DELETE FROM pub_trq WHERE `pub_trq`.`id_pub` = $id_pub and id_usuario=$id";
     $db->ejecutarConsulta($sql);
  
 
@@ -68,7 +68,59 @@ if(empty($res)){
 
 }
 else{
-  header("Location: mis_publicaciones.php");
+
+
+  ?>
+<div class="additional-container2" id="contenedor2">
+        <!-- Contenido del nuevo contenedor aquí -->
+    </div>
+    <!-- Nuevo contenedor debajo del contenedor principal -->
+    <div class="additional-container" id="contenedor1">
+        <!-- Contenido del nuevo contenedor aquí -->
+    </div>
+
+    <div class="notification-container" id="contenedor">
+        <div class="notification-list">
+            <!-- Ejemplo de notificaciones -->
+            <div class="notification-item">
+                <div class="notification-content">
+                    <span class="d-block d-md-none" style="position: fixed; left:80%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                    <span class="d-none d-md-block" style="position: fixed; left:89%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                    <strong style="color:black">Notificación</strong>
+                    <p style="position: relative; top: 5px; color: #2f2e2e">La oferta ha sido cancelada. 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff0000" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+</svg></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <audio id="notificationSound" preload="auto">
+        <source src="notificacion.mp3" type="audio/mpeg">
+        <!-- Agrega otros formatos de audio si es necesario -->
+    </audio>
+    <script>
+        // Muestra la notificación
+        document.getElementById('contenedor').style.display = 'block';
+
+        // Reproduce el sonido
+        var audio = document.getElementById('notificationSound');
+        audio.play();
+    </script>
+
+    <script>
+        function ocultarContenedores() {
+            // Ocultar los contenedores con JavaScript
+            document.getElementById('contenedor1').style.display = 'none';
+            document.getElementById('contenedor2').style.display = 'none';
+            document.getElementById('contenedor').style.display = 'none';
+        }
+    </script>
+
+<?php
+
     
 }
 
@@ -97,6 +149,115 @@ else{
   <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
 
+<style>
+ 
+ .notification-container {
+     position: fixed;
+     bottom: 8%;
+     left: 22%;
+     width: 75%;
+     margin-left: 3px;
+     background-color: rgba(255, 255, 255, 0.419);
+     backdrop-filter: blur(10px);
+     border-radius: 20px;
+     margin-right: 0;
+     overflow: hidden;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ }
+ /* Nuevo contenedor debajo del contenedor principal */
+ .additional-container {
+     position: fixed;
+     left: 23.5%;
+     width: 73%;
+     bottom: 7%;
+     height: 100px;
+     backdrop-filter: blur(10px);
+     background-color: rgba(255, 255, 255, 0.419);
+     border-radius: 20px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ }
+ .additional-container2 {
+     position: fixed;
+     left: 25.5%;
+     width: 70%;
+     bottom:7%;
+     backdrop-filter: blur(60px);
+     height: 100px;
+     background-color: rgba(255, 255, 255, 0.419);
+     border-radius: 20px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ }
+ /* Lista de notificaciones */
+ .notification-list {
+     padding: 10px;
+ }
+ 
+ /* Estilo de cada notificación */
+ .notification-item {
+     padding: 10px;
+     display: flex;
+     align-items: center;
+     transition: background-color 0.3s;
+ }
+ 
+ 
+ .notification-content {
+     flex-grow: 1;
+ }
+ .notification-container {
+     position: fixed;
+     bottom: 14%;
+     left: 22%;
+     width: 75%;
+     margin-left: 3px;
+     background-color: rgba(255, 255, 255, 0.419);
+     backdrop-filter: blur(10px);
+     border-radius: 20px;
+     margin-right: 0;
+     overflow: hidden;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ }
+ /* Nuevo contenedor debajo del contenedor principal */
+ .additional-container {
+     position: fixed;
+     left: 23.5%;
+     width: 73%;
+     bottom: 13%;
+     height: 100px;
+     backdrop-filter: blur(10px);
+     background-color: rgba(255, 255, 255, 0.419);
+     border-radius: 20px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ }
+ .additional-container2 {
+     position: fixed;
+     left: 25.5%;
+     width: 70%;
+     bottom: 12%;
+     backdrop-filter: blur(60px);
+     height: 100px;
+     background-color: rgba(255, 255, 255, 0.419);
+     border-radius: 20px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+ }
+ /* Lista de notificaciones */
+ .notification-list {
+     padding: 10px;
+ }
+ 
+ /* Estilo de cada notificación */
+ .notification-item {
+     padding: 10px;
+     display: flex;
+     align-items: center;
+     transition: background-color 0.3s;
+ }
+ 
+ 
+ .notification-content {
+     flex-grow: 1;
+ }
+ </style>
 <body>
 
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
@@ -147,8 +308,7 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
         <?php
         }else{
         ?>
-                <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100" style="border-color:white"  height="310px" alt="">
-                <p class="text-center"> no</p>
+                <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes ;?>" class="d-block w-100"  height="310px" alt="No hay imagenes">
         <?php }  ?>
 
         </div>
@@ -186,10 +346,23 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
 
                     <div class="card-body pt-3 p-4" style="display: flex; flex-direction: column; justify-content: flex-end;">
                             <div style="width:100%;" >
-                            <h6 class="fw-semibold fs-4 text-truncate"> <?php echo $res['titulo']?> </h6>
+                            <h6 class="fw-semibold fs-4 text-truncate"> <?php    if (!empty($res['descripcion'])) {
+        echo $res['titulo'];
+    } else {
+        echo $_POST['titulo'];
+    } ?> </h6>
                             </div>
                         <div class="d-flex align-items-center justify-content-between">
-                        <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .' '. $res['precio']; ?></h6>
+                        <h6 class="fw-semibold fs-4 mb-0">
+    <?php
+    if (!empty($res['precio'])) {
+        echo '$' . ' ' . $res['precio'];
+    } else {
+        echo $_POST['precio'];
+    }
+    ?>
+</h6>
+
                         <ul class="list-unstyled d-flex align-items-center mb-0">
                       
                         </ul>
@@ -197,7 +370,16 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
                         </div>
                         <br>
                         <b>Descripcion</b>
-                       <div style="width:100%" class="text-truncate"> <?php echo $res['descripcion']?></div>
+                        <div style="width:100%" class="text-truncate">
+    <?php
+    if (!empty($res['descripcion'])) {
+        echo $res['descripcion'];
+    } else {
+        echo $_POST['descripcion'];
+    }
+    ?>
+</div>
+
                         <br>
 
 <center>
@@ -215,6 +397,10 @@ echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50
   
   <input type="hidden" name="id_pub" value="<?php echo $res['id_pub'] ?>">
   <input type="hidden" name="id_usuario" value="<?php echo $res['id_usuario']?>">
+  <input type="hidden" name="id_usuario" value="<?php echo $imagenes?>">  
+  <input type="hidden" name="titulo" value="<?php echo $res['titulo']?>"> 
+  <input type="hidden" name="precio" value="<?php echo $res['precio']?>">
+  <input type="hidden" name="descripcion" value="<?php echo $res['descripcion']?>">  
 
   <button type="submit" class="btn" style="background:#ff0000; margin-top:15px; color:white"> Borrar publicacion &ensp; <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
   <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
@@ -260,3 +446,8 @@ echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50
   <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
   <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
   <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+
+
+
+
+  
