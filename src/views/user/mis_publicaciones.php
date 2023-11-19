@@ -35,24 +35,14 @@ if(isset($_POST['id_pub'])){
   //Boton de Borrar publicaicon
 
 //verificar primero si no existen mensajes que involucren la publicacion
+$sql="SELECT id_conversacion
+FROM conversaciones
+WHERE (id_usuario1 = $id AND id_usuario2 = 41 AND id_pub = $id_pub)
+   OR (id_usuario1 = 41 AND id_usuario2 = $id AND id_pub = $id_pub) ";
 
-$sql="SELECT PR.nombre as remitente, remitente.id_usuario as id_remitente, PD.nombre as destinatario, mensajes.mensaje, mensajes.fecha as Fecha
-FROM mensajes
+$rest=$db->seleccionarDatos($sql);
 
-INNER JOIN usuarios as remitente ON remitente.id_usuario = mensajes.id_remitente 
-INNER JOIN usuarios as destinatario ON destinatario.id_usuario = mensajes.id_destinatario
-INNER JOIN personas as PD ON PD.id_persona = destinatario.id_persona
-INNER JOIN personas as PR ON PR.id_persona = remitente.id_persona
-INNER JOIN conversaciones on conversaciones.id_conversacion=mensajes.id_conversacion
-
-WHERE (remitente.id_usuario = $id AND destinatario.id_usuario = 41 and conversaciones.id_pub=$id_pub) 
-   OR (remitente.id_usuario = 41 AND destinatario.id_usuario = $id and conversaciones.id_pub=$id_pub)
-ORDER BY mensajes.fecha asc";
-
-$res=$db->seleccionarDatos($sql);
-
-
-if(empty($res)){
+if(empty($rest)){
 
   
     $sql = "DELETE FROM img_pub_trq WHERE img_pub_trq.id_publicacion=$id_pub";
@@ -62,69 +52,10 @@ if(empty($res)){
     $sql = "DELETE FROM pub_trq WHERE `pub_trq`.`id_pub` = $id_pub and id_usuario=$id";
     $db->ejecutarConsulta($sql);
  
-
     header("Location: mis_publicaciones.php");
-    exit;
+
 
 }
-else{
-
-
-  ?>
-<div class="additional-container2" id="contenedor2">
-        <!-- Contenido del nuevo contenedor aquí -->
-    </div>
-    <!-- Nuevo contenedor debajo del contenedor principal -->
-    <div class="additional-container" id="contenedor1">
-        <!-- Contenido del nuevo contenedor aquí -->
-    </div>
-
-    <div class="notification-container" id="contenedor">
-        <div class="notification-list">
-            <!-- Ejemplo de notificaciones -->
-            <div class="notification-item">
-                <div class="notification-content">
-                    <span class="d-block d-md-none" style="position: fixed; left:80%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
-                    <span class="d-none d-md-block" style="position: fixed; left:89%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
-                    <strong style="color:black">Notificación</strong>
-                    <p style="position: relative; top: 5px; color: #2f2e2e">La oferta ha sido cancelada. 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff0000" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
-</svg></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <audio id="notificationSound" preload="auto">
-        <source src="notificacion.mp3" type="audio/mpeg">
-        <!-- Agrega otros formatos de audio si es necesario -->
-    </audio>
-    <script>
-        // Muestra la notificación
-        document.getElementById('contenedor').style.display = 'block';
-
-        // Reproduce el sonido
-        var audio = document.getElementById('notificationSound');
-        audio.play();
-    </script>
-
-    <script>
-        function ocultarContenedores() {
-            // Ocultar los contenedores con JavaScript
-            document.getElementById('contenedor1').style.display = 'none';
-            document.getElementById('contenedor2').style.display = 'none';
-            document.getElementById('contenedor').style.display = 'none';
-        }
-    </script>
-
-<?php
-
-    
-}
-
-
 
 
 }
@@ -301,10 +232,10 @@ $imagenes=$imagenes_por_publicacion['nombre_imagen']
         <div class="carousel-item active" >
 
         
-        <?php if(empty($imagenes)){ ?>
+<?php if(empty($imagenes)){ ?>
         
         <img src="https://cdn.pixabay.com/photo/2023/08/31/18/18/purple-coneflower-8225677_960_720.jpg" class="d-block w-100"  height="310px" alt="...">
-
+        
         <?php
         }else{
         ?>
@@ -447,6 +378,72 @@ echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50
   <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
   <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
+
+  <?php 
+  
+  if(!empty($rest)){
+
+
+        ?>
+      <div class="additional-container2" id="contenedor2">
+              <!-- Contenido del nuevo contenedor aquí -->
+          </div>
+          <!-- Nuevo contenedor debajo del contenedor principal -->
+          <div class="additional-container" id="contenedor1">
+              <!-- Contenido del nuevo contenedor aquí -->
+          </div>
+      
+          <div class="notification-container" id="contenedor">
+              <div class="notification-list">
+                  <!-- Ejemplo de notificaciones -->
+                  <div class="notification-item">
+                      <div class="notification-content">
+                          <span class="d-block d-md-none" style="position: fixed; left:80%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                          <span class="d-none d-md-block" style="position: fixed; left:89%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                          <strong style="color:black">Notificación</strong>
+                          <p style="position: relative; top: 5px; color: #2f2e2e">Hay chats vinculados a esta publicacion. 
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff0000" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+      </svg></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      
+      
+          <audio id="notificationSound" preload="auto">
+              <source src="notificacion.mp3" type="audio/mpeg">
+              <!-- Agrega otros formatos de audio si es necesario -->
+          </audio>
+          <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Muestra la notificación
+        document.getElementById('contenedor').style.display = 'block';
+
+        // Reproduce el sonido al hacer clic en la notificación
+        var audio = document.getElementById('notificationSound');
+        document.getElementById('contenedor').addEventListener('click', function () {
+            audio.play();
+        });
+    });
+</script>
+
+      
+          <script>
+              function ocultarContenedores() {
+                  // Ocultar los contenedores con JavaScript
+                  document.getElementById('contenedor1').style.display = 'none';
+                  document.getElementById('contenedor2').style.display = 'none';
+                  document.getElementById('contenedor').style.display = 'none';
+              }
+          </script>
+      
+      <?php
+      
+          
+      }
+
+  ?>
 
 
 

@@ -68,7 +68,7 @@ if(isset($_POST['mensaje'])) {
         $sql="UPDATE `pub_trq` SET `id_conversacion` = {$id_conversacion_new_chat[0]['id_conversacion']}  WHERE `pub_trq`.`id_pub` = {$_SESSION['pub_id']};";
         $insert_id_con_pub_trq=$db->ejecutarConsulta($sql);
 
-        
+    
     
     }
 }

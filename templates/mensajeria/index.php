@@ -105,24 +105,9 @@ if (isset($_GET['id_pub']) && isset($_GET['id_usuario'])) {
 
 
 
-    <div id="container" class="visible" style="margin-top: 60px;">
-       <h1 id="chats">Chats</h1>
-       <input  id="search" type="text"  placeholder="Buscar">
-    </div>
+<br><br><br>
+<h1 style="margin-left:15px" id="chats">Chats</h1>
 
-
-
-        <div class="row text-center " id="link">
-            <div class="col-6">
-               <a style="text-decoration: none; color: #0a85f0;" href="archivados.html">Chats Archivados</a>
-            </div>
-            <div class="col-6">
-                Nuevo grupo
-            </div>
-         </div>
-
-
-<br>
 
 
 
@@ -161,12 +146,19 @@ $(document).ready(function() {
     
   
       <div class="modal-body">
-    <h3 class="text_modal">ChatPhone</h3>
-    <p class="text_modal" style="opacity:0.9">Inicia un nuevo chat</p>
-    <hr class="hr-white">
+    <h3 class="text_modal">GeekChat</h3>
+    <p class="text_modal" style="opacity:0.9">Actualizaciones a futuro <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zM8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z"/>
+</svg></p><br>
+<!---     <p class="text_modal" style="opacity:0.9: font-size:6px">Inicia un nuevo chat</p>  -->
+<p class="text_modal" style="opacity:0.9: font-size:6px">Podras agregar nuevos amigos</p>
 
-    <p id="link" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Número de teléfono</p>
-    <hr>
+<hr class="hr-white">
+
+<!--  modal  <p id="link" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Número de teléfono</p> -->
+    <p id="link">Número de teléfono</p>
+
+    <hr><br>
     <p id="link" data-bs-dismiss="modal" aria-label="Close"><b>Cancelar</b></p>
 
     </div>
@@ -183,7 +175,7 @@ $(document).ready(function() {
   <div class="modal-dialog modal-dialog-centered">
     <div class=" background-modal modal-content">
       <div class="modal-body">
-        <h5 class="text_modal" >ChatPhone</h5>
+        <h5 class="text_modal" >GeekChat</h5>
         <p class="text_modal" style="opacity:0.8">Introduzca el nuevo número de teléfono de la persona con la que desea conversar: </p>
         <p class="text_modal" style="opacity:0.7; margin-bottom:3%">Ex: 87xxxxxxxx</p>
         <input class="back_input_num" type="num" name="num_new_friend" placeholder="Número de teléfono"  maxlength="10" minlength="10"

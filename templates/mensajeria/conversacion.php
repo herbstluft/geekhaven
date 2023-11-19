@@ -14,6 +14,97 @@ if(isset($_SESSION['user'])){
 }
 
 
+
+
+//se guarda el id del nuevo amigo en caso de que sea un nuevo chat
+if(isset($_GET['num_new_friend'])){
+    $number_new_friend=$_GET['num_new_friend'];
+    }
+     
+    if(isset($_GET['num_new_friend'])){
+    
+        //info de amigo
+        $sql="select * from usuarios inner join personas on usuarios.id_persona=personas.id_persona where usuarios.telefono='$number_new_friend'";
+        $datos=$db->seleccionarDatos($sql);
+    
+        if(empty($datos)){
+         
+        }
+    
+        
+    
+        foreach($datos as $todo){
+        $imagen= $todo['imagen'];
+        $nombre_amigo= $todo['nombre'];
+        $id_amigo= $todo['id_usuario'];
+        $_SESSION['id_friend']=$id_amigo;
+        $info=$todo['info'];
+        $correo=$todo['correo'];
+        $telefono=$todo['telefono'];
+        }
+        
+        }
+    
+
+//id conversacion_con mensajes
+$sql="SELECT DISTINCT mensajes.id_conversacion as id_conversacion 
+FROM mensajes 
+INNER JOIN conversaciones ON conversaciones.id_conversacion = mensajes.id_conversacion 
+WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id);";
+$id_conversacion=$db->seleccionarDatos($sql);
+
+foreach($id_conversacion as $id_conversacion)
+
+
+$id_con=$id_conversacion['id_conversacion'];  
+
+
+
+//id conversacion_sin mensajes
+$sql="SELECT *
+FROM conversaciones 
+WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id);";
+$id_conversacion=$db->seleccionarDatos($sql);
+
+foreach($id_conversacion as $id_conversacion)
+
+
+$id_con_sin_mensajes=$id_conversacion['id_conversacion'];
+
+
+
+
+
+
+
+//borrar Chat
+if(isset($_GET['borrar_conversacion'])){
+
+    $sql="DELETE mensajes
+    FROM mensajes
+    INNER JOIN conversaciones
+    ON conversaciones.id_conversacion = mensajes.id_conversacion
+    WHERE conversaciones.id_conversacion = $id_con_sin_mensajes;
+    ";
+  
+    $borrar_mensajes=$db->ejecutarConsulta($sql);
+
+
+    $sql="UPDATE `conversaciones` SET `id_pub` = null WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
+    $borrar_id_pub=$db->ejecutarConsulta($sql);
+
+   $sql="UPDATE pub_trq SET id_conversacion = NULL WHERE `pub_trq`.`id_conversacion` = $id_con_sin_mensajes";
+   $borrar_id_conversacion_pub_trq=$db->ejecutarConsulta($sql);
+
+    $sql="DELETE FROM conversaciones WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
+    $borrar_chat=$db->ejecutarConsulta($sql);
+
+    $sql="UPDATE `pub_trq` SET `id_conversacion` = NULL WHERE `pub_trq`.`id_pub` = {$_SESSION['pub_id']};";
+
+    header("Location: index.php");
+
+}
+
 if(isset($_GET['id_con'])){
     //Borrar mensajes de la conversacion
     $sql="DELETE mensajes
@@ -29,35 +120,6 @@ if(isset($_GET['id_con'])){
 
 
   
-
-//se guarda el id del nuevo amigo en caso de que sea un nuevo chat
-if(isset($_GET['num_new_friend'])){
-$number_new_friend=$_GET['num_new_friend'];
-}
- 
-if(isset($_GET['num_new_friend'])){
-
-    //info de amigo
-    $sql="select * from usuarios inner join personas on usuarios.id_persona=personas.id_persona where usuarios.telefono='$number_new_friend'";
-    $datos=$db->seleccionarDatos($sql);
-
-    if(empty($datos)){
-     
-    }
-
-    
-
-    foreach($datos as $todo){
-    $imagen= $todo['imagen'];
-    $nombre_amigo= $todo['nombre'];
-    $id_amigo= $todo['id_usuario'];
-    $_SESSION['id_friend']=$id_amigo;
-    $info=$todo['info'];
-    $correo=$todo['correo'];
-    $telefono=$todo['telefono'];
-    }
-    
-    }
 
 
 
@@ -90,60 +152,12 @@ $info=$todo['info'];
 
 }
 
-//id conversacion_con mensajes
-$sql="SELECT DISTINCT mensajes.id_conversacion as id_conversacion 
-FROM mensajes 
-INNER JOIN conversaciones ON conversaciones.id_conversacion = mensajes.id_conversacion 
-WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend] AND conversaciones.id_usuario2 = $id);";
-$id_conversacion=$db->seleccionarDatos($sql);
-
-foreach($id_conversacion as $id_conversacion)
-
-
-$id_con=$id_conversacion['id_conversacion'];
 
 
 
-//id conversacion_sin mensajes
-$sql="SELECT *
-FROM conversaciones 
-WHERE (conversaciones.id_usuario1 = $id AND conversaciones.id_usuario2 = $_SESSION[id_friend] ) OR (conversaciones.id_usuario1 = $_SESSION[id_friend]  AND conversaciones.id_usuario2 = $id);";
-$id_conversacion=$db->seleccionarDatos($sql);
-
-foreach($id_conversacion as $id_conversacion)
-
-
-$id_con_sin_mensajes=$id_conversacion['id_conversacion'];
 
 
 
-//borrar Chat
-if(isset($_GET['borrar_conversacion'])){
-
-    $sql="DELETE mensajes
-    FROM mensajes
-    INNER JOIN conversaciones
-    ON conversaciones.id_conversacion = mensajes.id_conversacion
-    WHERE conversaciones.id_conversacion = $id_con_sin_mensajes;
-    ";
-  
-    $borrar_mensajes=$db->ejecutarConsulta($sql);
-
-
-    $sql="UPDATE `conversaciones` SET `id_pub` = null WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
-    $borrar_id_pub=$db->ejecutarConsulta($sql);
-
-   $sql="UPDATE pub_trq SET id_conversacion = NULL WHERE `pub_trq`.`id_conversacion` = $id_con_sin_mensajes";
-   $borrar_id_conversacion_pub_trq=$db->ejecutarConsulta($sql);
-
-    $sql="DELETE FROM conversaciones WHERE `conversaciones`.`id_conversacion` = $id_con_sin_mensajes";
-    $borrar_chat=$db->ejecutarConsulta($sql);
-
-    $sql="UPDATE `pub_trq` SET `id_conversacion` = NULL WHERE `pub_trq`.`id_pub` = {$_SESSION['pub_id']};";
-
-    header("Location: index.php");
-
-}
 
 
 
@@ -818,31 +832,14 @@ scrollBtn.addEventListener("click", () => {
 else{
 
 ?>
+       <br><br>
 
-<div class="col-5">
-            <p style="font-size:17px; color:white; font-weight:bolder;">Buscar mensajes</p>
-            <p style="font-size:16px; color:white; margin-top:-10px"> Encuentra mensajes especificos.</p>
-        </div>
-        <div class="offset-5 col-2 text-right">
-            <div style="background:#171717; border-radius:10px; width:45px; height:45px" class="text-center">
-                <p class="w-100"data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" >
-                <svg id="link" style="margin-top:12px"  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-                </p>
-            </div>
-        </div>
-
-
-        <br>
-    
-
-    <div class="col-5">
+    <div class="col-9">
         
             <p style="font-size:17px; color:red; font-weight:bolder;">Vaciar mensajes</p>
             <p style="font-size:16px; color:white; margin-top:-10px"> Elimina todos los mensajes de la conversacion</p>
         </div>
-        <div class="offset-5 col-2 text-right">
+        <div class="offset-1 col-2 text-right">
             <div style="background:#171717; border-radius:10px; width:45px; height:45px" class="text-center">
                 <p class="w-100">
                <a href="conversacion.php?id_con=<?php echo $id_con?>&id_friend=<?php if(isset($_GET['id_friend'])){ echo $_GET['id_friend'];} ?>&num_new_friend=<?php if(isset($_GET['num_new_friend'])){echo $number_new_friend;} ?> &pub_titulo=<?php echo  $_SESSION['pub_titulo'] ?> ">
@@ -856,6 +853,10 @@ else{
 
 
 <br>
+<?php 
+}
+?>
+<br><br>
 
 <div class="col-5">
             <p style="font-size:17px; color:red; font-weight:bolder;">Eliminar Chat</p>
@@ -874,9 +875,7 @@ else{
                 </p>
             </div>
         </div>
-<?php 
-}
-?>
+
 
 
 
