@@ -150,7 +150,7 @@ $img_ad=$img_admin['imagen'];
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="html/ui-forms.html" aria-expanded="false">
+              <a class="sidebar-link" href="/geekhaven/src/views/admin/html/inventario.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-file-description"></i>
                 </span>
