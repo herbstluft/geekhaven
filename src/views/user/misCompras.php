@@ -3,10 +3,16 @@
     require("../../../vendor/autoload.php");
     $db = new Database;
     $db1=new Database;
-    $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
-    error_reporting(E_ERROR); 
+
     session_start();
-    $usr=$_SESSION['user'];
+    $usr = $_SESSION['user'];
+    
+    // Procesar el formulario de filtro
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order'])) {
+        $orderClause = ($_GET['order'] == 'asc') ? 'ASC' : 'DESC';
+    } else {
+        $orderClause = 'DESC'; // Orden predeterminado (recientes a antiguos)
+    }
     
     $sql = "SELECT
         p.id_producto as 'id_producto',
@@ -15,7 +21,7 @@
         SUM(do.cantidad) AS 'cantidad',
         SUM(p.precio * do.cantidad) AS 'total',
         do.fecha_detalle AS 'fecha',
-        p.nom_producto AS 'nombre_producto' -- Agregar información de la tabla productos
+        p.nom_producto AS 'nombre_producto'
     FROM
         orden o
     JOIN detalle_orden AS do ON o.id_orden = do.id_orden
@@ -26,10 +32,11 @@
         do.estatus = 2
     GROUP BY
         o.id_orden
-    ORDER BY do.fecha_detalle $orderClause"; // Agrega la ordenación dinámica
+    ORDER BY do.fecha_detalle $orderClause";
     
+    $mis_compras = $db->seleccionarDatos($sql);
 
-    $mis_compras=$db->seleccionarDatos($sql);
+ 
 
 ?>
 
@@ -222,7 +229,7 @@ include('../../../templates/navbar_user.php');
         <label class="select-box__option" for="antiguos" aria-hidden="aria-hidden">Pedido: Antiguo - Reciente</label>
       </li>
     </ul>
-    <button type="submit" style="margin-top:20px" class="btn btn-primary">Aplicar</button>
+    <button type="submit" style="margin-top:20px; background: #005aff; color:white" class="btn">Aplicar</button>
   </form>
 </div>
 
@@ -230,6 +237,8 @@ include('../../../templates/navbar_user.php');
     <!------------------------------------Lista-------------------------------------->
     <br>
    
+
+
 <div class="container">
 <div class="row">
 
@@ -253,13 +262,16 @@ foreach ($mis_compras as $mis_compras){
                     <p><b> <?php echo $fecha ?></b></p>
                 </div>
                 <div class="col-6 text-end">
-                    <b style="color:#0d6efd">Noº de pedido  #<?php echo $id_venta ?></b>
+                    <b style="color:#005aff">Noº de pedido  #<?php echo $id_venta ?></b>
                 </div>
             </div>
+
+
 
             <hr style="opacity:0.1">
 
             <div class="row">
+
                 <div class="col-5" style="margin-bottom:30px">
                 <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
@@ -268,16 +280,18 @@ foreach ($mis_compras as $mis_compras){
                 echo $img['nombre_imagen'];}?>" class="d-block ms-5" width="200px" height="200px" alt="...">
                 </div>
 
+
+
                 <div class="col-7 text-center" style="padding-top:30px">
                     <h5><?php echo $nombre_producto ?></h5>
-                    <p>$1220.00</p>
+                  <br>
 
                     <?php 
-                    if($cantidad==1){
-                        echo "";
-                    }
+                    if($cantidad==1){ ?>
+                        <p><a  style="color: #005aff" href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver detalles de la compra</a>
+                    <?php }
                     elseif($cantidad > 1){ ?>
-                        <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver productos de la compra</a>
+                        <p><a style="color: #005aff" href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver detalles de la compra</a>
 </p>
                     <?php     
                     }
@@ -285,12 +299,19 @@ foreach ($mis_compras as $mis_compras){
 
 
                 </div>
+
+
             </div>
+
+
+
 
         
     <hr style="opacity:0.1">
 
             <div class="row">
+
+
                 <div class="col-6 text-center">
                 <h3 style="margin-top:20px;color:red">Cantidad</h3>
                     <p style="color:black; font-size:20px">
@@ -305,21 +326,28 @@ foreach ($mis_compras as $mis_compras){
                     </p>
                    
                 </div>
+
+
+
                 <div class="col-6 text-center" >
                    <h3 style="margin-top:20px;color:red">Total</h3>
                     <p style="color:black; font-size:20px"><?php echo '$' . $total; ?></p>
                 </div>
+
             </div>
+
+
+
         </div>
         
-    </div>
-  </div>
+
         <?php
 }
 ?>
-        
-   </div>
+
 </div>
+</div>
+        
 
 <br>
 <br>
@@ -332,9 +360,7 @@ foreach ($mis_compras as $mis_compras){
 </div>
            
 
-          </div>
-        </div>
-      </div>
+
     
 
     

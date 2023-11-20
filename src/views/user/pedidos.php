@@ -285,11 +285,11 @@ foreach ($mis_compras as $mis_compras){
                     <p>$1220.00</p>
 
                     <?php 
-                    if($cantidad==1){
-                        echo "";
-                    }
+                    if($cantidad==1){ ?>
+                      <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
+                    <?php } 
                     elseif($cantidad > 1){ ?>
-                        <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver productos de la compra</a>
+                        <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
 </p>
                     <?php     
                     }
