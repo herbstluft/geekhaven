@@ -100,7 +100,7 @@ foreach ($mis_compras as $mis_compras){
                 foreach($SacarImagenes as $img){
                 ?>
                     <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img['nombre_imagen'];?>" class="d-block"
-                    width="150"  height="110px" alt="..."><?php echo"";}?>
+                    width="110"  height="110px" alt="..."><?php echo"";}?>
                 </div>
 
                 <div class="col-7 text-center" style="padding-top:30px">

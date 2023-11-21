@@ -379,9 +379,9 @@ foreach($recien_llegados as $recien_llegados){
         </div>
     <br>
         <div class="col-sm-12 col-lg-7 text-center">
-          <h1>Nuestra ubicacion</h1>
-          <p class="card__category"> Av. Hidalgo 1334, Primitivo Centro, 27000 Torreón, Coah.</p>
-      <iframe style="width:100%; height:90%; border-radius:15px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.033275675958!2d-103.46544792451171!3d25.537268477493672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fd9689c38aa7b%3A0x93f069a0cb99a84!2sPlaza%20de%20la%20Tecnolog%C3%ADa%20Torre%C3%B3n!5e0!3m2!1ses!2smx!4v1696054214019!5m2!1ses!2smx" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <h1>Nuestra ubicacion</h1>
+          <p class="card__category"> Calle Muñoz Campos #698-A Col.La Amistad</p>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3599.605619453558!2d-103.3643797239029!3d25.551510617257275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fdb32fdffc36f%3A0x73181d7959ea4557!2sC.%20Mu%C3%B1oz%20Campos%2C%2027054%20Torre%C3%B3n%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1700536411832!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     
       </div>

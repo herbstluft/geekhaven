@@ -4,15 +4,16 @@
     $db = new Database;
     $db1=new Database;
 
-    session_start();
-    $usr = $_SESSION['user'];
-    
-    // Procesar el formulario de filtro
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['order'])) {
-        $orderClause = ($_GET['order'] == 'asc') ? 'ASC' : 'DESC';
-    } else {
-        $orderClause = 'DESC'; // Orden predeterminado (recientes a antiguos)
+    error_reporting(E_ERROR); 
+
+    $orderClause = "DESC"; // Orden predeterminado (recientes a antiguos)
+    $HOST=$_SERVER['SERVER_NAME'];
+    if (isset($_GET['order']) && $_GET['order'] == 'asc') {
+        $orderClause = "ASC"; // Cambia la ordenación a "antiguos a recientes"
     }
+
+session_start();
+    $usr=$_SESSION['user'];
     
     $sql = "SELECT
         p.id_producto as 'id_producto',
@@ -20,8 +21,10 @@
         u.id_usuario as 'id_usuario',
         SUM(do.cantidad) AS 'cantidad',
         SUM(p.precio * do.cantidad) AS 'total',
-        do.fecha_detalle AS 'fecha',
-        p.nom_producto AS 'nombre_producto'
+        YEAR(o.fecha) AS 'anio',
+        MONTH(o.fecha) AS 'mes',
+        DAY(o.fecha) AS 'dia',
+        p.nom_producto AS 'nombre_producto' -- Agregar información de la tabla productos
     FROM
         orden o
     JOIN detalle_orden AS do ON o.id_orden = do.id_orden
@@ -32,11 +35,10 @@
         do.estatus = 2
     GROUP BY
         o.id_orden
-    ORDER BY do.fecha_detalle $orderClause";
+    ORDER BY do.fecha_detalle $orderClause"; // Agrega la ordenación dinámica
     
-    $mis_compras = $db->seleccionarDatos($sql);
 
- 
+    $mis_compras=$db->seleccionarDatos($sql);
 
 ?>
 
@@ -47,9 +49,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
+  <title>GeekHaven</title>
   <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link href="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
+  <script src="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
 <!--STYLE-->
     <style>
 
@@ -80,6 +84,7 @@
   font-size: 18px;
   color: #fff;
 }
+
 @media (min-width: 768px) {
   .select-box {
     width: 70%;
@@ -204,12 +209,12 @@ include('../../../templates/navbar_user.php');
           <div class="container">
 <div class="row">
  <div class="col-md-12">
-  <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Mis compras</h1>
-  
+  <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Pedidos pendientes por entregar</h1>
+
   <br>
   <!-----------------------------Filtro---------------------------------->
-  <div class="select-box">
-  <form method="GET" action="misCompras.php">
+  <!-- <div class="select-box">
+  <form method="GET" action="pedidos.php">
     <div class="select-box__current " tabindex="1" style="color: black; border-radius: 10px">
       <div class="select-box__value" style="color: black">
         <input class="select-box__input" type="radio" id="recientes" value="desc" name="order" <?php if ($orderClause == "DESC") echo "checked"; ?> />
@@ -229,125 +234,143 @@ include('../../../templates/navbar_user.php');
         <label class="select-box__option" for="antiguos" aria-hidden="aria-hidden">Pedido: Antiguo - Reciente</label>
       </li>
     </ul>
-    <button type="submit" style="margin-top:20px; background: #005aff; color:white" class="btn">Aplicar</button>
+
+    <button type="submit" style="margin-top:20px" class="btn btn-primary">Aplicar</button>
   </form>
-</div>
+</div> -->
 
 
     <!------------------------------------Lista-------------------------------------->
     <br>
    
 
-
-<div class="container">
 <div class="row">
 
 
-<?php
 
-foreach ($mis_compras as $mis_compras){
-  $id_prd=$mis_compras['id_producto'];
-    $id_venta=$mis_compras['id_venta'];
-    $id_usuario=$mis_compras['id_usuario'];
-    $cantidad=$mis_compras['cantidad'];
-    $total=$mis_compras['total'];
-    $fecha=$mis_compras['fecha'];
-    $nombre_producto=$mis_compras['nombre_producto'];
+        <div >
 
-?>
-        <div class="col-12" style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
-
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-6">
                     <p><b> <?php echo $fecha ?></b></p>
                 </div>
+                
                 <div class="col-6 text-end">
-                    <b style="color:#005aff">Noº de pedido  #<?php echo $id_venta ?></b>
+                    <b style="color:#0d6efd">Noº de pedido  #
                 </div>
+                
             </div>
-
-
 
             <hr style="opacity:0.1">
 
             <div class="row">
-
                 <div class="col-5" style="margin-bottom:30px">
-                <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
-                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-                     $sacarImg=$db1->seleccionarDatos($sacarImgQry);
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];}?>" class="d-block ms-5" width="200px" height="200px" alt="...">
-                </div>
+                 -->
+                 <table class="table col-12 " id="tabla" style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
+                    <thead>
+                    <th>
+                        No° de Orden
+                      </th>
+                      <th colspan="2">
+                        1er producto del pedido
+                      </th>
+                      <th>
+                        Cantidad de productos
+                      </th>
+                      <th>
+                        Total MXN
+                      </th>
+                      
+                      <th>
+                        Fecha de pedido
+                      </th>
+                      <th>
 
+                      </th>
+                    </thead>
+                    <tbody>
+                    <?php
 
+                      foreach ($mis_compras as $mis_compras){
+                        $id_prd=$mis_compras['id_producto'];
+                          $id_venta=$mis_compras['id_venta'];
+                          $id_usuario=$mis_compras['id_usuario'];
+                          $cantidad=$mis_compras['cantidad'];
+                          $total=$mis_compras['total'];
+                          $fecha=$mis_compras['anio'];
+                          $fecha1=$mis_compras['mes'];
+                          $fecha2=$mis_compras['dia'];
+                          $nombre_producto=$mis_compras['nombre_producto'];
 
-                <div class="col-7 text-center" style="padding-top:30px">
-                    <h5><?php echo $nombre_producto ?></h5>
-                  <br>
-
-                    <?php 
+                      ?>
+                      <tr  style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
+                      <td>
+                        <h4 align="center">
+                      <?php echo $id_venta ?>
+                      </h4>
+                      <th>
+                          <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
+                          $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                          $sacarImg=$db1->seleccionarDatos($sacarImgQry);
+                          foreach($sacarImg as $img){
+                          echo $img['nombre_imagen'];}?>" 
+                          class=" ms-5" width="120px" height="130px" alt="...">
+                      </th>
+                      <td>
+                        <h5 align="center"><?php echo $nombre_producto ?></h5>
+                      </td>
+                      <td>
+                        <h6 align="center">
+                      <?php 
+                    if($cantidad==1){
+                        echo $cantidad.'<br>'. 'Producto';
+                    }
+                    elseif($cantidad > 1){
+                        echo $cantidad.'<br> '. 'Productos'; 
+                    }
+                    ?>
+                    </h6>
+                      </td>
+                      <td>
+                        <h4 align="center" class="text-danger">
+                      <?php echo '$' . $total; ?>
+                      </h4>
+                      </td>
+                      
+                      </td>
+                      <td >
+                        <p align="center">
+                        <?php echo 'Dia: '. $fecha2.'<br>' ?>
+                        
+                        <?php echo 'Mes: '.$fecha1.'<br>' ?>
+                        
+                        <?php echo 'Año: '.$fecha ?>
+                        </p>
+                      </td>
+                      <td>
+                      <?php 
                     if($cantidad==1){ ?>
-                        <p><a  style="color: #005aff" href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver detalles de la compra</a>
-                    <?php }
+                      <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
+                    <?php } 
                     elseif($cantidad > 1){ ?>
-                        <p><a style="color: #005aff" href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>">Ver detalles de la compra</a>
-</p>
+                        <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
+                        </p>
                     <?php     
                     }
                     ?>
-
-
-                </div>
-
-
-            </div>
-
-
-
-
-        
-    <hr style="opacity:0.1">
-
-            <div class="row">
-
-
-                <div class="col-6 text-center">
-                <h3 style="margin-top:20px;color:red">Cantidad</h3>
-                    <p style="color:black; font-size:20px">
-                    <?php 
-                    if($cantidad==1){
-                        echo $cantidad.' '. 'Producto';
-                    }
-                    elseif($cantidad > 1){
-                        echo $cantidad.' '. 'Productos'; 
-                    }
-                    ?>
-                    </p>
-                   
-                </div>
-
-
-
-                <div class="col-6 text-center" >
-                   <h3 style="margin-top:20px;color:red">Total</h3>
-                    <p style="color:black; font-size:20px"><?php echo '$' . $total; ?></p>
-                </div>
-
-            </div>
-
-
-
-        </div>
-        
-
+                      </td>
+                      </tr>
+                      
+                      <?php }?>
+                    </tbody>
+                    
+                 </table>
         <?php
-}
-?>
 
-</div>
-</div>
+?>
         
+   </div>
+</div>
 
 <br>
 <br>
@@ -358,21 +381,20 @@ foreach ($mis_compras as $mis_compras){
 <div class="container">
 <?php include '../../../templates/footer.html';?>
 </div>
-           
-
-
-    
-
-    
-    <br>
-    <br><br><br>
 
 <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
   <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
   <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script>
+    var tabla = document.querySelector("#tabla");
+    var dataTable = new DataTable(tabla,{
+        perPage:3,
+        perPageSelect:[3,6,10,20,25,30]
 
+    });
+  </script>
 
 </body>
 </html>

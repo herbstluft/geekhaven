@@ -8,7 +8,6 @@ if(isset($_GET['id_o'])){
   $id_orden=$_GET['id_orden'];
   $cantidad=$_GET['cantidad'];
   $total=$_GET['total'];
-  $fecha=$_GET['fecha'];
   $usr=$_GET['usr'];
   $sql = "SELECT productos.id_producto, productos.nom_producto as 'nombre_ind', productos.precio as 'precio_ind', detalle_orden.cantidad as 'cant_ind' from detalle_orden INNER JOIN productos on productos.id_producto=detalle_orden.id_producto WHERE detalle_orden.id_orden=$id_orden and detalle_orden.id_usuario=$usr";
 
@@ -28,7 +27,7 @@ if(isset($_GET['id_o'])){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
+  <title>GeekHaven</title>
   <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
@@ -73,7 +72,7 @@ include('../../../templates/navbar_user.php');
 
             <div class="row">
                 <div class="col-6">
-                    <p><b> <?php echo $fecha ?></b></p>
+                    <p></p>
                 </div>
                 <div class="col-6 text-end">
                     <b style="color:#0d6efd">Noº de pedido  #<?php echo $id_orden ?></b>
