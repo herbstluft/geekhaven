@@ -138,6 +138,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':idProducto' => $idProducto
     ]);
 }
+
+
 //----------------------------------------------------------------------
 
 ?>
@@ -172,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h5>Ventas Totales en General por año</h5>
         <button class="btn btn-primary" data-toggle="collapse" data-target="#ventasTotales">Mostrar</button>
         <div id="ventasTotales" class="collapse">
-            <table class="table">
+            <table class="table" id="uno">
                 <thead>
                     <tr>
                         <th>Año</th>
@@ -193,12 +195,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <canvas id="ventasTotalesChart"></canvas>
             </div>
         </div><br>
+        <br>
+       <center> <button class="btn btn-success" onclick="exportToExcel('uno')">Descargar Excel</button> </center>
+
         <hr>
 
         <h5>Ventas Totales en General sin agrupar</h5>
         <button class="btn btn-primary" data-toggle="collapse" data-target="#ventasTotalesSinAgrupar">Mostrar</button>
         <div id="ventasTotalesSinAgrupar" class="collapse">
-            <table class="table">
+            <table class="table" id="dos">
                 <thead>
                     <tr>
                         <th>Total de ventas</th>
@@ -215,12 +220,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tbody>
             </table>
           </div><br>
+          <br>
+       <center> <button class="btn btn-success" onclick="exportToExcel('dos')">Descargar Excel</button> </center>
         <hr>
 
         <h5>Suma de Costos de Productos en Inventario</h5>
         <button class="btn btn-primary" data-toggle="collapse" data-target="#costosProductos">Mostrar</button>
         <div id="costosProductos" class="collapse">
-            <table class="table">
+            <table class="table" id="tres">
                 <thead>
                     <tr>
                         <th>Costos en Inventario</th>
@@ -237,6 +244,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Agrega un contenedor para el gráfico -->
            
         </div><br><br>
+        
+       <center> <button class="btn btn-success" onclick="exportToExcel('tres')">Descargar Excel</button> </center>
         <hr>
 
         <h5>Ganancias por Fecha</h5>
@@ -298,12 +307,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tr>
             </tbody>
         </table>
+        <br>
+       <center> <button class="btn btn-success" onclick="exportToExcel('gananciasTable')">Descargar Excel</button> </center>
         
         <hr>
         <h4>Ganancias del Producto</h4>
 
         <!-- Formulario Bootstrap para ingresar el ID del producto -->
-        <form method="post" action="">
+        <form method="post" action="" id="id">
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="id_producto">ID del Producto:</label>
@@ -315,6 +326,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </form>
+        <br>
+       
         
         
 
@@ -406,6 +419,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
         });
     </script>
+    <script>
+    function exportToExcel(tableId) {
+        var tab_text = '<html xmlns:x="urn:schemas-microsoft-com:office:excel">';
+        tab_text = tab_text + '<head><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';
+
+        tab_text = tab_text + '<x:Name>Sheet1</x:Name>';
+
+        tab_text = tab_text + '<x:WorksheetOptions><x:Panes></x:Panes></x:WorksheetOptions></x:ExcelWorksheet>';
+        tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+
+        tab_text = tab_text + "<table border='1px'>";
+        var exportTable = document.getElementById(tableId);
+        var tab = exportTable.cloneNode(true);
+        tab_text = tab_text + tab.outerHTML;
+        tab_text = tab_text + '</table></body></html>';
+
+        var data_type = 'data:application/vnd.ms-excel';
+
+        var ua = window.navigator.userAgent;
+        var msieEdge = ua.indexOf("Edge");
+
+        // Si es Edge o Internet Explorer
+        if (msieEdge > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+            var blob = new Blob([tab_text], {
+                type: data_type
+            });
+            window.navigator.msSaveBlob(blob, 'reporte.xls');
+        } else {
+            var blob2 = new Blob([tab_text], {
+                type: data_type
+            });
+            var filename = 'reporte.xls';
+            var elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob2);
+            elem.download = filename;
+            document.body.appendChild(elem);
+            elem.click();
+            document.body.removeChild(elem);
+        }
+    }
+</script>
+
 </body>
 
 </html>
