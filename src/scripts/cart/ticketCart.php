@@ -7,6 +7,7 @@ $host=$_SERVER['SERVER_NAME'];
 use MyApp\data\Database;
 require(__DIR__ . '/../../../vendor/autoload.php');
 $db = new Database;
+$db1 = new Database;
 
 //obtener el ID de la orden y del usuario
 if ($_GET['id_orden']){
@@ -54,13 +55,13 @@ $ProductosPedido=$db->seleccionarDatos($ProductosPedidoQry);
         <h1 align="center" class="text-dark">PEDIDO</h1>
         <h2 align="center" class="text-danger">No° de pedido:<?php echo $id_orden;?></h2>
         <?php foreach($Total as $res){?>
-        <h3>Total: $<?php echo $res['TOTAL'];}?></h3>
+        <h1 class="text-danger">Total: $<?php echo $res['TOTAL'];}?></h1>
 
         <div class="table-responsive">
         <table class="table table-striped">
   <thead>
     <tr class="">
-    <th scope="col">SKU</th>
+      <th scope="col">SKU</th>
       <th scope="col">Producto</th>
       <th scope="col">Cantidad</th>
       <th scope="col">Precio unitario</th>
@@ -79,11 +80,11 @@ $ProductosPedido=$db->seleccionarDatos($ProductosPedidoQry);
     ?>
     
     <tr>
-      <th scope="row"><?php echo $res['id_producto']; ?></th>
-      <td><?php echo $res['nom_producto']; ?></td>
-      <td align="center"><?php echo $res['cantidad']; ?></td>
-      <td align="center"><?php echo $res['precio']; ?></td>
-      <td align="center"><?php foreach($totalPrd as $to){ echo $to['TOTAL'];}}?></td>
+      <th scope="row" class="fs-5"><?php echo $res['id_producto']; ?></th>
+      <td class="fs-5"><?php echo $res['nom_producto']; ?></td>
+      <td align="center" class="fs-5"><?php echo $res['cantidad']; ?></td>
+      <td align="center" class="fs-5"><?php echo $res['precio']; ?></td>
+      <td align="center" class="fs-5"><?php foreach($totalPrd as $to){ echo $to['TOTAL'];}}?></td>
     </tr>
   </tbody>
 </table>
@@ -97,7 +98,7 @@ $ProductosPedido=$db->seleccionarDatos($ProductosPedidoQry);
 <?php
 $html=ob_get_clean();
  require_once '../dompdf/autoload.inc.php';
-
+                
  use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 

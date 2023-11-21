@@ -81,7 +81,11 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                        {?>
                                          <tr style="padding-bottom:10px;">
                                          <th scope="row">
-                                           <img src="https://commondatastorage.googleapis.com/images.pricecharting.com/3a92f94cd232e24534e431b9e4faf3da91be9c7755232f9b04141f04e676e09c/240.jpg" style="width: 90%; border-radius: 20px; margin-bottom:10px;"class="col-2"alt="">
+                                         <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$res['id_producto'];
+                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                     $sacarImg=$db->seleccionarDatos($sacarImgQry);
+                foreach($sacarImg as $imagPrd){
+                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="60%"  height="60%" alt="..."><?php echo "";}?>
                                          </th>
                                              <td colspan="1" class="col-6"><?php echo $res['nom_producto']?></td>
                                              <td align="center"class ="col-2">

@@ -71,11 +71,11 @@ include '../../../templates/navbar_user.php'
           <div class="col-sm-12 col-md-6 ">
               <div class="productotop">
               <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide" data-bs-touch="false">
-              <?php $SacarImagenesQry="SELECT * from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto;";
-              $SacarImagenes=$db1->seleccionarDatos($SacarImagenesQry);             
+              <?php $SacarImagQry="SELECT * from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id;";
+              $SacarImag=$db1->seleccionarDatos($SacarImagQry);             
               ?>
                   <div class="carousel-inner" style="padding:20%">
-                  <?php foreach($SacarImagenes as $img){ ?>
+                  <?php foreach($SacarImag as $img){ ?>
                   <div class="carousel-item active">
                      
                         <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img['nombre_imagen'];?>" class="d-block w-100"  height="410px" alt="...">

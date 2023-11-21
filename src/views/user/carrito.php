@@ -2,6 +2,7 @@
  use MyApp\data\Database;
  require("../../../vendor/autoload.php");
  $db = new Database();
+ $db1 = new Database;
 
 ?>
 <!doctype html>
@@ -46,7 +47,11 @@ include('../../../templates/navbar_user.php');
             ?>
             <tr>
               <th scope="row">
-                <img src="https://cdn-icons-png.flaticon.com/512/3366/3366062.png" width="90px" height="90px" alt="">
+              <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$res['id_producto'];
+                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                     $sacarImg=$db->seleccionarDatos($sacarImgQry);
+                foreach($sacarImg as $imagPrd){
+                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="40%"  height="40%" alt="..."><?php echo "";}?>
               </th>
               <td class="fs-3"><br><?php echo $res['nom_producto'];?></td>
               <td class="fs-3"><br><?php echo $res['cantidad'];?></td>
