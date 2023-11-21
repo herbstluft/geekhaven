@@ -9,15 +9,15 @@ session_start();
     $categorias =$db->seleccionarDatos($sql);
 
     if (isset($_GET['filtro1']) && $_GET['filtro1'] == 'all') {
-        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat";
+        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat inner join universo on productos.universo_id=universo.id_universo inner join tipo on tipo.id_tipo = productos.tipo_id   ORDER BY productos.nom_producto ASC ";
     }
     elseif (isset($_GET['filtro1'])) {
         $id_categoria = $_GET['filtro1'];
-        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria'";
+        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat inner join universo on productos.universo_id=universo.id_universo inner join tipo on tipo.id_tipo = productos.tipo_id  where categorias.id_cat='$id_categoria'  ORDER BY productos.nom_producto ASC";
     }
 
     else {
-        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat";
+        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat inner join universo on productos.universo_id=universo.id_universo inner join tipo on tipo.id_tipo = productos.tipo_id   ORDER BY productos.nom_producto ASC ";
     }
     
 
@@ -81,58 +81,85 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 <div class="container">
 
 <div>
-        <form action="inventario.php" method="get">
-        
-            <br>
-            <label>Ordenar Por:</label>
-           <div class="row">
-            <div class="col-12 col-md-3">
-            <select class="form-select" style="margin-top:5px;" aria-label="Default select example" name="filtro1" id="filtro1" >
 
-            <?php if (isset($_GET['filtro1']) && $_GET['filtro1'] == 'all') { ?>
-                <option selected style="margin-top:20px" value="all"> Seleccionado:  Mostrar todo</option>
-   <?php } ?>
-            <?php if (isset($_GET['filtro1']) && $_GET['filtro1'] <> 'all') { ?>
-                <option selected value="<?php echo $categor['id_cat'] ?>"> 
+<br><br>
+
+<div style="margin-left:20px">
+<span>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="green" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+</svg>
+&ensp;
+    Exporte sus productos a un archivo excel para una informacion mas detallada</span>
+ </div>
+
+<a href="inventario_excel.php?<?php 
+ foreach($con as $send){ ?>
+ nom_producto=<?php echo $send['nom_producto']; ?>
+ nom_cat=<?php echo $send['nom_cat']; ?>
+ universo=<?php echo $send['universo']; ?>
+ tipo=<?php echo $send['tipo']; ?>
+ precio=<?php echo $send['precio']; ?>
+ precio_base=<?php echo $send['precio_base']; ?>
+ existencia=<?php echo $send['existencia'];
+ 
+
+}?>
+ 
+ ">
+    <br>
+    
+    <button style="margin-left:20px;margin-bottom:20px" type="button" class="btn btn-success">Exportar Excel</button></a>
+<br>
+   
+                  
+    <?php
+/*
+<form action="inventario.php" method="get">
+    <br>
+    <label>Ordenar Por:</label>
+    <div class="row">
+        <div class="col-12 col-md-3">
+            <select class="form-select" style="margin-top:5px;" aria-label="Default select example" name="filtro1" id="filtro1">
+
+                <?php if (isset($_GET['filtro1']) && $_GET['filtro1'] == 'all') { ?>
+                    <option selected style="margin-top:20px" value="all"> Seleccionado: Mostrar todo</option>
+                <?php } ?>
+                <?php if (isset($_GET['filtro1']) && $_GET['filtro1'] <> 'all') { ?>
+                    <option selected value="<?php echo $categor['id_cat'] ?>">
+
+                        <?php
+                        $sql = "select * from categorias where id_cat='$_GET[filtro1]'";
+                        $nom_cat = $db->seleccionarDatos($sql);
+
+                        foreach ($nom_cat as $nom_cat)
+                            echo 'Seleccionada: ' . $nom_cat['nom_cat'];
+                        ?>
+                    </option>
+                <?php } ?>
+
+                <option style="margin-top:20px" value="all"> Mostrar todo</option>
 
                 <?php
-                $sql="select * from categorias where id_cat='$_GET[filtro1]'";
-                $nom_cat=$db->seleccionarDatos($sql);
+                $sql = "select * from categorias";
+                $categor = $db->seleccionarDatos($sql);
 
-                foreach($nom_cat as $nom_cat)
-                echo 'Seleccionada: '.$nom_cat['nom_cat'];
-            } 
-              ?></option>
-
-      
-
-            <option style="margin-top:20px" value="all"> Mostrar todo</option>
-
-
-            <?php 
-                $sql="select * from categorias";
-                $categor=$db->seleccionarDatos($sql);
-
-                foreach($categor as $categor){
-            ?>
-                <option value="<?php echo $categor['id_cat'] ?>"> <?php echo $categor['nom_cat'] ?></option>
-
-                <?php 
+                foreach ($categor as $categor) {
+                ?>
+                    <option value="<?php echo $categor['id_cat'] ?>"> <?php echo $categor['nom_cat'] ?></option>
+                <?php
                 }
                 ?>
-
-
             </select>
-            </div>
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn" style="background: #005aff; color:white">Aplicar</button>
+</form>
+*/
+?>
 
-
-           </div>
-          <br>
-
-
-           <button type="submit" class="btn" style="background: #005aff; color:white">Aplicar</button>
-
-        </form>
     </div>
 </div>
   <br>
@@ -176,6 +203,8 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
       <td class="text-center"> <?php echo $fila['existencia'] ?></td>
     </tr>
 
+
+
     <?php
                 }
             }
@@ -183,7 +212,8 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 
   </tbody>
 </table>
-                  
+
+
            <?php
             if(empty($con)){
               ?>
