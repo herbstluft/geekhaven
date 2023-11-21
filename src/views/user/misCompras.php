@@ -209,7 +209,7 @@ include('../../../templates/navbar_user.php');
           <div class="container">
 <div class="row">
  <div class="col-md-12">
-  <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Pedidos pendientes por entregar</h1>
+  <h1 class="text-center" style="margin-lefT:25px; margin-top:20px;">Mis compras</h1>
 
   <br>
   <!-----------------------------Filtro---------------------------------->
@@ -266,22 +266,25 @@ include('../../../templates/navbar_user.php');
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
                  -->
-                 <table class="table col-12 " id="tabla" style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
-                    <thead>
-                    <th>
-                        No° de Orden
+                 <table class="table col-12 " id="tabla">
+                    <thead class="row">
+                    <th class="col">
+                        No° de Orden&nbsp;&nbsp;
                       </th>
-                      <th colspan="2">
+                      <th  class="col">
                         1er producto del pedido
                       </th>
                       <th>
+                      &nbsp;&nbsp;&nbsp;
+                      </th>
+                      <th class="col">
                         Cantidad de productos
                       </th>
-                      <th>
+                      <th class="col">
                         Total MXN
                       </th>
                       
-                      <th>
+                      <th class="col">
                         Fecha de pedido
                       </th>
                       <th>
@@ -303,12 +306,12 @@ include('../../../templates/navbar_user.php');
                           $nombre_producto=$mis_compras['nombre_producto'];
 
                       ?>
-                      <tr  style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
-                      <td>
+                      <tr class="row" style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
+                      <td class="col">
                         <h4 align="center">
                       <?php echo $id_venta ?>
                       </h4>
-                      <th>
+                      <th class="col">
                           <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
                           $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                           $sacarImg=$db1->seleccionarDatos($sacarImgQry);
@@ -316,10 +319,10 @@ include('../../../templates/navbar_user.php');
                           echo $img['nombre_imagen'];}?>" 
                           class=" ms-5" width="120px" height="130px" alt="...">
                       </th>
-                      <td>
+                      <td class="col">
                         <h5 align="center"><?php echo $nombre_producto ?></h5>
                       </td>
-                      <td>
+                      <td class="col">
                         <h6 align="center">
                       <?php 
                     if($cantidad==1){
@@ -331,14 +334,14 @@ include('../../../templates/navbar_user.php');
                     ?>
                     </h6>
                       </td>
-                      <td>
+                      <td class="col">
                         <h4 align="center" class="text-danger">
                       <?php echo '$' . $total; ?>
                       </h4>
                       </td>
                       
                       </td>
-                      <td >
+                      <td class="col">
                         <p align="center">
                         <?php echo 'Dia: '. $fecha2.'<br>' ?>
                         
@@ -347,7 +350,7 @@ include('../../../templates/navbar_user.php');
                         <?php echo 'Año: '.$fecha ?>
                         </p>
                       </td>
-                      <td>
+                      <td class="col">
                       <?php 
                     if($cantidad==1){ ?>
                       <p><a href="misCompras_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
