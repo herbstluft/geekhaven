@@ -45,7 +45,7 @@ $ProductosPedido=$db->seleccionarDatos($ProductosPedidoQry);
             <h3 align="center">Las instrucciones para recoger tu pedido son las siguientes:</h3>
             <ul>
                 <li> Imprime este ticket que comprueba que ya finalizaste tu pedido</li>
-                <li>Luego acude a la tienda en la direccion: Av. Benito Juárez 101, Centro, Local #245 64000 Monterrey, N.L.</li>
+                <li>Luego acude a la tienda en la direccion: Calle Muñoz Campos #698-A Col La Amistad CP: 27054</li>
                 <li> Llega a caja enseñe su ticket de compra (la o el cajero revisara su ticket y le cobrara el total en pesos mexicanos)</li>
                 <li> Una vez hecho el pago en efectivo o tarjeta se te entregara tu pedido.</li>
             </ul>
