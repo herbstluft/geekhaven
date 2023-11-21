@@ -34,6 +34,14 @@ if(isset($_GET['alerta'])){
   <center><p class='fs-1'>No se puede repetir el mismo universo</p></center>
   </div></center>";
   }
+  elseif($alerta='success'){
+    echo " <center><div class='container mt-5'>
+    <div class='alert alert-success col-5' role='alert'>
+      <div class='row'>
+      <h4 class='alert-heading col-12' align='center'>Universo añadido con exito!</h4><br>
+      <center><p class='fs-1'>Ahora tus clientes puede visualizarlo en la pagina principal!</p></center>
+      </div></center>";
+  }
 }
 else{
   echo"";
