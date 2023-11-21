@@ -16,7 +16,7 @@ error_reporting(E_ERROR | E_PARSE);
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Geek Haven</title>
+  <title>Buscar</title>
   <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
   <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />

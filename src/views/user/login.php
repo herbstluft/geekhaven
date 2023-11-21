@@ -51,7 +51,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Geek Haven</title>
+  <title>Inicia Sesion</title>
   <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
   <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
   
