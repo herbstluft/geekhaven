@@ -266,7 +266,7 @@ include('../../../templates/navbar_user.php');
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
                  -->
-                 <table class="table col-12 " id="tabla">
+                 <table class="table col-12 table-responsive " id="tabla">
                     <thead class="row">
                     <th class="col">
                         No° de Orden&nbsp;&nbsp;

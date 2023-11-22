@@ -333,7 +333,7 @@ if(isset($_SESSION['user'])){ ?>
         
 
 
-                  <form action="" method="POST">
+                  <form id="formulario" action="" method="POST">
                    <div class="col-12">
                     <label class="form-label">Nombres </label>
                     <input type="text" class="form-control" name="nombre" placeholder="Nombre (Obligatorio)" value="<?php echo $nombre ?>" style="padding:15px" required="">
@@ -344,11 +344,11 @@ if(isset($_SESSION['user'])){ ?>
                     <input type="text" class="form-control" name="apellido" placeholder="Apellido (Obligatorio)" value="<?php echo $apellido ?>" style="padding:15px" required="">
                 </div>
                 <br>
-
                 <div class="col-12">
-                    <label class="form-label">Correo Electronico</label>
-                    <input type="text" class="form-control" name="correo" placeholder="Correo Electronico (Obligatorio)" value="<?php echo $correo ?>" style="padding:15px" required="">
-                </div>
+    <label class="form-label">Correo Electronico</label>
+    <input type="email" class="form-control" id="correoInput" name="correo" placeholder="Correo Electronico (Obligatorio)" value="<?php echo $correo ?>" style="padding:15px" required pattern=".+@(gmail\.com|outlook\.com|yahoo\.com|icloud\.com|yandex\.com)$" title="Por favor, introduce un correo válido con alguno de los dominios: gmail.com, outlook.com, yahoo.com, icloud.com, yandex.com">
+</div>
+
                    <br>
 
                    <div class="col-12">
@@ -361,6 +361,10 @@ if(isset($_SESSION['user'])){ ?>
                     
                    <center> <button type="submit" name="guardar_datos_personales"  class="btn"  style="background: #005aff; color:white">Guardar Cambios</button></center>
                   </form>
+
+
+
+
                 </div>
 
           </div>

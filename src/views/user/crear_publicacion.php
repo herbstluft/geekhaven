@@ -140,9 +140,23 @@ if (isset($_FILES['imagen'])){
                     </div>
 
                     <div class="col-sm-6 col-lg-6"><br>
-                        <label class="form-label">Precio Del Producto</label>
-                        <input type="number" class="form-control" name="precio_producto" placeholder="$ Precio del producto (Obligatorio)" style="padding:15px" required>
-                    </div>
+    <label class="form-label">Precio Del Producto</label>
+    <input type="number" class="form-control" name="precio_producto" placeholder="$ Precio del producto (Obligatorio)" style="padding:15px" oninput="validarNumero(this)" required>
+</div>
+
+<script>
+    function validarNumero(input) {
+        // Elimina cualquier carácter que no sea un número
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Limita la longitud a 5 dígitos
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10);
+        }
+    }
+</script>
+
+
                 </div>
 
                 

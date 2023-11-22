@@ -102,10 +102,23 @@ include('../../../templates/navbar_user.php');
 
                     
                    <div class="form-outline mb-4">
-                        <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="floatingInput" name="phone" required>
-                        <label for="floatingInput">Numero de telefono</label>
-                      </div>
+                   <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" name="phone" placeholder="Número de teléfono" oninput="validarNumero(this)" required>
+    <label for="floatingInput">Número de teléfono</label>
+</div>
+
+<script>
+    function validarNumero(input) {
+        // Elimina cualquier carácter que no sea un número
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Limita la longitud a 5 dígitos
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10);
+        }
+    }
+</script>
+
                       <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 88.8px;"></div><div class="form-notch-trailing"></div></div></div>
 
 
