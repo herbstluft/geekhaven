@@ -90,7 +90,7 @@ if ($_POST){
 
                 if($mes == $mesHoy){
                   $comparacion=$diaHoy - $dia;
-                  if($comparacion <= 0){  
+                  if($comparacion <= 15){  
                     $class="excedido";
                   }
                   else{
