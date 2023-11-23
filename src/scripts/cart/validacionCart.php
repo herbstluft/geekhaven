@@ -87,7 +87,7 @@ foreach($Productos as  $res){
         <center>
         <a href="http://'.$HOST.'/geekhaven/" class="btn btn-primary pt-2 pb-2 fs-5">Click aqui para volver</a>
         </center>';
-        header('refresh: 3; url=http://'.$HOST.'/geekhaven/src/scripts/cart/ticketCart.php?id_orden='.$id_orden);
+        header('refresh: 1; url=http://'.$HOST.'/geekhaven/src/scripts/cart/ticketCart.php?id_orden='.$id_orden);
     }
     else if (empty($validacionQry)){
         echo '<div class="alert alert-danger" role="alert">
