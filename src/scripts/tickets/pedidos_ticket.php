@@ -8,7 +8,7 @@ require(__DIR__ . '/../../../vendor/autoload.php');
 $db = new Database;
 //obtener el ID de la orden y del usuario
 if ($_POST){
-    $REPORTEQRY="SELECT productos.nom_producto,orden.fecha,  detalle_orden.id_orden,SUM(detalle_orden.cantidad) as 'cant', usuarios.telefono, CONCAT(personas.nombre, personas.apellido) AS 'nombre', personas.correo 
+    $REPORTEQRY="SELECT productos.nom_producto,orden.fecha, month(orden.fecha) as mes, day(orden.fecha) as dia, detalle_orden.id_orden,SUM(detalle_orden.cantidad) as 'cant', usuarios.telefono, CONCAT(personas.nombre, personas.apellido) AS 'nombre', personas.correo 
     from personas join usuarios on personas.id_persona=usuarios.id_persona 
     JOIN detalle_orden on usuarios.id_usuario = detalle_orden.id_usuario 
     JOIN productos on detalle_orden.id_producto = productos.id_producto
@@ -30,9 +30,31 @@ if ($_POST){
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
     />
-
+  <style>
+    .excedido{
+      background-color: #CC1416 !important;
+      color: white;
+    }
+    .excedido2{
+      background-color: #CC1416 !important;
+      color:  #CC1416 !important;
+      width:40px;
+      height:15px;
+      border:none;
+    }
+  </style>
   </head>
   <body>
+    <center>
+    <b style="color: black; font-size:40px;" class="">GeekHaven</b>
+            
+    </center>
+    <center> <h1>Reporte de pedidos pendientes</h1>
+      <button class="excedido2" ></button>
+      <label for="indicador" >Productos con 30 dias o mas de expedido</label>
+  </center>
+   
+    <hr>
   <table class="table" id="tabla">
       <thead>
         
@@ -55,25 +77,42 @@ if ($_POST){
                 $nom_u=$res['nombre'];
                 $correo= $res['correo'];
                 $fecha=$res['fecha'];
+                $mes = $res['mes'];
+                $dia = $res['dia'];
                 // establecer zona hoaria
                 date_default_timezone_set("America/Mexico_City");
 
                     // asignar a una variable la fecha actual
-                $fechaHoy= date("d");
+                $diaHoy= date("d");
+                $mesHoy= date("m");
 
+                
+
+                if($mes == $mesHoy){
+                  $comparacion=$diaHoy - $dia;
+                  if($comparacion <= 0){  
+                    $class="excedido";
+                  }
+                  else{
+                    $class="";
+                  }
+                }
+                else{
+                  $class="excedido";
+                }
                 
 
             ?>
         <tr>
-          <th scope="row" class=""><h5 align="center" class="text-danger"><?php echo $id_orden ?>&nbsp&nbsp&nbsp&nbsp</a></h5></th>
-          <td><?php echo $fecha ?></td>
-          <td><?php echo $tel ?></td>
-          <td><?php echo $correo ?></td>
-          <td><?php echo $nom_u ?></td>
-          <td><?php echo $cantidad ?></td>
+          <th scope="row" class="<?php echo $class?>"><h5 align="center"><?php echo $id_orden ?></a></h5></th>
+          <td class="<?php echo $class?>"><?php echo $fecha; ?></td>
+          <td class="<?php echo $class?>"><?php echo $tel; ?></td>
+          <td class="<?php echo $class?>"><?php echo $correo ;?></td>
+          <td class="<?php echo $class?>"><?php echo $nom_u ;?></td>
+          <td class="<?php echo $class?>"><?php echo $cantidad; ?></td>
         </tr>
         <?php
-            }
+            };
           ?>
       </tbody>
     </table>
@@ -81,28 +120,28 @@ if ($_POST){
   </body>
 </html>
 <?php
-// $html=ob_get_clean();
-//  require_once '../dompdf/autoload.inc.php';
-
-//  use Dompdf\Dompdf;
-// $dompdf = new Dompdf();
-
-// $options = $dompdf->getOptions();
-// $options->set(array('isRemoteEnabled'=> true));
-// $dompdf->setOptions($options);
-
-// $dompdf->loadHtml($html);
-
-// // formato carta
-// $dompdf->setPaper('letter');
-// // formato horizontal
-// // $dompdf-setPaper('A4','Landscape');
-
-// $dompdf->render();
-
-// $dompdf->stream("ticket1.pdf",array("Attachment"=>true));
-
-// $HOST=$_SERVER['SERVER_NAME'];
-// header("refresh: 3; url=http://'.$HOST.'/geekhaven/");
 }
+$html=ob_get_clean();
+ require_once '../dompdf/autoload.inc.php';
+          
+ use Dompdf\Dompdf;
+$dompdf = new Dompdf();
+
+$options = $dompdf->getOptions();
+$options->set(array('isRemoteEnabled'=> true));
+$dompdf->setOptions($options);
+
+$dompdf->loadHtml($html);
+
+// formato carta
+$dompdf->setPaper('letter');
+// formato horizontal
+// $dompdf-setPaper('A4','Landscape');
+
+$dompdf->render();
+
+$dompdf->stream("ticket1.pdf",array("Attachment"=>true));
+
+$HOST=$_SERVER['SERVER_NAME'];
+header("refresh: 3; url=http://'.$HOST.'/geekhaven/");
 ?>
