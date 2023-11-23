@@ -32,6 +32,7 @@ include('../../../templates/navbar_user.php');
             <tr>
               <th scope="col" colspan="2" >Producto</th>
               <th scope="col">Cantidad</th>
+              <th>Precio Unitario</th>
               <th scope="col">Total</th>
             </tr>
           </thead>
@@ -41,7 +42,7 @@ include('../../../templates/navbar_user.php');
               $id_orden=$_GET['id_orden'];
               $usr=$_GET['usr'];}
               // USAR EL ID DE LA ORDEN PARA OBTENER TODOS LOS PRODUCTOS DEL CARRITO
-              $carritoConsulta="SELECT PRD.id_producto,PRD.nom_producto, PRD.precio*detalle_orden.cantidad as total ,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat FROM usuarios JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden ORDER BY `total`";
+              $carritoConsulta="SELECT PRD.id_producto,PRD.nom_producto,PRD.precio, PRD.precio*detalle_orden.cantidad as total ,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat FROM usuarios JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden ORDER BY `total`";
               $carrito=$db->seleccionarDatos($carritoConsulta);
             foreach($carrito as $res){
             ?>
@@ -51,11 +52,12 @@ include('../../../templates/navbar_user.php');
                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                      $sacarImg=$db->seleccionarDatos($sacarImgQry);
                 foreach($sacarImg as $imagPrd){
-                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="40%"  height="40%" alt="..."><?php echo "";}?>
+                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="80"  height="80" alt="..."><?php echo "";}?>
               </th>
               <td class="fs-3"><br><?php echo $res['nom_producto'];?></td>
               <td class="fs-3"><br><?php echo $res['cantidad'];?></td>
-              <td class="fs-3"><br><?php echo $res['total'];?> <br> <a href="http://localhost/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
+              <td class="fs-3"><br><?php echo '$'.$res['precio'];?></td>
+              <td class="fs-3"><br><?php echo '$'.$res['total'];?> <br> <a href="http://localhost/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
                                              <?php echo $usr;?>&ord=<?php echo $id_orden?>&cantidad=<?php echo $res['cantidad'];?>" class="btn btn-outline-dark border-0"><strong>Quitar</strong></a></td>
             </tr>
             <?php echo "";}?>

@@ -39,7 +39,20 @@ $ProductosPedido=$db->seleccionarDatos($ProductosPedidoQry);
 
   </head>
   <body>
+    
     <div class="mx-auto  p-5" style="width:60%">
+    <center>
+    <svg style="width:80;" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="black" class="bi bi-joystick" viewBox="0 0 16 16">
+              <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"></path>
+              <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"></path>
+            </svg>
+  <br>
+            <b style="color: black; font-size:40px;" class="">GeekHaven</b>
+            <br>
+            <p style="color:grey;">Comercializadora GeekHaven S.A de C.V</p>
+            <p style="color:grey;">RFC: GAHG231122ABC </p>
+    </center>
+            <br>
         <H1 align="center">INSTRUCCIONES</H1>
         
             <h3 align="center">Las instrucciones para recoger tu pedido son las siguientes:</h3>
@@ -83,8 +96,8 @@ $ProductosPedido=$db->seleccionarDatos($ProductosPedidoQry);
       <th scope="row" class="fs-5"><?php echo $res['id_producto']; ?></th>
       <td class="fs-5"><?php echo $res['nom_producto']; ?></td>
       <td align="center" class="fs-5"><?php echo $res['cantidad']; ?></td>
-      <td align="center" class="fs-5"><?php echo $res['precio']; ?></td>
-      <td align="center" class="fs-5"><?php foreach($totalPrd as $to){ echo $to['TOTAL'];}}?></td>
+      <td align="center" class="fs-5"><?php echo '$'.$res['precio']; ?></td>
+      <td align="center" class="fs-5"><?php foreach($totalPrd as $to){ echo '$'.$to['TOTAL'];}}?></td>
     </tr>
   </tbody>
 </table>
