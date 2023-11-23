@@ -78,7 +78,7 @@ ini_set('display_errors', 1);
     margin-left:-58px;
   position: relative;
   border-radius: 3%;
-  border: 6px solid #F8F8F8;
+  border: 6px dashed black;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 .avatar-upload .avatar-preview > div {
@@ -217,44 +217,38 @@ foreach ($id_publicacion as $id_publicacion){
 
 
 //si hay un metodo FIles[imagen]
-if (isset($_FILES['imagen'])){  
-    $id_usuario = $_POST['id_usuario'];
-  
-     // Carpeta temporal para almacenar las imágenes
-     $carpeta_temporal = 'img_pub_trq/';
-     if (!is_dir($carpeta_temporal)) {
-         mkdir($carpeta_temporal, 0755, true);
-     }
-  
-      //cuenta las imagenes que hay en el array
-      $cantidad= count($_FILES["imagen"]["tmp_name"]);
-      //recorre cada una de las imagenes para saber el nombre de cada una de ellas
-      for ($i=0; $i<$cantidad; $i++){
-      //Comprobamos si el fichero es una imagen
-      if ($_FILES['imagen']['type'][$i]=='image/png' || $_FILES['imagen']['type'][$i]=='image/jpeg'){
-      
-      //guardamos los datos de cada imagen, por ejemplo el nombre
-      if (!empty($_FILES['imagen']['name'][0])) {
-        $nombre_imagenes = $_FILES['imagen']['name'];
-        $rutas_temporales = $_FILES['imagen']['tmp_name'];
-    
-        for ($i = 0; $i < count($nombre_imagenes); $i++) {
-            $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
-           
-            $ruta_temporal = $rutas_temporales[$i];
-            $ruta_destino = $carpeta_temporal . $nombre_imagen;
-    
-            //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
-            if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
-                // Guardar el nombre de la imagen en la base de datos
-                $db->ejecutarConsulta("INSERT INTO img_pub_trq (id_publicacion, nombre_imagen) VALUES ($id_pub, '$nombre_imagen')");
-            }
-        }
-    }
-      }
-      else $validar=false;
-    }
+// Si hay un método $_FILES['imagen']
+if (isset($_FILES['imagen'])) {
+  $id_usuario = $_POST['id_usuario'];
+
+  // Carpeta temporal para almacenar las imágenes
+  $carpeta_temporal = 'img_pub_trq/';
+  if (!is_dir($carpeta_temporal)) {
+      mkdir($carpeta_temporal, 0755, true);
   }
+
+  // Comprobamos si se ha subido una sola imagen
+  if ($_FILES['imagen']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['imagen']['tmp_name'])) {
+      // Comprobamos si el fichero es una imagen
+      if ($_FILES['imagen']['type'] == 'image/png' || $_FILES['imagen']['type'] == 'image/jpeg') {
+
+          // Guardamos los datos de la imagen
+          $nombre_imagen = $_FILES['imagen']['name'];
+          $ruta_temporal = $_FILES['imagen']['tmp_name'];
+          $ruta_destino = $carpeta_temporal . $nombre_imagen;
+
+          // Movemos la imagen a la carpeta temporal
+          if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
+              // Guardar el nombre de la imagen en la base de datos
+              $db->ejecutarConsulta("INSERT INTO img_pub_trq (id_publicacion, nombre_imagen) VALUES ($id_pub, '$nombre_imagen')");
+          }
+      } else {
+          $validar = false;
+      }
+  } else {
+      $validar = false;
+  }
+}
 
 
 
@@ -326,7 +320,7 @@ if (isset($_FILES['imagen'])){
                                 </svg> &ensp;Subir Imagen
                             </i>
                         </label>
-                        <input type='file' id="img" accept=".png, .jpg, .jpeg" onchange="displayImage(this)" />
+                        <input name="imagen" type='file' id="img" accept=".png, .jpg, .jpeg" onchange="displayImage(this)" />
                     </div>
                 </div>
             </div>
