@@ -100,7 +100,19 @@ include('../../../templates/navbar_user.php');
 
                    <div style="margin-top:60px">
 
-                    
+                   <?php
+    if($_POST){
+
+             if(!password_verify($password,$password_hash)) { 
+                 echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-top:-2%; margin-bottom:7%; margin-right:10%;'>
+                 Contraseña o numero incorrecto.
+               </div>";  
+               }
+        
+              }
+      
+         
+         ?> 
                    <div class="form-outline mb-4">
                    <div class="form-floating mb-3">
     <input type="text" class="form-control" id="floatingInput" name="phone" placeholder="Número de teléfono" oninput="validarNumero(this)" required>
@@ -170,19 +182,7 @@ include('../../../templates/navbar_user.php');
                   </div>
                 </div>
               </div>
-              <?php
-    if($_POST){
 
-             if(!password_verify($password,$password_hash)) { 
-                 echo  "<div class='alert alert-danger text-center' role='alert' style='margin-left:10%; margin-top:-2%; margin-bottom:7%; margin-right:10%;'>
-                 Contraseña o numero incorrecto.
-               </div>";  
-               }
-        
-              }
-      
-         
-         ?>
 
             </div>
           </div>

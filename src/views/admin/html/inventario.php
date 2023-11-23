@@ -8,17 +8,32 @@ session_start();
     $sql = "SELECT * FROM categorias";
     $categorias =$db->seleccionarDatos($sql);
 
-    if (isset($_GET['filtro1']) && $_GET['filtro1'] == 'all') {
-        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat inner join universo on productos.universo_id=universo.id_universo inner join tipo on tipo.id_tipo = productos.tipo_id   ORDER BY productos.nom_producto ASC ";
+ 
+    if (isset($_POST['min']) && isset($_POST['max'])) {
+
+        $filtroExistencia = $_POST['min'];
+        $filtroExistenciaMax =  $_POST['max'];
+      
+        $SQL = "SELECT * FROM productos 
+        INNER JOIN categorias ON categorias.id_cat = productos.id_cat 
+        INNER JOIN universo ON productos.universo_id = universo.id_universo 
+        INNER JOIN tipo ON tipo.id_tipo = productos.tipo_id 
+        WHERE productos.existencia BETWEEN $filtroExistencia AND $filtroExistenciaMax
+        ORDER BY productos.nom_producto ASC";
+
     }
-    elseif (isset($_GET['filtro1'])) {
-        $id_categoria = $_GET['filtro1'];
-        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat inner join universo on productos.universo_id=universo.id_universo inner join tipo on tipo.id_tipo = productos.tipo_id  where categorias.id_cat='$id_categoria'  ORDER BY productos.nom_producto ASC";
+    else{
+        
+    $SQL = "SELECT * FROM productos 
+    INNER JOIN categorias ON categorias.id_cat = productos.id_cat 
+    INNER JOIN universo ON productos.universo_id = universo.id_universo 
+    INNER JOIN tipo ON tipo.id_tipo = productos.tipo_id 
+    ORDER BY productos.nom_producto ASC";
+
     }
 
-    else {
-        $SQL = "SELECT * FROM productos INNER JOIN categorias ON categorias.id_cat=productos.id_cat inner join universo on productos.universo_id=universo.id_universo inner join tipo on tipo.id_tipo = productos.tipo_id   ORDER BY productos.nom_producto ASC ";
-    }
+
+ 
     
 
     
@@ -58,7 +73,7 @@ session_start();
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
 </svg>
 
-            <input data-table="table_id" name="filtro1" class="light-table-filter" type="text" id="search-input" placeholder=" Buscar en GeekHaven"> 
+            <input data-table="table_id" name="filtro1" class="light-table-filter" type="text" id="search-input" placeholder=" Buscar en Inventario"> 
             <input type="hidden" name="id" value="<?php echo $id_categoria; ?>">
         </form>
 </div>
@@ -84,6 +99,50 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 
 <br><br>
 
+
+
+<!---Filtro de busqueda por existencia-->
+<form action="inventario.php" method="post">
+<div class="row">
+
+<p style="margin-bottom:20px; font-weight:bold" class=" text-center">Busque productos entre un rango de existencias</p>
+
+<div class="col-md-6 col-6 mb-4">
+<div class="form-floating mb-3">
+<input type="number" class="form-control" id="floatingInput" name="min" placeholder="Número de teléfono" oninput="validarNumero(this)" required>
+<label for="floatingInput">Minimo</label>
+</div>
+</div>  
+<div class="col-md-6  col-6 mb-4">
+<div class="form-floating mb-3">
+<input type="number" class="form-control" id="floatingInput" name="max" placeholder="Número de teléfono" oninput="validarNumero(this)" required>
+<label for="floatingInput">Maximo</label>
+</div>
+</div> 
+
+<center>    <button style="margin-bottom:20px" type="submit" class="btn btn-success"> Filtrar</button></a> </center>
+
+</form>
+<!---Filtro de busqueda por existencia-->
+
+
+
+<script>
+    function validarNumero(input) {
+        // Elimina cualquier carácter que no sea un número
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Limita la longitud a 5 dígitos
+        if (input.value.length > 10) {
+            input.value = input.value.slice(0, 10);
+        }
+    }
+</script>
+
+</div>
+
+
+<br>
 <div style="margin-left:20px">
 <span>
     
