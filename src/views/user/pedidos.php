@@ -142,6 +142,17 @@ session_start();
   padding: 15px;
   background-color: #fff;
 }
+.excedido{
+      background-color: #FA896B !important;
+      color: white !important;
+    }
+    .excedido2{
+      background-color: #FA896B !important;
+      color:  #FA896B !important;
+      width:40px;
+      height:15px;
+      border:none;
+    }
 .select-box__list {
   position: absolute;
   width: 100%;
@@ -186,6 +197,7 @@ session_start();
   to {
     transform: scaleY(0);
   }
+  
 }
 
 
@@ -266,7 +278,8 @@ include('../../../templates/navbar_user.php');
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
                  -->
-                 <table class="table col-12 " id="tabla" style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
+                 <div class="table-responsive">
+                 <table class="table col-12" id="tabla" style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
                     <thead>
                     <th>
                         No° de Orden
@@ -302,13 +315,36 @@ include('../../../templates/navbar_user.php');
                           $fecha2=$mis_compras['dia'];
                           $nombre_producto=$mis_compras['nombre_producto'];
 
+                           // establecer zona hoaria
+                date_default_timezone_set("America/Mexico_City");
+
+                // asignar a una variable la fecha actual
+            $diaHoy= date("d");
+            $mesHoy= date("m");
+
+            
+
+            if($fecha1 == $mesHoy){
+              $comparacion=$diaHoy - $fecha2;
+              if($comparacion > 15){  
+                $class="excedido";
+              }
+              else{
+                $class="";
+              }
+            }
+            else{
+              $class="excedido";
+            }
+
+
                       ?>
                       <tr  style="background:white; padding:25px; margin-bottom:30px; border-radius:10px; box-shadow: 0 0 6px rgb(123 123 123 / 30%);">
-                      <td>
-                        <h4 align="center">
+                      <td  class="<?php echo $class?>">
+                        <h4 align="center"  class="<?php echo $class?>">
                       <?php echo $id_venta ?>
                       </h4>
-                      <th>
+                      <th  class="<?php echo $class?>">
                           <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
                           $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                           $sacarImg=$db1->seleccionarDatos($sacarImgQry);
@@ -316,11 +352,11 @@ include('../../../templates/navbar_user.php');
                           echo $img['nombre_imagen'];}?>" 
                           class=" ms-5" width="120px" height="130px" alt="...">
                       </th>
-                      <td>
-                        <h5 align="center"><?php echo $nombre_producto ?></h5>
+                      <td  class="<?php echo $class?>">
+                        <h5  class="<?php echo $class?>" align="center"><?php echo $nombre_producto ?></h5>
                       </td>
-                      <td>
-                        <h6 align="center">
+                      <td  class="<?php echo $class?>">
+                        <h6  class="<?php echo $class?>" align="center">
                       <?php 
                     if($cantidad==1){
                         echo $cantidad.'<br>'. 'Producto';
@@ -331,14 +367,14 @@ include('../../../templates/navbar_user.php');
                     ?>
                     </h6>
                       </td>
-                      <td>
-                        <h4 align="center" class="text-danger">
+                      <td  class="<?php echo $class?>">
+                        <h4 align="center"  class="<?php echo $class?>">
                       <?php echo '$' . $total; ?>
                       </h4>
                       </td>
                       
                       </td>
-                      <td >
+                      <td  class="<?php echo $class?>">
                         <p align="center">
                         <?php echo 'Dia: '. $fecha2.'<br>' ?>
                         
@@ -347,13 +383,13 @@ include('../../../templates/navbar_user.php');
                         <?php echo 'Año: '.$fecha ?>
                         </p>
                       </td>
-                      <td>
+                      <td  class="<?php echo $class?>">
                       <?php 
                     if($cantidad==1){ ?>
-                      <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
+                      <p><a  class="<?php echo $class?>" href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
                     <?php } 
                     elseif($cantidad > 1){ ?>
-                        <p><a href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
+                        <p><a  class="<?php echo $class?>" href="pedidos_detalle.php?id_o=<?php echo urlencode($id_venta); ?>&id_orden=<?php echo urlencode($id_venta); ?>&fecha=<?php echo urlencode($fecha); ?>&cantidad=<?php echo urlencode($cantidad); ?>&total=<?php echo urlencode($total); ?>&usr=<?php echo $usr?>"> Ver detalles de la compra</a>
                         </p>
                     <?php     
                     }
@@ -365,6 +401,8 @@ include('../../../templates/navbar_user.php');
                     </tbody>
                     
                  </table>
+                 </div>
+                 
         <?php
 
 ?>

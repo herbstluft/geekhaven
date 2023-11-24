@@ -61,7 +61,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
            FROM usuarios
            JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
            JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
-           WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden";
+           WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden and PRD.existencia>0";
            $carrito=$db->seleccionarDatos($carritoConsulta);
           if(!empty($carrito)){
 ?>
@@ -433,29 +433,29 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
   WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PCN";
   $Cantidad=$db->seleccionarDatos($CantidadDePrdQry);
 
-  if(!empty($Cantidad)){
-  ?>
-    <span style="width:37px; background:#005aff; z-index:0"class="mt-3 position-absolute top-0 start-100 translate-middle badge rounded-pill">
+  // if(!empty($Cantidad)){
+  // ?>
+    <!-- <span style="width:37px; background:#005aff; z-index:0"class="mt-3 position-absolute top-0 start-100 translate-middle badge rounded-pill"> -->
       <?php
-      foreach($Cantidad as $res){
-        echo $res['productos'];
-      }
+      // foreach($Cantidad as $res){
+      //   echo $res['productos'];
+      // }
       ?>
-    </span>
+    <!-- </span> -->
     <?php }
-    else{
+    // else{
 
-    }
+    // }
     ?>
 
              </li>
              <?php  
 }
-else{
-   ?>
+// else{
+//    ?>
    
-   <?php
-}}
+  <?php
+// }}
 
               ?>
           
