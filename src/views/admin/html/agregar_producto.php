@@ -16,6 +16,156 @@
   <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
 
 </head>
+<style>
+
+/* Esto es codigo css de agregar imagen*/
+.container {
+  max-width: 9260px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.avatar-upload {
+  position: relative;
+  max-width: 100%;
+  margin: 50px auto;
+}
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+.avatar-upload .avatar-edit input + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+.avatar-upload .avatar-edit input + label:after {
+  content: "\f040";
+  font-family: 'FontAwesome';
+  color: #757575;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+}
+.avatar-upload .avatar-preview {
+    width: 357px;
+    padding-top:15px;
+    height: 405px;
+    margin-left:-58px;
+  position: relative;
+  border-radius: 3%;
+  border: 6px dashed black;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview > div {
+    margin-left:10px;
+    padding-right: 20px;
+  width: 330px;
+  height: 300px;
+  border-radius: 3%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+
+
+.variants {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .variants > div {
+    margin-right: 5px;
+  }
+  
+  .variants > div:last-of-type {
+    margin-right: 10px;
+    margin-bottom:50px;
+  }
+   
+.file {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file > input[type='file'] {
+  display: none
+}
+
+.file > label {
+  font-size: 1rem;
+  font-weight: 300;
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-style: solid;
+  border-radius: 4px;
+  border-width: 1px;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 29%);
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file > label:hover {
+  border-color: hsl(0, 0%, 21%);
+}
+
+.file > label:active {
+  background-color: hsl(0, 0%, 96%);
+}
+
+.file > label > i {
+  padding-right: 5px;
+}
+
+.file--upload > label {
+ 
+  border-color: hsl(204, 86%, 53%);
+}
+
+.file--upload > label:hover {
+  border-color: hsl(204, 86%, 53%);
+  background-color: hsl(204, 86%, 96%);
+}
+
+.file--upload > label:active {
+  background-color: hsl(204, 86%, 91%);
+}
+</style>
+
+
 
 <body>
 
@@ -30,100 +180,38 @@
         <div style="padding: 20px">
 
 
-        <?php
+   
 
-if ($_SERVER["REQUEST_METHOD"] === "POST")  {
-
-    $nombre = $_POST['nombre'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $existencia = $_POST['existencia'];
-    $estado = $_POST['estado'];
-    $categoria = $_POST['categoria'];
-    $tipo = $_POST['tipo'];
-    $universo = $_POST['universo'];
-    $fecha_actual = $_POST['fecha'];
-    $costo = $_POST['costo'];
-
-    $sql = "INSERT INTO productos (nom_producto, precio, descripcion, existencia, estado, id_cat, tipo_id, universo_id, fecha, precio_base) 
-    VALUES ('$nombre', '$precio', '$descripcion', '$existencia', '$estado', '$categoria', '$tipo', '$universo', '$fecha_actual', '$costo')";
-    
-    $result = $db->ejecutarConsulta($sql);
-
-    $sql= "SELECT * FROM productos WHERE nom_producto = '$nombre' AND fecha = '$fecha_actual';";
-    $result = $db->seleccionarDatos($sql);
-    foreach($result as $res){
-        $id_prd= $res['id_producto'];
+<?php 
+if (isset($_GET['mensaje'])) {
+    if ($_GET['mensaje'] == 'success') {
+        echo " <br<div class='container mt-5'>
+      <div class='alert alert-success' role='alert'>
+        <div class='row'>
+        <h1 class='alert-heading col-12' align='center' style='font-size: 1.5em;'>Producto Agregado</h1><br>
+        </div>
+        </div>
+        </div>";
     }
-
 
 }
-
-?>
-
-
-
-<?php
-
-
-//si hay un metodo FIles[imagen]
-if (isset($_FILES['imagen'])){  
-    $id_usuario = $_POST['id_usuario'];
-  
-     // Carpeta temporal para almacenar las imágenes
-     $carpeta_temporal = 'img_producto/';
-     if (!is_dir($carpeta_temporal)) {
-         mkdir($carpeta_temporal, 0755, true);
-     }
-  
-      //cuenta las imagenes que hay en el array
-      $cantidad= count($_FILES["imagen"]["tmp_name"]);
-      //recorre cada una de las imagenes para saber el nombre de cada una de ellas
-      for ($i=0; $i<$cantidad; $i++){
-      //Comprobamos si el fichero es una imagen
-      if ($_FILES['imagen']['type'][$i]=='image/png' || $_FILES['imagen']['type'][$i]=='image/jpeg'){
-      
-      //guardamos los datos de cada imagen, por ejemplo el nombre
-      if (!empty($_FILES['imagen']['name'][0])) {
-        $nombre_imagenes = $_FILES['imagen']['name'];
-        $rutas_temporales = $_FILES['imagen']['tmp_name'];
-    
-        for ($i = 0; $i < count($nombre_imagenes); $i++) {
-            $nombre_imagen = $nombre_imagenes[$i];  //aqui se guarda el nombre de la imagen
-            $ruta_temporal = $rutas_temporales[$i];
-            $ruta_destino = $carpeta_temporal . $nombre_imagen;
-    
-            //movemos las imagenes a la carpeta temporal, en este caso se creo una llamada img_pub_trq
-            if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
-                // Guardar el nombre de la imagen en la base de datos
-                $db->ejecutarConsulta("INSERT INTO img_productos (id_producto,nombre_imagen) VALUES ('$id_prd','$nombre_imagen')");
-            }
-        }
-    }
-      }
-      else $validar=false;
-    }
-  }
-
-
-
 ?>
 
             <h2 class="text-center">GeekMarket Publica Productos En Linea</h2>
             <p class="text-center" style="color:#838383; font-size:20px">Registro de Productos</p>
 
-        <form action="agregar_producto.php" method="post" enctype="multipart/form-data">
+        <form action="agg_prd.php" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nombre" class="form-label"><strong>Nombre</strong></label>
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Escribe el nombre del producto aquí" required>
         </div>       
         <div class="mb-3">
             <label for="precio" class="form-label"><strong>Precio</strong></label>
-            <input type="text" name="precio" id="precio" class="form-control" placeholder="Escribe el precio del producto aquí" required>
+            <input type="number" name="precio" id="precio" class="form-control"  min="1" placeholder="Escribe el precio del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="existencia" class="form-label"><strong>Existencia</strong></label>
-            <input type="number" name="existencia" id="existencia" class="form-control" placeholder="Escribe la existencia del producto aquí" required>
+            <input type="number" name="existencia" id="existencia" class="form-control" pattern="[1-9]\d" min="1" placeholder="Escribe la existencia del producto aquí" required>
         </div>
         <div class="mb-3">
             <label for="descripcion" class="form-label"><strong>Descripción</strong></label>
@@ -189,36 +277,78 @@ if (isset($_FILES['imagen'])){
 
         <div class="mb-3">
             <label for="precio_base" class="form-label"><strong>Costo</strong></label>
-            <input type="number" name="costo" id="costo" class="form-control" placeholder="Escribe el costo base del producto aquí" required>
+            <input type="number" name="costo" id="costo" class="form-control"  min="1" placeholder="Escribe el costo base del producto aquí" required>
         </div>
         <br>
 
-        <div class="my-form"  style="display: contents; margin-top: 0;">
-                
-        <div id="drop-area">
-                   <center>
-                   <p>Puede subir varios archivos con el cuadro de diálogo de archivos.</p>
-                   </center>
-                    <center>
-                      <input type="file" id="fileElem" name="imagen[]" value="" multiple accept="image/*" onchange="handleFiles(this.files)">
-                   
-                 
-                    <label class="button" for="fileElem">Seleccione las imagenes</label>
-                  <br><br>
-                  <progress id="progress-bar" max=100 value=0 style="width:100%;"></progress>
-
-                  </center>
-                  
-
-                 <center>
-        <div id="gallery" /> </div>
-                 </center>
+       <!---Agregar imagen-->
+<center>
+    <div class="container">
+        <div class="avatar-upload">
+            <div>
+                <div class="variants">
+                    <div class='file file--upload'>
+                        <label for="img">
+                            <i class="material-icons">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cloud-plus-fill" viewBox="0 0 16 16">
+                                    <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2m.5 4v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+                                </svg> &ensp;Subir Imagen
+                            </i>
+                        </label>
+                        <input name="imagen" type='file' id="img" accept=".png, .jpg, .jpeg" onchange="displayImage(this)" />
+                    </div>
+                </div>
+            </div>
+            <div class="avatar-preview">
+                <div id="imagePreview" style="background-image: url(https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png);"></div>
+                <button  onclick="deleteImage()" type="button" name="guardar_datos_personales" class="btn" style="background: #ff4e4e; padding-left:30px;margin-top:19px; padding-right:30px;">
+                    <svg onclick="deleteImage()" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                        <path d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
+    </div>
+</center>
 
-                <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user'] ?>">
+<script>
+    function displayImage(input) {
+        var file = input.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('imagePreview').style.backgroundImage = 'url(' + e.target.result + ')';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function deleteImage() {
+        // Eliminar la imagen actual y establecer la imagen por defecto
+        document.getElementById('imagePreview').style.backgroundImage = 'url(https://pixsector.com/cache/517d8be6/av5c8336583e291842624.png)';
+        // También puedes restablecer el valor del input de tipo file si es necesario
+        document.getElementById('imageUpload').value = '';
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imagePreview").css("background-image", "url(" + e.target.result + ")");
+                $("#imagePreview").hide();
+                $("#imagePreview").fadeIn(650);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
+</script>
+<!---Agregar imagen-->
+        <input type="hidden" name="id_usuario" value="<?php echo $_SESSION['user'] ?>">
                 <center> <button type="submit" name="guardar_datos_personales" class="btn" style="background: #005aff; padding-left:30px; padding-right:30px; color:white">Agregar Producto</button></center>
 
-        </div>
         </form>
 
 
