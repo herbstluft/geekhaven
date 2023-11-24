@@ -58,7 +58,7 @@
             <hr style="opacity:0.1">
 
             <?php
-$productosOrdenQry="SELECT orden.fecha,productos.nom_producto,detalle_orden.cantidad,productos.precio, (productos.precio*detalle_orden.cantidad) as 'total', usuarios.telefono, CONCAT(personas.nombre, personas.apellido) AS 'nombre', personas.correo 
+$productosOrdenQry="SELECT orden.fecha,productos.id_producto, productos.nom_producto,detalle_orden.cantidad,productos.precio, (productos.precio*detalle_orden.cantidad) as 'total', usuarios.telefono, CONCAT(personas.nombre, personas.apellido) AS 'nombre', personas.correo 
 from personas join usuarios on personas.id_persona=usuarios.id_persona 
 JOIN detalle_orden on usuarios.id_usuario = detalle_orden.id_usuario 
 JOIN productos on detalle_orden.id_producto = productos.id_producto
@@ -77,7 +77,11 @@ foreach ($productosOrden as $mis_compras){
 ?>
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
-                    <img src="img_profile/logo_chat.png" style="width:120px; height:120px; border-radius:10px" alt="" srcset="">
+                <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$mis_compras['id_producto'];
+                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                     $sacarImg=$db->seleccionarDatos($sacarImgQry);
+                foreach($sacarImg as $imagPrd){
+                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="135"  height="135" alt="..."><?php echo "";}?>
                 </div>
 
                 <div class="col-7 text-center" style="padding-top:30px">
@@ -169,7 +173,7 @@ foreach ($productosOrden as $mis_compras){
     </div>
   </div>
 </div>
-<center><a href="listaPedidos.php"><button type="button" class="btn btn-primary col-12 fs-5 mb-2">Regresar atras</button></a></center>
+<center><a href="listaPedidos.php"><button type="button" class="btn btn-primary col-12 fs-5 mb-2">Volver</button></a></center>
 
   </div>
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>

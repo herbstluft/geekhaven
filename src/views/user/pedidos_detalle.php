@@ -153,7 +153,7 @@ foreach ($mis_compras as $mis_compras){
 
 <center><a href="http://<?php echo $HOST?>/geekhaven/src/scripts/tickets/loading_ticket.php?id_orden=<?php echo $id_orden?>&usr=<?php echo $usr?>" class="btn btn-danger col-12 fs-5 mb-2">Imprimir Ticket del pedido</a>
                 
-<center><a href="pedidos.php?usr=<?php echo $usr?>"><button type="button" class="btn btn-primary col-12 fs-5">Regresar atras</button></a></center>
+<center><a href="pedidos.php?usr=<?php echo $usr?>"><button type="button" class="btn btn-primary col-12 fs-5">Volver</button></a></center>
 
 <br>
 <br>

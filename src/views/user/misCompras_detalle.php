@@ -151,7 +151,7 @@ foreach ($mis_compras as $mis_compras){
 </div>
 
 
-<center><a href="misCompras.php?usr=<?php echo $usr?>"><button type="button" class="btn btn-primary col-12 fs-5">Regresar atras</button></a></center>
+<center><a href="misCompras.php?usr=<?php echo $usr?>"><button type="button" class="btn btn-primary col-12 fs-5">Volver</button></a></center>
 
 <br>
 <br>

@@ -371,16 +371,16 @@ foreach($recien_llegados as $recien_llegados){
 <div class="scroll-appear">
     <div class="row">
         <div class="col-sm-12 col-lg-4 left">
-          <h2>Nosotros</h2>
-          <p class="card__category">En nuestra tienda, encontrarás una cuidadosa selección de productos de alta calidad y ediciones especiales que se adaptan a tus intereses y gustos únicos. Ya seas un fanático de las historias de superhéroes, un ávido jugador de videojuegos o un coleccionista de figuras raras, estamos aquí para satisfacer tus necesidades.</p>
-          <br>
-          <h2>Nuestra mision</h2>
-          <p class="card__category">Somos una tienda creada con pasión por y para los coleccionistas y entusiastas del mundo geek, friki y gamer. Nos apasiona proporcionar un espacio donde puedas encontrar una amplia variedad de artículos coleccionables, desde cómics y mangas hasta videojuegos y juegos de mesa. Nuestra misión es hacer que la obtención de tus artículos favoritos sea fácil y emocionante.</p>
+        <h2>Nosotros</h2>
+            <p class="card_category" style ="text-align: justify;">En nuestra tienda, encontrarás una cuidadosa selección de productos de alta calidad y ediciones especiales que se adaptan a tus intereses y gustos únicos. Ya seas un fanático de las historias de superhéroes, un ávido jugador de videojuegos o un coleccionista de figuras raras, estamos aquí para satisfacer tus necesidades.</p>
+            <br>
+            <h2>Nuestra misión</h2>
+            <p class="card_category text-justify" style ="text-align: justify;">Somos una tienda creada con pasión por y para los coleccionistas y entusiastas del mundo geek, friki y gamer. Nos apasiona proporcionar un espacio donde puedas encontrar una amplia variedad de artículos coleccionables, desde cómics y mangas hasta videojuegos y juegos de mesa. Nuestra misión es hacer que la obtención de tus artículos favoritos sea fácil y emocionante.</p>
         </div>
     <br>
         <div class="col-sm-12 col-lg-7 text-center">
         <h1>Nuestra ubicacion</h1>
-          <p class="card__category"> Calle Muñoz Campos #698-A Col.La Amistad</p>
+          <p class="card__category" > Calle Muñoz Campos #698-A Col.La Amistad</p>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3599.605619453558!2d-103.3643797239029!3d25.551510617257275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fdb32fdffc36f%3A0x73181d7959ea4557!2sC.%20Mu%C3%B1oz%20Campos%2C%2027054%20Torre%C3%B3n%2C%20Coah.!5e0!3m2!1ses-419!2smx!4v1700536411832!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     
