@@ -13,7 +13,6 @@
         $nombre = $_POST['nombre'];
         $precio = $_POST['precio'];
         $descripcion = $_POST['descripcion'];
-        $existencia = $_POST['existencia'];
         $estado = $_POST['estado'];
         $categoria = $_POST['categoria'];
         $tipo = $_POST['tipo'];
@@ -34,9 +33,7 @@
         $update_descripcion_nuveo = "UPDATE `productos` SET `descripcion` = '$descripcion' WHERE id_producto = $_SESSION[id_producto]";
         $update_descripcion=$db->ejecutarConsulta($update_descripcion_nuveo);
 
-        //Actualizar existencia
-        $update_existencia_nuevo = "UPDATE `productos` SET `existencia` = '$existencia' WHERE id_producto = $_SESSION[id_producto]";
-        $update_existencia = $db->ejecutarConsulta($update_existencia_nuevo);
+
 
          //Actualizar estado
         $update_estado_nuveo = "UPDATE `productos` SET `estado` = '$estado' WHERE id_producto = $_SESSION[id_producto]";
@@ -70,7 +67,6 @@
             $prd_nom = $res['nom_producto'];
             $prd_precio = $res['precio'];
             $prd_desc = $res['descripcion'];
-            $prd_exist = $res['existencia'];
             $prd_estado = $res['estado'];
             $prd_cat = $res['id_cat'];
             $prd_tipo = $res['tipo_id'];
@@ -95,11 +91,27 @@
   <link rel="shortcut icon" type="image/png" href="../../views/admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
 </head>
+<style>
+  /* ... Código CSS existente ... */
+
+/* Estilo para el formulario */
+form {
+    margin-top: 20px; /* Puedes ajustar la cantidad de margen según tus necesidades */
+}
+
+/* Estilo para la flecha en el botón de retroceso */
+.cont-back a svg {
+    fill: black; /* Cambiar el color a negro */
+}
+
+</style>
 <title><?php echo $id; ?></title>
 <body>
 
 <?php include('navbar.php') ?>
 <br><br><br><br>
+<div class="container">
+
 <div class="row">
           <div class="cont-back">
               <a href="/geekhaven/src/views/admin/html/editar_producto.php" class="">
@@ -125,10 +137,7 @@
 
             <input type="number" name="precio" id="precio"  value="<?php echo $prd_precio?>" class="form-control" placeholder="Escribe el precio del producto aquí" required>
         </div>
-        <div class="mb-3">
-            <label for="existencia" class="form-label"><strong>Existencia</strong></label>
-            <input type="text" name="existencia" id="existencia"   value="<?php echo $prd_exist?>" class="form-control" placeholder="Escribe la existencia del producto aquí" required>
-        </div>
+       
         <div class="mb-3">
             <label for="descripcion" class="form-label"><strong>Descripción</strong></label>
             <textarea name="descripcion" id="descripcion"  class="form-control" placeholder="Escribe una descripción del producto" required><?php echo $prd_desc?></textarea>
@@ -256,6 +265,7 @@
     </div>
     <br><br><br>
 </div>   
+</div>
 
 
 

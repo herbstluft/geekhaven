@@ -3,6 +3,8 @@ use MyApp\data\Database;
 require("../../../../vendor/autoload.php");
 $db = new Database;
 $db1 = new Database;
+
+
 ?>
 
 
@@ -49,7 +51,7 @@ $db1 = new Database;
 
         <div class="row"  style="margin-left:20px">
             <?php
-            $SQL = "SELECT * from productos where estatus= 1 and existencia >= 1";
+            $SQL = "SELECT * from productos where estatus= 1 and existencia >=0";
             $con = $db->seleccionarDatos($SQL);
 
             if (!empty($con)) {
