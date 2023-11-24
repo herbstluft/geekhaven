@@ -50,8 +50,8 @@ if ($_POST){
             
     </center>
     <center> <h1>Reporte de pedidos pendientes</h1>
-      <button class="excedido2" ></button>
-      <label for="indicador" >Productos con 30 dias o mas de expedido</label>
+      <hp class="" ><strong>*</strong></p>
+      <label for="indicador" >Indica los productos con 15 dias o mas de expedido</label>
   </center>
    
     <hr>
@@ -90,21 +90,21 @@ if ($_POST){
 
                 if($mes == $mesHoy){
                   $comparacion=$diaHoy - $dia;
-                  if($comparacion <= 15){  
-                    $class="excedido";
+                  if($comparacion >= 15){  
+                    $class="*";
                   }
                   else{
                     $class="";
                   }
                 }
                 else{
-                  $class="excedido";
+                  $class="*";
                 }
                 
 
             ?>
         <tr>
-          <th scope="row" class="<?php echo $class?>"><h5 align="center"><?php echo $id_orden ?></a></h5></th>
+          <th scope="row" class="<?php echo $class?>"><h5 align="center"><?php echo $class.' '.$id_orden ?></a></h5></th>
           <td class="<?php echo $class?>"><?php echo $fecha; ?></td>
           <td class="<?php echo $class?>"><?php echo $tel; ?></td>
           <td class="<?php echo $class?>"><?php echo $correo ;?></td>

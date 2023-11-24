@@ -3,11 +3,12 @@
     require("../../../../vendor/autoload.php");
     $db = new Database;
 
-    $pedidosPendientesQry="SELECT productos.nom_producto, detalle_orden.id_orden,SUM(detalle_orden.cantidad) as 'cant', usuarios.telefono, CONCAT(personas.nombre, personas.apellido) AS 'nombre', personas.correo 
+    $pedidosPendientesQry="SELECT productos.nom_producto,orden.fecha as fecha ,month(orden.fecha) as mes, day(orden.fecha) as dia, detalle_orden.id_orden,SUM(detalle_orden.cantidad) as 'cant', usuarios.telefono, CONCAT(personas.nombre, personas.apellido) AS 'nombre', personas.correo 
     from personas join usuarios on personas.id_persona=usuarios.id_persona 
     JOIN detalle_orden on usuarios.id_usuario = detalle_orden.id_usuario 
     JOIN productos on detalle_orden.id_producto = productos.id_producto
-    JOIN categorias on productos.id_cat = categorias.id_cat WHERE detalle_orden.estatus=1  GROUP by detalle_orden.id_orden";
+    JOIN categorias on productos.id_cat = categorias.id_cat 
+    JOIN orden on orden.id_orden = detalle_orden.id_orden WHERE detalle_orden.estatus=1  GROUP by detalle_orden.id_orden";
     $pedidosPendientes=$db->seleccionarDatos($pedidosPendientesQry);
 
 ?>
@@ -24,6 +25,17 @@
   <script src="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
 </head>
 <style>
+   .excedido{
+      background-color: #FA896B !important;
+      color: white !important;
+    }
+    .excedido2{
+      background-color: #FA896B !important;
+      color:  #FA896B !important;
+      width:40px;
+      height:15px;
+      border:none;
+    }
 </style>
 <body>
 
@@ -46,6 +58,7 @@
         
         <tr>
           <th scope="col">No° Orden</th>
+          <th scope="col">Fecha y hora</th>
           <th scope="col">Telefono</th>
           <th scope="col">Mail</th>
           <th scope="col">Nombre</th>
@@ -60,14 +73,39 @@
                 $tel=$res['telefono'];
                 $nom_u=$res['nombre'];
                 $correo= $res['correo'];
+                $fecha = $res['fecha'];
+                $mes = $res['mes'];
+                $dia = $res['dia'];
+                // establecer zona hoaria
+                date_default_timezone_set("America/Mexico_City");
+
+                    // asignar a una variable la fecha actual
+                $diaHoy= date("d");
+                $mesHoy= date("m");
+
+                
+
+                if($mes == $mesHoy){
+                  $comparacion=$diaHoy - $dia;
+                  if($comparacion >= 15){  
+                    $class="excedido";
+                  }
+                  else{
+                    $class="";
+                  }
+                }
+                else{
+                  $class="excedido";
+                }
 
             ?>
         <tr>
-          <th scope="row" class=""> <a href="/geekhaven/src/views/admin/html/verPedido.php?id_orden=<?php echo $id_orden?>" class="fs-5"><h5 align="center" class="text-info"><?php echo $id_orden ?>&nbsp&nbsp&nbsp&nbsp</a></h5></th>
-          <td><?php echo $tel ?></td>
-          <td><?php echo $correo ?></td>
-          <td><?php echo $nom_u ?></td>
-          <td><?php echo $cantidad ?></td>
+          <th scope="row" class="<?php echo $class?>"> <a href="/geekhaven/src/views/admin/html/verPedido.php?id_orden=<?php echo $id_orden?>" class="" style="font-size: 23px !important;"><h5 align="center" class="<?php echo $class?>"><?php echo $id_orden ?>&nbsp&nbsp&nbsp&nbsp</a></h5></th>
+          <td class="<?php echo $class?>"><?php echo $fecha;?></td>
+          <td class="<?php echo $class?>"><?php echo $tel ?></td>
+          <td class="<?php echo $class?>"><?php echo $correo ?></td>
+          <td class="<?php echo $class?>"><?php echo $nom_u ?></td>
+          <td class="<?php echo $class?>"><?php echo $cantidad ?></td>
         </tr>
         <?php
             }
