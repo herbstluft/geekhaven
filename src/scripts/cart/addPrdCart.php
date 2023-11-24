@@ -183,6 +183,7 @@ $db = new Database;
                  }
                 
                
+                 $_SESSION['message'] = "Añadido";
                
 
             

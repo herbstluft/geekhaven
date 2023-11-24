@@ -9,7 +9,7 @@
     if(isset($_GET['id'])){
         //guardar el id del producto
         $id_producto=$_GET['id'];
-        $sql = "SELECT * from productos inner join categorias on categorias.id_cat=productos.id_cat where id_producto=$id_producto";
+        $sql = "SELECT * from productos inner join categorias on categorias.id_cat=productos.id_cat INNER JOIN img_productos on img_productos.id_producto= productos.id_producto where img_productos.id_producto=$id_producto";
         $info_producto=$db->seleccionarDatos($sql);
 
 
@@ -20,6 +20,7 @@
         $precio=$info_producto['precio'];
         $existencia=$info_producto['existencia'];
         $descripcion=$info_producto['descripcion'];
+        $imagen=$info_producto['nombre_imagen'];
       
         
 
@@ -60,7 +61,7 @@ include '../../../templates/navbar_user.php'
 
 
       <div class="row">
-          <div class="cont-back">
+          <div class="cont-back" style="margin-top:-40px">
               <a href="../../../index.php" class="">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -69,29 +70,22 @@ include '../../../templates/navbar_user.php'
           </div>
           
           <div class="col-sm-12 col-md-6 ">
-              <div class="productotop">
-              <div id="carouselExampleControlsNoTouching" class="carousel carousel-dark slide" data-bs-touch="false">
-              <?php $SacarImagQry="SELECT * from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id;";
-              $SacarImag=$db1->seleccionarDatos($SacarImagQry);             
-              ?>
-                  <div class="carousel-inner" style="padding:20%">
-                  <?php foreach($SacarImag as $img){ ?>
-                  <div class="carousel-item active">
-                     
-                        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img['nombre_imagen'];?>" class="d-block w-100"  height="410px" alt="...">
+            
+                      
+                  <?php 
+
+                     if(!empty($imagen)){ ?>
+<center><img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imagen; ?>" class="img-fluid" style="max-width: 100%;margin-top:50px; max-height: 400px;" alt="..."></center>
+                        <?php 
+                        }
+                        else { ?>
+<center><img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"class="img-fluid" style="max-width: 100%;margin-top:50px; max-height: 400px;" alt="..."></center>
+                        <?php }
+                    ?>
                 
-                      </div><?php echo "";}?>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-                  <span class="carousel-control-next-icon dark" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                  </button>
-              </div>
-          </div>
+                  <br>
+              
+          
               </div>
               
           <div class="col-sm-12 col-md-6 contenido">
@@ -132,8 +126,10 @@ include '../../../templates/navbar_user.php'
                             JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
                             WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 LIMIT 1";
                             $ord=$db->seleccionarDatos($ordQry);
-          
-                          ?>
+
+?>
+                          
+
                           
                           <!-- Modal -->
                           <form action="http://localhost/geekhaven/src\scripts\cart\addPrdCart.php" method="GET">
@@ -190,3 +186,173 @@ include '../../../templates/navbar_user.php'
   <script src="../admin/assets/js/sidebarmenu.js"></script>
   <script src="../admin/assets/js/app.min.js"></script>
   <script src="../admin/assets/libs/simplebar/dist/simplebar.js"></script>
+
+
+
+  <?php
+  if (isset($_SESSION['message'])) { ?>
+                                             
+                               <style>
+                                
+                               .notification-container {
+                                   position: fixed;
+                                   bottom: 8%;
+                                   left: 22%;
+                                   width: 75%;
+                                   margin-left: 3px;
+                                   background-color: rgba(255, 255, 255, 0.419);
+                                   backdrop-filter: blur(10px);
+                                   border-radius: 20px;
+                                   margin-right: 0;
+                                   overflow: hidden;
+                                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                               }
+                               /* Nuevo contenedor debajo del contenedor principal */
+                               .additional-container {
+                                   position: fixed;
+                                   left: 23.5%;
+                                   width: 73%;
+                                   bottom: 7%;
+                                   height: 100px;
+                                   backdrop-filter: blur(10px);
+                                   background-color: rgba(255, 255, 255, 0.419);
+                                   border-radius: 20px;
+                                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                               }
+                               .additional-container2 {
+                                   position: fixed;
+                                   left: 25.5%;
+                                   width: 70%;
+                                   bottom:7%;
+                                   backdrop-filter: blur(60px);
+                                   height: 100px;
+                                   background-color: rgba(255, 255, 255, 0.419);
+                                   border-radius: 20px;
+                                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                               }
+                               /* Lista de notificaciones */
+                               .notification-list {
+                                   padding: 10px;
+                               }
+                               
+                               /* Estilo de cada notificación */
+                               .notification-item {
+                                   padding: 10px;
+                                   display: flex;
+                                   align-items: center;
+                                   transition: background-color 0.3s;
+                               }
+                               
+                               
+                               .notification-content {
+                                   flex-grow: 1;
+                               }
+                               .notification-container {
+                                   position: fixed;
+                                   bottom: 14%;
+                                   left: 22%;
+                                   width: 75%;
+                                   margin-left: 3px;
+                                   background-color: rgba(255, 255, 255, 0.419);
+                                   backdrop-filter: blur(10px);
+                                   border-radius: 20px;
+                                   margin-right: 0;
+                                   overflow: hidden;
+                                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                               }
+                               /* Nuevo contenedor debajo del contenedor principal */
+                               .additional-container {
+                                   position: fixed;
+                                   left: 23.5%;
+                                   width: 73%;
+                                   bottom: 13%;
+                                   height: 100px;
+                                   backdrop-filter: blur(10px);
+                                   background-color: rgba(255, 255, 255, 0.419);
+                                   border-radius: 20px;
+                                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                               }
+                               .additional-container2 {
+                                   position: fixed;
+                                   left: 25.5%;
+                                   width: 70%;
+                                   bottom: 12%;
+                                   backdrop-filter: blur(60px);
+                                   height: 100px;
+                                   background-color: rgba(255, 255, 255, 0.419);
+                                   border-radius: 20px;
+                                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                               }
+                               /* Lista de notificaciones */
+                               .notification-list {
+                                   padding: 10px;
+                               }
+                               
+                               /* Estilo de cada notificación */
+                               .notification-item {
+                                   padding: 10px;
+                                   display: flex;
+                                   align-items: center;
+                                   transition: background-color 0.3s;
+                               }
+                               
+                               
+                               .notification-content {
+                                   flex-grow: 1;
+                               }
+                               </style>
+                               
+                               <div class="additional-container2" id="contenedor2">
+                                       <!-- Contenido del nuevo contenedor aquí -->
+                                   </div>
+                                   <!-- Nuevo contenedor debajo del contenedor principal -->
+                                   <div class="additional-container" id="contenedor1">
+                                       <!-- Contenido del nuevo contenedor aquí -->
+                                   </div>
+                               
+                                   <div class="notification-container" id="contenedor">
+                                       <div class="notification-list">
+                                           <!-- Ejemplo de notificaciones -->
+                                           <div class="notification-item">
+                                               <div class="notification-content">
+                                                   <span class="d-block d-md-none" style="position: fixed; left:80%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                                                   <span class="d-none d-md-block" style="position: fixed; left:89%; font-size: 14px; color: #0d6efd;" onclick="ocultarContenedores()">Cerrar</span>
+                                                   <strong style="color:black">Notificación</strong>
+                                                   <p style="position: relative; top: 5px; color: #2f2e2e">Producto añadido correctamente <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#198754" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                               </svg></p>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               
+                               
+                                   <audio id="notificationSound" preload="auto">
+                                       <source src="notificacion.mp3" type="audio/mpeg">
+                                       <!-- Agrega otros formatos de audio si es necesario -->
+                                   </audio>
+                                   <script>
+                                       // Muestra la notificación
+                                       document.getElementById('contenedor').style.display = 'block';
+                               
+                                       // Reproduce el sonido
+                                       var audio = document.getElementById('notificationSound');
+                                       audio.play();
+                                   </script>
+                               
+                                   <script>
+                                       function ocultarContenedores() {
+                                           // Ocultar los contenedores con JavaScript
+                                           document.getElementById('contenedor1').style.display = 'none';
+                                           document.getElementById('contenedor2').style.display = 'none';
+                                           document.getElementById('contenedor').style.display = 'none';
+                                       }
+                                   </script>
+                               <?php
+                                                               unset($_SESSION['message']);
+                                                           }
+                                         
+                                                         ?>
+                                                         
+                               
+                               

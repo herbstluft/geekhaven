@@ -78,14 +78,31 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                        <?php
                                        
                                        foreach($carrito as $res)
-                                       {?>
-                                         <tr style="padding-bottom:10px;">
-                                         <th scope="row">
-                                         <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$res['id_producto'];
-                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+
+                                       
+                                       {
+                                        
+                                        $id_producto=$res['id_producto'];  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                      $sacarImg=$db->seleccionarDatos($sacarImgQry);
                 foreach($sacarImg as $imagPrd){
-                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="60%"  height="60%" alt="..."><?php echo "";}?>
+               $imgc = $imagPrd['nombre_imagen'];?>
+                                      
+                                         <tr style="padding-bottom:10px;">
+                                         <th scope="row" >
+
+                                         <?php if(!empty($imgc)){ ?>
+                                         <img style="margin-top:10px;border-radius:10px" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgc ?>" class="d-block" width="60%"  height="60%" alt="..."> 
+
+                                         <?php } 
+                                         
+                                         else{ ?>
+                                          <img style="margin-top:10px;border-radius:10px" src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block" width="60%"  height="60%" alt="..." >
+                                         <?php
+                                         }
+                                         }?>
+
+
+
                                          </th>
                                              <td colspan="1" class="col-6"><?php echo $res['nom_producto']?></td>
                                              <td align="center"class ="col-2">
@@ -112,10 +129,10 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                     
                                     <center>
                                     <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
-                                   &ensp; &ensp;
-                                   <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carrito</a>
-                                   &ensp; &ensp;
-                                 <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn" style="background: #005aff; color:white">Hacer pedido</a>
+                                   &ensp;
+                                   <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carro</a>
+                                   &ensp; 
+                                 <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn" style="background: #005aff; color:white">Pedir</a>
                                     </center>
                                     
 
@@ -402,6 +419,10 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 
 <button type="button" class="btn mb-1" data-bs-toggle="modal" data-bs-target="#modalCarritoasd">
   <!-- NUMERO DE PRODUCTOS EN CARRITO-->
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
+  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+</svg>
+</button>
   <?php
 
   if(isset($id_orden)){
@@ -426,10 +447,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 
     }
     ?>
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-bag-fill" viewBox="0 0 16 16">
-  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-</svg>
-</button>
+
              </li>
              <?php  
 }

@@ -69,9 +69,24 @@ error_reporting(E_ERROR | E_PARSE);
                         <div class="scroll-appear">
                             <div class="card overflow-hidden rounded-2">
                             <div class="position-relative">
-    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
+
+
+                            <?php 
+                foreach($sacarImg as $img)
+                $imgb=$img['nombre_imagen'];
+              
+              if(!empty($imgb)){ ?>
+    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgb; ?>" class="d-block w-100"  height="310px" alt="..."></a>
+
+              <?php
+              }else{ ?>
+    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="..."></a>
+              <?php
+              }
+              ?>
+
+    
+    
     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
 </svg>

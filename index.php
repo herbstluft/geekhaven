@@ -166,44 +166,53 @@
 <div class="container" style="margin-left:15px">
 <div class="scroll-appear">
 <div class="row">
-
-<?php 
-
-foreach($favoritos_del_mes as $fav_del_mes){
-   $id_producto=$fav_del_mes['id_producto'];
-  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-  $sacarImg=$db1->seleccionarDatos($sacarImgQry);
+<?php
+foreach ($favoritos_del_mes as $fav_del_mes) {
+    $id_producto = $fav_del_mes['id_producto'];
+    $sacarImgQry = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto GROUP BY img_productos.id_producto";
+    $sacarImg = $db1->seleccionarDatos($sacarImgQry);
 ?>
 
-          
-          <div class="col-sm-6 col-xl-3">
+<div class="col-sm-6 col-xl-3">
+    <div class="card overflow-hidden rounded-2">
+        <div class="position-relative">
+            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>">
+                <?php
+                foreach ($sacarImg as $img) {
+                if (!empty($img['nombre_imagen'] )) {
+                    
+                        echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $img['nombre_imagen'] . '" class="d-block w-100" height="310px" alt="...">';
+                    }
+                    else {
+                      // Mostrar imagen por default si no hay imágenes asociadas
+                      echo '<img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="Imagen por default">';
+                  }
+                } 
+                ?>
+            </a>
 
-            <div class="card overflow-hidden rounded-2">
-              <div class="position-relative">
-                <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto'];?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
-                
-                <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto'];?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-</svg>
-                </a>                      
-              </div>
-              <div class="card-body pt-3 p-4">
-                    <div style="width:100%;" >
-                    <h6 class="fw-semibold fs-4 text-truncate"><?php echo $fav_del_mes['nombre']?>  </h6>
-                    </div>
-                <div class="d-flex align-items-center justify-content-between">
-                  <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $fav_del_mes['precio']; ?></h6>
-                  <ul class="list-unstyled d-flex align-items-center mb-0">
-                  <?php echo $fav_del_mes['categoria']?>
-                  </ul>
-                </div>
-              </div>
+            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="card-body pt-3 p-4">
+            <div style="width:100%;">
+                <h6 class="fw-semibold fs-4 text-truncate"><?php echo $fav_del_mes['nombre']; ?> </h6>
             </div>
-          </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $fav_del_mes['precio']; ?></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <?php echo $fav_del_mes['categoria']; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
-<?php 
+<?php
 }
 ?>
 
@@ -225,43 +234,57 @@ foreach($favoritos_del_mes as $fav_del_mes){
 
 <div class="scroll-appear">
 <div class="row">
-
 <?php
-foreach($ofertas as $ofertas){
-  $id_producto=$ofertas['id_producto'];
-  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-  $sacarImg=$db1->seleccionarDatos($sacarImgQry);
+foreach ($ofertas as $oferta) {
+    $id_producto_oferta = $oferta['id_producto'];
+    $sacarImgQry_oferta = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_oferta GROUP BY img_productos.id_producto";
+    $sacarImg_oferta = $db1->seleccionarDatos($sacarImgQry_oferta);
 ?>
 
 <div class="col-sm-6 col-xl-3">
+    <div class="card overflow-hidden rounded-2">
+        <div class="position-relative">
+            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $oferta['id_producto']; ?>">
+                <?php
+                 foreach ($sacarImg_oferta as $img_of)
 
-<div class="card overflow-hidden rounded-2">
-  <div class="position-relative">
-  <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $ofertas['id_producto'];?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
-    <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $ofertas['id_producto'];?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-</svg>
-    </a>                      
-  </div>
-  <div class="card-body pt-3 p-4">
-        <div style="width:100%;" >
-        <h6 class="fw-semibold fs-4 text-truncate"> <?php echo $ofertas['nom_producto']?> </h6>
+                 $imagen_of = $img_of['nombre_imagen'];
+                if (!empty($imagen_of)) {
+                    // Si hay imágenes disponibles, mostrar la primera
+                    echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $imagen_of. '" class="img-fluid" style="max-width: 100%; max-height: 310px;" alt="...">';
+                  } else {
+                    // Mostrar imagen por default si no hay imágenes asociadas
+                    echo '<img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="Imagen por default">';
+                }
+                ?>
+            </a>
+
+            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $oferta['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
+                </svg>
+            </a>
         </div>
-    <div class="d-flex align-items-center justify-content-between">
-      <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $ofertas['precio']; ?></h6>
-      <ul class="list-unstyled d-flex align-items-center mb-0">
-      <?php echo $ofertas['nom_cat']?>
-      </ul>
+
+        <div class="card-body pt-3 p-4">
+            <div style="width:100%;">
+                <h6 class="fw-semibold fs-4 text-truncate"><?php echo $oferta['nom_producto']; ?> </h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $oferta['precio']; ?></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <?php echo $oferta['nom_cat']; ?>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </div>
 
 <?php
 }
 ?>
+
+
 </div>
 </div>
 
@@ -282,44 +305,59 @@ foreach($ofertas as $ofertas){
 
 <div class="scroll-appear">
 <div class="row">
-
-
 <?php
-foreach($recien_llegados as $recien_llegados){
-  $id_producto=$recien_llegados['id_producto'];
-  $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-  $sacarImg=$db1->seleccionarDatos($sacarImgQry);
+foreach ($recien_llegados as $producto_recien_llegado) {
+    $id_producto_recien_llegado = $producto_recien_llegado['id_producto'];
+    $sacarImgQry_recien_llegado = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_recien_llegado GROUP BY img_productos.id_producto";
+    $sacarImg_recien_llegado = $db1->seleccionarDatos($sacarImgQry_recien_llegado);
 ?>
 
 <div class="col-sm-6 col-xl-3">
+    <div class="card overflow-hidden rounded-2">
+        <div class="position-relative">
+            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $producto_recien_llegado['id_producto']; ?>">
+                <?php
+                $imagen_defecto_mostrada = false; // Variable para rastrear si ya se mostró la imagen por defecto
+                foreach ($sacarImg_recien_llegado as $img_recien_llegado) {
+                    if (!empty($img_recien_llegado['nombre_imagen'])) {
+                        echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $img_recien_llegado['nombre_imagen'] . '" class="d-block w-100" height="310px" alt="...">';
+                        $imagen_defecto_mostrada = true; // Hay una imagen, no necesitamos mostrar la imagen por defecto
+                        break; // Salimos del bucle, ya que ya se encontró una imagen
+                    }
+                }
 
-<div class="card overflow-hidden rounded-2">
-  <div class="position-relative">
-  <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $recien_llegados['id_producto'];?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
-    <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $recien_llegados['id_producto'];?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
-  <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
-</svg>
-    </a>                      
-  </div>
-  <div class="card-body pt-3 p-4">
-        <div style="width:100%;" >
-        <h6 class="fw-semibold fs-4 text-truncate"> <?php echo $recien_llegados['nom_producto']?> </h6>
+                if (!$imagen_defecto_mostrada) {
+                    // Mostrar imagen por defecto si no se encontró ninguna imagen
+                    echo '<img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="Imagen por default">';
+                }
+                ?>
+            </a>
+
+            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $producto_recien_llegado['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
+                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
+                </svg>
+            </a>
         </div>
-    <div class="d-flex align-items-center justify-content-between">
-      <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .' '. $recien_llegados['precio']; ?></h6>
-      <ul class="list-unstyled d-flex align-items-center mb-0">
-      <?php echo $recien_llegados['nom_cat']?> 
-      </ul>
+
+        <div class="card-body pt-3 p-4">
+            <div style="width:100%;">
+                <h6 class="fw-semibold fs-4 text-truncate"><?php echo $producto_recien_llegado['nom_producto']; ?> </h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $producto_recien_llegado['precio']; ?></h6>
+                <ul class="list-unstyled d-flex align-items-center mb-0">
+                    <?php echo $producto_recien_llegado['nom_cat']; ?>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </div>
 
 <?php
 }
 ?>
+
 </div>
 </div>
 
