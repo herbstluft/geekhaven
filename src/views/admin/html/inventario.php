@@ -19,7 +19,7 @@ session_start();
         INNER JOIN universo ON productos.universo_id = universo.id_universo 
         INNER JOIN tipo ON tipo.id_tipo = productos.tipo_id 
         WHERE productos.existencia BETWEEN $filtroExistencia AND $filtroExistenciaMax
-        ORDER BY productos.nom_producto ASC";
+        ORDER BY productos.existencia ASC";
 
     }
     else{
@@ -99,7 +99,12 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 
 <br><br>
 
-
+<?php 
+if(isset($_POST['min']) && isset($_POST['max'])){ ?>
+<a href="inventario.php" style="margin-left:20px">Mostrar todos los productos</a>
+<?php
+}
+?>
 
 <!---Filtro de busqueda por existencia-->
 <form action="inventario.php" method="post">
@@ -153,25 +158,34 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
     Exporte sus productos a un archivo excel para una informacion mas detallada</span>
  </div>
 
-<a href="inventario_excel.php?<?php 
- foreach($con as $send){ ?>
- nom_producto=<?php echo $send['nom_producto']; ?>
- nom_cat=<?php echo $send['nom_cat']; ?>
- universo=<?php echo $send['universo']; ?>
- tipo=<?php echo $send['tipo']; ?>
- precio=<?php echo $send['precio']; ?>
- precio_base=<?php echo $send['precio_base']; ?>
- existencia=<?php echo $send['existencia'];
- 
-
-}?>
- 
- ">
+ <form action="inventario_excel.php" method="post">
+    <?php 
+    foreach ($con as $index => $send) { 
+        $nom_producto = $send['nom_producto'];
+        $nom_cat = $send['nom_cat']; 
+        $universo = $send['universo'];
+        $tipo = $send['tipo'];  
+        $precio = $send['precio']; 
+        $precio_base = $send['precio_base']; 
+        $existencia = $send['existencia']; 
+    ?>
+        <!-- Campos ocultos para enviar todas las variables -->
+        <input type="hidden" name="nom_producto[]" value="<?php echo htmlspecialchars($nom_producto); ?>">
+        <input type="hidden" name="nom_cat[]" value="<?php echo htmlspecialchars($nom_cat); ?>">
+        <input type="hidden" name="universo[]" value="<?php echo htmlspecialchars($universo); ?>">
+        <input type="hidden" name="tipo[]" value="<?php echo htmlspecialchars($tipo); ?>">
+        <input type="hidden" name="precio[]" value="<?php echo htmlspecialchars($precio); ?>">
+        <input type="hidden" name="precio_base[]" value="<?php echo htmlspecialchars($precio_base); ?>">
+        <input type="hidden" name="existencia[]" value="<?php echo htmlspecialchars($existencia); ?>">
+        
+        <!-- Otros campos del formulario, si los hay -->
+    <?php
+    }
+    ?>
     <br>
-    
-    <button style="margin-left:20px;margin-bottom:20px" type="button" class="btn btn-success">Exportar Excel</button></a>
-<br>
-   
+    <button style="margin-left:20px" type="submit" class="btn btn-success">Exportar a Excel</button>
+</form>
+
                   
     <?php
 /*
