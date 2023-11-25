@@ -168,7 +168,7 @@ $img_ad=$img_admin['imagen'];
                 <span class="hide-menu">Ver Pedidos</span>
               </a>
             </li>
-
+<!-- 
             <li class="sidebar-item">
               <a class="sidebar-link" href="html/ui-typography.html" aria-expanded="false">
                 <span>
@@ -178,7 +178,7 @@ $img_ad=$img_admin['imagen'];
                 </span>
                 <span class="hide-menu">Usuarios</span>
               </a>
-            </li>
+            </li> -->
 
 
             <li class="nav-small-cap">
