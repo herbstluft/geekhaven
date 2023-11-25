@@ -40,24 +40,17 @@
 
   //Ventas por el mes actual 
 
-  $sql="SELECT
-      month(do.fecha_detalle) AS 'mes',
-      SUM(do.cantidad) AS 'cantidad',
-      SUM(p.precio * do.cantidad) AS 'total'
-      FROM
-          orden o
-      JOIN detalle_orden AS do ON o.id_orden = do.id_orden
-      JOIN productos p ON do.id_producto = p.id_producto
-      JOIN usuarios u ON do.id_usuario = u.id_usuario
-      JOIN personas ON personas.id_persona = u.id_persona
-      WHERE 
-          do.estatus = 2
-          AND month(do.fecha_detalle) = MONTH(CURDATE()) 
-      GROUP BY
-          'mes',
-          month(do.fecha_detalle) = MONTH(CURDATE()) 
-      ORDER BY
-      'mes' DESC;";
+  $sql="SELECT 
+  MONTH(fecha_detalle) AS mes,
+  SUM(precio) AS total
+FROM detalle_orden
+JOIN productos ON detalle_orden.id_producto = productos.id_producto
+WHERE detalle_orden.estatus = 2
+  AND YEAR(fecha_detalle) = YEAR(CURDATE())
+  AND MONTH(fecha_detalle) = MONTH(CURDATE())
+GROUP BY mes;
+
+";
 
       $ingreso_por_mes=$db->seleccionarDatos($sql);
       foreach($ingreso_por_mes as $ingreso_por_mes)
@@ -207,7 +200,7 @@ var myChart = new Chart(ctx, {
   <div class="card-body">
     <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
       <div class="mb-3 mb-sm-0">
-        <h5 class="card-title fw-semibold">Resumen de ventas</h5>
+        <h5 class="card-title fw-semibold">Resumen de ventas <?php echo   $año_actual = date("Y"); ?> </h5>
       </div>
     </div>
     
@@ -235,7 +228,7 @@ var myChart = new Chart(ctx, {
                     <h5 class="card-title mb-9 fw-semibold">Ventas  &ensp; <b><?php echo $año_actual ?> </b></h5>
                     <div class="row align-items-center">
                       <div class="col-8">
-                        <h4 class="fw-semibold mb-3"><?php echo '$' .' '. $total_ingresos_por_año ?></h4>
+                        <h4 class="fw-semibold mb-3"><?php echo '$' .' '. $total_ingresos_por_año?></h4>
                         <div class="d-flex align-items-center mb-3">
                         <span
                             class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
@@ -266,7 +259,7 @@ var myChart = new Chart(ctx, {
                     <div class="row alig n-items-start">
                       <div class="col-8">
                         <h5 class="card-title mb-9 fw-semibold"> Ventas De <?php echo $mes_actual_nombre ?> </h5>
-                        <h4 class="fw-semibold mb-3"><?php echo '$' .' '. $total_ingresos_por_año ?></h4>
+                        <h4 class="fw-semibold mb-3"><?php echo '$' .' '. $total_ingresos_por_mes ?></h4>
                         <div class="d-flex align-items-center pb-1">
                           <span
                             class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
