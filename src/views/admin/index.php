@@ -299,13 +299,16 @@ var myChart = new Chart(ctx, {
 
                   //Fecha
                   $fecha_hora=$ventas_recientes['fecha'];
+
+                  
                   // Convierte la cadena de fecha y hora a un objeto DateTime
                   $date = new DateTime($fecha_hora);
                   // Formatea la fecha y hora en el estilo deseado
                   $hora_formateada = $date->format('H:i');
 
 
-                 $fecha_formateada = $date->format('d/m/y');
+                 $fecha_formateada = $date->format('y/m/d');
+                 
                   $fechaFormateada = date('d F Y', strtotime('20' . $fecha_formateada));
                    //Fecha
 
