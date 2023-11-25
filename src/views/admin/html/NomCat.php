@@ -37,7 +37,7 @@
          echo " <br<div class='container mt-5'>
        <div class='alert alert-success' role='alert'>
          <div class='row'>
-         <center>El universo se ha actualizado a: "."<strong> "." $universo"."</strong> "." con exito</center>
+         <center>La categoria se ha actualizado a: "."<strong> "." $categoria"."</strong> "." con exito</center>
          </div>
          </div>
          </div>";
@@ -47,7 +47,7 @@
          echo " <br<div class='container mt-5'>
        <div class='alert alert-danger' role='alert'>
          <div class='row'>
-         <center>El universo"."<strong> "." $universo"."</strong> "." ya existe</center>
+         <center>La categoria: "."<strong> "." $categoria"."</strong> "." ya existe</center>
          <br>
          </div>
          </div>
