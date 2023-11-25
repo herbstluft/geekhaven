@@ -42,7 +42,7 @@ include('../../../templates/navbar_user.php');
               $id_orden=$_GET['id_orden'];
               $usr=$_GET['usr'];}
               // USAR EL ID DE LA ORDEN PARA OBTENER TODOS LOS PRODUCTOS DEL CARRITO
-              $carritoConsulta="SELECT PRD.id_producto,PRD.nom_producto,PRD.precio, PRD.precio*detalle_orden.cantidad as total ,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat FROM usuarios JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden ORDER BY `total`";
+              $carritoConsulta="SELECT PRD.id_producto,PRD.nom_producto,PRD.precio, PRD.precio*detalle_orden.cantidad as total ,PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat FROM usuarios JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden and PRD.existencia >0 ORDER BY `total`";
               $carrito=$db->seleccionarDatos($carritoConsulta);
             foreach($carrito as $res){
             ?>
@@ -84,7 +84,7 @@ include('../../../templates/navbar_user.php');
               FROM (SELECT sum(PT.mult) as total from (SELECT PRD.id_producto,PRD.nom_producto, (PRD.precio*detalle_orden.cantidad) as 'mult',PRD.descripcion, usuarios.id_usuario as usr, detalle_orden.cantidad as cantidad, detalle_orden.estatus as stat
                 FROM usuarios
                 JOIN detalle_orden on usuarios.id_usuario=detalle_orden.id_usuario
-                JOIN (SELECT * from productos) as PRD on PRD.id_producto = detalle_orden.id_producto
+                JOIN (SELECT * from productos where productos.existencia>0) as PRD on PRD.id_producto = detalle_orden.id_producto
                 WHERE usuarios.id_usuario = $usr and detalle_orden.estatus=0 and detalle_orden.id_orden=$id_orden) as PT) PTT";
                 $total=$db->seleccionarDatos($totalQRY);
                 foreach($total as $res){
