@@ -122,7 +122,64 @@ ORDER BY
 
     $productos_mas_vendidos=$db->seleccionarDatos($sql);
 
+    $sql_ventas_meses = "SELECT 
+    MONTH(fecha_detalle) AS mes,
+    SUM(precio) AS total_ventas
+    FROM detalle_orden
+    JOIN productos ON detalle_orden.id_producto = productos.id_producto
+    WHERE detalle_orden.estatus = 2
+    AND YEAR(fecha_detalle) = YEAR(CURDATE())
+    GROUP BY mes
+    ORDER BY mes;";
+
+$ventas_meses = $db->seleccionarDatos($sql_ventas_meses);
+
+// Datos para el gráfico
+$labels = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+// Inicializar un array para almacenar los totales de ventas por mes
+$datos_meses = array_fill_keys($labels, 0);
+
+// Llenar el array con los totales de ventas correspondientes
+foreach ($ventas_meses as $v_meses) {
+    $mes = $labels[$v_meses['mes'] - 1]; // Resta 1 porque los meses en SQL son de 1 a 12
+    $datos_meses[$mes] = $v_meses['total_ventas'];
+}
+
+
+
 ?>
+
+
+<!-- Agrega un script adicional para inicializar el gráfico -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Configuración de datos para el gráfico
+    var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: <?= json_encode($labels) ?>,
+        datasets: [{
+            label: 'Total Ventas',
+            data: <?= json_encode(array_values($datos_meses)) ?>,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        // Configuración adicional de la gráfica
+    }
+});
+
+  });
+</script>
+
+
+
+
+
 
 <!doctype html>
 <html lang="en">
@@ -132,6 +189,9 @@ ORDER BY
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Panel de Control</title>
   <link rel="shortcut icon" type="image/png" href="assets/images/logos/favicon.png" />
+  <!-- Incluye Chart.js desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <link rel="stylesheet" href="assets/css/styles.min.css" />
 </head>
 
@@ -143,25 +203,29 @@ ORDER BY
         <!--  Row 1 -->
         <div class="row">
           <div class="col-lg-8 d-flex align-items-strech">
-            <div class="card w-100">
-              <div class="card-body">
-                <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-                  <div class="mb-3 mb-sm-0">
-                    <h5 class="card-title fw-semibold">Resumen de ventas</h5>
-                  </div>
-                  <div>
-                    <select class="form-select">
-                      <option value="1">Marzo 2023</option>
-                      <option value="2">Abril 2023</option>
-                      <option value="3">Mayo 2023</option>
-                      <option value="4">Junio 2023</option>
-                    </select>
-                  </div>
-                </div>
-                <div id="chart"></div>
-              </div>
+           <div class="card w-100">
+  <div class="card-body">
+    <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+      <div class="mb-3 mb-sm-0">
+        <h5 class="card-title fw-semibold">Resumen de ventas</h5>
+      </div>
+    </div>
+    
+    <!-- Agrega el contenedor del gráfico aquí -->
+    <center>
+    <div>
+      <canvas style="width:100%" id="myChart"></canvas>
+    </div>
+    </center>
+  </div>
+</div>
+
             </div>
-          </div>
+        
+
+
+          
+          
           <div class="col-lg-4">
             <div class="row">
               <div class="col-lg-12">
@@ -190,11 +254,7 @@ ORDER BY
                           </div>
                         </div>
                       </div>
-                      <div class="col-4">
-                        <div class="d-flex justify-content-center">
-                          <div id="breakup"></div>
-                        </div>
-                      </div>
+                    
                     </div>
                   </div>
                 </div>
@@ -357,9 +417,25 @@ ORDER BY
           <div class="col-sm-6 col-xl-3">
             <div class="card overflow-hidden rounded-2">
               <div class="position-relative">
-                <a href="javascript:void(0)"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
+                <a href="javascript:void(0)">
+                
+                <?php 
                 foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
+                $imgt = $img['nombre_imagen'];}
+               
+                if(!empty($imgt)){ ?>
+
+<img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgt ?>" class="d-block w-100"  height="310px" alt="..."></a>
+
+               <?php } else{ ?>
+
+                <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="..."></a>
+
+              <?php } ?>
+                
+
+
+
                 <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
                     <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
                   </svg>
