@@ -3,21 +3,10 @@
     require("../../../../vendor/autoload.php");
     $db = new Database;
 
-    $mensajeExito = '';
-
-    // Verificar si se ha enviado un ID de categoría para editar
-    if (isset($_GET['id'])) {
-        $idCategoria = $_GET['id'];
-        $categoria = $db->seleccionarDatos("SELECT * FROM categorias WHERE id_cat = :id", array(':id' => $idCategoria));
-
-        // Procesar la actualización del nombre de la categoría
-        if (isset($_GET['nuevoNombre'])) {
-            $nuevoNombre = $_GET['nuevoNombre'];
-            $db->ejecutarConsulta("UPDATE categorias SET nom_cat = :nuevoNombre WHERE id_cat = :id", array(':nuevoNombre' => $nuevoNombre, ':id' => $idCategoria));
-
-            // Mensaje de éxito
-            $mensajeExito = '¡Nombre de categoría actualizado exitosamente!';
-        }
+    if($_GET['id']){
+        $idCat=$_GET['id'];
+        $nomCatQry="SELECT * FROM categorias where categorias.id_cat=$idCat";
+        $nomCat=$db->seleccionarDatos($nomCatQry);
     }
 
 ?>
@@ -40,31 +29,48 @@
 <body>
 <?php include('navbar.php') ?>
     <div class="container-fluid">
+        
+  <?php 
+ if (isset($_GET['mensaje'])) {
+     if ($_GET['mensaje'] == 'success') {
+       $categoria=$_GET['cat'];
+         echo " <br<div class='container mt-5'>
+       <div class='alert alert-success' role='alert'>
+         <div class='row'>
+         <center>El universo se ha actualizado a: "."<strong> "." $universo"."</strong> "." con exito</center>
+         </div>
+         </div>
+         </div>";
+     }
+     elseif ($_GET['mensaje'] == 'failed') {
+      $categoria=$_GET['cat'];
+         echo " <br<div class='container mt-5'>
+       <div class='alert alert-danger' role='alert'>
+         <div class='row'>
+         <center>El universo"."<strong> "." $universo"."</strong> "." ya existe</center>
+         <br>
+         </div>
+         </div>
+         </div>";
+     }
+     }
+ ?>
         <h1>Editar Categoría</h1>
+        <?php ?>
 
-        <?php
-            if (isset($categoria)) {
-                // Mostrar el formulario de edición
-        ?>
-                <form action="" method="GET">
-                    <input type="hidden" name="id" value="<?php echo $idCategoria; ?>">
+                <form action="/geekhaven/src/scripts/insersiones/editarCategoria.php" method="GET">
+                    <input type="hidden" name="id" value="<?php echo $idCat; ?>">
                     <div class="form-group">
                         <label for="nuevoNombre">Nuevo Nombre:</label>
-                        <input type="text" class="form-control" name="nuevoNombre" value="<?php echo $categoria[0]['nom_cat']; ?>" required>
+                        <input type="text" class="form-control" name="categoria" value="<?php 
+        foreach($nomCat as $res){
+            $nombreCategoria=$res['nom_cat'];
+        echo $nombreCategoria;} ?>" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </form>
                 <br>   <br>
-        <?php
-        if (!empty($mensajeExito)) {
-            // Mostrar el mensaje de éxito con estilos de Bootstrap
-            echo '<div class="alert alert-success" role="alert">' . $mensajeExito . '</div>';
-        }
-            } else {
-                // Mostrar un mensaje de error o redireccionar si no se proporciona un ID de categoría válido
-                echo "<p class='text-danger'>Error: No se proporcionó un ID de categoría válido.</p>";
-            }
-        ?>
+        
     </div>
 
     <!-- Agregado el enlace al JS de Bootstrap y jQuery -->

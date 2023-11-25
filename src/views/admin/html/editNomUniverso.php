@@ -22,8 +22,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
 <br><br><br>
    <h1 align="center">Editar Nombre</h1>
-   <hr>
 
+   <hr>
+<div class="container-fluid">
+  
 <?php
 if($_GET['id']){
     $id_U=$_GET['id'];
@@ -31,17 +33,33 @@ if($_GET['id']){
     //buscar la imagen de el producto para imprimirla
     $ImagenesQry="SELECT * FROM universo where universo.id_universo=$id_U";
     $Imagenes=$db->seleccionarDatos($ImagenesQry);
-
-    if(isset($_GET['mensaje'])){
-      if($_GET['mensaje']=='success'){
-        ?><br><br>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <center><strong>Nombre actualizado con exito!</strong> ahora tus clientes podran verlo en la pagina principal</center>
-        </div>
-        <?php
-      }
-    }
-    
+    ?>
+    <?php 
+ if (isset($_GET['mensaje'])) {
+     if ($_GET['mensaje'] == 'success') {
+       $universo=$_GET['nom'];
+         echo " <br<div class='container mt-5'>
+       <div class='alert alert-success' role='alert'>
+         <div class='row'>
+         <center>El universo se ha actualizado a: "."<strong> "." $universo"."</strong> "." con exito</center>
+         </div>
+         </div>
+         </div>";
+     }
+     elseif ($_GET['mensaje'] == 'failed') {
+       $universo=$_GET['nom'];
+         echo " <br<div class='container mt-5'>
+       <div class='alert alert-danger' role='alert'>
+         <div class='row'>
+         <center>El universo"."<strong> "." $universo"."</strong> "." ya existe</center>
+         <br>
+         </div>
+         </div>
+         </div>";
+     }
+     }
+ ?>
+    <?php
     if(!isset($Imagenes)){
         ?><br><br><br><br>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -93,6 +111,7 @@ if($_GET['id']){
   <?php
 }
 ?>
+</div>
  <script src="/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
           <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
           <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

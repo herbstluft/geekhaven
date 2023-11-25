@@ -7,19 +7,28 @@ if (isset($_GET['id'])) {
   $_SESSION['id_producto'] = $_GET['id'];
   $id = $_SESSION['id_producto'];
 
-  // Cambiar el estatus del producto a 0 y reducir la existencia a 0
-  $update_query = "UPDATE `productos` SET `estatus` = 0, `existencia` = 0 WHERE id_producto = $id;";
-  $result = $db->ejecutarConsulta($update_query);
+  //validar si hay pedidos pendientes con este producto
+  $validacionQry="SELECT * from productos join detalle_orden on detalle_orden.id_producto = productos.id_producto WHERE productos.id_producto = $id and detalle_orden.estatus=1";
+  $validacion = $db->seleccionarDatos($validacionQry);
+  if(empty($validacion)){
+    // Cambiar el estatus del producto a 0 y reducir la existencia a 0
+    $update_query = "UPDATE `productos` SET `estatus` = 0, `existencia` = 0 WHERE id_producto = $id;";
+    $result = $db->ejecutarConsulta($update_query);
+      if ($result) {
+      header("Location:/geekhaven/src/views/admin/html/editar_producto.php?mensaje=success");
+
+    } else {
+      echo "Error en la operación. Consulta: $result";
+      }
+  }
+  else{
+      header("Location:/geekhaven/src/views/admin/html/editar_producto.php?mensaje=failed&prd=$id");
+  }
+  
+
 
   // Verificar si la consulta fue exitosa
-  if ($result) {
-      
-
-        header("Location:/geekhaven/src/views/admin/html/editar_producto.php?mensaje=success");
-
-  } else {
-      echo "Error en la operación. Consulta: $result";
-  }
+  
 }
 
 

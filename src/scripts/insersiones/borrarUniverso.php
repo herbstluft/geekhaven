@@ -28,24 +28,18 @@ if($_GET['id']){
 $universo=$_GET['id'];
 
 //Validar si hay productos con ese universo
-$ValidarProductosQry="SELECT productos.id_producto, productos.nom_producto from productos join universo on productos.universo_id = universo.id_universo
-where universo.id_universo =$universo";
+$ValidarProductosQry="SELECT productos.id_producto, productos.nom_producto from productos join universo on productos.universo_id = universo.id_universo join detalle_orden on detalle_orden.id_producto = productos.id_producto
+where universo.id_universo =$universo and detalle_orden.estatus=1";
 $ValidarProductos=$db->seleccionarDatos($ValidarProductosQry);
 
 if(!empty($ValidarProductos)){
-    echo " <div class='container mt-5'>
-<div class='alert alert-danger' role='alert'>
-  <div class='row'>
-  <h1 class='alert-heading col-12' align='center'>No se puede eliminar este universo!</h1><br>
-  <center><p>Aun hay productos con este universo, elimina esos productos primero para poder eliminar el universo</p></center>
-  </div>";
-  header("refresh:2;url=/geekhaven/src/views/admin/html/editUniverso.php");
+  header("Location:/geekhaven/src/views/admin/html/editUniverso.php?mensaje=failed&uni=$universo");
 }
 else{
 $deleteUniversoQry="DELETE FROM `universo` WHERE `id_universo`='$universo'";
 $deleteUniverso=$db->ejecutarConsulta($deleteUniversoQry);
 
-header("Location:/geekhaven/src/views/admin/html/editUniverso.php");
+header("Location:/geekhaven/src/views/admin/html/editUniverso.php?mensaje=success&uni=$universo");
 }
 }
 ?>

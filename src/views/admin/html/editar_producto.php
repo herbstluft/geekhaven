@@ -41,6 +41,22 @@ if (isset($_GET['mensaje'])) {
         </div>
         </div>";
     }
+    elseif ($_GET['mensaje'] == 'failed') {
+        $idFail=$_GET['prd'];
+        $NombrePrdQry="SELECT productos.nom_producto from productos where productos.id_producto=$idFail";
+        $nombrePrd=$db->seleccionarDatos($NombrePrdQry);
+        foreach($nombrePrd as $name){
+            $NombreProducto=$name['nom_producto'];
+        echo " <br<div class='container mt-5'>
+      <div class='alert alert-danger' role='alert'>
+        <div class='row'>
+        <center>El producto."."<strong> "." $NombreProducto"."</strong> "." no puede ser eliminado porque aun hay pedidos pendientes con este producto</center>
+        <br>
+        </div>
+        </div>
+        </div>";
+    }
+    }
 
 }
 ?>
@@ -98,7 +114,8 @@ if (isset($_GET['mensaje'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ¿Estás seguro de que deseas eliminar este producto?
+                ¿Estás seguro de que deseas eliminar este producto? <br>
+                Se borraran todas las existencias
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>

@@ -29,6 +29,42 @@
 
 
    <div class="container-fluid">
+   <?php 
+if (isset($_GET['mensaje'])) {
+    if ($_GET['mensaje'] == 'success') {
+      $idFail=$_GET['uni'];
+        $NombreUniQry="SELECT universo.universo from universo where universo.id_universo=$idFail";
+        $nombreUni=$db->seleccionarDatos($NombreUniQry);
+        foreach($nombreUni as $name){
+          $NombreUni=$name['universo'];
+        echo " <br<div class='container mt-5'>
+      <div class='alert alert-warning' role='alert'>
+        <div class='row'>
+        <center>El producto se ha actualizado a: "."<strong> "." $NombreUni"."</strong> "." con exito</center>
+        Producto Eliminado<br>
+        </div>
+        </div>
+        </div>";
+    }}
+    elseif ($_GET['mensaje'] == 'failed') {
+        $idFail=$_GET['uni'];
+        $NombreUniQry="SELECT universo.universo from universo where universo.id_universo=$idFail";
+        $nombreUni=$db->seleccionarDatos($NombreUniQry);
+        foreach($nombreUni as $name){
+            $NombreUni=$name['universo'];
+        echo " <br<div class='container mt-5'>
+      <div class='alert alert-danger' role='alert'>
+        <div class='row'>
+        <center>El universo"."<strong> "." $NombreUni"."</strong> "." no puede ser eliminado porque aun hay productos con este universo</center>
+        <br>
+        </div>
+        </div>
+        </div>";
+    }
+    }
+
+}
+?>
     <table class="table" id="tabla">
       <thead>
         <tr>
