@@ -341,37 +341,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
 
         <hr>
-        <h5>Ganancias</h5>
-
-        <button class="btn btn-primary mb-3" id="toggleTableBtn">Mostrar/Esconder Tabla</button>
-
-        <table class="table" id="gananciasTable">
-            <thead>
-                <tr>
-                    <th scope="col">Periodo</th>
-                    <th scope="col">Ganancias Totales</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Año</th>
-                    <td><?php echo '$' . number_format($gananciasAnio[0]['ganancias_totales'], 2); ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Mes</th>
-                    <td><?php echo '$' . number_format($gananciasMes[0]['ganancias_totales'], 2); ?></td>
-                </tr>
-                <tr>
-                    <th scope="row">Día</th>
-                    <td><?php echo '$' . number_format($gananciasDia[0]['ganancias_totales'], 2); ?></td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <center> <button class="btn btn-success" onclick="exportToExcel('gananciasTable')">Descargar Excel</button> </center>
-
-        <hr>
-        <h4>Ganancias del Producto</h4>
+    
+        
+        <h5>Ganancias del Producto</h5>
 
         <!-- Formulario Bootstrap para ingresar el ID del producto -->
         <form method="post" action="" id="id">
@@ -390,7 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Mostrar las ganancias si el formulario ha sido enviado -->
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && $resultado) : ?>
-            <hr>
+            
             <h5>Ganancias del Producto</h5>
             <table class="table">
                 <thead>
@@ -438,35 +410,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div> 
 
     <!-- Agrega un contenedor para el gráfico -->
+    <hr>
 
+<h5>Ventas por Cliente</h5>
+<button class="btn btn-primary" data-toggle="collapse" data-target="#ventasPorCliente">Mostrar</button>
+<div id="ventasPorCliente" class="collapse">
+<table class="table" id="cuatro">
+<thead>
+<tr>
+ 
+    <th>Nombre del Cliente</th>
+    <th>Total de Ventas</th>
+</tr>
+</thead>
+<tbody>
+<?php foreach ($ventasPorCliente as $venta): ?>
+    <tr>
+        
+        <td><?php echo $venta['Cliente']; ?></td>
+        <td><?php echo '$' . number_format($venta['Ventas Totales'], 2); ?></td>
+    </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+
+</div>
 </div>
 
 
-            <hr>
-
-            <h5>Ventas por Cliente</h5>
-<button class="btn btn-primary" data-toggle="collapse" data-target="#ventasPorCliente">Mostrar</button>
-<div id="ventasPorCliente" class="collapse">
-    <table class="table" id="cuatro">
-        <thead>
-            <tr>
-             
-                <th>Nombre del Cliente</th>
-                <th>Total de Ventas</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($ventasPorCliente as $venta): ?>
-                <tr>
-                    
-                    <td><?php echo $venta['Cliente']; ?></td>
-                    <td><?php echo '$' . number_format($venta['Ventas Totales'], 2); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-
-        </div>
+   
 
 
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
