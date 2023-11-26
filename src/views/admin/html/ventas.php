@@ -166,6 +166,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':from_date' => $from_date
     ]);
 }
+//----------------------------------------------------------------------
+
+// Consulta de ventas por categoría (con protección contra inyección SQL)
+            $sqlVentasPorCategoria = "SELECT 
+                categorias.nom_cat AS 'categoria',
+                SUM(detalle_orden.cantidad * productos.precio) AS total
+            FROM 
+                orden
+                JOIN detalle_orden ON orden.id_orden = detalle_orden.id_orden
+                JOIN productos ON detalle_orden.id_producto = productos.id_producto
+                JOIN categorias ON productos.id_cat = categorias.id_cat
+            GROUP BY 
+                categorias.id_cat;";
+
+            // Obtener datos de ventas por categoría
+            $ventasPorCategoria = $db->seleccionarDatos($sqlVentasPorCategoria);
+
+//----------------------------------------------------------------------
+        // Consulta de Ventas por Cliente
+        $sqlVentasPorCliente = "SELECT CONCAT(personas.nombre, ' ', personas.apellido) as 'Cliente', 
+        SUM(detalle_orden.cantidad * productos.precio) AS 'Ventas Totales'
+        FROM usuarios JOIN personas ON usuarios.id_persona = personas.id_persona 
+        JOIN detalle_orden ON usuarios.id_usuario = detalle_orden.id_usuario 
+        JOIN productos ON detalle_orden.id_producto = productos.id_producto 
+        GROUP BY usuarios.id_usuario, personas.id_persona, personas.nombre, personas.apellido 
+        ORDER BY 'Ventas Totales' DESC;";
+
+        // Obtener datos de Ventas por Cliente
+        $ventasPorCliente = $db->seleccionarDatos($sqlVentasPorCliente);
+//----------------------------------------------------------------------
 ?>
 
 <!-- Resto del código HTML... -->
@@ -385,9 +415,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
       
-          
+        <h5>Ventas por Categoría</h5>
+<button class="btn btn-primary" data-toggle="collapse" data-target="#ventasPorCategoria">Mostrar</button>
+<div id="ventasPorCategoria" class="collapse">
+    <table class="table" id="cuatro">
+        <thead>
+            <tr>
+                <th>Categoría</th>
+                <th>Total de Ventas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($ventasPorCategoria as $venta): ?>
+                <tr>
+                    <td><?php echo $venta['categoria']; ?></td>
+                    <td><?php echo '$' . number_format($venta['total'], 2); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+  
+    </div> 
+
+    <!-- Agrega un contenedor para el gráfico -->
+
+</div>
+
 
             <hr>
+
+            <h5>Ventas por Cliente</h5>
+<button class="btn btn-primary" data-toggle="collapse" data-target="#ventasPorCliente">Mostrar</button>
+<div id="ventasPorCliente" class="collapse">
+    <table class="table" id="cuatro">
+        <thead>
+            <tr>
+             
+                <th>Nombre del Cliente</th>
+                <th>Total de Ventas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($ventasPorCliente as $venta): ?>
+                <tr>
+                    
+                    <td><?php echo $venta['Cliente']; ?></td>
+                    <td><?php echo '$' . number_format($venta['Ventas Totales'], 2); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
         </div>
 
