@@ -5,7 +5,6 @@ require "../../../../vendor/autoload.php";
 
 $db = new Database;
 
-
 // Deshabilitar la visualización de errores
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
@@ -13,34 +12,34 @@ error_reporting(0);
 
 // Consulta de ingresos por el año (con protección contra inyección SQL)
 $sqlVentasTotales = "SELECT 
-            YEAR(detalle_orden.fecha_detalle) AS 'año',
-            SUM(detalle_orden.cantidad * productos.precio) AS total
-        FROM 
-            orden
-            JOIN detalle_orden ON orden.id_orden = detalle_orden.id_orden
-            JOIN productos ON detalle_orden.id_producto = productos.id_producto
-        GROUP BY 
-            YEAR(detalle_orden.fecha_detalle);";
+    YEAR(detalle_orden.fecha_detalle) AS 'año',
+    SUM(detalle_orden.cantidad * productos.precio) AS total
+FROM 
+    orden
+    JOIN detalle_orden ON orden.id_orden = detalle_orden.id_orden
+    JOIN productos ON detalle_orden.id_producto = productos.id_producto
+GROUP BY 
+    YEAR(detalle_orden.fecha_detalle);";
 
 // Obtener datos de ventas totales
 $ingresoPorAñoTotales = $db->seleccionarDatos($sqlVentasTotales);
 
 // Consulta de ingresos por el año sin agrupar (con protección contra inyección SQL)
 $sqlVentas = "SELECT 
-            YEAR(detalle_orden.fecha_detalle) AS 'año',
-            SUM(detalle_orden.cantidad * productos.precio) AS total
-        FROM 
-            orden
-            JOIN detalle_orden ON orden.id_orden = detalle_orden.id_orden
-            JOIN productos ON detalle_orden.id_producto = productos.id_producto;";
+    YEAR(detalle_orden.fecha_detalle) AS 'año',
+    SUM(detalle_orden.cantidad * productos.precio) AS total
+FROM 
+    orden
+    JOIN detalle_orden ON orden.id_orden = detalle_orden.id_orden
+    JOIN productos ON detalle_orden.id_producto = productos.id_producto;";
 
 // Obtener datos de ventas sin agrupar
 $ingresoPorTotal = $db->seleccionarDatos($sqlVentas);
 
 // Consulta de suma de costos de productos en inventario
 $sqlCostos = "SELECT SUM(productos.existencia * productos.precio_base) AS 'costos'
-        FROM productos 
-        WHERE productos.existencia > 0;";
+FROM productos 
+WHERE productos.existencia > 0;";
 
 // Obtener suma de costos de productos en inventario
 $costosEnInventario = $db->seleccionarDatos($sqlCostos);
@@ -51,61 +50,61 @@ $fechaActual = date("Y-m-d");
 
 // Procesar el formulario cuando se envía
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $year = $_POST["year"];
-  $month = $_POST["month"];
-  $day = $_POST["day"];
+    $year = $_POST["year"];
+    $month = $_POST["month"];
+    $day = $_POST["day"];
 
-  // Consulta de Ganancias Totales para la fecha seleccionada
-  $sqlGananciasFecha = "SELECT 
-                          SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
-                      FROM 
-                          detalle_orden
-                          JOIN orden ON detalle_orden.id_orden = orden.id_orden
-                          JOIN productos ON detalle_orden.id_producto = productos.id_producto
-                      WHERE 
-                          YEAR(detalle_orden.fecha_detalle) = :year
-                          AND MONTH(detalle_orden.fecha_detalle) = :month
-                          AND DAY(detalle_orden.fecha_detalle) = :day;";
+    // Consulta de Ganancias Totales para la fecha seleccionada
+    $sqlGananciasFecha = "SELECT 
+        SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
+    FROM 
+        detalle_orden
+        JOIN orden ON detalle_orden.id_orden = orden.id_orden
+        JOIN productos ON detalle_orden.id_producto = productos.id_producto
+    WHERE 
+        YEAR(detalle_orden.fecha_detalle) = :year
+        AND MONTH(detalle_orden.fecha_detalle) = :month
+        AND DAY(detalle_orden.fecha_detalle) = :day;";
 
-  // Obtener los resultados de la consulta
-  $gananciasFecha = $db->seleccionarDatos($sqlGananciasFecha, [
-    ':year' => $year,
-    ':month' => $month,
-    ':day' => $day
-  ]);
+    // Obtener los resultados de la consulta
+    $gananciasFecha = $db->seleccionarDatos($sqlGananciasFecha, [
+        ':year' => $year,
+        ':month' => $month,
+        ':day' => $day
+    ]);
 }
 //----------------------------------------------------------------------
 
 // Ganancias Totales en lo que va del año
 $sqlGananciasAnio = "SELECT 
-                        SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
-                    FROM 
-                        detalle_orden
-                        JOIN orden ON detalle_orden.id_orden = orden.id_orden
-                        JOIN productos ON detalle_orden.id_producto = productos.id_producto
-                    WHERE 
-                        YEAR(detalle_orden.fecha_detalle) = YEAR(CURRENT_DATE);";
+    SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
+FROM 
+    detalle_orden
+    JOIN orden ON detalle_orden.id_orden = orden.id_orden
+    JOIN productos ON detalle_orden.id_producto = productos.id_producto
+WHERE 
+    YEAR(detalle_orden.fecha_detalle) = YEAR(CURRENT_DATE);";
 
 // Ganancias Totales en lo que va del mes
 $sqlGananciasMes = "SELECT 
-                        SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
-                    FROM 
-                        detalle_orden
-                        JOIN orden ON detalle_orden.id_orden = orden.id_orden
-                        JOIN productos ON detalle_orden.id_producto = productos.id_producto
-                    WHERE 
-                        YEAR(detalle_orden.fecha_detalle) = YEAR(CURRENT_DATE)
-                        AND MONTH(detalle_orden.fecha_detalle) = MONTH(CURRENT_DATE);";
+    SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
+FROM 
+    detalle_orden
+    JOIN orden ON detalle_orden.id_orden = orden.id_orden
+    JOIN productos ON detalle_orden.id_producto = productos.id_producto
+WHERE 
+    YEAR(detalle_orden.fecha_detalle) = YEAR(CURRENT_DATE)
+    AND MONTH(detalle_orden.fecha_detalle) = MONTH(CURRENT_DATE);";
 
 // Ganancias Totales en lo que va del día
 $sqlGananciasDia = "SELECT 
-                        SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
-                    FROM 
-                        detalle_orden
-                        JOIN orden ON detalle_orden.id_orden = orden.id_orden
-                        JOIN productos ON detalle_orden.id_producto = productos.id_producto
-                    WHERE 
-                        DATE(detalle_orden.fecha_detalle) = CURRENT_DATE;";
+    SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
+FROM 
+    detalle_orden
+    JOIN orden ON detalle_orden.id_orden = orden.id_orden
+    JOIN productos ON detalle_orden.id_producto = productos.id_producto
+WHERE 
+    DATE(detalle_orden.fecha_detalle) = CURRENT_DATE;";
 
 // Obtener los resultados de las consultas
 $gananciasAnio = $db->seleccionarDatos($sqlGananciasAnio);
@@ -123,15 +122,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Consulta SQL para obtener las ganancias del producto específico
     $sql = "SELECT 
-                p.id_producto,
-                p.nom_producto,
-                p.precio,
-                SUM(detalle_orden.cantidad * p.precio) AS ganancias_producto
-            FROM 
-                detalle_orden
-                JOIN productos p ON detalle_orden.id_producto = p.id_producto
-            WHERE 
-                p.id_producto = :idProducto;";
+        p.id_producto,
+        p.nom_producto,
+        p.precio,
+        SUM(detalle_orden.cantidad * p.precio) AS ganancias_producto
+    FROM 
+        detalle_orden
+        JOIN productos p ON detalle_orden.id_producto = p.id_producto
+    WHERE 
+        p.id_producto = :idProducto;";
 
     // Ejecuta la consulta y guarda el resultado
     $resultado = $db->seleccionarDatos($sql, [
@@ -142,7 +141,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 //----------------------------------------------------------------------
 
+// Inicializar la variable $from_date
+$from_date = "";
+
+// Inicializar el arreglo de resultados
+$resultadosBusqueda = [];
+
+// Procesar el formulario de búsqueda
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $from_date = $_POST["from_date"];
+
+    // Consulta de ingresos por el día seleccionado
+    $sqlVentasDiaSeleccionado = "SELECT 
+        SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
+    FROM 
+        detalle_orden
+        JOIN orden ON detalle_orden.id_orden = orden.id_orden
+        JOIN productos ON detalle_orden.id_producto = productos.id_producto
+    WHERE 
+        DATE(detalle_orden.fecha_detalle) = :from_date;";
+
+    // Obtener los resultados de la consulta
+    $resultadosBusqueda = $db->seleccionarDatos($sqlVentasDiaSeleccionado, [
+        ':from_date' => $from_date
+    ]);
+}
 ?>
+
+<!-- Resto del código HTML... -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -157,6 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .report-chart {
             display: none;
         }
+
         .report-table {
             display: none;
         }
@@ -164,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php include('navbar.php') ?>
+<?php include('navbar.php') ?>
     <!-- Header End -->
 
     <br><br><br><br>
@@ -190,13 +219,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-               <!-- Agrega un contenedor para el gráfico -->
-               <div class="report-chart">
-                <canvas id="ventasTotalesChart"></canvas>
+            <!-- Agrega un contenedor para el gráfico -->
+            <center>
+            <div class="report-chart" style="max-width: 500px;">
+            <canvas style="width: 100%;" id="ventasTotalesChart"></canvas>
             </div>
+            </center>
+
         </div><br>
         <br>
-       <center> <button class="btn btn-success" onclick="exportToExcel('uno')">Descargar Excel</button> </center>
+        <center> <button class="btn btn-success" onclick="exportToExcel('uno')">Descargar Excel</button> </center>
 
         <hr>
 
@@ -219,9 +251,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-          </div><br>
-          <br>
-       <center> <button class="btn btn-success" onclick="exportToExcel('dos')">Descargar Excel</button> </center>
+        </div><br>
+        <br>
+        <center> <button class="btn btn-success" onclick="exportToExcel('dos')">Descargar Excel</button> </center>
         <hr>
 
         <h5>Suma de Costos de Productos en Inventario</h5>
@@ -242,44 +274,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tbody>
             </table>
             <!-- Agrega un contenedor para el gráfico -->
-           
         </div><br><br>
-        
-       <center> <button class="btn btn-success" onclick="exportToExcel('tres')">Descargar Excel</button> </center>
+
+        <center> <button class="btn btn-success" onclick="exportToExcel('tres')">Descargar Excel</button> </center>
         <hr>
 
         <h5>Ganancias por Fecha</h5>
 
         <!-- Formulario Bootstrap para seleccionar la fecha -->
-        <form method="post" action="">
-            <div class="form-row">
-                <div class="form-group col-md-1">
-                    <label for="year">Año:</label>
-                    <input type="number" class="form-control" name="year" id="year" required>
-                </div>
+        <div class="container mt-5">
+            <!-- ... (código existente) ... -->
 
-                <div class="form-group col-md-1">
-                    <label for="month">Mes:</label>
-                    <input type="number" class="form-control" name="month" id="month" min="1" max="12" required>
-                </div>
+            <form action="" method="POST">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><b>Del Dia</b></label>
+                            <input type="date" name="from_date" class="form-control" value="<?php echo $from_date; ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><b></b></label> <br>
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
 
-                <div class="form-group col-md-1">
-                    <label for="day">Día:</label>
-                    <input type="number" class="form-control" name="day" id="day" min="1" max="31" required>
-                </div>
+                                        <!-- Mostrar ganancias si el formulario ha sido enviado -->
+                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($resultadosBusqueda)) : ?>
+                        <h6 class="mt-4">Ganancias para el día seleccionado (<?php echo $from_date; ?>)</h6>
+                        <p><?php echo '$' . number_format($resultadosBusqueda[0]['ganancias_totales'], 2); ?></p>
+                    <?php endif; ?>
 
-                <div class="form-group col-md-3">
-                    <label for="submitBtn" class="invisible">Consultar Ganancias</label>
-                    <button type="submit" id="submitBtn" class="btn btn-primary btn-block mt-4">Consultar Ganancias</button>
                 </div>
-            </div>
-        </form>
+                <br>
+            </form>
 
-        <!-- Mostrar ganancias si el formulario ha sido enviado -->
-        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($gananciasFecha)) : ?>
-            <h6 class="mt-4">Ganancias para la fecha seleccionada</h6>
-            <p><?php echo '$' . number_format($gananciasFecha[0]['ganancias_totales'], 2); ?></p>
-        <?php endif; ?>
         <hr>
         <h5>Ganancias</h5>
 
@@ -308,8 +338,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </tbody>
         </table>
         <br>
-       <center> <button class="btn btn-success" onclick="exportToExcel('gananciasTable')">Descargar Excel</button> </center>
-        
+        <center> <button class="btn btn-success" onclick="exportToExcel('gananciasTable')">Descargar Excel</button> </center>
+
         <hr>
         <h4>Ganancias del Producto</h4>
 
@@ -327,13 +357,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
         <br>
-       
-        
-        
 
         <!-- Mostrar las ganancias si el formulario ha sido enviado -->
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && $resultado) : ?>
-          <hr>
+            <hr>
             <h5>Ganancias del Producto</h5>
             <table class="table">
                 <thead>
@@ -356,10 +383,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </tbody>
             </table>
         <?php endif; ?>
-  
-     
-   
-    </div>
+
+      
+          
+
+            <hr>
+
+        </div>
+
 
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
