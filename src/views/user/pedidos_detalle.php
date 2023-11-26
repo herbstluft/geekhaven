@@ -98,9 +98,16 @@ foreach ($mis_compras as $mis_compras){
                 $SacarImagenesQry="SELECT * from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto;";
                 $SacarImagenes=$db1->seleccionarDatos($SacarImagenesQry);
                 foreach($SacarImagenes as $img){
+                    $imgpd = $img['nombre_imagen'];}
+                    
+                    if(!empty($imgpd)){ ?>
+                    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgpd ?>" class="d-block" width="110"  height="110px" alt="...">
+                        <?php
+                    }else{ ?>
+                    <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block" width="110"  height="110px" alt="...">
+                        <?php
+                    }
                 ?>
-                    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img['nombre_imagen'];?>" class="d-block"
-                    width="110"  height="110px" alt="..."><?php echo"";}?>
                 </div>
 
                 <div class="col-7 text-center" style="padding-top:30px">

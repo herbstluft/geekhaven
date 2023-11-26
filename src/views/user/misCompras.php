@@ -312,12 +312,25 @@ include('../../../templates/navbar_user.php');
                       <?php echo $id_venta ?>
                       </h4>
                       <th class="col">
-                          <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$id_prd;
+
+                      <?php $id_producto=$id_prd;
                           $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                           $sacarImg=$db1->seleccionarDatos($sacarImgQry);
                           foreach($sacarImg as $img){
-                          echo $img['nombre_imagen'];}?>" 
-                          class=" ms-5" width="120px" height="130px" alt="...">
+                          $imgp = $img['nombre_imagen'];}
+                          
+                          
+                          if(!empty($imgp)){ ?>
+                          <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgp ?>" class=" ms-5" width="120px" height="130px" alt="...">
+
+                            <?php
+                          }else{ ?>
+                          <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class=" ms-5" width="120px" height="130px" alt="...">
+
+                            <?php
+                          }
+                          ?>
+
                       </th>
                       <td class="col">
                         <h5 align="center"><?php echo $nombre_producto ?></h5>

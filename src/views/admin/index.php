@@ -301,6 +301,8 @@ var myChart = new Chart(ctx, {
                   $fecha_hora=$ventas_recientes['fecha'];
 
                   
+
+                
                   // Convierte la cadena de fecha y hora a un objeto DateTime
                   $date = new DateTime($fecha_hora);
                   // Formatea la fecha y hora en el estilo deseado

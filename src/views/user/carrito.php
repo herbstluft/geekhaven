@@ -48,11 +48,26 @@ include('../../../templates/navbar_user.php');
             ?>
             <tr>
               <th scope="row">
-              <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$res['id_producto'];
+              
+              <?php $id_producto=$res['id_producto'];
                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                      $sacarImg=$db->seleccionarDatos($sacarImgQry);
                 foreach($sacarImg as $imagPrd){
-                echo $imagPrd['nombre_imagen'];?>" class="d-block" width="80"  height="80" alt="..."><?php echo "";}?>
+                $imgc = $imagPrd['nombre_imagen'];}
+                
+                if(!empty($imgc)){?>
+              <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgc ?>" class="d-block" width="80"  height="80" alt="...">
+
+                <?php }else{ ?>
+                  <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block" width="80"  height="80" alt="...">
+
+                  <?php
+                }
+
+                ?>
+
+
+
               </th>
               <td class="fs-3"><br><?php echo $res['nom_producto'];?></td>
               <td class="fs-3"><br><?php echo $res['cantidad'];?></td>
