@@ -1,47 +1,64 @@
 <?php
-   use MyApp\data\Database;
-   require("../../../../vendor/autoload.php");
-   $db = new Database;
-
-   if(isset($_POST['id'])){
-    
-    $id = $_POST['id'];
-    $img =$_FILES['imagen[]'];
-    
- 
- }
-if (isset($_FILES['imagen'])) {
-  $id_usuario = $_POST['id_usuario'];
-
-  // Carpeta temporal para almacenar las imágenes
-  $carpeta_temporal = 'img_producto/';
-  if (!is_dir($carpeta_temporal)) {
-      mkdir($carpeta_temporal, 0755, true);
-  }
-
-  // Comprobamos si se ha subido una sola imagen
-  if ($_FILES['imagen']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['imagen']['tmp_name'])) {
-      // Comprobamos si el fichero es una imagen
-      if ($_FILES['imagen']['type'] == 'image/png' || $_FILES['imagen']['type'] == 'image/jpeg') {
-
-          // Guardamos los datos de la imagen
-          $nombre_imagen = $_FILES['imagen']['name'];
-          $ruta_temporal = $_FILES['imagen']['tmp_name'];
-          $ruta_destino = $carpeta_temporal . $nombre_imagen;
-
-          // Movemos la imagen a la carpeta temporal
-          if (move_uploaded_file($ruta_temporal, $ruta_destino)) {
-              // Guardar el nombre de la imagen en la base de datos
-              
-              $db->ejecutarConsulta("UPDATE img_productos SET nombre_imagen = '$nombre_imagen' WHERE id_producto = $id_prd");
-              
-              header("Location:/geekhaven/src/views/admin/html/editimagen.php?mensaje=success");
-            }
-      } else {
-          $validar = false;
-      }
-  } else {
-      $validar = false;
-  }
-}
+use MyApp\data\Database;
+require("../../../../vendor/autoload.php");
+$db = new Database;
 ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+
+    <title>Operacion Exitosa!</title>
+  </head>
+  <body class="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+    <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $producto = $_POST['id'];
+  $comprobacionQry="SELECT productos.nom_producto from productos where productos.nom_producto=$producto";
+  $comprobacion = $db->seleccionarDatos($comprobacionQry);
+ 
+    if (isset($_FILES['imagen']['name'])) {
+        $nombre_archivo = uniqid() . '_' . basename($_FILES['imagen']['name']);
+        $carpeta_destino = 'img_producto/';
+        $ruta_imagen = $carpeta_destino . $nombre_archivo;
+
+        if (move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_imagen)) {
+            // Inserta la ruta de la imagen en la base de datos
+            $insertQry = "UPDATE `img_productos` SET `nombre_imagen` = '$nombre_archivo' WHERE `id_producto` = $producto";
+            $insert = $db->ejecutarConsulta($insertQry);
+
+            if ($insert === false) {
+                die('Error al insertar datos en la base de datos.');
+            }
+
+            
+        } else {
+            echo 'Error al mover la imagen al servidor.';
+        }
+    } else {
+        echo "Parámetros incorrectos en la solicitud.";
+    }
+    header("Location:/geekhaven/src/views/admin/html/editimagen.php?mensaje=success&id=$producto");
+} 
+
+else {
+    echo "Acceso no permitido.";
+
+    
+}
+
+?>
+
+
+  </body>
+</html>
