@@ -2,6 +2,7 @@
   use MyApp\data\Database;
   require("../../../../vendor/autoload.php");
   $db = new Database;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,55 +21,76 @@
     ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
 <br><br><br>
-   <h1 align="center">Editar Imagen</h1>
+   <h1 align="center">Editar imagen del producto</h1>
    <hr>
+   <a href="/geekhaven/src/views/admin/html/editar_producto.php" class="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg>  
+          </a>
+   <br><br><br><br>
+   <?php
+   if($_GET['id']){
+      $id_prd=$_GET['id'];
 
-<?php
-if(isset($_GET['id'])){
-    $id_prd=$_GET['id'];
+      if(isset($_GET['mensaje'])){
+        $mensaje=$_GET['mensaje'];
 
-    //buscar la imagen de el producto para imprimirla
-    $ImagenesQry="SELECT nombre_imagen as img FROM img_productos where img_productos.id_producto=$id_prd";
-    $Imagenes=$db->seleccionarDatos($ImagenesQry);
-
-    if(isset($_GET['mensaje'])){
-      if($_GET['mensaje']=='success'){
-        ?><br><br>
+          if($mensaje=='success'){
+            ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <center><strong>Imagen actualizada con exito</strong> ahora tus clientes podran verla en la pagina principal</center>
+          <center>¡La imagen del producto ha sido <strong>editada exitosamente!</strong> </center>
         </div>
-        <?php
+            <?php
+          }
+          else{
+            ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <center>¡Hubo un error! <strong>la imagen no pudo ser editada.</strong> </center>
+        </div>
+            <?php
+          }
       }
-    } else{
-      ?>
-      <br><br><br><br>
+   }
+   ?>
+   
       <div class="row">
+              
         <div class="col-sm-12 col-md-6">
         <h2 align="center" class="text-primary">Imagen actual</h2>
-      <?php foreach($Imagenes as $res){?>
-      <center>  <img width="410" height="410" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $res['img']?>" ></center> 
+      <center>  
+      <?php 
+      //SACAR IMAGEN
+      $ImgPrdQry="SELECT img_productos.nombre_imagen from img_productos join productos on img_productos.id_producto = productos.id_producto where productos.id_producto=$id_prd";
+      $ImgPrd=$db->seleccionarDatos($ImgPrdQry);
+      if(!empty($ImgPrd)){
+      foreach($ImgPrd as $res){
+        $imagen=$res['nombre_imagen'];
+
+      ?>  
+      <img width="410" height="410" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imagen;?>" ></center> 
+      <?php echo "";}
+      }
+      else{
+        ?>
+        <img width="410" height="410" src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" ></center> 
+        <?php
+      }
+      ?>
         </div>
-           
-      <?php
-    }
-  }
-  ?>
-  <div class="col-sm-12 col-md-5 me-5">
+  <div class="col-sm-12 col-md-5 ms-5">
     
-    <form action="\geekhaven\src\views\admin\html\editrimg.php" method="post" enctype="multipart/form-data">
+    <form action="/geekhaven/src/scripts/insersiones/editImgPrd.php" method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Inserta la nueva imagen</label>
         <input type="file"id="image" name="imagen" accept="image/*"class="form-control" required>
         <div id="emailHelp" class="form-text">Al insertar una nueva imagen se borrara la imagen actual</div>
-        <input type="hidden" name="id"value="<?php echo $id?>">
+        <input type="hidden" name="id"value="<?php echo $id_prd;?>">
       </div>
       <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
   </div>
-  </div>
-  <?php
-}
-?>
+  </div>>
  <script src="/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
           <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
           <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -79,3 +101,4 @@ if(isset($_GET['id'])){
 </html>
 <?php
 
+//  header("Location:/geekhaven/src/views/admin/html/editUniverso.php");

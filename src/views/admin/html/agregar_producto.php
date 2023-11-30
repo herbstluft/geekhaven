@@ -172,6 +172,12 @@
 <?php include('navbar.php') ?>
 
 <!--  Header End -->
+<br><br>
+<a href="/geekhaven/src/views/admin/html/exist_or_agg.php" class="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg>  
+          </a>
    <div class="container-fluid">
         <div class="container-fluid">
           <div  style="padding:20px">
@@ -197,7 +203,7 @@ if (isset($_GET['mensaje'])) {
 }
 ?>
 
-            <h2 class="text-center">GeekMarket Publica Productos En Linea</h2>
+            <h2 class="text-center">Añadir un nuevo producto</h2>
             <p class="text-center" style="color:#838383; font-size:20px">Registro de Productos</p>
 
         <form action="agg_prd.php" method="post" enctype="multipart/form-data">
