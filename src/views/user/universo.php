@@ -4,41 +4,41 @@
     $db = new Database;
     $db1 = new Database;
 
-    $sql = "SELECT * FROM categorias";
-    $categorias =$db->seleccionarDatos($sql);
+    $sql = "SELECT * FROM universo";
+    $universo =$db->seleccionarDatos($sql);
 
     if (isset($_GET['id'])) {
-        $id_categoria = $_GET['id'];
+        $id_uni = $_GET['id'];
       }                
 
-      $sql = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.existencia>0;";
+      $sql = "SELECT * from productos inner JOIN universo on universo.id_universo=productos.universo_id WHERE universo.id_universo='$id_uni' and productos.existencia>0";
       $prd=$db->seleccionarDatos($sql);
 
 
-      $sqlMasPo = "SELECT p.existencia, p.id_producto, p.nom_producto, p.precio, c.nom_cat, SUM(d.cantidad) AS total_vendido
-     FROM detalle_orden AS d
-    INNER JOIN productos AS p ON d.id_producto = p.id_producto    INNER JOIN categorias AS c ON p.id_cat = c.id_cat
-   WHERE c.id_cat = '$id_categoria' and p.existencia>0
-    GROUP BY p.id_producto, p.nom_producto, p.precio
-    ORDER BY total_vendido DESC
-    LIMIT 10";
+      $sqlMasPo = "SELECT p.existencia, p.id_producto, p.nom_producto, p.precio, u.id_universo, SUM(d.cantidad) AS total_vendido
+      FROM detalle_orden AS d
+     INNER JOIN productos AS p ON d.id_producto = p.id_producto    INNER JOIN universo AS u ON p.universo_id = u.id_universo
+    WHERE u.id_universo = '$id_uni' and p.existencia>0
+     GROUP BY p.id_producto, p.nom_producto, p.precio
+     ORDER BY total_vendido DESC
+     LIMIT 10;";
       $populares=$db->seleccionarDatos($sqlMasPo);
 
-      $sql3 = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.existencia>0 and productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z'
-      ORDER BY productos.nom_producto asc";
+      $sql3 = "SELECT * FROM productos INNER JOIN universo ON productos.universo_id = universo.id_universo WHERE universo.id_universo = $id_uni AND productos.existencia > 0 AND productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z' ORDER BY productos.nom_producto ASC;
+      ";
       $productosaz=$db->seleccionarDatos($sql3);
 
-      $sql4 = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.existencia>0 and productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z'
-      ORDER BY productos.nom_producto DESC";
+      $sql4 = "SELECT * FROM productos INNER JOIN universo ON productos.universo_id = universo.id_universo WHERE universo.id_universo = $id_uni AND productos.existencia > 0 AND productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z' ORDER BY productos.nom_producto DESC";
       $productosza=$db->seleccionarDatos($sql4);
 
   
 
-
-      $sql="select * from categorias where id_cat='$id_categoria'";
-      $nom_categoria=$db->seleccionarDatos($sql);
-      foreach ($nom_categoria as $nom_cat)
-      $nombre_categoria=$nom_cat['nom_cat'];
+      $sql = "SELECT * FROM universo WHERE id_universo = '$id_uni'";
+      $nom_universo = $db->seleccionarDatos($sql);
+      
+      foreach ($nom_universo as $nom_uni) {
+          $nombre_universo = $nom_uni['universo'];
+      }
 
 ?>
 <!--INICIO HTML--->
@@ -48,7 +48,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $nombre_categoria; ?> </title>
+    <title><?php echo $nombre_universo; ?> </title>
     <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
     <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
@@ -64,7 +64,7 @@
 
 <div class="container-fluid">
     
-<center><h1> <?php echo $nombre_categoria; ?> </h1></center>
+<center><h1> <?php echo $nombre_universo; ?> </h1></center>
 <br>
 
 <div class="search-container">
@@ -75,7 +75,7 @@
 </svg>
 
             <input data-table="table_id" name="filtro1" class="light-table-filter" type="text" id="search-input" placeholder=" Buscar en GeekHaven"> 
-            <input type="hidden" name="id" value="<?php echo $id_categoria; ?>">
+            <input type="hidden" name="id" value="<?php echo $id_uni; ?>">
         </form>
 </div>
 
@@ -96,8 +96,8 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 
 
     <div>
-        <form action="cat.php" method="get">
-            <input type="hidden" name="cat" value=$id_categoria>
+        <form action="universo.php" method="get">
+            <input type="hidden" name="uni" value=$id_uni>
             <br>
             <label>Ordenar Por:</label>
            <div class="row">
@@ -163,7 +163,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .  $prd['precio']; ?></h6>
                                         <ul class="list-unstyled d-flex align-items-center mb-0">
-                                        <?php echo $prd['nom_cat']; ?>                  </ul>
+                                        <?php echo $prd['universo']; ?>                  </ul>
                                     </div>
 
 
@@ -224,7 +224,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .  $popular['precio']; ?></h6>
                                         <ul class="list-unstyled d-flex align-items-center mb-0">
-                                        <?php echo $popular['nom_cat']; ?>                  </ul>
+                                        <?php echo $popular['universo']; ?>                  </ul>
                                     </div>
 
 
@@ -286,7 +286,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .  $productoaz['precio']; ?></h6>
                                         <ul class="list-unstyled d-flex align-items-center mb-0">
-                                        <?php echo $productoaz['nom_cat']; ?>                  </ul>
+                                        <?php echo $productoaz['nom_universo']; ?>                  </ul>
                                     </div>
 
 
@@ -355,7 +355,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' .  $productoza['precio']; ?></h6>
                                         <ul class="list-unstyled d-flex align-items-center mb-0">
-                                        <?php echo $productoza['nom_cat']; ?>                  </ul>
+                                        <?php echo $productoza['universo']; ?>                  </ul>
                                     </div>
 
 
@@ -390,7 +390,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
             <?php
 
             
-            $SQL = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.existencia >0;";
+            $SQL = "SELECT * from productos inner JOIN universo on universo.id_universo=productos.universo_id WHERE universo.id_universo='$id_uni' and productos.existencia >0;";
             $con = $db->seleccionarDatos($SQL);
 
             if (!empty($con)) {
@@ -442,7 +442,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
     <div class="d-flex align-items-center justify-content-between">
       <h6 class="fw-semibold fs-4 mb-0"><?php echo '$' . $fila['precio']; ?></h6>
       <ul class="list-unstyled d-flex align-items-center mb-0">
-      <?php echo $fila['nom_cat']  ?>                  </ul>
+      <?php echo $fila['universo']  ?>                  </ul>
     </div>
   </div>
                             </div>
