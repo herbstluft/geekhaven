@@ -10,8 +10,8 @@
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-  <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
     
     <title>Editar Nombre</title>
   </head>
@@ -24,6 +24,11 @@
    <h1 align="center">Editar Nombre</h1>
 
    <hr>
+   <a href="/var/www/geekhaven/src/views/admin/html/editar_producto.php" class="">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg>  
+          </a>
 <div class="container-fluid">
   
 <?php
@@ -82,7 +87,7 @@ if($_GET['id']){
           <article class="card card--1" style="margin-left:20px">
 
           <div class="card__info">
-          <img width="210" height="210" src="/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
+          <img width="210" height="210" src="/var/www/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
             <h3 class="card__title"><?php echo $res['universo'];?></h3>
             </center>
           </div>
@@ -97,7 +102,7 @@ if($_GET['id']){
   ?>
   <div class="col-sm-12 col-md-5">
     
-    <form action="/geekhaven/src/scripts/insersiones/editNomUniverso.php" method="post" enctype="multipart/form-data">
+    <form action="/var/www/geekhaven/src/scripts/insersiones/editNomUniverso.php" method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Inserta el nuevo nombre</label>
         <input type="text" name="universo" value ="<?php foreach($Imagenes as $res){echo $res['universo'];} ?>"class="form-control" required>
@@ -112,7 +117,7 @@ if($_GET['id']){
 }
 ?>
 </div>
- <script src="/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
+ <script src="/var/www/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
           <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
           <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
           <script src="../assets/js/sidebarmenu.js"></script>
@@ -122,4 +127,4 @@ if($_GET['id']){
 </html>
 <?php
 
-//  header("Location:/geekhaven/src/views/admin/html/editUniverso.php");
+//  header("Location:/var/www/geekhaven/src/views/admin/html/editUniverso.php");

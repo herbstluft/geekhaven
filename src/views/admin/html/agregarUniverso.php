@@ -49,7 +49,7 @@ else{
 ?></h3>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="post" enctype="multipart/form-data">
+        <form action="/var/www/geekhaven/src/scripts/insersiones/agregarUniverso.php" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Universo</label>
             <input type="text" class="form-control" name="universo" id="universo" placeholder="DragonBall Z" required>

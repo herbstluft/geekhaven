@@ -41,8 +41,8 @@ if(isset($_SESSION['id_producto'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agregar Existencia</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-    <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
     </head>
 
     <?php include('navbar.php') ?>
@@ -57,7 +57,7 @@ if(isset($_SESSION['id_producto'])){
     <div class="container">
     <div class="row">
           <div class="cont-back">
-              <a href="/geekhaven/src/views/admin/html/agregar_existencia.php" class="">
+              <a href="/var/www/geekhaven/src/views/admin/html/agregar_existencia.php" class="">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left icono" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
               </svg>  

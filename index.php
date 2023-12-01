@@ -169,7 +169,7 @@
 <?php
 foreach ($favoritos_del_mes as $fav_del_mes) {
     $id_producto = $fav_del_mes['id_producto'];
-    $sacarImgQry = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto GROUP BY img_productos.id_producto";
+    $sacarImgQry = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto and productos.existencia>0 GROUP BY img_productos.id_producto";
     $sacarImg = $db1->seleccionarDatos($sacarImgQry);
 ?>
 
@@ -237,7 +237,7 @@ foreach ($favoritos_del_mes as $fav_del_mes) {
 <?php
 foreach ($ofertas as $oferta) {
     $id_producto_oferta = $oferta['id_producto'];
-    $sacarImgQry_oferta = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_oferta GROUP BY img_productos.id_producto";
+    $sacarImgQry_oferta = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_oferta and productos.existencia>0 GROUP BY img_productos.id_producto";
     $sacarImg_oferta = $db1->seleccionarDatos($sacarImgQry_oferta);
 ?>
 
@@ -251,7 +251,7 @@ foreach ($ofertas as $oferta) {
                  $imagen_of = $img_of['nombre_imagen'];
                 if (!empty($imagen_of)) {
                     // Si hay imágenes disponibles, mostrar la primera
-                    echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $imagen_of. '" class="img-fluid" style="max-width: 100%; max-height: 310px;" alt="...">';
+                    echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $imagen_of. '" class="img-fluid" style="max-width: 100%; height: 310px;" alt="...">';
                   } else {
                     // Mostrar imagen por default si no hay imágenes asociadas
                     echo '<img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="Imagen por default">';
@@ -381,14 +381,17 @@ foreach ($recien_llegados as $producto_recien_llegado) {
     $img=$res['img'];
   ?>
   <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
+  <a href="/geekhaven/src/views/user/universo.php?id=<?php echo $res['id_universo']?>">
   <article class="card card--1" style="margin-left:20px">
 
-  <div class="card__info">
-  <img width="210" height="210" src="/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
-    <h3 class="card__title"><?php echo $res['universo'];?></h3>
-  
-  </div>
-  </article>
+<div class="card__info">
+<img width="210" height="210" src="/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
+  <h3 class="card__title"><?php echo $res['universo'];?></h3>
+
+</div>
+</article>
+  </a>
+
   </div>
   <?php
   echo ""; }

@@ -11,24 +11,24 @@
         $id_categoria = $_GET['id'];
       }                
 
-      $sql = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria';";
+      $sql = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' AND productos.existencia>0;";
       $prd=$db->seleccionarDatos($sql);
 
 
       $sqlMasPo = "SELECT p.id_producto, p.nom_producto, p.precio, c.nom_cat, SUM(d.cantidad) AS total_vendido
      FROM detalle_orden AS d
     INNER JOIN productos AS p ON d.id_producto = p.id_producto    INNER JOIN categorias AS c ON p.id_cat = c.id_cat
-   WHERE c.id_cat = '$id_categoria' 
+   WHERE c.id_cat = '$id_categoria'  AND p.existencia>0 
     GROUP BY p.id_producto, p.nom_producto, p.precio
     ORDER BY total_vendido DESC
     LIMIT 10";
       $populares=$db->seleccionarDatos($sqlMasPo);
 
-      $sql3 = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z'
+      $sql3 = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z'  AND productos.existencia>0
       ORDER BY productos.nom_producto asc";
       $productosaz=$db->seleccionarDatos($sql3);
 
-      $sql4 = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z'
+      $sql4 = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria' and productos.nom_producto >= 'A' AND productos.nom_producto <= 'Z'  AND productos.existencia>0
       ORDER BY productos.nom_producto DESC";
       $productosza=$db->seleccionarDatos($sql4);
 
@@ -130,11 +130,24 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $prd['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$prd['id_producto'];
-                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-                     $sacarImg=$db1->seleccionarDatos($sacarImgQry);
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];?>" class="d-block w-100"  height="310px" alt="..."><?php echo "";}?></a>
+                                <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $prd['id_producto']; ?>">
+    <?php
+    $id_producto_prd = $prd['id_producto'];
+    $sacarImgQry_prd = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_prd  AND productos.existencia>0 GROUP BY img_productos.id_producto ";
+    $sacarImg_prd = $db1->seleccionarDatos($sacarImgQry_prd);
+
+    foreach ($sacarImg_prd as $img_prd) {
+        $img_nombre_prd = $img_prd['nombre_imagen'];
+    }
+    ?>
+
+    <?php if (!empty($img_nombre_prd)) { ?>
+        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_prd; ?>" class="d-block w-100" height="310px" alt="...">
+    <?php } else { ?>
+        <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="...">
+    <?php } ?>
+</a>
+
                                     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
                                     </svg>
@@ -178,11 +191,24 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $popular['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$popular['id_producto'];
-                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-                     $sacarImg=$db1->seleccionarDatos($sacarImgQry);
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];?>" class="d-block w-100"  height="310px" alt="..."><?php echo "";}?></a>
+                                <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $popular['id_producto']; ?>">
+    <?php
+    $id_producto_popular = $popular['id_producto'];
+    $sacarImgQry_popular = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_popular  AND productos.existencia>0 GROUP BY img_productos.id_producto ";
+    $sacarImg_popular = $db1->seleccionarDatos($sacarImgQry_popular);
+
+    foreach ($sacarImg_popular as $img_popular) {
+        $img_nombre_popular = $img_popular['nombre_imagen'];
+    }
+    ?>
+
+    <?php if (!empty($img_nombre_popular)) { ?>
+        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_popular; ?>" class="d-block w-100" height="310px" alt="...">
+    <?php } else { ?>
+        <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="...">
+    <?php } ?>
+</a>
+
                                     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
                                     </svg>
@@ -226,11 +252,25 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $productoaz['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$productoaz['id_producto'];
-                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
-                     $sacarImg=$db1->seleccionarDatos($sacarImgQry);
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];?>" class="d-block w-100"  height="310px" alt="..."><?php echo "";}?></a>
+                                <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $productoaz['id_producto']; ?>">
+    <?php
+    $id_producto_az = $productoaz['id_producto'];
+    $sacarImgQry_az = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_az  AND productos.existencia>0 GROUP BY img_productos.id_producto ";
+    $sacarImg_az = $db1->seleccionarDatos($sacarImgQry_az);
+
+    foreach ($sacarImg_az as $img_az) {
+        $img_nombre_az = $img_az['nombre_imagen'];
+    }
+    ?>
+
+    <?php if (!empty($img_nombre_az)) { ?>
+        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_az; ?>" class="d-block w-100" height="310px" alt="...">
+    <?php } else { ?>
+        <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="...">
+    <?php } ?>
+</a>
+
+
                                     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
                                     </svg>
@@ -277,11 +317,29 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $productoza['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$productoza['id_producto'];
-                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
+                                   
+                                   <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $productoza['id_producto'];
+                                   
+                                  $id_producto=$productoza['id_producto'];
+                     $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto  AND productos.existencia>0 GROUP by img_productos.id_producto ";
                      $sacarImg=$db1->seleccionarDatos($sacarImgQry);
-                foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];?>" class="d-block w-100"  height="310px" alt="..."><?php echo "";}?></a>
+                foreach($sacarImg as $imgza){
+                $img_za = $imgza['nombre_imagen'];} ?>"> 
+
+                <?php     if(!empty($img_za)){ ?>
+                    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_za ?>" class="d-block w-100"  height="310px" alt="...">
+
+                <?php } else{ ?>
+                    <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="...">
+                <?php
+                }
+                ?>
+                                                
+                
+            </a>
+
+
+
                                     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
                                     </svg>
@@ -332,7 +390,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
             <?php
 
             
-            $SQL = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria';";
+            $SQL = "SELECT * from productos inner JOIN categorias on categorias.id_cat=productos.id_cat WHERE categorias.id_cat='$id_categoria'  AND productos.existencia>0;";
             $con = $db->seleccionarDatos($SQL);
 
             if (!empty($con)) {
@@ -344,11 +402,34 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                         <div class="scroll-appear">
                             <div class="card overflow-hidden rounded-2">
                             <div class="position-relative">
-    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$fila['id_producto'];
+    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>">
+
+
+    <?php $id_producto=$fila['id_producto'];
                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                      $sacarImg=$db1->seleccionarDatos($sacarImgQry);
+
                 foreach($sacarImg as $img){
-                echo $img['nombre_imagen'];?>" class="d-block w-100"  height="310px" alt="..."><?php echo "";}?></a>
+                $img0 = $img['nombre_imagen'];
+                }
+            
+                if(!empty($img0)){ ?>
+    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img0 ?>" class="d-block w-100"  height="310px" alt="...">
+
+                <?php
+                } else{ ?>
+    <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="...">
+
+                <?php
+                }
+            ?>
+                
+    
+                
+            
+            </a>
+
+
     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"></path>
 </svg>

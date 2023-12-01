@@ -301,6 +301,8 @@ var myChart = new Chart(ctx, {
                   $fecha_hora=$ventas_recientes['fecha'];
 
                   
+
+                
                   // Convierte la cadena de fecha y hora a un objeto DateTime
                   $date = new DateTime($fecha_hora);
                   // Formatea la fecha y hora en el estilo deseado
@@ -421,7 +423,7 @@ var myChart = new Chart(ctx, {
                
                 if(!empty($imgt)){ ?>
 
-<img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgt ?>" class="d-block w-100"  height="310px" alt="..."></a>
+<img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgt ?>" class="d-block w-100"  height="310px" alt="..."></a>
 
                <?php } else{ ?>
 

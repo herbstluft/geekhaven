@@ -36,7 +36,7 @@
 <h1 align="center">Editar Universo</h1>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/scripts/insersiones/editarUniverso.php" method="POST" enctype="multipart/form-data">
+        <form action="/var/www/geekhaven/src/scripts/insersiones/editarUniverso.php" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="universo" class="form-label">Nombre del Universo</label>
             <input type="text" class="form-control" name="universo" id="universo" value="<?php echo $u_nom?>" required>

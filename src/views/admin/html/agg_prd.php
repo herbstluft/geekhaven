@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")  {
   if ($result) {
       
 
-    header("Location:/geekhaven/src/views/admin/html/agregar_producto.php?mensaje=success");
+    header("Location:/var/www/geekhaven/src/views/admin/html/agregar_producto.php?mensaje=success");
 
 } else {
   echo "Error en la operación. Consulta: $result";

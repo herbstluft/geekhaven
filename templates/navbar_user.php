@@ -91,7 +91,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                          <th scope="row" >
 
                                          <?php if(!empty($imgc)){ ?>
-                                         <img style="margin-top:10px;border-radius:10px" src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgc ?>" class="d-block" width="60%"  height="60%" alt="..."> 
+                                         <img style="margin-top:10px;border-radius:10px" src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgc ?>" class="d-block" width="60%"  height="60%" alt="..."> 
 
                                          <?php } 
                                          
@@ -108,7 +108,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                              <td align="center"class ="col-2">
                                              <?php echo $res['cantidad']; ?>
                                                <br>
-                                             <a href="http://localhost/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
+                                             <a href="http://localhost/var/www/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
                                              <?php echo $usr;?>&ord=<?php echo $res['id_orden'];?>&ord=<?php echo $res['id_orden'];?>&cantidad=<?php echo $res['cantidad'];?>" class="btn btn-outline-dark border-0">Quitar</a>
                                              </td>
                                        </tr>
@@ -130,9 +130,9 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                                     <center>
                                     <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
                                    &ensp;
-                                   <a href="http://localhost/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carro</a>
+                                   <a href="http://localhost/var/www/geekhaven/src/scripts/cart/vaciarCart.php?id_orden=<?php echo $id_orden; ?>" class="btn btn-danger">Vaciar Carro</a>
                                    &ensp; 
-                                 <a href="http://localhost/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn" style="background: #005aff; color:white">Pedir</a>
+                                 <a href="http://localhost/var/www/geekhaven/src/views/user/carrito.php?id_orden=<?php echo $id_orden; ?>&usr=<?php echo $usr; ?>" class="btn" style="background: #005aff; color:white">Pedir</a>
                                     </center>
                                     
 
@@ -163,7 +163,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="/geekhaven/index.php" class="text-nowrap logo-img">
+          <a href="/var/www/geekhaven/index.php" class="text-nowrap logo-img">
             <svg style="width:80;" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="black" class="bi bi-joystick" viewBox="0 0 16 16">
               <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"></path>
               <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"></path>
@@ -182,7 +182,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
           <ul id="sidebarnav">
         
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/geekhaven/index.php" aria-expanded="false">
+              <a class="sidebar-link" href="/var/www/geekhaven/index.php" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -192,7 +192,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 
             
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/geekhaven/src/views/user/buscar.php" aria-expanded="false">
+              <a class="sidebar-link" href="/var/www/geekhaven/src/views/user/buscar.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -211,7 +211,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
                 foreach($categorias as $categoria){
             ?>
             <li class="sidebar-item">
-            <a class="sidebar-link" href="/geekhaven/src/views/user/cat.php?id=<?php echo $categoria['id_cat']; ?>" aria-expanded="false">
+            <a class="sidebar-link" href="/var/www/geekhaven/src/views/user/cat.php?id=<?php echo $categoria['id_cat']; ?>" aria-expanded="false">
             
                 <span class="hide-menu" id="ncat"><?php echo $categoria['nom_cat'] ?></span>
               </a>
@@ -231,10 +231,10 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
             <div class="d-flex">
               <div class="unlimited-access-title me-3">
                 <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">GeekHaven</h6>
-                <a href="/geekhaven/src/views/user/login.php" style=" background-color: #005aff; color: #fff;" class="btn fs-2 fw-semibold lh-sm" style="">Entrar</a>
+                <a href="/var/www/geekhaven/src/views/user/login.php" style=" background-color: #005aff; color: #fff;" class="btn fs-2 fw-semibold lh-sm" style="">Entrar</a>
               </div>
               <div class="unlimited-access-img">
-                <img src="/geekhaven/src/views/admin/assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
+                <img src="/var/www/geekhaven/src/views/admin/assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               <span class="hide-menu">Compras</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="http://<?php echo $HOST?>/geekhaven/src/views/user/misCompras.php" aria-expanded="false">
+              <a class="sidebar-link" href="http://<?php echo $HOST?>/var/www/geekhaven/src/views/user/misCompras.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
   <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
@@ -260,7 +260,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="http://<?php echo $HOST?>/geekhaven/src/views/user/pedidos.php" aria-expanded="false">
+              <a class="sidebar-link" href="http://<?php echo $HOST?>/var/www/geekhaven/src/views/user/pedidos.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
@@ -276,7 +276,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               <span class="hide-menu">GeekChat</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/geekhaven/templates/mensajeria/index.php" aria-expanded="false">
+              <a class="sidebar-link" href="/var/www/geekhaven/templates/mensajeria/index.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
   <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
@@ -292,7 +292,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               <span class="hide-menu">GeekMarket</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="http://<?php echo $HOST?>/geekhaven/src/views/user/crear_publicacion.php" aria-expanded="false">
+              <a class="sidebar-link" href="http://<?php echo $HOST?>/var/www/geekhaven/src/views/user/crear_publicacion.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-shop-window" viewBox="0 0 16 16">
   <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z"/>
@@ -303,7 +303,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
             </li>
 
             <li class="sidebar-item">
-              <a class="sidebar-link" href="http://<?php echo $HOST?>/geekhaven/src/views/user/mis_publicaciones.php" aria-expanded="false">
+              <a class="sidebar-link" href="http://<?php echo $HOST?>/var/www/geekhaven/src/views/user/mis_publicaciones.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
@@ -321,7 +321,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
             </li>
    
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/geekhaven/src/views/user/cambiar_contrasena.php" aria-expanded="false">
+              <a class="sidebar-link" href="/var/www/geekhaven/src/views/user/cambiar_contrasena.php" aria-expanded="false">
                 <span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
   <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
@@ -335,7 +335,7 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/geekhaven/src/views/user/change_password.php" aria-expanded="false">
+              <a class="sidebar-link" href="/var/www/geekhaven/src/views/user/change_password.php" aria-expanded="false">
                 <span>
                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
   <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/>
@@ -374,24 +374,24 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
 
             <?php if(!isset($_SESSION['user'])){?>
-<a href="/geekhaven/src/views/user/login.php"> <button type="button" class="btn" style="background: #005aff; color:white">Iniciar Session</button></a>
+<a href="/var/www/geekhaven/src/views/user/login.php"> <button type="button" class="btn" style="background: #005aff; color:white">Iniciar Session</button></a>
             <?php  } 
               else{?>
  <li> <?php echo $nombre ?> </li>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
-                  <img src="/geekhaven/src/views/user/img_profile/<?php echo $datos_user_imagen;?>" alt="" width="35" height="35" class="rounded-circle">
+                  <img src="/var/www/geekhaven/src/views/user/img_profile/<?php echo $datos_user_imagen;?>" alt="" width="35" height="35" class="rounded-circle">
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="/geekhaven/src/views/user/mi_cuenta.php" class="d-flex align-items-center gap-2 dropdown-item">
+                    <a href="/var/www/geekhaven/src/views/user/mi_cuenta.php" class="d-flex align-items-center gap-2 dropdown-item">
                       <i class="ti ti-user fs-6"></i>
                       <p class="mb-0 fs-3">Mi cuenta</p>
                     
                   
                   
-                    <a href="/geekhaven/src/scripts/logout.php" class="btn btn-outline-primary mx-3 mt-2 d-block">Cerrar sesion</a>
+                    <a href="/var/www/geekhaven/src/scripts/logout.php" class="btn btn-outline-primary mx-3 mt-2 d-block">Cerrar sesion</a>
                   </div>
                 </div>
               </li>

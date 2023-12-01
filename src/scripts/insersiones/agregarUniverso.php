@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($insert === false) {
                 die('Error al insertar datos en la base de datos.');
             }
-            header("Location:/geekhaven/src/views/admin/html/agregarUniverso.php");
+            header("Location:/var/www/geekhaven/src/views/admin/html/agregarUniverso.php");
             echo 'Imagen subida y guardada exitosamente.';
         } else {
             die('Error al mover la imagen al servidor.');
@@ -51,12 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   } else{
     echo "";
-  header("Location:/geekhaven/src/views/admin/html/agregarUniverso.php?alerta='error'");
+  header("Location:/var/www/geekhaven/src/views/admin/html/agregarUniverso.php?alerta='error'");
   }
 } else {
     echo "Acceso no permitido.";
 }
-header("Location=/geekhaven/src/views/admin/html/editUniverso.php");
+header("Location=/var/www/geekhaven/src/views/admin/html/editUniverso.php");
 ?>
 
 

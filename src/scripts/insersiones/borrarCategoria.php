@@ -36,7 +36,7 @@ if(empty($ValidarCategoria)){
   $deleteCategoriaQry= "DELETE FROM `categorias` WHERE `id_cat`='$categoria'";
   $deleteCategoria=$db->ejecutarConsulta($deleteCategoriaQry);
   
-  header("Location:/geekhaven/src/views/admin/html/editCategoria.php");
+  header("Location:/var/www/geekhaven/src/views/admin/html/editCategoria.php");
 }
 else{
   echo " <div class='container mt-5'>
@@ -45,7 +45,7 @@ else{
     <h1 class='alert-heading col-12' align='center'>No se puede eliminar esta categoria!</h1><br>
     <center><p>Aun hay productos con este categoria, elimina esos productos primero para poder eliminar el categoria</p></center>
     </div>";
-    header("refresh:5;url=/geekhaven/src/views/admin/html/editCategoria.php");
+    header("refresh:5;url=/var/www/geekhaven/src/views/admin/html/editCategoria.php");
  
 }
 }

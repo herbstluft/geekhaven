@@ -84,7 +84,7 @@ if (isset($_GET['mensaje'])) {
           <th scope="row" class="fs-5"><strong> <?php echo $nombre;?></strong></th>
           <td> <a href="editImgUniverso.php?id=<?php echo $id?>" class="fs-5 text-primary">Editar Imagen</a></td>
           <td> <a href="editNomUniverso.php?id=<?php echo $id?>" class="fs-5 text-primary">Editar Nombre</a></td>
-          <td><a href="/geekhaven/src/scripts/insersiones/borrarUniverso.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
+          <td><a href="/var/www/geekhaven/src/scripts/insersiones/borrarUniverso.php?id=<?php echo $id;?>" class="fs-5 text-danger">Eliminar</a></td>
         </tr>
         <?php
             }
