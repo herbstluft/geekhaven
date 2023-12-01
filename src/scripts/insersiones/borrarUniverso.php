@@ -33,13 +33,13 @@ where universo.id_universo =$universo and detalle_orden.estatus=1";
 $ValidarProductos=$db->seleccionarDatos($ValidarProductosQry);
 
 if(!empty($ValidarProductos)){
-  header("Location:/geekhaven/src/views/admin/html/editUniverso.php?mensaje=failed&uni=$universo");
+  header("Location:/var/www/geekhaven/src/views/admin/html/editUniverso.php?mensaje=failed&uni=$universo");
 }
 else{
 $deleteUniversoQry="DELETE FROM `universo` WHERE `id_universo`='$universo'";
 $deleteUniverso=$db->ejecutarConsulta($deleteUniversoQry);
 
-header("Location:/geekhaven/src/views/admin/html/editUniverso.php?mensaje=success&uni=$universo");
+header("Location:/var/www/geekhaven/src/views/admin/html/editUniverso.php?mensaje=success&uni=$universo");
 }
 }
 ?>

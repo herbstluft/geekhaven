@@ -15,14 +15,14 @@ if (isset($_GET['id'])) {
     $update_query = "UPDATE `productos` SET `estatus` = 0, `existencia` = 0 WHERE id_producto = $id;";
     $result = $db->ejecutarConsulta($update_query);
       if ($result) {
-      header("Location:/geekhaven/src/views/admin/html/editar_producto.php?mensaje=success");
+      header("Location:/var/www/geekhaven/src/views/admin/html/editar_producto.php?mensaje=success");
 
     } else {
       echo "Error en la operación. Consulta: $result";
       }
   }
   else{
-      header("Location:/geekhaven/src/views/admin/html/editar_producto.php?mensaje=failed&prd=$id");
+      header("Location:/var/www/geekhaven/src/views/admin/html/editar_producto.php?mensaje=failed&prd=$id");
   }
   
 

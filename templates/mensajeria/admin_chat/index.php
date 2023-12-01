@@ -32,13 +32,13 @@ $res=$db->seleccionarDatos($sql);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Propuestas</title>
-  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
 
 <body>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/src/views/admin/html/navbar.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/var/www/geekhaven/src/views/admin/html/navbar.php'); ?>
 
 <!--  Header End -->
    <div class="container-fluid">
@@ -66,7 +66,7 @@ if (!empty($res)) {
             <div class="card" style="height: 100%;">
                 <div class="card-body">
                     <?php if (!empty($imagenes_por_publicacion)) { ?>
-                        <img src="/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes_por_publicacion[0]['nombre_imagen']; ?>" class="card-img-top" height="310px" alt="No hay imágenes">
+                        <img src="/var/www/geekhaven/src/views/user/img_pub_trq/<?php echo $imagenes_por_publicacion[0]['nombre_imagen']; ?>" class="card-img-top" height="310px" alt="No hay imágenes">
                     <?php } else { ?>
                         <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="card-img-top" height="310px" alt="...">
                     <?php } ?>
@@ -124,7 +124,7 @@ if (!empty($res)) {
                                 $imagen = $dato['imagen'];
                                 $nombre = $dato['nombre'];
                             }
-                            echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50%; margin-top:15px" src="/geekhaven/src/views/user/img_profile/' . $imagen . '" alt="Perfil Chat 1">';
+                            echo '<img class="profile-image" style="width:35px; height:35px;border-radius:50%; margin-top:15px" src="/var/www/geekhaven/src/views/user/img_profile/' . $imagen . '" alt="Perfil Chat 1">';
                             ?>
                             &ensp;&ensp; 
                             <form method="post" action="mis_publicaciones.php" style="display:inline">
@@ -171,8 +171,8 @@ if (!empty($res)) {
   </div>
 
 
-  <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>

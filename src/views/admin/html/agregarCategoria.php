@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET["categoria"])) {
 <h1 align="center">Añadir Categoria</h1>
 <div class="container">
     <div class="row">
-        <form action="/geekhaven/src/views/admin/html/agregarCategoria.php" method="get">
+        <form action="/var/www/geekhaven/src/views/admin/html/agregarCategoria.php" method="get">
           <div class="mb-3">
             <label for="categoria" class="form-label">Nombre de la Categoria</label>
             <input type="text" class="form-control" name="categoria" id="cate" placeholder="Categoria" required>

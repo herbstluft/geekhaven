@@ -54,5 +54,5 @@ else{
             <hr>
             <p class="mb-0"></p>
             </div>';
-            header("refresh:2;url=http://localhost/geekhaven/index.php");
+            header("refresh:2;url=http://localhost/var/www/geekhaven/index.php");
 }

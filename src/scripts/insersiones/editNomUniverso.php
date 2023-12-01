@@ -1,4 +1,4 @@
-
+ 
 <?php
 use MyApp\data\Database;
 require("../../../vendor/autoload.php");
@@ -30,12 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $validacionQry="SELECT * from universo where universo.universo='$universo'";
   $validacion=$db->seleccionarDatos($validacionQry);
   if(!empty($validacion)){
-    header("Location:/geekhaven/src/views/admin/html/editNomUniverso.php?mensaje=failed&nom=$universo&id=$id");
+    header("Location:/var/www/geekhaven/src/views/admin/html/editNomUniverso.php?mensaje=failed&nom=$universo&id=$id");
   }
   else{
    $insertQry = "UPDATE `universo`SET`universo`='$universo' WHERE universo.id_universo=$id";
     $inertar=$db->ejecutarConsulta($insertQry);
-    header("Location:/geekhaven/src/views/admin/html/editNomUniverso.php?mensaje=success&id=$id&nom=$universo");
+    header("Location:/var/www/geekhaven/src/views/admin/html/editNomUniverso.php?mensaje=success&id=$id&nom=$universo");
   }
 } 
 

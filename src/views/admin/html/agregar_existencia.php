@@ -17,8 +17,8 @@ $db1 = new Database;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modernize Free</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-    <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
 
     <?php include('navbar.php') ?>
 
@@ -67,7 +67,7 @@ $db1 = new Database;
                         <div class="scroll-appear">
                             <div class="card overflow-hidden rounded-2">
                             <div class="position-relative">
-    <a href="/geekhaven/src/views/admin/html/aggexistencia.php?id=<?php echo $fila['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php 
+    <a href="/var/www/geekhaven/src/views/admin/html/aggexistencia.php?id=<?php echo $fila['id_producto']?>"><img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php 
                 foreach($sacarImg as $img){
                 echo $img['nombre_imagen'];}?>" class="d-block w-100"  height="310px" alt="..."></a>
     <a href="javascript:void(0)" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
@@ -127,11 +127,11 @@ $db1 = new Database;
 
 
 
-<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
 
 
@@ -163,4 +163,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<script src="/geekhaven/bootstrap/js/buscador.js"></script>
+<script src="/var/www/geekhaven/bootstrap/js/buscador.js"></script>

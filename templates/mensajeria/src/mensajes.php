@@ -73,8 +73,8 @@ if(empty($ver_mensajes)){
           $mi_chats = '<div class="chat">     <br>     <center>
           <div>
              <div style="border 5px solid white; margin-bottom:10px">
-             <img class="profile-image" style="margin-right:-20px" src="/geekhaven/src/views/user/img_profile/'.$img_m.'" >
-             <img class="profile-image" src="/geekhaven/src/views/admin/html/img_profile/'.$img_f.'">
+             <img class="profile-image" style="margin-right:-20px" src="/var/www/geekhaven/src/views/user/img_profile/'.$img_m.'" >
+             <img class="profile-image" src="/var/www/geekhaven/src/views/admin/html/img_profile/'.$img_f.'">
              </div>
              <p style="font-size:15px;color:white">Ahora están conectados en ChatPhone.</p>
              <img class="profile-image" src="https://gifdb.com/images/high/cute-wave-emoji-hand-59s88kk0zj3xho40.gif">
@@ -85,8 +85,8 @@ if(empty($ver_mensajes)){
         $mi_chats = '<div class="chat">     <br>     <center>
         <div>
            <div style="border 5px solid white; margin-bottom:10px">
-           <img class="profile-image" style="margin-right:-20px" src="/geekhaven/src/views/admin/html/img_profile/'.$img_m.'" >
-           <img class="profile-image" src="/geekhaven/src/views/user/img_profile/'.$img_f.'">
+           <img class="profile-image" style="margin-right:-20px" src="/var/www/geekhaven/src/views/admin/html/img_profile/'.$img_m.'" >
+           <img class="profile-image" src="/var/www/geekhaven/src/views/user/img_profile/'.$img_f.'">
            </div>
            <p style="font-size:15px;color:white">Ahora están conectados en ChatPhone.</p>
            <img class="profile-image" src="https://gifdb.com/images/high/cute-wave-emoji-hand-59s88kk0zj3xho40.gif">

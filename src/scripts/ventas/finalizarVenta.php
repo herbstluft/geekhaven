@@ -50,4 +50,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
-<?php header("refresh:2;url=/geekhaven/src/views/admin/html/listaPedidos.php");
+<?php header("refresh:2;url=/var/www/geekhaven/src/views/admin/html/listaPedidos.php");

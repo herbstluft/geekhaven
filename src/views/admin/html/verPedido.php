@@ -77,7 +77,7 @@ foreach ($productosOrden as $mis_compras){
 ?>
             <div class="row">
                 <div class="col-5" style="margin-bottom:30px">
-                <img src="/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$mis_compras['id_producto'];
+                <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php $id_producto=$mis_compras['id_producto'];
                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
                      $sacarImg=$db->seleccionarDatos($sacarImgQry);
                 foreach($sacarImg as $imagPrd){
@@ -146,7 +146,7 @@ foreach ($productosOrden as $mis_compras){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="/geekhaven/src/scripts/ventas/finalizarVenta.php?orden=<?php echo $id_orden?>"class="btn btn-primary">Finalizar venta</a>
+        <a href="/var/www/geekhaven/src/scripts/ventas/finalizarVenta.php?orden=<?php echo $id_orden?>"class="btn btn-primary">Finalizar venta</a>
       </div>
     </div>
   </div>
@@ -168,7 +168,7 @@ foreach ($productosOrden as $mis_compras){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="/geekhaven/src/scripts/ventas/declinarVenta.php?orden=<?php echo $id_orden?>"class="btn btn-primary">Declinar venta</a>
+        <a href="/var/www/geekhaven/src/scripts/ventas/declinarVenta.php?orden=<?php echo $id_orden?>"class="btn btn-primary">Declinar venta</a>
       </div>
     </div>
   </div>

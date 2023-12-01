@@ -111,9 +111,9 @@ $pub_titulo=$michats['titulo'];
 
     // Imagen del perfil
     if (isset($_SESSION['user']) && $id == $_SESSION['user']) {
-        $mi_chats .= '<img class="profile-image" src="/geekhaven/src/views/admin/html/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
+        $mi_chats .= '<img class="profile-image" src="/var/www/geekhaven/src/views/admin/html/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
     } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
-        $mi_chats .= '<img class="profile-image" src="/geekhaven/src/views/user/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
+        $mi_chats .= '<img class="profile-image" src="/var/www/geekhaven/src/views/user/img_profile/' . $imagenchat . '" alt="Perfil Chat 1">';
     }
     
 

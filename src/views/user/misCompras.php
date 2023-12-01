@@ -333,10 +333,10 @@ include('../../../templates/navbar_user.php');
 
                       </th>
                       <td class="col">
-                        <h5 align="center"><?php echo $nombre_producto ?></h5>
+                        <p align="center" class="fs-1"><?php echo $nombre_producto ?></p>
                       </td>
                       <td class="col">
-                        <h6 align="center">
+                        <p align="center" class="" style="">
                       <?php 
                     if($cantidad==1){
                         echo $cantidad.'<br>'. 'Producto';
@@ -345,7 +345,7 @@ include('../../../templates/navbar_user.php');
                         echo $cantidad.'<br> '. 'Productos'; 
                     }
                     ?>
-                    </h6>
+                    </p>
                       </td>
                       <td class="col">
                         <h4 align="center" class="text-danger">

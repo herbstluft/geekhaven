@@ -6,6 +6,6 @@ $db = new Database();
 session_start();
 
 session_destroy();
-header("Location: /geekhaven/src/views/user/login.php");
+header("Location: /var/www/geekhaven/src/views/user/login.php");
 exit();
 ?>

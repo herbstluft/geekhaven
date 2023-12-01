@@ -12,8 +12,8 @@ $db = new Database;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Añadir o Agregar Producto</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-    <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
     <style>
         /* Estilos adicionales para centrar y ajustar el tamaño de los botones */
         .center-buttons {
@@ -53,7 +53,7 @@ $db = new Database;
             </center>
                 <div class="card-body">
                     <p class="card-text">Este apartado agregará existencia a un producto ya existente</p>
-                    <center><a href="/geekhaven/src/views/admin/html/agregar_existencia.php" class="btn btn-primary">Añadir Existencia</a></center>
+                    <center><a href="/var/www/geekhaven/src/views/admin/html/agregar_existencia.php" class="btn btn-primary">Añadir Existencia</a></center>
                 </div>
             </div>
             <div class="card">
@@ -65,7 +65,7 @@ $db = new Database;
             </center>                
             <div class="card-body">
                     <p class="card-text">Este apartado agregará un nuevo producto a la tienda</p>
-                    <center><a href="/geekhaven/src/views/admin/html/agregar_producto.php" class="btn btn-primary">Agregar Producto</a></center>
+                    <center><a href="/var/www/geekhaven/src/views/admin/html/agregar_producto.php" class="btn btn-primary">Agregar Producto</a></center>
                 </div>
             </div>
         </div>

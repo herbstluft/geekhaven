@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Parámetros incorrectos en la solicitud.";
     }
-    header("Location:/geekhaven/src/views/admin/html/editImagen.php?mensaje=success&id=$prd&img=$nombre_archivo");
+    header("Location:/var/www/geekhaven/src/views/admin/html/editImagen.php?mensaje=success&id=$prd&img=$nombre_archivo");
 } 
 
 else {

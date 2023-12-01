@@ -423,7 +423,7 @@ var myChart = new Chart(ctx, {
                
                 if(!empty($imgt)){ ?>
 
-<img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgt ?>" class="d-block w-100"  height="310px" alt="..."></a>
+<img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgt ?>" class="d-block w-100"  height="310px" alt="..."></a>
 
                <?php } else{ ?>
 
