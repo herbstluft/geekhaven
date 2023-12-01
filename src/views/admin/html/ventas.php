@@ -117,10 +117,10 @@ $resultado = null;
 
 // Verifica si el formulario ha sido enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtiene el ID del producto desde el formulario
-    $idProducto = $_POST["id_producto"];
+    // Obtiene el nombre del producto desde el formulario
+    $nombreProducto = $_POST["nombre_producto"];
 
-    // Consulta SQL para obtener las ganancias del producto específico
+    // Consulta SQL para obtener las ganancias del producto específico por nombre
     $sql = "SELECT 
         p.id_producto,
         p.nom_producto,
@@ -130,41 +130,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         detalle_orden
         JOIN productos p ON detalle_orden.id_producto = p.id_producto
     WHERE 
-        p.id_producto = :idProducto;";
+        p.nom_producto = :nombreProducto;";
 
     // Ejecuta la consulta y guarda el resultado
     $resultado = $db->seleccionarDatos($sql, [
-        ':idProducto' => $idProducto
+        ':nombreProducto' => $nombreProducto
     ]);
 }
-
-
 //----------------------------------------------------------------------
-
 // Inicializar la variable $from_date
 $from_date = "";
 
 // Inicializar el arreglo de resultados
 $resultadosBusqueda = [];
 
+// Inicializar la variable de mensaje de error
+$errorMessage = "";
+
 // Procesar el formulario de búsqueda
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $from_date = $_POST["from_date"];
 
-    // Consulta de ingresos por el día seleccionado
-    $sqlVentasDiaSeleccionado = "SELECT 
-        SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
-    FROM 
-        detalle_orden
-        JOIN orden ON detalle_orden.id_orden = orden.id_orden
-        JOIN productos ON detalle_orden.id_producto = productos.id_producto
-    WHERE 
-        DATE(detalle_orden.fecha_detalle) = :from_date;";
+    // Validar que la fecha sea pasada
+    if (strtotime($from_date) >= time()) {
+        // La fecha no es pasada, establecer el mensaje de error
+        $errorMessage = "La fecha debe ser pasada.";
+    } else {
+        // Consulta de ingresos por el día seleccionado
+        $sqlVentasDiaSeleccionado = "SELECT 
+            SUM(detalle_orden.cantidad * productos.precio) AS ganancias_totales
+        FROM 
+            detalle_orden
+            JOIN orden ON detalle_orden.id_orden = orden.id_orden
+            JOIN productos ON detalle_orden.id_producto = productos.id_producto
+        WHERE 
+            DATE(detalle_orden.fecha_detalle) = :from_date;";
 
-    // Obtener los resultados de la consulta
-    $resultadosBusqueda = $db->seleccionarDatos($sqlVentasDiaSeleccionado, [
-        ':from_date' => $from_date
-    ]);
+        // Obtener los resultados de la consulta
+        $resultadosBusqueda = $db->seleccionarDatos($sqlVentasDiaSeleccionado, [
+            ':from_date' => $from_date
+        ]);
+    }
 }
 //----------------------------------------------------------------------
 
@@ -191,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         JOIN detalle_orden ON usuarios.id_usuario = detalle_orden.id_usuario 
         JOIN productos ON detalle_orden.id_producto = productos.id_producto 
         GROUP BY usuarios.id_usuario, personas.id_persona, personas.nombre, personas.apellido 
-        ORDER BY 'Ventas Totales' DESC;";
+        ORDER BY 'Ventas Totales' DESC LIMIT 3;";
 
         // Obtener datos de Ventas por Cliente
         $ventasPorCliente = $db->seleccionarDatos($sqlVentasPorCliente);
@@ -311,82 +317,88 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <h5>Ganancias por Fecha</h5>
 
-        <!-- Formulario Bootstrap para seleccionar la fecha -->
-        <div class="container mt-5">
-            <!-- ... (código existente) ... -->
+     
 
-            <form action="" method="POST">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><b>Del Dia</b></label>
-                            <input type="date" name="from_date" class="form-control" value="<?php echo $from_date; ?>">
-                        </div>
+    <!-- Formulario Bootstrap para seleccionar la fecha -->
+    <div class="container mt-5">
+        <!-- ... (código existente) ... -->
+
+        <form action="" method="POST">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label><b>Del Dia</b></label>
+                        <input type="date" name="from_date" class="form-control" value="<?php echo $from_date; ?>">
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label><b></b></label> <br>
-                            <button type="submit" class="btn btn-primary">Buscar</button>
-                        </div>
-                    </div>
-
-                                        <!-- Mostrar ganancias si el formulario ha sido enviado -->
-                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($resultadosBusqueda)) : ?>
-                        <h6 class="mt-4">Ganancias para el día seleccionado (<?php echo $from_date; ?>)</h6>
-                        <p><?php echo '$' . number_format($resultadosBusqueda[0]['ganancias_totales'], 2); ?></p>
-                    <?php endif; ?>
-
                 </div>
-                <br>
-            </form>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label><b></b></label> <br>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+
+                <!-- Mostrar mensaje de error si existe -->
+                <?php if (!empty($errorMessage)) : ?>
+                    <div class="alert alert-danger mt-4" role="alert">
+                        <?php echo $errorMessage; ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Mostrar ganancias si el formulario ha sido enviado y la fecha es pasada -->
+                <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($errorMessage) && !empty($resultadosBusqueda)) : ?>
+                    <h6 class="mt-4">Ganancias para el día seleccionado (<?php echo $from_date; ?>)</h6>
+                    <p><?php echo '$' . number_format($resultadosBusqueda[0]['ganancias_totales'], 2); ?></p>
+                <?php endif; ?>
+
+            </div>
+            <br>
+        </form>
+    </div>
 
         <hr>
     
         
         <h5>Ganancias del Producto</h5>
 
-        <!-- Formulario Bootstrap para ingresar el ID del producto -->
-        <form method="post" action="" id="id">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="id_producto">ID del Producto:</label>
-                    <input type="number" class="form-control" name="id_producto" id="id_producto" required>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="submitBtn" class="invisible">Consultar Ganancias</label>
-                    <button type="submit" id="submitBtn" class="btn btn-primary btn-block mt-4">Consultar Ganancias</button>
-                </div>
-            </div>
-        </form>
-        <br>
+<!-- Formulario Bootstrap para ingresar el nombre del producto -->
+<form method="post" action="" id="id">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="nombre_producto">Nombre del Producto:</label>
+            <input type="text" class="form-control" name="nombre_producto" id="nombre_producto" required>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="submitBtn" class="invisible">Consultar Ganancias</label>
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-block mt-4">Consultar Ganancias</button>
+        </div>
+    </div>
+</form>
+<br>
 
-        <!-- Mostrar las ganancias si el formulario ha sido enviado -->
-        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && $resultado) : ?>
-            
-            <h5>Ganancias del Producto</h5>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID del Producto</th>
-                        <th>Nombre del Producto</th>
-                        <th>Precio del Producto</th>
-                        <th>Ganancias del Producto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($resultado as $row) : ?>
-                        <tr>
-                            <td><?php echo $row['id_producto']; ?></td>
-                            <td><?php echo $row['nom_producto']; ?></td>
-                            <td><?php echo '$' . number_format($row['precio'], 2); ?></td>
-                            <td><?php echo '$' . number_format($row['ganancias_producto'], 2); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
-
-      
+<!-- Mostrar resultados si la consulta ha sido realizada -->
+<?php if ($resultado) : ?>
+    <h6 class="mt-4">Resultados para el producto seleccionado (<?php echo $resultado[0]['nom_producto']; ?>)</h6>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID del Producto</th>
+                <th>Nombre del Producto</th>
+                <th>Precio del Producto</th>
+                <th>Ganancias Totales</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td><?php echo $resultado[0]['nom_producto']; ?></td>
+                <td>$<?php echo number_format($resultado[0]['precio'], 2); ?></td>
+                <td>$<?php echo number_format($resultado[0]['ganancias_producto'], 2); ?></td>
+            </tr>
+        </tbody>
+    </table>
+<?php endif; ?>
+      <hr>
         <h5>Ventas por Categoría</h5>
 <button class="btn btn-primary" data-toggle="collapse" data-target="#ventasPorCategoria">Mostrar</button>
 <div id="ventasPorCategoria" class="collapse">
@@ -433,7 +445,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php endforeach; ?>
 </tbody>
 </table>
-
+<br><br>
 </div>
 </div>
 
