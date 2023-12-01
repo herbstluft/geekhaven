@@ -95,28 +95,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 
 
 
-    <div>
-        <form action="universo.php" method="get">
-            <input type="hidden" name="uni" value=$id_uni>
-            <br>
-            <label>Ordenar Por:</label>
-           <div class="row">
-            <div class="col-12 col-md-3">
-            <select class="form-select" style="margin-top:5px;" aria-label="Default select example" name="filtro1" id="filtro1" >
-                <option name="Original" value="opcion1">Original</option>
-                <option name="po" value="opcion2">Populares</option>
-                <option name="az" value="opcion3">De la A a la Z</option>
-                <option name="za" value="opcion4">De la Z a la A</option>
-
-            </select>
-            </div>
-
-
-           </div>
-          
-        </form>
-    </div>
-  
+ 
   <!------------------------------------------TARJETAS---------------------------------->
 
 <center style="margin-left:20px" >
