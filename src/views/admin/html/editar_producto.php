@@ -53,7 +53,6 @@ if (isset($_GET['mensaje'])) {
         <center>El producto."."<strong> "." $NombreProducto"."</strong> "." no puede ser eliminado porque aun hay pedidos pendientes con este producto</center>
         <br>
         </div>
-        </div>
         </div>";
     }
     }
