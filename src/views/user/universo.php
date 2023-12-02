@@ -49,15 +49,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $nombre_universo; ?> </title>
-    <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-    <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+    <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
 
 </head>
 
 
 <body>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/var/www/geekhaven/templates/navbar_user.php'); ?>
 
 
 
@@ -109,7 +109,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $prd['id_producto']; ?>">
+                                <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $prd['id_producto']; ?>">
     <?php
     $id_producto_prd = $prd['id_producto'];
     $sacarImgQry_prd = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_prd GROUP BY img_productos.id_producto ";
@@ -121,7 +121,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
     ?>
 
     <?php if (!empty($img_nombre_prd)) { ?>
-        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_prd; ?>" class="d-block w-100" height="310px" alt="...">
+        <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_prd; ?>" class="d-block w-100" height="310px" alt="...">
     <?php } else { ?>
         <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="...">
     <?php } ?>
@@ -170,7 +170,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $popular['id_producto']; ?>">
+                                <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $popular['id_producto']; ?>">
     <?php
     $id_producto_popular = $popular['id_producto'];
     $sacarImgQry_popular = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_popular GROUP BY img_productos.id_producto ";
@@ -182,7 +182,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
     ?>
 
     <?php if (!empty($img_nombre_popular)) { ?>
-        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_popular; ?>" class="d-block w-100" height="310px" alt="...">
+        <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_popular; ?>" class="d-block w-100" height="310px" alt="...">
     <?php } else { ?>
         <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="...">
     <?php } ?>
@@ -231,7 +231,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 <div class="card overflow-hidden rounded-2">
                                 
                                 <div class="position-relative">
-                                <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $productoaz['id_producto']; ?>">
+                                <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $productoaz['id_producto']; ?>">
     <?php
     $id_producto_az = $productoaz['id_producto'];
     $sacarImgQry_az = "SELECT * FROM productos INNER JOIN img_productos ON img_productos.id_producto = productos.id_producto WHERE productos.id_producto = $id_producto_az GROUP BY img_productos.id_producto ";
@@ -243,7 +243,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
     ?>
 
     <?php if (!empty($img_nombre_az)) { ?>
-        <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_az; ?>" class="d-block w-100" height="310px" alt="...">
+        <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $img_nombre_az; ?>" class="d-block w-100" height="310px" alt="...">
     <?php } else { ?>
         <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="...">
     <?php } ?>
@@ -297,7 +297,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                                 
                                 <div class="position-relative">
                                    
-                                   <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $productoza['id_producto'];
+                                   <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $productoza['id_producto'];
                                    
                                   $id_producto=$productoza['id_producto'];
                      $sacarImgQry="SELECT *  from productos INNER JOIN img_productos on img_productos.id_producto=productos.id_producto where productos.id_producto=$id_producto GROUP by img_productos.id_producto ";
@@ -306,7 +306,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                 $img_za = $imgza['nombre_imagen'];} ?>"> 
 
                 <?php     if(!empty($img_za)){ ?>
-                    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img_za ?>" class="d-block w-100"  height="310px" alt="...">
+                    <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $img_za ?>" class="d-block w-100"  height="310px" alt="...">
 
                 <?php } else{ ?>
                     <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="...">
@@ -381,7 +381,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                         <div class="scroll-appear">
                             <div class="card overflow-hidden rounded-2">
                             <div class="position-relative">
-    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>">
+    <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>">
 
 
     <?php $id_producto=$fila['id_producto'];
@@ -393,7 +393,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
                 }
             
                 if(!empty($img0)){ ?>
-    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $img0 ?>" class="d-block w-100"  height="310px" alt="...">
+    <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $img0 ?>" class="d-block w-100"  height="310px" alt="...">
 
                 <?php
                 } else{ ?>
@@ -451,12 +451,12 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 
 
 
-    <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
-  <script src="/geekhaven/bootstrap/js/buscador.js"></script>
+    <script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="/var/www/geekhaven/bootstrap/js/buscador.js"></script>
         <script src="user.js"></script>
 
         <script src="../assets/libs/simplebar/dist/simplebar.js"></script>

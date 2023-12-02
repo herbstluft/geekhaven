@@ -11,8 +11,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Carrito de Compras</title>
-  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
   <style>
     
   </style>
@@ -56,7 +56,7 @@ include('../../../templates/navbar_user.php');
                 $imgc = $imagPrd['nombre_imagen'];}
                 
                 if(!empty($imgc)){?>
-              <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgc ?>" class="d-block" width="80"  height="80" alt="...">
+              <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgc ?>" class="d-block" width="80"  height="80" alt="...">
 
                 <?php }else{ ?>
                   <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block" width="80"  height="80" alt="...">
@@ -72,7 +72,7 @@ include('../../../templates/navbar_user.php');
               <td class="fs-3"><br><?php echo $res['nom_producto'];?></td>
               <td class="fs-3"><br><?php echo $res['cantidad'];?></td>
               <td class="fs-3"><br><?php echo '$'.$res['precio'];?></td>
-              <td class="fs-3"><br><?php echo '$'.$res['total'];?> <br> <a href="http://localhost/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
+              <td class="fs-3"><br><?php echo '$'.$res['total'];?> <br> <a href="http://localhost/var/www/geekhaven/src/scripts/cart/quitarPrdCart.php?id=<?php echo $res['id_producto'];?>&usr=
                                              <?php echo $usr;?>&ord=<?php echo $id_orden?>&cantidad=<?php echo $res['cantidad'];?>" class="btn btn-outline-dark border-0"><strong>Quitar</strong></a></td>
             </tr>
             <?php echo "";}?>
@@ -118,7 +118,7 @@ include('../../../templates/navbar_user.php');
               </tr>
               <tr>
                 <td colspan="2">
-                  <a href="/geekhaven/src/scripts/cart/validacionCart.php?orden=<?php echo $id_orden ?>" class="col-12 btn btn-danger" style="font-size: 20px">FINALIZAR COMPRA</a>
+                  <a href="/var/www/geekhaven/src/scripts/cart/validacionCart.php?orden=<?php echo $id_orden ?>" class="col-12 btn btn-danger" style="font-size: 20px">FINALIZAR COMPRA</a>
                 </td>
               </tr>
           </tbody>

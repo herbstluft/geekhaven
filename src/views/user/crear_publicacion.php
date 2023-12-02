@@ -15,9 +15,9 @@ ini_set('display_errors', 1);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GeekMarket</title>
-    <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-    <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-    <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+    <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
 </head>
 
 <style>
@@ -389,12 +389,12 @@ if (isset($_FILES['imagen'])) {
 
 <!--Este es necesario para que funcione el de agregar imagenes-->
 
-    <script src="/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
-    <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-    <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-    <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="/var/www/geekhaven/bootstrap/js/upload_photo_multiple.js"></script>
+    <script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+    <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+    <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 </body>
 
 </html>

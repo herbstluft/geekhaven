@@ -50,8 +50,8 @@ session_start();
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pedidos</title>
-  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
   <link href="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
   <script src="https://unpkg.com/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
 <!--STYLE-->
@@ -353,7 +353,7 @@ include('../../../templates/navbar_user.php');
                           $imgp = $img['nombre_imagen'];}
                           
                           if(!empty($imgp)){ ?>
-                          <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgp ?>" class=" ms-5" width="120px" height="130px" alt="...">
+                          <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgp ?>" class=" ms-5" width="120px" height="130px" alt="...">
                           <?php
                           }else{ ?>
                           <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class=" ms-5" width="120px" height="130px" alt="...">
@@ -432,11 +432,11 @@ include('../../../templates/navbar_user.php');
 <?php include '../../../templates/footer.html';?>
 </div>
 
-<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
   <script>
     var tabla = document.querySelector("#tabla");
     var dataTable = new DataTable(tabla,{

@@ -28,8 +28,8 @@ if(isset($_GET['id_o'])){
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Detalle de Compras</title>
-  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
 <!--STYLE-->
     <style>
@@ -102,7 +102,7 @@ foreach ($mis_compras as $mis_compras){
 
 
                 if(!empty($imgpp)){ ?>
-                    <img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgpp?>" class="d-block" width="150"  height="110px" alt="...">
+                    <img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgpp?>" class="d-block" width="150"  height="110px" alt="...">
                     <?php
                 }else{ ?>
                     <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block" width="150"  height="110px" alt="...">
@@ -174,11 +174,11 @@ foreach ($mis_compras as $mis_compras){
 <?php include '../../../templates/footer.html';?>
 </div>
 <script src="../../../bootstrap/js/buscador.js"></script>
-<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
 </body>
 </html>

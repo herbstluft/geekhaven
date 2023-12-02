@@ -1,6 +1,6 @@
 <?php
     use MyApp\data\Database;
-    require($_SERVER['DOCUMENT_ROOT'] ."/geekhaven/vendor/autoload.php");
+    require($_SERVER['DOCUMENT_ROOT'] ."/var/www/geekhaven/vendor/autoload.php");
     $db = new Database;
     $db1 = new Database;
     
@@ -17,14 +17,14 @@ error_reporting(E_ERROR | E_PARSE);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Buscar</title>
-  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-  <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+  <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
   
 </head>
 
 <body>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/var/www/geekhaven/templates/navbar_user.php'); ?>
 
 
 
@@ -76,11 +76,11 @@ error_reporting(E_ERROR | E_PARSE);
                 $imgb=$img['nombre_imagen'];
               
               if(!empty($imgb)){ ?>
-    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imgb; ?>" class="d-block w-100"  height="310px" alt="..."></a>
+    <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imgb; ?>" class="d-block w-100"  height="310px" alt="..."></a>
 
               <?php
               }else{ ?>
-    <a href="/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="..."></a>
+    <a href="/var/www/geekhaven/src/views/user/productos.php?id=<?php echo $fila['id_producto']?>"><img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100"  height="310px" alt="..."></a>
               <?php
               }
               ?>
@@ -144,11 +144,11 @@ error_reporting(E_ERROR | E_PARSE);
 
 
 
-<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
 
 
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<script src="/geekhaven/bootstrap/js/buscador.js"></script>
+<script src="/var/www/geekhaven/bootstrap/js/buscador.js"></script>
 
 </body>
 

@@ -226,20 +226,6 @@ $ordcompQry="SELECT COUNT(ord.id_orden) as orden FROM
 <?php if(!isset($_SESSION['user'])){
 ?>
 
-<li>
-<div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
-            <div class="d-flex">
-              <div class="unlimited-access-title me-3">
-                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">GeekHaven</h6>
-                <a href="/var/www/geekhaven/src/views/user/login.php" style=" background-color: #005aff; color: #fff;" class="btn fs-2 fw-semibold lh-sm" style="">Entrar</a>
-              </div>
-              <div class="unlimited-access-img">
-                <img src="/var/www/geekhaven/src/views/admin/assets/images/backgrounds/rocket.png" alt="" class="img-fluid">
-              </div>
-            </div>
-          </div>
-          <br>
-</li>
 <?php
 }
     else{?>

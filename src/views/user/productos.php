@@ -36,8 +36,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Productos</title>
-  <link rel="shortcut icon" type="image/png" href="/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="shortcut icon" type="image/png" href="/var/www/geekhaven/src/views/admin/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
 </head>
 
 <body>
@@ -75,7 +75,7 @@ include '../../../templates/navbar_user.php'
                   <?php 
 
                      if(!empty($imagen)){ ?>
-<center><img src="/geekhaven/src/views/admin/html/img_producto/<?php echo $imagen; ?>" class="img-fluid" style="max-width: 100%;margin-top:50px; max-height: 400px;" alt="..."></center>
+<center><img src="/var/www/geekhaven/src/views/admin/html/img_producto/<?php echo $imagen; ?>" class="img-fluid" style="max-width: 100%;margin-top:50px; max-height: 400px;" alt="..."></center>
                         <?php 
                         }
                         else { ?>
@@ -132,7 +132,7 @@ include '../../../templates/navbar_user.php'
 
                           
                           <!-- Modal -->
-                          <form action="http://localhost/geekhaven/src\scripts\cart\addPrdCart.php" method="GET">
+                          <form action="http://localhost/var/www/geekhaven/src\scripts\cart\addPrdCart.php" method="GET">
                           <div class="mb-3">
                               <!--prd--> 
                               <input type="hidden"name ="id" id="id" value="<?php echo $id;?>">

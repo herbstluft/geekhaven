@@ -173,7 +173,7 @@ $img=$datos_user['imagen'];
   <title><?php echo $nombre . ' '. $apellido ?></title>
   <link rel="shortcut icon" type="image/png" href="../admin/assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../admin/assets/css/styles.min.css" />
-  <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css">
+  <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css">
 </head>
 
 <style>
@@ -233,10 +233,10 @@ $img=$datos_user['imagen'];
 
 <?php 
 if(isset($_SESSION['admin'])){
-  include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/src/views/admin/html/navbar.php');
+  include($_SERVER['DOCUMENT_ROOT'] . '/var/www/geekhaven/src/views/admin/html/navbar.php');
 }
 if(isset($_SESSION['user'])){
-  include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php');
+  include($_SERVER['DOCUMENT_ROOT'] . '/var/www/geekhaven/templates/navbar_user.php');
 } ?>
 
 <!--  Header End -->
@@ -372,8 +372,8 @@ if(isset($_SESSION['user'])){ ?>
       </div>
     </div>
   </div>
-  <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>

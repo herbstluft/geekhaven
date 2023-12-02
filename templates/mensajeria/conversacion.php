@@ -329,9 +329,9 @@ background:#3b3b3b;
 
                     // Imagen del perfil
     if (isset($_SESSION['user']) && $id == $_SESSION['user'] )  {
-        echo '<img class="profile-image" style="width:30px; height:30px;" src="/geekhaven/src/views/admin/html/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+        echo '<img class="profile-image" style="width:30px; height:30px;" src="/var/www/geekhaven/src/views/admin/html/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
     } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
-        echo '<img class="profile-image" style="width:30px; height:30px;" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+        echo '<img class="profile-image" style="width:30px; height:30px;" src="/var/www/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
     }          
                 echo " $nombre_amigo -  $_SESSION[pub_titulo] ";?>  </p> 
                 
@@ -749,9 +749,9 @@ scrollBtn.addEventListener("click", () => {
 
                     // Imagen del perfil
     if (isset($_SESSION['user']) && $id == $_SESSION['user'] )  {
-        echo '<img class="profile-image"style="margin-bottom:10px; width:90px; height:90px;" src="/geekhaven/src/views/admin/html/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+        echo '<img class="profile-image"style="margin-bottom:10px; width:90px; height:90px;" src="/var/www/geekhaven/src/views/admin/html/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
     } elseif (isset($_SESSION['admin']) && $id == $_SESSION['admin']) {
-        echo '<img class="profile-image" style="margin-bottom:10px; width:90px; height:90px;" src="/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
+        echo '<img class="profile-image" style="margin-bottom:10px; width:90px; height:90px;" src="/var/www/geekhaven/src/views/user/img_profile/'.$imagen.'" alt="Perfil Chat 1">';
     }          
     ?>
 

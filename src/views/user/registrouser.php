@@ -11,8 +11,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Registro</title>
-  <link rel="stylesheet" href="/geekhaven/src/views/admin/assets/css/styles.min.css" />
-  <link rel="stylesheet" href="/geekhaven/bootstrap/css/estilos.css" />
+  <link rel="stylesheet" href="/var/www/geekhaven/src/views/admin/assets/css/styles.min.css" />
+  <link rel="stylesheet" href="/var/www/geekhaven/bootstrap/css/estilos.css" />
   
 </head>
 
@@ -235,12 +235,12 @@ include('../../../templates/navbar_user.php');
 
 
 
-  <script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
-  <script src="/geekhaven/bootstrap/js/buscador.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+  <script src="/var/www/geekhaven/bootstrap/js/buscador.js"></script>
 
 
   <script>

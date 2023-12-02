@@ -56,7 +56,7 @@
 
 <body>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/geekhaven/templates/navbar_user.php'); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/var/www/geekhaven/templates/navbar_user.php'); ?>
 
 
       <div class="container-fluid">
@@ -181,7 +181,7 @@ foreach ($favoritos_del_mes as $fav_del_mes) {
                 foreach ($sacarImg as $img) {
                 if (!empty($img['nombre_imagen'] )) {
                     
-                        echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $img['nombre_imagen'] . '" class="d-block w-100" height="310px" alt="...">';
+                        echo '<img src="/var/www/geekhaven/src/views/admin/html/img_producto/' . $img['nombre_imagen'] . '" class="d-block w-100" height="310px" alt="...">';
                     }
                     else {
                       // Mostrar imagen por default si no hay imágenes asociadas
@@ -251,7 +251,7 @@ foreach ($ofertas as $oferta) {
                  $imagen_of = $img_of['nombre_imagen'];
                 if (!empty($imagen_of)) {
                     // Si hay imágenes disponibles, mostrar la primera
-                    echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $imagen_of. '" class="img-fluid" style="max-width: 100%; height: 310px;" alt="...">';
+                    echo '<img src="/var/www/geekhaven/src/views/admin/html/img_producto/' . $imagen_of. '" class="img-fluid" style="max-width: 100%; height: 310px;" alt="...">';
                   } else {
                     // Mostrar imagen por default si no hay imágenes asociadas
                     echo '<img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" class="d-block w-100" height="310px" alt="Imagen por default">';
@@ -320,7 +320,7 @@ foreach ($recien_llegados as $producto_recien_llegado) {
                 $imagen_defecto_mostrada = false; // Variable para rastrear si ya se mostró la imagen por defecto
                 foreach ($sacarImg_recien_llegado as $img_recien_llegado) {
                     if (!empty($img_recien_llegado['nombre_imagen'])) {
-                        echo '<img src="/geekhaven/src/views/admin/html/img_producto/' . $img_recien_llegado['nombre_imagen'] . '" class="d-block w-100" height="310px" alt="...">';
+                        echo '<img src="/var/www/geekhaven/src/views/admin/html/img_producto/' . $img_recien_llegado['nombre_imagen'] . '" class="d-block w-100" height="310px" alt="...">';
                         $imagen_defecto_mostrada = true; // Hay una imagen, no necesitamos mostrar la imagen por defecto
                         break; // Salimos del bucle, ya que ya se encontró una imagen
                     }
@@ -381,11 +381,11 @@ foreach ($recien_llegados as $producto_recien_llegado) {
     $img=$res['img'];
   ?>
   <div class="col-12 col-md-6 text-center" style="margin-bottom:30px">
-  <a href="/geekhaven/src/views/user/universo.php?id=<?php echo $res['id_universo']?>">
+  <a href="/var/www/geekhaven/src/views/user/universo.php?id=<?php echo $res['id_universo']?>">
   <article class="card card--1" style="margin-left:20px">
 
 <div class="card__info">
-<img width="210" height="210" src="/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
+<img width="210" height="210" src="/var/www/geekhaven/src/scripts/insersiones/<?php echo $res['img']?>" >
   <h3 class="card__title"><?php echo $res['universo'];?></h3>
 
 </div>
@@ -433,11 +433,11 @@ foreach ($recien_llegados as $producto_recien_llegado) {
 
 </div>
 
-<script src="/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/js/app.min.js"></script>
-  <script src="/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
+<script src="/var/www/geekhaven/src/views/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/sidebarmenu.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/js/app.min.js"></script>
+  <script src="/var/www/geekhaven/src/views/admin/assets/libs/simplebar/dist/simplebar.js"></script>
 
 
 
