@@ -176,7 +176,7 @@ foreach ($favoritos_del_mes as $fav_del_mes) {
 <div class="col-sm-6 col-xl-3">
     <div class="card overflow-hidden rounded-2">
         <div class="position-relative">
-            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>">
+            <a href="\var\www\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>">
                 <?php
                 foreach ($sacarImg as $img) {
                 if (!empty($img['nombre_imagen'] )) {
@@ -191,7 +191,7 @@ foreach ($favoritos_del_mes as $fav_del_mes) {
                 ?>
             </a>
 
-            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+            <a href="\var\www\var\www\geekhaven\src\views\user\productos.php?id=<?php echo $fav_del_mes['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
                 </svg>
@@ -244,7 +244,7 @@ foreach ($ofertas as $oferta) {
 <div class="col-sm-6 col-xl-3">
     <div class="card overflow-hidden rounded-2">
         <div class="position-relative">
-            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $oferta['id_producto']; ?>">
+            <a href="\var\www\geekhaven\src\views\user\productos.php?id=<?php echo $oferta['id_producto']; ?>">
                 <?php
                  foreach ($sacarImg_oferta as $img_of)
 
@@ -259,7 +259,7 @@ foreach ($ofertas as $oferta) {
                 ?>
             </a>
 
-            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $oferta['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+            <a href="\var\www\geekhaven\src\views\user\productos.php?id=<?php echo $oferta['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z" />
                 </svg>
@@ -315,7 +315,7 @@ foreach ($recien_llegados as $producto_recien_llegado) {
 <div class="col-sm-6 col-xl-3">
     <div class="card overflow-hidden rounded-2">
         <div class="position-relative">
-            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $producto_recien_llegado['id_producto']; ?>">
+            <a href="\var\www\geekhaven\src\views\user\productos.php?id=<?php echo $producto_recien_llegado['id_producto']; ?>">
                 <?php
                 $imagen_defecto_mostrada = false; // Variable para rastrear si ya se mostró la imagen por defecto
                 foreach ($sacarImg_recien_llegado as $img_recien_llegado) {
@@ -333,7 +333,7 @@ foreach ($recien_llegados as $producto_recien_llegado) {
                 ?>
             </a>
 
-            <a href="\geekhaven\src\views\user\productos.php?id=<?php echo $producto_recien_llegado['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
+            <a href="\var\www\geekhaven\src\views\user\productos.php?id=<?php echo $producto_recien_llegado['id_producto']; ?>" class="bg-success rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-fill" viewBox="0 0 16 16">
                     <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/>
                 </svg>
